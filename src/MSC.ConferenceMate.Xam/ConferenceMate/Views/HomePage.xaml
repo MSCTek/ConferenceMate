@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QuikRide.Views.HomePage"
+             Title="Home">
+    <ContentPage.Content>
+        <ScrollView HorizontalOptions="CenterAndExpand">
+            <StackLayout HorizontalOptions="CenterAndExpand" Spacing="0">
+                <Image Margin="0,40,0,0" WidthRequest="200">
+                    <Image.Source>
+                        <UriImageSource Uri="{StaticResource QuikRideLogo}" CacheValidity="100" CachingEnabled="True" />
+                    </Image.Source>
+                </Image>
+                <Label Text="Home" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Large" />
+                <Button Text="My Account" Command="{Binding AccountCommand}" />
+
+                <Button Text="My Reservation Requests" Command="{Binding MyReservationRequestsCommand}" />
+                <Button Text="Map" Command="{Binding MapCommand}" />
+                <Button Text="Map With Pins" Command="{Binding MapWithPinsCommand}" />
+                <Button Text="User Location" Command="{Binding UserLocationCommand}" />
+                <Button Text="Barcode Reader" Command="{Binding BarcodeReaderCommand}" />
+                <Button Text="Loyalty Scanner" Command="{Binding LoyaltyScannerCommand}" />
+                <Button Text="Geofencing" Command="{Binding GeofencingCommand}" />
+                <Button Text="QuikRide Service Status" Command="{Binding ServiceStatusCommand}" />
+                <Button Text="Feedback" Command="{Binding FeedbackCommand}" />
+                <Button Text="About QuikRide" Command="{Binding AboutCommand}" />
+
+                <Label Margin="10,30,10,5">Impersonate a User</Label>
+                <Picker ItemsSource="{Binding UserList}"
+                ItemDisplayBinding="{Binding UserName}"
+                SelectedItem="{Binding SelectedUser}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

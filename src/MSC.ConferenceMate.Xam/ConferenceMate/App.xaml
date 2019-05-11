@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QuikRide.App">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <x:String x:Key="QuikRideLogo">https://github.com/MSCTek/QuikRide/blob/master/assets/QuikRide.PNG?raw=true</x:String>
+            <x:String x:Key="QuikRideLogoText">https://github.com/MSCTek/QuikRide/blob/master/assets/QuikRide2.PNG?raw=true</x:String>
+            <x:String x:Key="QuikRideLogoMark">https://github.com/MSCTek/QuikRide/blob/master/assets/QuikRideMark.PNG?raw=true</x:String>
+
+            <Style x:Key="FA.Solid.LabelStyle"  TargetType="Label">
+                <Setter Property="FontFamily">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="fa-solid-900.ttf#Font Awesome 5 Free Solid"
+                                    iOS="Font Awesome 5 Free"
+                                    WinPhone="Assets/fa-solid-900.ttf#Font Awesome 5 Free Solid" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+            <Style x:Key="FA.Solid.ButtonStyle"  TargetType="Button">
+                <Setter Property="FontFamily">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="fa-solid-900.ttf#Font Awesome 5 Free Solid"
+                                    iOS="Font Awesome 5 Free"
+                                    WinPhone="Assets/fa-solid-900.ttf#Font Awesome 5 Free Solid" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="FA.Brands.LabelStyle"  TargetType="Label">
+                <Setter Property="FontFamily">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="fa-brands-400.ttf#Font Awesome 5 Brands Regular"
+                                    iOS="Font Awesome 5 Brands"
+                                    WinPhone="Assets/fa-brands-400.ttf#Font Awesome 5 Brands" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="HeaderLabelStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="Large" />
+            </Style>
+
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="SlateGray" />
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+
+            <!--Global Styles-->
+            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

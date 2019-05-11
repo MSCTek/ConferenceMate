@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2020
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSC.ConferenceMate.Repository", "MSC.ConferenceMate.Repository\MSC.ConferenceMate.Repository.csproj", "{A35CDF7F-CF6A-4242-8919-01BEEB81E72D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSC.ConferenceMate.API", "MSC.ConferenceMate.API\MSC.ConferenceMate.API.csproj", "{66944B27-D31A-4818-9176-F8BA94B1AFFA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSC.ConferenceMate.Model", "MSC.ConferenceMate.Model\MSC.ConferenceMate.Model.csproj", "{F1331F2D-B87A-479A-8100-7480971D8C29}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSC.ConferenceMate.DTO", "MSC.ConferenceMate.DTO\MSC.ConferenceMate.DTO.csproj", "{6774A31A-070B-4C61-ADB5-B21DCE9E69F9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSC.ConferenceMate.DataService", "MSC.ConferenceMate.DataService\MSC.ConferenceMate.DataService.csproj", "{C5E8455A-A316-4F59-B041-0186A5E27225}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeGenHero", "CodeGenHero\CodeGenHero.csproj", "{EF1FF518-15B8-4C30-BD18-DCF13AD26B80}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A35CDF7F-CF6A-4242-8919-01BEEB81E72D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A35CDF7F-CF6A-4242-8919-01BEEB81E72D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A35CDF7F-CF6A-4242-8919-01BEEB81E72D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A35CDF7F-CF6A-4242-8919-01BEEB81E72D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66944B27-D31A-4818-9176-F8BA94B1AFFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66944B27-D31A-4818-9176-F8BA94B1AFFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66944B27-D31A-4818-9176-F8BA94B1AFFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66944B27-D31A-4818-9176-F8BA94B1AFFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1331F2D-B87A-479A-8100-7480971D8C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1331F2D-B87A-479A-8100-7480971D8C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1331F2D-B87A-479A-8100-7480971D8C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1331F2D-B87A-479A-8100-7480971D8C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6774A31A-070B-4C61-ADB5-B21DCE9E69F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6774A31A-070B-4C61-ADB5-B21DCE9E69F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6774A31A-070B-4C61-ADB5-B21DCE9E69F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6774A31A-070B-4C61-ADB5-B21DCE9E69F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5E8455A-A316-4F59-B041-0186A5E27225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5E8455A-A316-4F59-B041-0186A5E27225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5E8455A-A316-4F59-B041-0186A5E27225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5E8455A-A316-4F59-B041-0186A5E27225}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF1FF518-15B8-4C30-BD18-DCF13AD26B80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF1FF518-15B8-4C30-BD18-DCF13AD26B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF1FF518-15B8-4C30-BD18-DCF13AD26B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF1FF518-15B8-4C30-BD18-DCF13AD26B80}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {008AC075-3A0D-45B3-AE29-6A61B5FAC604}
+	EndGlobalSection
+EndGlobal

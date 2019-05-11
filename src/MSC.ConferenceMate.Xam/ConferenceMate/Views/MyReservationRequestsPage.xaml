@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QuikRide.Views.MyReservationRequestsPage"
+             x:Name="ParentPage"
+             Title="My Reservation Requests">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Image>
+                <Image.Source>
+                    <UriImageSource Uri="{StaticResource QuikRideLogo}" CacheValidity="100" CachingEnabled="True" />
+                </Image.Source>
+            </Image>
+
+            <ListView ItemsSource="{Binding MyRequests}" Grid.Row="1"
+                      VerticalOptions="StartAndExpand" Margin="16,10,16,40"
+                      HasUnevenRows="True" CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <!-- View Cell -->
+                            <Grid Padding="20,5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0" Grid.Row="0"
+                                                   Style="{StaticResource FA.Solid.LabelStyle}" Text="&#xf55e;" FontSize="Large" />
+
+                                <StackLayout Grid.Column="1" Grid.Row="0">
+                                    <Label Text="Ride-Share" FontAttributes="Bold" FontSize="Medium" />
+                                    <Label Text="{Binding RequestDateDisplay}" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Pick Up:" FontAttributes="Bold" />
+                                        <Label Text="{Binding PickupDisplay}" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Arrival:" FontAttributes="Bold" />
+                                        <Label Text="{Binding ArrivalDisplay}" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Pick Up Location:" FontAttributes="Bold" />
+                                        <Label Style="{StaticResource FA.Solid.LabelStyle}" Text="&#xf3c5;" FontSize="Medium" TextColor="Blue">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference ParentPage}, Path=BindingContext.MapCommand}"
+                                                              CommandParameter="{Binding PickupLocation}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </StackLayout>
+                                    <Label Text="{Binding PickupLocation.AddressDisplay}" Margin="10,0,0,0" LineBreakMode="WordWrap" />
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Destination Location:" FontAttributes="Bold" />
+                                        <Label Style="{StaticResource FA.Solid.LabelStyle}" Text="&#xf3c5;" FontSize="Medium" TextColor="Blue">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference ParentPage}, Path=BindingContext.MapCommand}"
+                                                              CommandParameter="{Binding DestinationLocation}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </StackLayout>
+                                    <Label Text="{Binding DestinationLocation.AddressDisplay}" Margin="10,0,0,0" LineBreakMode="WordWrap" />
+                                </StackLayout>
+
+                                <Button Grid.Column="1" Grid.Row="1" Text="Cancel this Reservation"
+                                        HorizontalOptions="End"
+                                        Command="{Binding Source={x:Reference ParentPage}, Path=BindingContext.CancelCommand}"
+                                        CommandParameter="{Binding ReservationRequestId}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

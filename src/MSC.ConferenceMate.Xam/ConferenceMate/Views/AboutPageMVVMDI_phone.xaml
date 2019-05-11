@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:QuikRide.ViewModels"
+             x:Class="QuikRide.Views.AboutPageMVVMDI_phone"
+             Title="About QuikRide Phone">
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Image Grid.Row="0" Margin="5" HeightRequest="75" VerticalOptions="Center">
+                <Image.Source>
+                    <UriImageSource Uri="{StaticResource QuikRideLogo}" CacheValidity="100" CachingEnabled="True" />
+                </Image.Source>
+            </Image>
+
+            <ScrollView Grid.Row="1">
+                <StackLayout Padding="16,10,16,40" Spacing="10">
+                    <Label Text="{Binding AboutText1}" />
+                    <Label Text="{Binding AboutText2}" />
+
+                    <Label Text="Contact Us" Style="{StaticResource HeaderLabelStyle}" Margin="0,20,0,0" />
+
+                    <StackLayout Spacing="2">
+                        <Label Text="QuikRide Incorporated" />
+                        <Label Text="123 Elm Street Suite 123" />
+                        <Label Text="AnyTown, State  12345" />
+                        <Label Text="Phone: 123-456-7890">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PhoneCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label Text="info@quikride.com">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding EmailCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label x:Name="FacebookIcon" Style="{StaticResource FA.Brands.LabelStyle}" Text="&#xf082;"
+                           HeightRequest="100" TextColor="#3b5998" FontSize="42">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding FacebookCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label x:Name="TwitterIcon" Style="{StaticResource FA.Brands.LabelStyle}" Text="&#xf081;"
+                           HeightRequest="100" TextColor="#00aced" FontSize="42">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding TwitterCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label x:Name="SlackIcon" Style="{StaticResource FA.Brands.LabelStyle}" Text="&#xf198;"
+                           HeightRequest="100" TextColor="#3F0F3F" FontSize="42">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SlackCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Button Text="CRASH!" Command="{Binding CrashCommand}" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
