@@ -31,3 +31,12 @@ src/MSC.ConferenceMate.Repository/bin
 src/MSC.ConferenceMate.Repository/obj
 src/MSC.ConferenceMate.Xam/bin
 src/MSC.ConferenceMate.Xam/obj
+/src/MSC.CM.XamSh/MSC.CM.XamSh/MSC.CM.XamSh/obj
+/src/MSC.CM.XamSh/MSC.CM.XamSh/MSC.CM.XamSh.Android/bin/Debug
+/src/MSC.CM.XamSh/MSC.CM.XamSh/MSC.CM.XamSh.Android/obj
+/src/MSC.CM.XamSh/MSC.CM.XamSh/MSC.CM.XamSh/bin/Debug/netstandard2.0
+/src/MSC.CM.XamSh/MSC.CM.XamSh/MSC.CM.XamSh.iOS/bin/iPhoneSimulator/Debug
+/src/MSC.CM.XamSh/MSC.CM.XamSh/MSC.CM.XamSh.iOS/obj
+/src/MSC.ConferenceMate.Xam/ConferenceMate/obj
+/src/MSC.ConferenceMate.Xam/ConferenceMate.Android/obj
+/src/MSC.ConferenceMate.Xam/ConferenceMate.UWP/obj
