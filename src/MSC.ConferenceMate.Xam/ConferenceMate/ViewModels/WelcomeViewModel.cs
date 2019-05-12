@@ -1,11 +1,11 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Ninject;
-using QuikRide.Interfaces;
+using ConferenceMate.Interfaces;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace QuikRide.ViewModels
+namespace ConferenceMate.ViewModels
 {
     public class WelcomeViewModel : ObservableObject
     {
@@ -137,7 +137,7 @@ namespace QuikRide.ViewModels
         private bool SetUp()
         {
             //TODO: move this to the constructors...but hey, so convienient just like this...maybe leave it as is...
-            var ker = ((QuikRide.App)Xamarin.Forms.Application.Current).Kernel;
+            var ker = ((ConferenceMate.App)Xamarin.Forms.Application.Current).Kernel;
             //_dataService = ker.Get<IDataRetrievalService>();
             _navService = ker.Get<INavigationService>();
             _dataLoadService = ker.Get<IDataLoadService>();

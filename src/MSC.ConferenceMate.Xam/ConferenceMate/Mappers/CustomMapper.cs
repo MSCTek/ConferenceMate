@@ -1,4 +1,4 @@
-﻿namespace QuikRide.Mappers
+﻿namespace ConferenceMate.Mappers
 {
     public static class CustomMapper
     {

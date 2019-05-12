@@ -1,10 +1,10 @@
-﻿using QuikRide.Interfaces;
+﻿using ConferenceMate.Interfaces;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace QuikRide.Services
+namespace ConferenceMate.Services
 {
     public class UploadDataService
     {
@@ -13,7 +13,7 @@ namespace QuikRide.Services
 
         private UploadDataService()
         {
-            _dataService = ((QuikRide.App)Xamarin.Forms.Application.Current).Kernel.GetService(typeof(IDataRetrievalService)) as IDataRetrievalService;
+            _dataService = ((ConferenceMate.App)Xamarin.Forms.Application.Current).Kernel.GetService(typeof(IDataRetrievalService)) as IDataRetrievalService;
         }
 
         public static UploadDataService Instance
@@ -32,7 +32,7 @@ namespace QuikRide.Services
         {
             if (_dataService == null)
             {
-                _dataService = ((QuikRide.App)Xamarin.Forms.Application.Current).Kernel.GetService(typeof(IDataRetrievalService)) as IDataRetrievalService;
+                _dataService = ((ConferenceMate.App)Xamarin.Forms.Application.Current).Kernel.GetService(typeof(IDataRetrievalService)) as IDataRetrievalService;
             }
             if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {

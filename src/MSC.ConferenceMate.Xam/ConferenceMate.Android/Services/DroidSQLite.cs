@@ -1,8 +1,8 @@
-﻿using QuikRide.Interfaces;
+﻿using ConferenceMate.Interfaces;
 using SQLite;
 using System.IO;
 
-namespace QuikRide.Android.Services
+namespace ConferenceMate.Android.Services
 {
     public class DroidSQLite : ISQLite
     {

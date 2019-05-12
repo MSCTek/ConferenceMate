@@ -1,7 +1,7 @@
-﻿using QuikRide.ModelsObj;
+﻿using ConferenceMate.ModelsObj;
 using System;
 
-namespace QuikRide.SampleObjModels
+namespace ConferenceMate.SampleObjModels
 {
     public static class SampleLocation
     {

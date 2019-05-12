@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace QuikRide.Views
+namespace ConferenceMate.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class HomePage : ContentPage

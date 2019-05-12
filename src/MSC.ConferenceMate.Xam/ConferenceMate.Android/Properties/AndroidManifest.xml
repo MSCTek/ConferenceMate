@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.QuikRide" android:installLocation="preferExternal">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.ConferenceMate" android:installLocation="preferExternal">
   <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="27" />
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -10,7 +10,7 @@
   <uses-permission android:name="android.permission.CAMERA" />
   <uses-permission android:name="android.permission.FLASHLIGHT" />
   <uses-permission android:name="android.permission.INTERNET" />
-  <application android:label="QuikRide.Android">
+  <application android:label="ConferenceMate.Android">
     <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBcm_oAByO95BNW3EVM-KrIgJX7F7WPlBA" />
   </application>
 </manifest>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace QuikRide.Helpers
+namespace ConferenceMate.Helpers
 {
     public static class Helpers
     {

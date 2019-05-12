@@ -1,12 +1,12 @@
 ﻿using Foundation;
-using QuikRide.Helpers;
-using QuikRide.iOS.Modules;
-using QuikRide.iOS.Services;
+using ConferenceMate.Helpers;
+using ConferenceMate.iOS.Modules;
+using ConferenceMate.iOS.Services;
 using System;
 using UIKit;
 using Xamarin.Forms;
 
-namespace QuikRide.iOS
+namespace ConferenceMate.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the
     // User Interface of the application, as well as listening (and optionally responding) to

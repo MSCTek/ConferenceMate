@@ -1,8 +1,8 @@
-﻿using QuikRide.ViewModels;
+﻿using ConferenceMate.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace QuikRide.Views
+namespace ConferenceMate.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class WelcomePage : ContentPage

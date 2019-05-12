@@ -1,7 +1,7 @@
-﻿using QuikRide.Interfaces;
+﻿using ConferenceMate.Interfaces;
 using Xamarin.Forms.Xaml;
 
-namespace QuikRide.Views
+namespace ConferenceMate.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FeedbackPage : IContentPage

@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace QuikRide.Helpers
+namespace ConferenceMate.Helpers
 {
     public static class HTTPClientService
     {

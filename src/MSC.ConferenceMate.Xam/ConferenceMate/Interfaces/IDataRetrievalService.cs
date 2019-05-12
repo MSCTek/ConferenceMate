@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using dataModel = CGH.QuikRide.Xam.ModelData.QR;
-using objModel = CGH.QuikRide.Xam.ModelObj.QR;
+using dataModel = MSC.ConferenceMate.Xam.ModelData.QR;
+using objModel = MSC.ConferenceMate.Xam.ModelObj.QR;
 
-namespace QuikRide.Interfaces
+namespace ConferenceMate.Interfaces
 {
     public interface IDataRetrievalService
     {

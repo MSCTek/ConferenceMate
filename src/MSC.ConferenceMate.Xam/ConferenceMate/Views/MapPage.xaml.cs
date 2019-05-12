@@ -1,12 +1,12 @@
 ﻿using Microsoft.AppCenter.Crashes;
-using QuikRide.Interfaces;
+using ConferenceMate.Interfaces;
 using System;
 using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
-namespace QuikRide.Views
+namespace ConferenceMate.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MapPage : IContentPage

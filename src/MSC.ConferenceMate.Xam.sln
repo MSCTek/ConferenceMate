@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSC.ConferenceMate.DTO", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSC.ConferenceMate.Constants", "MSC.ConferenceMate.Constants\MSC.ConferenceMate.Constants.csproj", "{CE71D050-6A42-436C-B212-1DC2B2958777}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSC.ConferenceMate.Service.DataService", "MSC.ConferenceMate.Service.DataService\MSC.ConferenceMate.Service.DataService.csproj", "{C8097FFC-C1B2-4694-85F7-2AE10BD851F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSC.ConferenceMate.DataService", "MSC.ConferenceMate.DataService\MSC.ConferenceMate.DataService.csproj", "{C8097FFC-C1B2-4694-85F7-2AE10BD851F5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeGenHero", "CodeGenHero\CodeGenHero.csproj", "{3A695286-B16A-4B00-BB4C-0C7DA65751D7}"
 EndProject

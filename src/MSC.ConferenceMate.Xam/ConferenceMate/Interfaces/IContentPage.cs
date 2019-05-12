@@ -1,4 +1,4 @@
-﻿namespace QuikRide.Interfaces
+﻿namespace ConferenceMate.Interfaces
 {
     public interface IContentPage
     {

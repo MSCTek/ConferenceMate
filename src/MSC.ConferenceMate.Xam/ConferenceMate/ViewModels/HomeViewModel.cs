@@ -1,12 +1,12 @@
-﻿using CGH.QuikRide.Xam.ModelObj.QR;
+﻿using CGH.ConferenceMate.Xam.ModelObj.QR;
 using GalaSoft.MvvmLight.Command;
-using QuikRide.Interfaces;
-using QuikRide.Mappers;
+using ConferenceMate.Interfaces;
+using ConferenceMate.Mappers;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace QuikRide.ViewModels
+namespace ConferenceMate.ViewModels
 {
     public class HomeViewModel : CustomViewModelBase
     {

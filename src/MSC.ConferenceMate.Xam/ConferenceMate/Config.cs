@@ -1,4 +1,4 @@
-﻿namespace QuikRide
+﻿namespace ConferenceMate
 {
     public static class Config
     //public static class ConfigPublic

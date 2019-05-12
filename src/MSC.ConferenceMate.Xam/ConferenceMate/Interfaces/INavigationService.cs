@@ -1,10 +1,10 @@
-﻿using QuikRide.ViewModels;
+﻿using ConferenceMate.ViewModels;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace QuikRide.Interfaces
+namespace ConferenceMate.Interfaces
 {
     public interface INavigationService
     {

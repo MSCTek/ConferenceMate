@@ -3,10 +3,10 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Ninject;
 using Ninject.Modules;
-using QuikRide.Interfaces;
-using QuikRide.Modules;
-using QuikRide.ViewModels;
-using QuikRide.Views;
+using ConferenceMate.Interfaces;
+using ConferenceMate.Modules;
+using ConferenceMate.ViewModels;
+using ConferenceMate.Views;
 using System;
 using System.Diagnostics;
 using Xamarin.Forms;
@@ -14,7 +14,7 @@ using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
-namespace QuikRide
+namespace ConferenceMate
 {
     public partial class App : Application
     {

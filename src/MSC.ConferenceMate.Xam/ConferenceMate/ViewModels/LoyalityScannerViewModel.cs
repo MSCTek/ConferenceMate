@@ -1,11 +1,11 @@
-﻿using QuikRide.Interfaces;
+﻿using ConferenceMate.Interfaces;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using datamod = CGH.QuikRide.Xam.ModelData.QR;
+using datamod = MSC.ConferenceMate.Xam.ModelData.QR;
 
-namespace QuikRide.ViewModels
+namespace ConferenceMate.ViewModels
 {
     public class LoyaltyScannerViewModel : CustomViewModelBase
     {

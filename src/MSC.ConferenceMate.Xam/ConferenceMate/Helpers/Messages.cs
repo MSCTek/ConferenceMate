@@ -1,4 +1,4 @@
-﻿namespace QuikRide.Helpers
+﻿namespace ConferenceMate.Helpers
 {
     public class CancelledMessage
     {

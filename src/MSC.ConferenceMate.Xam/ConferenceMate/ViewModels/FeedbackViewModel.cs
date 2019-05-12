@@ -1,8 +1,8 @@
-﻿using CGH.QuikRide.Xam.ModelObj.QR;
+﻿using CGH.ConferenceMate.Xam.ModelObj.QR;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.AppCenter.Crashes;
-using QuikRide.Interfaces;
-using QuikRide.Mappers;
+using ConferenceMate.Interfaces;
+using ConferenceMate.Mappers;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace QuikRide.ViewModels
+namespace ConferenceMate.ViewModels
 {
     public class FeedbackViewModel : CustomViewModelBase
     {
@@ -59,7 +59,7 @@ namespace QuikRide.ViewModels
                     try
                     {
                         //build up a feedback data model - we don't need to build an obj model as this will go right into SQLite
-                        var feedbackData = new CGH.QuikRide.Xam.ModelData.QR.Feedback()
+                        var feedbackData = new CGH.ConferenceMate.Xam.ModelData.QR.Feedback()
                         {
                             CreatedBy = "CurrentUser",
                             CreatedUtcDate = DateTime.UtcNow,

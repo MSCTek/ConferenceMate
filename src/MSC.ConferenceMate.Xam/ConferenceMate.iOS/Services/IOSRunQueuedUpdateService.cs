@@ -1,12 +1,12 @@
-﻿using QuikRide.Helpers;
-using QuikRide.Services;
+﻿using ConferenceMate.Helpers;
+using ConferenceMate.Services;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Forms;
 
-namespace QuikRide.iOS.Services
+namespace ConferenceMate.iOS.Services
 {
     public class IOSRunQueuedUpdateService
     {

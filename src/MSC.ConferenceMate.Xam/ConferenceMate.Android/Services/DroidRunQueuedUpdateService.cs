@@ -1,15 +1,15 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.OS;
-using QuikRide.Helpers;
-using QuikRide.Services;
+using ConferenceMate.Helpers;
+using ConferenceMate.Services;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 //https://github.com/RobGibbens/XamarinFormsBackgrounding
 
-namespace QuikRide.Droid.Services
+namespace ConferenceMate.Droid.Services
 {
     [Service]
     public class DroidRunQueuedUpdateService : Service

@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
 
-namespace QuikRide.ModelsObj
+namespace ConferenceMate.ModelsObj
 {
     public partial class Location : ObservableObject
     {

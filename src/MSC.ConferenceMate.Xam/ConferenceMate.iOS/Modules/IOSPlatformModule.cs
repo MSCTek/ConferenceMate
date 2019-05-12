@@ -1,8 +1,8 @@
 ﻿using Ninject.Modules;
-using QuikRide.Interfaces;
-using QuikRide.iOS.Services;
+using ConferenceMate.Interfaces;
+using ConferenceMate.iOS.Services;
 
-namespace QuikRide.iOS.Modules
+namespace ConferenceMate.iOS.Modules
 {
     public class IOSPlatformModule : NinjectModule
     {

@@ -1,8 +1,8 @@
 ﻿using Ninject.Modules;
-using QuikRide.Interfaces;
-using QuikRide.Services;
+using ConferenceMate.Interfaces;
+using ConferenceMate.Services;
 
-namespace QuikRide.Modules
+namespace ConferenceMate.Modules
 {
     public class CoreModule : NinjectModule
     {

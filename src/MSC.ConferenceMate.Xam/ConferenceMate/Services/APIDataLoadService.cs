@@ -1,17 +1,17 @@
-﻿using CGH.QuikRide.API.Client;
-using CGH.QuikRide.API.Client.Interface;
-using CGH.QuikRide.Service.DataService.Models;
-using CGH.QuikRide.Xam;
-using CGH.QuikRide.Xam.ModelData.QR;
+﻿using CGH.ConferenceMate.API.Client;
+using CGH.ConferenceMate.API.Client.Interface;
+using CGH.ConferenceMate.Service.DataService.Models;
+using CGH.ConferenceMate.Xam;
+using CGH.ConferenceMate.Xam.ModelData.QR;
 using CodeGenHero.DataService;
 using Microsoft.AppCenter.Crashes;
-using QuikRide.Interfaces;
+using ConferenceMate.Interfaces;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using static CGH.QuikRide.Service.DataService.Constants.Enums;
+using static CGH.ConferenceMate.Service.DataService.Constants.Enums;
 
-namespace QuikRide.Services
+namespace ConferenceMate.Services
 {
     public class APIDataLoadService : IDataLoadService
     {

@@ -1,13 +1,13 @@
-﻿using CGH.QuikRide.API.Client;
-using CGH.QuikRide.API.Client.Interface;
-using CGH.QuikRide.Service.DataService.Models;
-using CGH.QuikRide.Xam;
+﻿using CGH.ConferenceMate.API.Client;
+using CGH.ConferenceMate.API.Client.Interface;
+using CGH.ConferenceMate.Service.DataService.Models;
+using CGH.ConferenceMate.Xam;
 using CodeGenHero.DataService;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using QuikRide.Helpers;
-using QuikRide.Interfaces;
-using QuikRide.Mappers;
+using ConferenceMate.Helpers;
+using ConferenceMate.Interfaces;
+using ConferenceMate.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,11 +16,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using static CGH.QuikRide.Service.DataService.Constants.Enums;
-using dataModel = CGH.QuikRide.Xam.ModelData.QR;
-using objModel = CGH.QuikRide.Xam.ModelObj.QR;
+using static CGH.ConferenceMate.Service.DataService.Constants.Enums;
+using dataModel = MSC.ConferenceMate.Xam.ModelData.QR;
+using objModel = MSC.ConferenceMate.Xam.ModelObj.QR;
 
-namespace QuikRide.Services
+namespace ConferenceMate.Services
 {
     public class DataRetrievalService : IDataRetrievalService
     {
@@ -192,7 +192,7 @@ namespace QuikRide.Services
         //How many are queued, failed > MaxNumAttempts times?
         public async Task<int> GetCountQueuedRecordsWAttemptsAsync()
         {
-            var count = await _db.GetAsyncConnection().Table<QuikRide.ModelsData.Queue>().Where(x => x.Success == false && x.NumAttempts > MaxNumAttempts).CountAsync();
+            var count = await _db.GetAsyncConnection().Table<ConferenceMate.ModelsData.Queue>().Where(x => x.Success == false && x.NumAttempts > MaxNumAttempts).CountAsync();
             if (count > 0)
             {
                 //sending a message to AppCenter right away with user info

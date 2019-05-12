@@ -1,4 +1,4 @@
-﻿namespace QuikRide
+﻿namespace ConferenceMate
 {
     public enum QueueableObjects
     {

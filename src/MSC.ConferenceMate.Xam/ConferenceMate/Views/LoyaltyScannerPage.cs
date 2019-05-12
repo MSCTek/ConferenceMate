@@ -1,10 +1,10 @@
-﻿using QuikRide.Interfaces;
-using QuikRide.ViewModels;
+﻿using ConferenceMate.Interfaces;
+using ConferenceMate.ViewModels;
 using System;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
 
-namespace QuikRide.Views
+namespace ConferenceMate.Views
 {
     public class LoyaltyScannerPage : ContentPage
     {
@@ -37,7 +37,7 @@ namespace QuikRide.Views
 
                         // Navigate away
                         //await Navigation.PopAsync();
-                        var navServ = ((QuikRide.App)Xamarin.Forms.Application.Current).Kernel.GetService(typeof(INavigationService)) as INavigationService;
+                        var navServ = ((ConferenceMate.App)Xamarin.Forms.Application.Current).Kernel.GetService(typeof(INavigationService)) as INavigationService;
                         navServ.NavigateTo<LoyaltyBonusViewModel>();
                     });
 

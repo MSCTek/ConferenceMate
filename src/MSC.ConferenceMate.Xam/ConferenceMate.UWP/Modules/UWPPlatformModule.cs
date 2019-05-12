@@ -1,8 +1,8 @@
 ﻿using Ninject.Modules;
-using QuikRide.Interfaces;
-using QuikRide.UWP.Services;
+using ConferenceMate.Interfaces;
+using ConferenceMate.UWP.Services;
 
-namespace QuikRide.UWP.Modules
+namespace ConferenceMate.UWP.Modules
 {
     public class UWPPlatformModule : NinjectModule
     {

@@ -1,6 +1,6 @@
-﻿using QuikRide.Interfaces;
+﻿using ConferenceMate.Interfaces;
 
-namespace QuikRide.Views
+namespace ConferenceMate.Views
 {
     public partial class AboutPageMVVMDI_tablet : IContentPage
     {

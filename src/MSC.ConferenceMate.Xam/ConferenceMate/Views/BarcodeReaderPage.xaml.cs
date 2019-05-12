@@ -1,11 +1,11 @@
-﻿using QuikRide.Interfaces;
+﻿using ConferenceMate.Interfaces;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing;
 using ZXing.Net.Mobile.Forms;
 
-namespace QuikRide.Views
+namespace ConferenceMate.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BarcodeReaderPage : ZXingScannerPage, IContentPage
