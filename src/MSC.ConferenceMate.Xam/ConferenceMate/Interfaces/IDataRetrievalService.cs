@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using dataModel = MSC.ConferenceMate.Xam.ModelData.QR;
-using objModel = MSC.ConferenceMate.Xam.ModelObj.QR;
+using dataModel = MSC.CM.Xam.ModelData.CM;
+using objModel = MSC.CM.Xam.ModelObj.CM;
 
 namespace ConferenceMate.Interfaces
 {
@@ -11,19 +11,11 @@ namespace ConferenceMate.Interfaces
     {
         Task<IList<objModel.FeedbackType>> GetAllFeedbackTypes();
 
-        Task<List<ModelsObj.GeofenceActivity>> GetAllGeofenceActivity();
-
-        Task<List<objModel.Location>> GetAllLocations();
-
         Task<List<objModel.User>> GetAllUsers();
-
-        Task<IList<objModel.Vehicle>> GetAllVehicles();
 
         Task<int> GetCountQueuedRecordsWAttemptsAsync();
 
         int GetCurrentUserId();
-
-        Task<List<ModelsObj.GeofenceActivity>> GetRecentGeofenceActivity(int numRecords);
 
         Task QueueAsync(Guid recordId, QueueableObjects objName);
 
@@ -33,10 +25,7 @@ namespace ConferenceMate.Interfaces
 
         void StartSafeQueuedUpdates();
 
-        Task<int> WriteBarcodeScanRecord(dataModel.BarcodeScanLog logRecord);
-
         Task<int> WriteFeedbackRecord(dataModel.Feedback feedback);
 
-        Task<int> WriteGeofencingActivityRecord(ModelsData.GeofenceActivity geofenceActivity);
     }
 }

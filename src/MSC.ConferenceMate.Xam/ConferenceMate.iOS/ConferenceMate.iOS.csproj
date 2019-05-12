@@ -184,12 +184,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\ConferenceMate\ConferenceMate.csproj">
-      <Project>{4AD1D9F6-A8E3-4834-8A71-E7DB20535B0B}</Project>
-      <Name>QuikRide</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Resources\fa-brands-400.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInPackage>true</IncludeInPackage>
@@ -199,5 +193,10 @@
       <IncludeInPackage>true</IncludeInPackage>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ConferenceMate\ConferenceMate.csproj">
+      <Project>{4ad1d9f6-a8e3-4834-8a71-e7db20535b0b}</Project>
+      <Name>ConferenceMate</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

@@ -2,30 +2,16 @@
   "Author": null,
   "BlueprintTemplates": [
     {
-      "Description": "Simple Data Transfer Objects for use in communicating across process boundaries.  Ideal for sending results from a server-side Web API to a consuming client application (i.e. Xamarin mobile or ASP.Net website).",
-      "Id": "58fa7ee2-89f7-41e6-85ed-8d4482653990",
-      "IsActive": false,
-      "Name": "DTO",
-      "Settings": [
-        {
-          "HiddenIndicator": false,
-          "Name": "DTOIncludeRelatedObjects",
-          "Value": "true"
-        },
-        {
-          "HiddenIndicator": true,
-          "Name": "DTOOutputFilePath",
-          "Value": "DTO\\{namespacePostfix}\\[tablename].cs"
-        }
-      ],
-      "Version": "1.1"
-    },
-    {
       "Description": "Maps DTO objects to SQLite model data objects as well as MvvmLight objects and vice versa.",
       "Id": "5078579f-7ab4-430d-9dcc-a3190f678efc",
       "IsActive": false,
       "Name": "MapperDtoToSqliteModelDataAndMvvmLightModelObject",
       "Settings": [
+        {
+          "HiddenIndicator": false,
+          "Name": "DtoNamespace",
+          "Value": "MSC.ConferenceMate.DTO.{namespacePostfix}"
+        },
         {
           "HiddenIndicator": true,
           "Name": "MapperDtoToSqliteModelDataAndMvvmLightModelObjectOutputFilePath",
@@ -49,49 +35,39 @@
       "Version": "1.1"
     },
     {
-      "Description": "Provides functionality to abstract calls to Web API services.",
-      "Id": "424e7ec7-bd9d-4cd3-9257-6ffbc772b82e",
+      "Description": "MvvmLight Model Objects).",
+      "Id": "c644a31c-7ebc-4383-bc7f-0ea7c5bf6ed4",
       "IsActive": false,
-      "Name": "WebApiDataService",
+      "Name": "MvvmLightModelObject",
       "Settings": [
         {
-          "HiddenIndicator": false,
-          "Name": "ILoggingServiceNamespace",
-          "Value": "CodeGenHero.Logging"
-        },
-        {
-          "HiddenIndicator": false,
-          "Name": "SerializationHelperNamespace",
-          "Value": "{baseNamespace}.Common.Helpers"
-        },
-        {
-          "HiddenIndicator": false,
-          "Name": "WebApiDataServiceNamespace",
-          "Value": "{baseNamespace}.API.Client"
-        },
-        {
           "HiddenIndicator": true,
-          "Name": "WebApiDataServiceOutputFilePath",
-          "Value": "Client\\WebAPIDataService\\WebAPIDataService{namespacePostfix}.cs"
+          "Name": "MvvmLightModelObjectOutputFilePath",
+          "Value": "Xamarin\\ModelObj\\{namespacePostfix}\\[tablename].cs"
+        },
+        {
+          "HiddenIndicator": false,
+          "Name": "SqliteModelObjectBaseAuditEditNamespace",
+          "Value": "CodeGenHero.Xam.MvvmLight"
         }
       ],
       "Version": "1.1"
     },
     {
-      "Description": "Provides an interface for the implementation class that provides functionality to abstract calls to Web API services.",
-      "Id": "1ea810ed-61a7-443b-97f2-da5b30311e75",
+      "Description": "Provides the classes necessary to read/write data from/into a SQLite database for persistence.",
+      "Id": "c5caad15-b3be-4443-87d8-7cabde59f7b0",
       "IsActive": false,
-      "Name": "WebApiDataServiceInterface",
+      "Name": "SqliteModelData",
       "Settings": [
         {
           "HiddenIndicator": false,
-          "Name": "WebApiDataServiceInterfaceClassName",
-          "Value": "IWebApiDataService{namespacePostfix}"
+          "Name": "SqliteModelDataBaseAuditEditNamespace",
+          "Value": "CodeGenHero.Xam.Sqlite"
         },
         {
           "HiddenIndicator": true,
-          "Name": "WebApiDataServiceInterfaceOutputFilePath",
-          "Value": "Client\\IWebApiDataservice\\IWebApiDataService{namespacePostfix}.cs"
+          "Name": "SqliteModelDataOutputFilePath",
+          "Value": "Xamarin\\ModelData\\{namespacePostfix}\\[tablename].cs"
         }
       ],
       "Version": "1.1"
@@ -111,11 +87,6 @@
           "HiddenIndicator": false,
           "Name": "XamSampleDigits",
           "Value": "2"
-        },
-        {
-          "HiddenIndicator": false,
-          "Name": "XamSampleNamespace",
-          "Value": "{baseNamespace}.XamSample.{namespacePostfix}"
         },
         {
           "HiddenIndicator": true,
@@ -153,12 +124,12 @@
     {
       "HiddenIndicator": false,
       "Name": "BaseNamespace",
-      "Value": "CodeGenHero"
+      "Value": "MSC.CM"
     },
     {
       "HiddenIndicator": false,
       "Name": "NamespacePostfix",
-      "Value": ""
+      "Value": "CM"
     },
     {
       "HiddenIndicator": false,
@@ -179,21 +150,6 @@
       "HiddenIndicator": false,
       "Name": "RegexInclude",
       "Value": ""
-    },
-    {
-      "HiddenIndicator": false,
-      "Name": "DtoNamespace",
-      "Value": "{baseNamespace}.DTO.{namespacePostfix}"
-    },
-    {
-      "HiddenIndicator": false,
-      "Name": "DefaultCriteria",
-      "Value": "DateTime?:minModifiedUtcDate:IsGreaterThan:ModifiedUtcDate,bool?:isDeleted:IsEqualTo:IsDeleted"
-    },
-    {
-      "HiddenIndicator": false,
-      "Name": "WebApiDataServiceInterfaceNamespace",
-      "Value": "{baseNamespace}.API.Client.Interface"
     }
   ],
   "Version": null

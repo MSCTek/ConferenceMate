@@ -2,8 +2,7 @@
 {
     public enum QueueableObjects
     {
-        Feedback,
-        BarcodeScanLog
+        Feedback
     }
 
     public class Constants

@@ -1,0 +1,77 @@
+{
+  "FileGroupMessage": "",
+  "FileList": [
+    {
+      "FileLastChange": "2019-05-12T09:45:22.1819756-05:00",
+      "Filename": "Announcement.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:22.4451734-05:00",
+      "Filename": "FeaturedEvent.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:23.1610341-05:00",
+      "Filename": "Feedback.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:23.5060313-05:00",
+      "Filename": "FeedbackInitiatorType.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:24.0701989-05:00",
+      "Filename": "FeedbackType.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:24.4791976-05:00",
+      "Filename": "GenderType.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:24.9548398-05:00",
+      "Filename": "LanguageType.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:25.3766657-05:00",
+      "Filename": "LookupList.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:25.6336687-05:00",
+      "Filename": "Room.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:26.0458571-05:00",
+      "Filename": "Session.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:27.1639345-05:00",
+      "Filename": "SessionCategoryType.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:28.5539654-05:00",
+      "Filename": "SessionLike.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:28.9801574-05:00",
+      "Filename": "SessionSessionCategoryType.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:29.3437072-05:00",
+      "Filename": "SessionSpeaker.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:29.8222592-05:00",
+      "Filename": "Sponsor.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:30.21389-05:00",
+      "Filename": "SponsorFeaturedEvent.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:30.4633037-05:00",
+      "Filename": "SponsorType.cs"
+    },
+    {
+      "FileLastChange": "2019-05-12T09:45:30.7558195-05:00",
+      "Filename": "User.cs"
+    }
+  ]
+}

@@ -133,9 +133,9 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\QuikRide\QuikRide.csproj">
-      <Project>{2C8FEBE2-EE44-4DE8-A879-EB01B19232C0}</Project>
-      <Name>QuikRide</Name>
+    <ProjectReference Include="..\ConferenceMate\ConferenceMate.csproj">
+      <Project>{4ad1d9f6-a8e3-4834-8a71-e7db20535b0b}</Project>
+      <Name>ConferenceMate</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

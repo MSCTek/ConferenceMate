@@ -6,7 +6,7 @@ namespace ConferenceMate.Android.Services
 {
     public class DroidSQLite : ISQLite
     {
-        private string DBName = $"QickRide.db3";
+        private string DBName = $"ConferenceMate.db3";
 
         public SQLiteAsyncConnection GetAsyncConnection()
         {

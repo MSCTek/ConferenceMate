@@ -1,5 +1,4 @@
-﻿using CGH.ConferenceMate.Xam.ModelObj.QR;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
 using Microsoft.AppCenter.Crashes;
 using ConferenceMate.Interfaces;
 using ConferenceMate.Mappers;
@@ -9,6 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using MSC.CM.Xam.ModelObj.CM;
+using modelData = MSC.CM.Xam.ModelData.CM;
 
 namespace ConferenceMate.ViewModels
 {
@@ -17,9 +18,7 @@ namespace ConferenceMate.ViewModels
         private string _description;
         private ObservableCollection<FeedbackType> _feedbackTypeList;
         private FeedbackType _selectedFeedbackType;
-        private Vehicle _selectedVehicle;
         private string _title;
-        private ObservableCollection<Vehicle> _vehicleList;
 
         public FeedbackViewModel(INavigationService navService, IDataLoadService dataLoadService, IDataRetrievalService dataRetrievalService) :
             base(navService, dataLoadService, dataRetrievalService)
@@ -44,12 +43,6 @@ namespace ConferenceMate.ViewModels
             set { Set(nameof(SelectedFeedbackType), ref _selectedFeedbackType, value); }
         }
 
-        public Vehicle SelectedVehicle
-        {
-            get { return _selectedVehicle; }
-            set { Set(nameof(SelectedVehicle), ref _selectedVehicle, value); }
-        }
-
         public RelayCommand SubmitFeedbackCommand
         {
             get
@@ -59,7 +52,7 @@ namespace ConferenceMate.ViewModels
                     try
                     {
                         //build up a feedback data model - we don't need to build an obj model as this will go right into SQLite
-                        var feedbackData = new CGH.ConferenceMate.Xam.ModelData.QR.Feedback()
+                        var feedbackData = new modelData.Feedback()
                         {
                             CreatedBy = "CurrentUser",
                             CreatedUtcDate = DateTime.UtcNow,
@@ -75,17 +68,9 @@ namespace ConferenceMate.ViewModels
                             Latitude = 0D,
                             Longitude = 0D,
                             UserId = DataRetrievalService.GetCurrentUserId(),
-                            //TODO: DriverId,
-                            DriverId = null,
-                            FeedbackInitiatorTypeId = 1, //customer
-                            Source = "Mobile App",
-                            VehicleId = null
+                            FeedbackInitiatorTypeId = 1, 
+                            Source = "Mobile App"
                         };
-
-                        if (SelectedVehicle != null)
-                        {
-                            feedbackData.VehicleId = SelectedVehicle.VehicleId;
-                        }
 
                         if (location != null && location.Latitude != 0D && location.Longitude != 0D)
                         {
@@ -125,20 +110,12 @@ namespace ConferenceMate.ViewModels
             set { Set(nameof(Title), ref _title, value); }
         }
 
-        public ObservableCollection<Vehicle> VehicleList
-        {
-            get { return _vehicleList; }
-            set { Set(nameof(VehicleList), ref _vehicleList, value); }
-        }
-
         private Xamarin.Essentials.Location location { get; set; }
 
         public override async Task Init()
         {
             FeedbackTypeList = (await DataRetrievalService.GetAllFeedbackTypes()).ToObservableCollection();
-            VehicleList = (await DataRetrievalService.GetAllVehicles()).ToObservableCollection();
-
-            if (FeedbackTypeList.Any())
+			if (FeedbackTypeList.Any())
             {
                 SelectedFeedbackType = FeedbackTypeList[0];
             }

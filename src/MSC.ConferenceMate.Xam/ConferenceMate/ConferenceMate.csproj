@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\MSC.CM.Xam\MSC.CM.Xam.csproj" />
     <ProjectReference Include="..\..\MSC.ConferenceMate.Constants\MSC.ConferenceMate.Constants.csproj" />
     <ProjectReference Include="..\..\MSC.ConferenceMate.DTO\MSC.ConferenceMate.DTO.csproj" />
     <ProjectReference Include="..\..\MSC.ConferenceMate.DataService\MSC.ConferenceMate.DataService.csproj" />
@@ -37,9 +38,6 @@
     </Compile>
     <Compile Update="Views\AboutPageMVVMDI_tablet.xaml.cs">
       <DependentUpon>AboutPageMVVMDI_tablet.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\MapWithPinsPage.xaml.cs">
-      <DependentUpon>MapWithPinsPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\MapPage.xaml.cs">
       <DependentUpon>MapPage.xaml</DependentUpon>
@@ -53,19 +51,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\BarcodeReaderPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\FeedbackPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\GeofencingPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\HomePage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\LoyaltyBonusPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MyReservationRequestsPage.xaml">
@@ -117,5 +106,9 @@
     <Folder Include="CGH_ModelData\" />
     <Folder Include="CGH_ModelObj\" />
     <Folder Include="CGH_SampleData\" />
+    <Folder Include="ModelsData\" />
+    <Folder Include="ModelsObj\Custom\" />
+    <Folder Include="SampleDataModels\" />
+    <Folder Include="SampleObjModels\" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,4 @@
-﻿using ConferenceMate.Interfaces;
-using SQLite;
+﻿using SQLite;
 using System.IO;
 using Windows.Storage;
 

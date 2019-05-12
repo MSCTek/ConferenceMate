@@ -1,5 +1,5 @@
 ﻿//using ConferenceMate.ModelsData;
-using CGH.ConferenceMate.Xam.ModelData.QR;
+using MSC.CM.Xam.ModelData.CM;
 using Microsoft.AppCenter.Crashes;
 using ConferenceMate.Interfaces;
 using ConferenceMate.ModelsData;
@@ -25,35 +25,11 @@ namespace ConferenceMate.Services
             {
                 if (Connection != null)
                 {
-                    Connection.CreateTable<Vehicle>();
-                    Connection.CreateTable<VehicleBusRoute>();
-                    Connection.CreateTable<VehicleFeatureType>();
-                    Connection.CreateTable<VehicleStatusType>();
-                    Connection.CreateTable<VehicleType>();
-                    Connection.CreateTable<VehicleTypeVehicleFeatureType>();
-                    Connection.CreateTable<VehicleVehicleFeatureType>();
-
                     Connection.CreateTable<LanguageType>();
                     Connection.CreateTable<FeedbackType>();
-                    Connection.CreateTable<FeedbackTypeTranslation>();
+                    Connection.CreateTable<LookupList>();
                     Connection.CreateTable<Feedback>();
-
                     Connection.CreateTable<User>();
-
-                    Connection.CreateTable<Location>();
-                    Connection.CreateTable<ReservationRequest>();
-
-                    Connection.CreateTable<Barcode>();
-                    Connection.CreateTable<BarcodeScanLog>();
-                    Connection.CreateTable<BarcodeType>();
-                    Connection.CreateTable<BarcodeTypeTranslation>();
-
-                    Connection.CreateTable<BusRoute>();
-                    Connection.CreateTable<BusRouteStop>();
-                    Connection.CreateTable<BusRouteTranslation>();
-
-                    Connection.CreateTable<GeofenceActivity>();
-
                     Connection.CreateTable<Queue>();
                 }
             }
@@ -70,35 +46,11 @@ namespace ConferenceMate.Services
             {
                 if (AsyncConnection != null)
                 {
-                    await AsyncConnection.DropTableAsync<Vehicle>();
-                    await AsyncConnection.DropTableAsync<VehicleBusRoute>();
-                    await AsyncConnection.DropTableAsync<VehicleFeatureType>();
-                    await AsyncConnection.DropTableAsync<VehicleStatusType>();
-                    await AsyncConnection.DropTableAsync<VehicleType>();
-                    await AsyncConnection.DropTableAsync<VehicleTypeVehicleFeatureType>();
-                    await AsyncConnection.DropTableAsync<VehicleVehicleFeatureType>();
-
                     await AsyncConnection.DropTableAsync<LanguageType>();
                     await AsyncConnection.DropTableAsync<FeedbackType>();
-                    await AsyncConnection.DropTableAsync<FeedbackTypeTranslation>();
+                    await AsyncConnection.DropTableAsync<LookupList>();
                     await AsyncConnection.DropTableAsync<Feedback>();
-
                     await AsyncConnection.DropTableAsync<User>();
-
-                    await AsyncConnection.DropTableAsync<Location>();
-                    await AsyncConnection.DropTableAsync<ReservationRequest>();
-
-                    await AsyncConnection.DropTableAsync<Barcode>();
-                    await AsyncConnection.DropTableAsync<BarcodeScanLog>();
-                    await AsyncConnection.DropTableAsync<BarcodeType>();
-                    await AsyncConnection.DropTableAsync<BarcodeTypeTranslation>();
-
-                    await AsyncConnection.DropTableAsync<BusRoute>();
-                    await AsyncConnection.DropTableAsync<BusRouteStop>();
-                    await AsyncConnection.DropTableAsync<BusRouteTranslation>();
-
-                    await AsyncConnection.DropTableAsync<GeofenceActivity>();
-
                     await AsyncConnection.DropTableAsync<Queue>();
                 }
             }

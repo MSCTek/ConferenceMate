@@ -1,7 +1,7 @@
-﻿using CGH.ConferenceMate.API.Client;
-using CGH.ConferenceMate.API.Client.Interface;
-using CGH.ConferenceMate.Service.DataService.Models;
-using CGH.ConferenceMate.Xam;
+﻿using MSC.ConferenceMate.API.Client;
+using MSC.ConferenceMate.API.Client.Interface;
+using MSC.ConferenceMate.DataService.Models;
+using MSC.CM.Xam;
 using CodeGenHero.DataService;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
@@ -16,9 +16,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using static CGH.ConferenceMate.Service.DataService.Constants.Enums;
-using dataModel = MSC.ConferenceMate.Xam.ModelData.QR;
-using objModel = MSC.ConferenceMate.Xam.ModelObj.QR;
+using dataModel = MSC.CM.Xam.ModelData.CM;
+using objModel = MSC.CM.Xam.ModelObj.CM;
+using static MSC.ConferenceMate.DataService.Constants.Enums;
 
 namespace ConferenceMate.Services
 {
@@ -26,12 +26,12 @@ namespace ConferenceMate.Services
     {
         private static int MaxNumAttempts = 8;
         private IDatabase _db;
-        private IWebApiDataServiceQR _webAPIDataService;
+        private IWebApiDataServiceCM _webAPIDataService;
 
         public DataRetrievalService(IDatabase database)
         {
             _db = database;
-            var webApiExecutionContextType = new QRWebApiExecutionContextType();
+            var webApiExecutionContextType = new CMWebApiExecutionContextType();
             webApiExecutionContextType.Current = (int)ExecutionContextTypes.Base;
 
             WebApiExecutionContext context = new WebApiExecutionContext(
@@ -40,7 +40,7 @@ namespace ConferenceMate.Services
                 baseFileUrl: string.Empty,
                 connectionIdentifier: null);
 
-            _webAPIDataService = new WebApiDataServiceQR(null, context);
+            _webAPIDataService = new WebApiDataServiceCM(null, context);
 
             _currentUserId = 0;
         }
@@ -52,57 +52,25 @@ namespace ConferenceMate.Services
                 .Table<dataModel.FeedbackType>()
                 .ToListAsync();
 
-            var dataResultsFeedbackLanguage = await _db.GetAsyncConnection()
-                .Table<dataModel.FeedbackTypeTranslation>()
-                .ToListAsync();
+            //var dataResultsFeedbackLanguage = await _db.GetAsyncConnection()
+				// Go to the "LookupList" table for translations.
+				// SELECT * FROM [ConferenceMate].[dbo].[LookupList] where ForeignKeyTableName = 'FeedbackType' AND LanguageTypeId = '1'
+				// .Table<dataModel.FeedbackTypeTranslation>()
+				// .ToListAsync();
 
-            //TODO: make this less ugly
-            if (dataResultsFeedbackTypes.Any())
+			//TODO: make this less ugly
+			if (dataResultsFeedbackTypes.Any())
             {
                 foreach (var d in dataResultsFeedbackTypes)
                 {
                     var m = d.ToModelObj();
-                    m.FeedbackTypeTranslations.Add(dataResultsFeedbackLanguage.Where(x => x.FeedbackTypeId == m.FeedbackTypeId && x.LanguageTypeId == 1).FirstOrDefault().ToModelObj());
+                    //m.FeedbackTypeTranslations.Add(dataResultsFeedbackLanguage.Where(x => x.FeedbackTypeId == m.FeedbackTypeId && x.LanguageTypeId == 1).FirstOrDefault().ToModelObj());
                     returnMe.Add(m);
                 }
             }
             return returnMe;
         }
-
-        public async Task<List<ModelsObj.GeofenceActivity>> GetAllGeofenceActivity()
-        {
-            var returnMe = new List<ModelsObj.GeofenceActivity>();
-            var dataResults = await _db.GetAsyncConnection()
-                .Table<ModelsData.GeofenceActivity>()
-                .OrderBy(x => x.ActivityUtcDateTime).ToListAsync();
-
-            if (dataResults.Any())
-            {
-                foreach (var d in dataResults)
-                {
-                    returnMe.Add(d.ToModelObj());
-                }
-            }
-            return returnMe;
-        }
-
-        public async Task<List<objModel.Location>> GetAllLocations()
-        {
-            var returnMe = new List<objModel.Location>();
-            var dataResults = await _db.GetAsyncConnection()
-                .Table<dataModel.Location>()
-                .OrderBy(x => x.Name).ToListAsync();
-
-            if (dataResults.Any())
-            {
-                foreach (var d in dataResults)
-                {
-                    returnMe.Add(d.ToModelObj());
-                }
-            }
-            return returnMe;
-        }
-
+		
         public async Task<List<objModel.User>> GetAllUsers()
         {
             var returnMe = new List<objModel.User>();
@@ -120,55 +88,9 @@ namespace ConferenceMate.Services
             return returnMe;
         }
 
-        public async Task<IList<objModel.Vehicle>> GetAllVehicles()
-        {
-            var returnMe = new List<objModel.Vehicle>();
-            var dataResults = await _db.GetAsyncConnection()
-                .Table<dataModel.Vehicle>()
-                .OrderBy(x => x.LicensePlateNumber).ToListAsync();
-
-            if (dataResults.Any())
-            {
-                foreach (var d in dataResults)
-                {
-                    returnMe.Add(d.ToModelObj());
-                }
-            }
-            return returnMe;
-        }
-
-        public async Task<List<ModelsObj.GeofenceActivity>> GetRecentGeofenceActivity(int numRecords)
-        {
-            var returnMe = new List<ModelsObj.GeofenceActivity>();
-            var dataResults = await _db.GetAsyncConnection()
-                .Table<ModelsData.GeofenceActivity>()
-                .OrderByDescending(x => x.ActivityUtcDateTime)
-                .Take(numRecords)
-                .ToListAsync();
-
-            if (dataResults.Any())
-            {
-                foreach (var d in dataResults)
-                {
-                    returnMe.Add(d.ToModelObj());
-                }
-            }
-            return returnMe;
-        }
-
-        public async Task<int> WriteBarcodeScanRecord(dataModel.BarcodeScanLog logRecord)
-        {
-            return await _db.GetAsyncConnection().InsertAsync(logRecord);
-        }
-
         public async Task<int> WriteFeedbackRecord(dataModel.Feedback feedback)
         {
             return await _db.GetAsyncConnection().InsertAsync(feedback);
-        }
-
-        public async Task<int> WriteGeofencingActivityRecord(ModelsData.GeofenceActivity geofenceActivity)
-        {
-            return await _db.GetAsyncConnection().InsertAsync(geofenceActivity);
         }
 
         #region CurrentUser
@@ -192,7 +114,7 @@ namespace ConferenceMate.Services
         //How many are queued, failed > MaxNumAttempts times?
         public async Task<int> GetCountQueuedRecordsWAttemptsAsync()
         {
-            var count = await _db.GetAsyncConnection().Table<ConferenceMate.ModelsData.Queue>().Where(x => x.Success == false && x.NumAttempts > MaxNumAttempts).CountAsync();
+            var count = await _db.GetAsyncConnection().Table<ModelsData.Queue>().Where(x => x.Success == false && x.NumAttempts > MaxNumAttempts).CountAsync();
             if (count > 0)
             {
                 //sending a message to AppCenter right away with user info
@@ -264,20 +186,6 @@ namespace ConferenceMate.Services
                             await _db.GetAsyncConnection().UpdateAsync(q);
                         }
                     }
-                    else if (q.QueueableObject == QueueableObjects.BarcodeScanLog.ToString())
-                    {
-                        if (await RunQueuedBarcodeScanLogCreate(q))
-                        {
-                            q.NumAttempts += 1;
-                            q.Success = true;
-                            await _db.GetAsyncConnection().UpdateAsync(q);
-                        }
-                        else
-                        {
-                            q.NumAttempts += 1;
-                            await _db.GetAsyncConnection().UpdateAsync(q);
-                        }
-                    }
                 }
             }
             catch (Exception ex)
@@ -289,29 +197,6 @@ namespace ConferenceMate.Services
         public void StartSafeQueuedUpdates()
         {
             if (Connectivity.NetworkAccess == NetworkAccess.Internet) MessagingCenter.Send<StartUploadDataMessage>(new StartUploadDataMessage(), "StartUploadDataMessage");
-        }
-
-        private async Task<bool> RunQueuedBarcodeScanLogCreate(ModelsData.Queue q)
-        {
-            if (_webAPIDataService == null) { return false; }
-
-            var record = await _db.GetAsyncConnection().Table<dataModel.BarcodeScanLog>().Where(x => x.BarcodeScanLogId == q.RecordId).FirstOrDefaultAsync();
-            if (record != null)
-            {
-                var result = await _webAPIDataService.CreateBarcodeScanLogAsync(record.ToDto());
-                if (result.IsSuccessStatusCode)
-                {
-                    Debug.WriteLine($"Successfully Sent Queued BarcodeScanLog Record");
-                    return true;
-                }
-                else if (result.StatusCode == System.Net.HttpStatusCode.Conflict)
-                {
-                    Analytics.TrackEvent($"Conflict Sending Queued BarcodeScanLog record {q.RecordId}");
-                }
-                Analytics.TrackEvent($"Error Sending Queued BarcodeScanLog record {q.RecordId}");
-                return false;
-            }
-            return false;
         }
 
         private async Task<bool> RunQueuedFeedbackCreate(ModelsData.Queue q)
