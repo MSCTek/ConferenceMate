@@ -1,4 +1,4 @@
-﻿namespace QuikRide.ExternalAPIModels.What3WordsModel
+﻿namespace ConferenceMate.ExternalAPIModels.What3WordsModel
 {
     public class Bounds
     {

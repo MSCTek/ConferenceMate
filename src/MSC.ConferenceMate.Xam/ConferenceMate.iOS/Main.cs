@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace QuikRide.iOS
+namespace ConferenceMate.iOS
 {
     public class Application
     {

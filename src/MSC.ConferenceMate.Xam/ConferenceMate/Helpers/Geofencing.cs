@@ -3,7 +3,7 @@
 //see https://github.com/aritchie/geofences
 //couldn't make it work with Xamarin.Essentials
 
-namespace QuikRide.Helpers.Geofencing
+namespace ConferenceMate.Helpers.Geofencing
 {
     public enum GeofenceStatus
     {

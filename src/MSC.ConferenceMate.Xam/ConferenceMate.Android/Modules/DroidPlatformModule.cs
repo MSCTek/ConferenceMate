@@ -1,8 +1,8 @@
 ﻿using Ninject.Modules;
-using QuikRide.Android.Services;
-using QuikRide.Interfaces;
+using ConferenceMate.Android.Services;
+using ConferenceMate.Interfaces;
 
-namespace QuikRide.Droid.Modules
+namespace ConferenceMate.Droid.Modules
 {
     public class DroidPlatformModule : NinjectModule
     {

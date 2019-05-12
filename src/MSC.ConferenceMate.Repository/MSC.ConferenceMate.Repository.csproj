@@ -168,8 +168,26 @@
     <Compile Include="Entities\CM\UserConfiguration.cs">
       <DependentUpon>ConferenceMateContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ICMRepository.cs">
+      <DependentUpon>RepositoryInterface_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\ICMRepositoryCrud.cs">
+      <DependentUpon>RepositoryInterfaceCrud_CM.cgh</DependentUpon>
+    </Compile>
     <Compile Include="Mappers\AutoMapperInitializer.cs" />
+    <Compile Include="Mappers\CMAutoMapperProfile.cs">
+      <DependentUpon>AutoMapperProfile_CM.cgh</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CMRepository.cs">
+      <DependentUpon>Repository_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CMRepositoryBase.cs">
+      <DependentUpon>RepositoryBase_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Custom\CMRepositoryBaseCustom.cs">
+      <DependentUpon>RepositoryBasePartialMethods_CM.cgh</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper">
@@ -194,6 +212,12 @@
     </None>
     <None Include="Entities\EF.Reverse.POCO.Core.ttinclude" />
     <None Include="Entities\EF.Reverse.POCO.ttinclude" />
+    <None Include="Interfaces\RepositoryInterfaceCrud_CM.cgh" />
+    <None Include="Interfaces\RepositoryInterface_CM.cgh" />
+    <None Include="Mappers\AutoMapperProfile_CM.cgh" />
+    <None Include="Repositories\Custom\RepositoryBasePartialMethods_CM.cgh" />
+    <None Include="Repositories\RepositoryBase_CM.cgh" />
+    <None Include="Repositories\Repository_CM.cgh" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -204,10 +228,7 @@
       <Name>CGH.QuikRide.DTO</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Repositories\Custom\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Entities\CM\ConferenceMateContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

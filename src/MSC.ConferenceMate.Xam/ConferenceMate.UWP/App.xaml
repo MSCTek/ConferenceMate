@@ -1,8 +1,8 @@
 ﻿<Application
-    x:Class="QuikRide.UWP.App"
+    x:Class="ConferenceMate.UWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:QuikRide.UWP"
+    xmlns:local="using:ConferenceMate.UWP"
     RequestedTheme="Light">
 
 </Application>

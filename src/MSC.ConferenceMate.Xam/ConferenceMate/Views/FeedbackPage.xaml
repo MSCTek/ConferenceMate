@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="QuikRide.Views.FeedbackPage"
+             x:Class="ConferenceMate.Views.FeedbackPage"
              Title="Feedback">
     <ContentPage.Content>
         <Grid>
@@ -13,7 +13,7 @@
             <StackLayout Margin="5" Grid.Row="0">
                 <Image HeightRequest="75" VerticalOptions="Center">
                     <Image.Source>
-                        <UriImageSource Uri="{StaticResource QuikRideLogo}" CacheValidity="100" CachingEnabled="True" />
+                        <UriImageSource Uri="{StaticResource ConferenceMateLogo}" CacheValidity="100" CachingEnabled="True" />
                     </Image.Source>
                 </Image>
                 <Label Text="We would love to hear from you!" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Medium" />

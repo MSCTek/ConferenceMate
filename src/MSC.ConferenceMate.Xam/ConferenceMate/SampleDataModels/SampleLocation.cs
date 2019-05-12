@@ -1,7 +1,7 @@
-﻿using CGH.QuikRide.Xam.ModelData.QR;
+﻿using CGH.ConferenceMate.Xam.ModelData.QR;
 using System;
 
-namespace QuikRide.SampleDataModels
+namespace ConferenceMate.SampleDataModels
 {
     public static class SampleLocation
     {

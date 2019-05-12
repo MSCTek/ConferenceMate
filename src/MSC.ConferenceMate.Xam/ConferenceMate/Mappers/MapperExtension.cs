@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace QuikRide.Mappers
+namespace ConferenceMate.Mappers
 {
     public static class MapperExtension
     {

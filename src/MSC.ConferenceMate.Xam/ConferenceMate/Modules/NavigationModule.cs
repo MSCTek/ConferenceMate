@@ -1,11 +1,11 @@
 ﻿using Ninject.Modules;
-using QuikRide.Interfaces;
-using QuikRide.Services;
-using QuikRide.ViewModels;
-using QuikRide.Views;
+using ConferenceMate.Interfaces;
+using ConferenceMate.Services;
+using ConferenceMate.ViewModels;
+using ConferenceMate.Views;
 using Xamarin.Forms;
 
-namespace QuikRide.Modules
+namespace ConferenceMate.Modules
 {
     internal class NavigationModule : NinjectModule
     {

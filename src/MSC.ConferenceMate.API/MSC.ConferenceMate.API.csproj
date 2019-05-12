@@ -178,12 +178,130 @@
     <Compile Include="AddRequiredHeaderParameter.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CMAPIStatusController.cs">
+      <DependentUpon>APIStatusController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CMBaseApiController.cs">
+      <DependentUpon>APIBaseController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\AnnouncementsController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\AnnouncementsControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\FeaturedEventsControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\FeedbackInitiatorTypesControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\FeedbacksControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\FeedbackTypesControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\GenderTypesControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\LanguageTypesControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\LookupListsControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\RoomsControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\SessionCategoryTypesControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\SessionLikesControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\SessionsControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\SessionSessionCategoryTypesControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\SessionSpeakersControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\SponsorFeaturedEventsControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\SponsorsControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\SponsorTypesControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\UsersControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\FeaturedEventsController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\FeedbackInitiatorTypesController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\FeedbacksController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\FeedbackTypesController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\GenderTypesController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\LanguageTypesController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\LookupListsController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\RoomsController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\SessionCategoryTypesController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\SessionLikesController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\SessionsController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\SessionSessionCategoryTypesController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\SessionSpeakersController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\SponsorFeaturedEventsController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\SponsorsController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\SponsorTypesController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\UsersController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controllers\APIBaseController_CM.cgh" />
+    <Content Include="Controllers\APIStatusController_CM.cgh" />
+    <Content Include="Controllers\CM\Custom\WebApiControllerPartialMethods_CM.cgh" />
+    <Content Include="Controllers\CM\WebApiController_CM.cgh" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
@@ -196,7 +314,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\QR\Custom\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MSC.ConferenceMate.DTO\MSC.ConferenceMate.DTO.csproj">

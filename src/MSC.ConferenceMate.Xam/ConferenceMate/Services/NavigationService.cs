@@ -1,5 +1,5 @@
-﻿using QuikRide.Interfaces;
-using QuikRide.ViewModels;
+﻿using ConferenceMate.Interfaces;
+using ConferenceMate.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace QuikRide.Services
+namespace ConferenceMate.Services
 {
     public class NavigationService : INavigationService
     {

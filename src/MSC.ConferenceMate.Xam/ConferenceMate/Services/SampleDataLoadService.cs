@@ -1,12 +1,12 @@
-﻿using CGH.QuikRide.Xam;
-using CGH.QuikRide.Xam.ModelData.QR;
+﻿using CGH.ConferenceMate.Xam;
+using CGH.ConferenceMate.Xam.ModelData.QR;
 using Microsoft.AppCenter.Crashes;
-using QuikRide.Interfaces;
+using ConferenceMate.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace QuikRide.Services
+namespace ConferenceMate.Services
 {
     public class SampleDataLoadService : IDataLoadService
     {
@@ -38,8 +38,8 @@ namespace QuikRide.Services
 
                 var barcodes = new List<Barcode>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoBarcode.SampleBarcode00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoBarcode.SampleBarcode01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoBarcode.SampleBarcode00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoBarcode.SampleBarcode01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(barcodes);
@@ -66,8 +66,8 @@ namespace QuikRide.Services
 
                 var barcodeTypes = new List<BarcodeType>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoBarcodeType.SampleBarcodeType00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoBarcodeType.SampleBarcodeType01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoBarcodeType.SampleBarcodeType00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoBarcodeType.SampleBarcodeType01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(barcodeTypes);
@@ -94,8 +94,8 @@ namespace QuikRide.Services
 
                 var barcodeTypeTranslations = new List<BarcodeTypeTranslation>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoBarcodeTypeTranslation.SampleBarcodeTypeTranslation00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoBarcodeTypeTranslation.SampleBarcodeTypeTranslation01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoBarcodeTypeTranslation.SampleBarcodeTypeTranslation00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoBarcodeTypeTranslation.SampleBarcodeTypeTranslation01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(barcodeTypeTranslations);
@@ -122,8 +122,8 @@ namespace QuikRide.Services
 
                 var busRoutes = new List<BusRoute>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoBusRoute.SampleBusRoute00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoBusRoute.SampleBusRoute01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoBusRoute.SampleBusRoute00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoBusRoute.SampleBusRoute01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(busRoutes);
@@ -150,8 +150,8 @@ namespace QuikRide.Services
 
                 var busRouteStops = new List<BusRouteStop>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoBusRouteStop.SampleBusRouteStop00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoBusRouteStop.SampleBusRouteStop01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoBusRouteStop.SampleBusRouteStop00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoBusRouteStop.SampleBusRouteStop01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(busRouteStops);
@@ -178,8 +178,8 @@ namespace QuikRide.Services
 
                 var busRouteTranslations = new List<BusRouteTranslation>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoBusRouteTranslation.SampleBusRouteTranslation00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoBusRouteTranslation.SampleBusRouteTranslation01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoBusRouteTranslation.SampleBusRouteTranslation00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoBusRouteTranslation.SampleBusRouteTranslation01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(busRouteTranslations);
@@ -206,8 +206,8 @@ namespace QuikRide.Services
 
                 var feedbackTypes = new List<FeedbackType>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoFeedbackType.SampleFeedbackType00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoFeedbackType.SampleFeedbackType01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoFeedbackType.SampleFeedbackType00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoFeedbackType.SampleFeedbackType01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(feedbackTypes);
@@ -234,8 +234,8 @@ namespace QuikRide.Services
 
                 var feedbackTypeTranslations = new List<FeedbackTypeTranslation>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoFeedbackTypeTranslation.SampleFeedbackTypeTranslation00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoFeedbackTypeTranslation.SampleFeedbackTypeTranslation01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoFeedbackTypeTranslation.SampleFeedbackTypeTranslation00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoFeedbackTypeTranslation.SampleFeedbackTypeTranslation01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(feedbackTypeTranslations);
@@ -262,8 +262,8 @@ namespace QuikRide.Services
 
                 var languageTypes = new List<LanguageType>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoLanguageType.SampleLanguageType00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoLanguageType.SampleLanguageType01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoLanguageType.SampleLanguageType00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoLanguageType.SampleLanguageType01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(languageTypes);
@@ -345,7 +345,7 @@ namespace QuikRide.Services
 
                 var users = new List<User>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoUser.SampleUser00.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoUser.SampleUser00.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(users);
@@ -372,8 +372,8 @@ namespace QuikRide.Services
 
                 var users = new List<User>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoUser.SampleUser00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoUser.SampleUser01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoUser.SampleUser00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoUser.SampleUser01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(users);
@@ -400,8 +400,8 @@ namespace QuikRide.Services
 
                 var vehicleBusRoutes = new List<VehicleBusRoute>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoVehicleBusRoute.SampleVehicleBusRoute00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoVehicleBusRoute.SampleVehicleBusRoute01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoVehicleBusRoute.SampleVehicleBusRoute00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoVehicleBusRoute.SampleVehicleBusRoute01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(vehicleBusRoutes);
@@ -428,8 +428,8 @@ namespace QuikRide.Services
 
                 var vehicleFeatureTypes = new List<VehicleFeatureType>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoVehicleFeatureType.SampleVehicleFeatureType00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoVehicleFeatureType.SampleVehicleFeatureType01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoVehicleFeatureType.SampleVehicleFeatureType00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoVehicleFeatureType.SampleVehicleFeatureType01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(vehicleFeatureTypes);
@@ -456,8 +456,8 @@ namespace QuikRide.Services
 
                 var vehicles = new List<Vehicle>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoVehicle.SampleVehicle00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoVehicle.SampleVehicle01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoVehicle.SampleVehicle00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoVehicle.SampleVehicle01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(vehicles);
@@ -484,8 +484,8 @@ namespace QuikRide.Services
 
                 var vehicleStatusTypes = new List<VehicleStatusType>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoVehicleStatusType.SampleVehicleStatusType00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoVehicleStatusType.SampleVehicleStatusType01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoVehicleStatusType.SampleVehicleStatusType00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoVehicleStatusType.SampleVehicleStatusType01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(vehicleStatusTypes);
@@ -512,8 +512,8 @@ namespace QuikRide.Services
 
                 var vehicleTypes = new List<VehicleType>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoVehicleType.SampleVehicleType00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoVehicleType.SampleVehicleType01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoVehicleType.SampleVehicleType00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoVehicleType.SampleVehicleType01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(vehicleTypes);
@@ -540,8 +540,8 @@ namespace QuikRide.Services
 
                 var recs = new List<VehicleTypeVehicleFeatureType>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoVehicleTypeVehicleFeatureType.SampleVehicleTypeVehicleFeatureType00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoVehicleTypeVehicleFeatureType.SampleVehicleTypeVehicleFeatureType01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoVehicleTypeVehicleFeatureType.SampleVehicleTypeVehicleFeatureType00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoVehicleTypeVehicleFeatureType.SampleVehicleTypeVehicleFeatureType01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(recs);
@@ -568,8 +568,8 @@ namespace QuikRide.Services
 
                 var recs = new List<VehicleVehicleFeatureType>()
                 {
-                        CGH.QuikRide.DTO.QR.DemoVehicleVehicleFeatureType.SampleVehicleVehicleFeatureType00.ToModelData(),
-                        CGH.QuikRide.DTO.QR.DemoVehicleVehicleFeatureType.SampleVehicleVehicleFeatureType01.ToModelData()
+                        CGH.ConferenceMate.DTO.QR.DemoVehicleVehicleFeatureType.SampleVehicleVehicleFeatureType00.ToModelData(),
+                        CGH.ConferenceMate.DTO.QR.DemoVehicleVehicleFeatureType.SampleVehicleVehicleFeatureType01.ToModelData()
                 };
 
                 return await _db.GetAsyncConnection().InsertAllAsync(recs);

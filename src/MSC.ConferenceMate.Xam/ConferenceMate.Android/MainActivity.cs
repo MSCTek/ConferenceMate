@@ -5,14 +5,14 @@ using Android.OS;
 using Android.Runtime;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
-using QuikRide.Droid.Modules;
-using QuikRide.Droid.Services;
-using QuikRide.Helpers;
+using ConferenceMate.Droid.Modules;
+using ConferenceMate.Droid.Services;
+using ConferenceMate.Helpers;
 using Xamarin.Forms;
 
-namespace QuikRide.Droid
+namespace ConferenceMate.Droid
 {
-    [Activity(Label = "QuikRide", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "ConferenceMate", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)

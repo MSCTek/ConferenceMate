@@ -3,7 +3,7 @@ using Android.Runtime;
 using Plugin.CurrentActivity;
 using System;
 
-namespace QuikRide.Droid
+namespace ConferenceMate.Droid
 {
 #if DEBUG
 

@@ -1,8 +1,8 @@
-﻿using QuikRide.Services;
+﻿using ConferenceMate.Services;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace QuikRide.UWP.Services
+namespace ConferenceMate.UWP.Services
 {
     public class UWPRunQueuedUpdateService
     {

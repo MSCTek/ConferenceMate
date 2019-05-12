@@ -1,6 +1,6 @@
-﻿using QuikRide.UWP.Modules;
+﻿using ConferenceMate.UWP.Modules;
 
-namespace QuikRide.UWP
+namespace ConferenceMate.UWP
 {
     public sealed partial class MainPage
     {
@@ -10,7 +10,7 @@ namespace QuikRide.UWP
 
             ZXing.Net.Mobile.Forms.WindowsUniversal.ZXingScannerViewRenderer.Init();
 
-            LoadApplication(new QuikRide.App(new UWPPlatformModule()));
+            LoadApplication(new ConferenceMate.App(new UWPPlatformModule()));
         }
     }
 }

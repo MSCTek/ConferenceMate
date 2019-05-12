@@ -1,12 +1,12 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using Microsoft.AppCenter.Crashes;
-using QuikRide.Interfaces;
+using ConferenceMate.Interfaces;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace QuikRide.ViewModels
+namespace ConferenceMate.ViewModels
 {
     public class UserLocationViewModel : CustomViewModelBase
     {

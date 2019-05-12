@@ -1,10 +1,10 @@
-﻿using QuikRide.Interfaces;
-using QuikRide.ModelsObj;
-using QuikRide.SampleObjModels;
+﻿using ConferenceMate.Interfaces;
+using ConferenceMate.ModelsObj;
+using ConferenceMate.SampleObjModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace QuikRide.ViewModels
+namespace ConferenceMate.ViewModels
 {
     public class MapWithPinsViewModel : CustomViewModelBase
     {

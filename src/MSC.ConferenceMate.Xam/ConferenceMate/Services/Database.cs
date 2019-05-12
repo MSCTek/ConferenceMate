@@ -1,13 +1,13 @@
-﻿//using QuikRide.ModelsData;
-using CGH.QuikRide.Xam.ModelData.QR;
+﻿//using ConferenceMate.ModelsData;
+using CGH.ConferenceMate.Xam.ModelData.QR;
 using Microsoft.AppCenter.Crashes;
-using QuikRide.Interfaces;
-using QuikRide.ModelsData;
+using ConferenceMate.Interfaces;
+using ConferenceMate.ModelsData;
 using SQLite;
 using System;
 using System.Threading.Tasks;
 
-namespace QuikRide.Services
+namespace ConferenceMate.Services
 {
     public sealed class Database : IDatabase
     {

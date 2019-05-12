@@ -1,0 +1,77 @@
+{
+  "FileGroupMessage": "",
+  "FileList": [
+    {
+      "FileLastChange": "2019-05-11T16:57:52.6793289-05:00",
+      "Filename": "AnnouncementsControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:53.45833-05:00",
+      "Filename": "FeaturedEventsControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:54.0663297-05:00",
+      "Filename": "FeedbackInitiatorTypesControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:54.6463296-05:00",
+      "Filename": "FeedbacksControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:55.1803295-05:00",
+      "Filename": "FeedbackTypesControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:55.9393291-05:00",
+      "Filename": "GenderTypesControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:56.4953289-05:00",
+      "Filename": "LanguageTypesControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:57.1143308-05:00",
+      "Filename": "LookupListsControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:57.2103335-05:00",
+      "Filename": "RoomsControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:57.2443295-05:00",
+      "Filename": "SessionCategoryTypesControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:57.27733-05:00",
+      "Filename": "SessionLikesControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:57.317331-05:00",
+      "Filename": "SessionsControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:57.3683317-05:00",
+      "Filename": "SessionSessionCategoryTypesControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:57.4033361-05:00",
+      "Filename": "SessionSpeakersControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:57.4373337-05:00",
+      "Filename": "SponsorFeaturedEventsControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:57.4693291-05:00",
+      "Filename": "SponsorsControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:57.507333-05:00",
+      "Filename": "SponsorTypesControllerCustom.cs"
+    },
+    {
+      "FileLastChange": "2019-05-11T16:57:57.5393306-05:00",
+      "Filename": "UsersControllerCustom.cs"
+    }
+  ]
+}

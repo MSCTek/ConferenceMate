@@ -1,14 +1,14 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using QuikRide.Interfaces;
+using ConferenceMate.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace QuikRide.ViewModels
+namespace ConferenceMate.ViewModels
 {
     public class AboutViewModelMVVMDI : CustomViewModelBase
     {
@@ -49,7 +49,7 @@ namespace QuikRide.ViewModels
             {
                 return new RelayCommand(async () =>
                 {
-                    await Helpers.Helpers.SendEmail("Question about QuikTrip", "I was wondering...", new List<string>() { "info@quikride.com" });
+                    await Helpers.Helpers.SendEmail("Question about QuikTrip", "I was wondering...", new List<string>() { "info@ConferenceMate.com" });
                 });
             }
         }

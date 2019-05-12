@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace QuikRide.Interfaces
+namespace ConferenceMate.Interfaces
 {
     public interface IDataLoadService
     {

@@ -1,7 +1,7 @@
-﻿using QuikRide.Interfaces;
+﻿using ConferenceMate.Interfaces;
 using System.Threading.Tasks;
 
-namespace QuikRide.ViewModels
+namespace ConferenceMate.ViewModels
 {
     public class MapViewModel : CustomViewModelBase
     {

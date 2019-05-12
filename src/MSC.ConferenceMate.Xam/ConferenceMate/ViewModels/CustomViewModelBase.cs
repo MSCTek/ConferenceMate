@@ -2,13 +2,13 @@
 using GalaSoft.MvvmLight.Command;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using QuikRide.Interfaces;
+using ConferenceMate.Interfaces;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace QuikRide.ViewModels
+namespace ConferenceMate.ViewModels
 {
     public abstract class CustomViewModelBase<TParameter> : CustomViewModelBase, IViewModelBaseWithParam<TParameter>
     {
@@ -166,7 +166,7 @@ namespace QuikRide.ViewModels
         /*public bool SetUp()
         {
             //TODO: move this to the constructors...but hey, so convienient just like this...maybe leave it as is...
-            var ker = ((QuikRide.App)Xamarin.Forms.Application.Current).Kernel;
+            var ker = ((ConferenceMate.App)Xamarin.Forms.Application.Current).Kernel;
             //_dataService = ker.Get<IDataRetrievalService>();
             DataLoadService = ker.Get<IDataLoadService>();
             return true;

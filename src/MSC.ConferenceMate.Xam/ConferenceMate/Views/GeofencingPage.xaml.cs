@@ -1,11 +1,11 @@
-﻿using QuikRide.Interfaces;
-using QuikRide.ViewModels;
+﻿using ConferenceMate.Interfaces;
+using ConferenceMate.ViewModels;
 using System;
 using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace QuikRide.Views
+namespace ConferenceMate.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class GeofencingPage : IContentPage

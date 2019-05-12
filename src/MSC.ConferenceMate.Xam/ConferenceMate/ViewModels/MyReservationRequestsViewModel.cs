@@ -1,13 +1,13 @@
 ﻿using GalaSoft.MvvmLight.Command;
-using QuikRide.Interfaces;
-using QuikRide.ModelsObj;
-using QuikRide.SampleObjModels;
+using ConferenceMate.Interfaces;
+using ConferenceMate.ModelsObj;
+using ConferenceMate.SampleObjModels;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace QuikRide.ViewModels
+namespace ConferenceMate.ViewModels
 {
     public class MyReservationRequestsViewModel : CustomViewModelBase
     {

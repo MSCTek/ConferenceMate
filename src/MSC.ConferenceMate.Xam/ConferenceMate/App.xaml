@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="QuikRide.App">
+             x:Class="ConferenceMate.App">
     <Application.Resources>
         <ResourceDictionary>
 
-            <x:String x:Key="QuikRideLogo">https://github.com/MSCTek/QuikRide/blob/master/assets/QuikRide.PNG?raw=true</x:String>
-            <x:String x:Key="QuikRideLogoText">https://github.com/MSCTek/QuikRide/blob/master/assets/QuikRide2.PNG?raw=true</x:String>
-            <x:String x:Key="QuikRideLogoMark">https://github.com/MSCTek/QuikRide/blob/master/assets/QuikRideMark.PNG?raw=true</x:String>
+            <x:String x:Key="ConferenceMateLogo">https://github.com/MSCTek/ConferenceMate/blob/master/assets/ConferenceMate.PNG?raw=true</x:String>
+            <x:String x:Key="ConferenceMateLogoText">https://github.com/MSCTek/ConferenceMate/blob/master/assets/ConferenceMate2.PNG?raw=true</x:String>
+            <x:String x:Key="ConferenceMateLogoMark">https://github.com/MSCTek/ConferenceMate/blob/master/assets/ConferenceMateMark.PNG?raw=true</x:String>
 
             <Style x:Key="FA.Solid.LabelStyle"  TargetType="Label">
                 <Setter Property="FontFamily">

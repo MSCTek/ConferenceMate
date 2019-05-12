@@ -1,13 +1,13 @@
-﻿using QuikRide.Interfaces;
+﻿using ConferenceMate.Interfaces;
 using SQLite;
 using System;
 using System.IO;
 
-namespace QuikRide.iOS.Services
+namespace ConferenceMate.iOS.Services
 {
     public class IOSSQLite : ISQLite
     {
-        private string DBName = $"QuikRide.db3";
+        private string DBName = $"ConferenceMate.db3";
 
         public SQLite.SQLiteAsyncConnection GetAsyncConnection()
         {

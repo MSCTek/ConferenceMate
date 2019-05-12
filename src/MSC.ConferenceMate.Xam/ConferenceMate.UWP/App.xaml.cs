@@ -1,5 +1,5 @@
-﻿using QuikRide.Helpers;
-using QuikRide.UWP.Services;
+﻿using ConferenceMate.Helpers;
+using ConferenceMate.UWP.Services;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -7,7 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Xamarin.Forms;
 
-namespace QuikRide.UWP
+namespace ConferenceMate.UWP
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

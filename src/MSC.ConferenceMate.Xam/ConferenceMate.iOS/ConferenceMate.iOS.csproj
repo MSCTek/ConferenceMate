@@ -184,7 +184,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\QuikRide\QuikRide.csproj">
+    <ProjectReference Include="..\ConferenceMate\ConferenceMate.csproj">
       <Project>{4AD1D9F6-A8E3-4834-8A71-E7DB20535B0B}</Project>
       <Name>QuikRide</Name>
     </ProjectReference>

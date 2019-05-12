@@ -1,13 +1,13 @@
-﻿using QuikRide.Interfaces;
+﻿using ConferenceMate.Interfaces;
 using SQLite;
 using System.IO;
 using Windows.Storage;
 
-namespace QuikRide.UWP.Services
+namespace ConferenceMate.UWP.Services
 {
     public class UWPSQLite : ISQLite
     {
-        private string DBName = $"QuikRide.db3";
+        private string DBName = $"ConferenceMate.db3";
 
         public SQLiteAsyncConnection GetAsyncConnection()
         {

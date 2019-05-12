@@ -1,12 +1,12 @@
 ﻿using GalaSoft.MvvmLight.Command;
-using QuikRide.Helpers.Geofencing;
-using QuikRide.Interfaces;
-using QuikRide.Mappers;
+using ConferenceMate.Helpers.Geofencing;
+using ConferenceMate.Interfaces;
+using ConferenceMate.Mappers;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace QuikRide.ViewModels
+namespace ConferenceMate.ViewModels
 {
     public class GeofencingViewModel : CustomViewModelBase
     {

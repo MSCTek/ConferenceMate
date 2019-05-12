@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="QR\" />
+    <Compile Remove="QR\**" />
+    <EmbeddedResource Remove="QR\**" />
+    <None Remove="QR\**" />
   </ItemGroup>
 
 </Project>

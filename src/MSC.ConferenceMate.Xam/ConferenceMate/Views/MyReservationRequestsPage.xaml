@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="QuikRide.Views.MyReservationRequestsPage"
+             x:Class="ConferenceMate.Views.MyReservationRequestsPage"
              x:Name="ParentPage"
              Title="My Reservation Requests">
     <ContentPage.Content>
@@ -12,7 +12,7 @@
             </Grid.RowDefinitions>
             <Image>
                 <Image.Source>
-                    <UriImageSource Uri="{StaticResource QuikRideLogo}" CacheValidity="100" CachingEnabled="True" />
+                    <UriImageSource Uri="{StaticResource ConferenceMateLogo}" CacheValidity="100" CachingEnabled="True" />
                 </Image.Source>
             </Image>
 

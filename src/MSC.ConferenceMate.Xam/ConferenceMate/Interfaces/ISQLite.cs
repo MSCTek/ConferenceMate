@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace QuikRide.Interfaces
+namespace ConferenceMate.Interfaces
 {
     public interface ISQLite
     {
