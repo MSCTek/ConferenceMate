@@ -9,13 +9,12 @@
         <vm:AnnouncementsViewModel />
     </ContentPage.BindingContext>
 
-
     <ContentPage.Resources>
 
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <ListView Margin="20" ItemsSource="{Binding Announcements}" ItemSelected="OnItemSelected">
+        <ListView Margin="20" ItemsSource="{Binding Announcements}" ItemSelected="OnItemSelected" HasUnevenRows="True">
             <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>

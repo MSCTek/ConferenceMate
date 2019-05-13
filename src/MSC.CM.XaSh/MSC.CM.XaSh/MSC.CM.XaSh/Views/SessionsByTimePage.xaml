@@ -9,21 +9,19 @@
         <vm:SessionsByTimeViewModel />
     </ContentPage.BindingContext>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="{StaticResource MS.Green}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
-                </ContentView>
-            </StackLayout>
-        </StackLayout>
-        <ScrollView Grid.Row="1">
-            <Label Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="Center"/>
-        </ScrollView>
-    </Grid>
+    <ContentPage.Content>
+        <ListView Margin="20" ItemsSource="{Binding Sessions}" ItemSelected="OnItemSelected" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="10">
+                            <Label Text="{Binding Title}" FontAttributes="Bold" LineBreakMode="WordWrap" />
+                            <Label Text="{Binding Description}" FontAttributes="Italic" LineBreakMode="WordWrap" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
 
 </ContentPage>

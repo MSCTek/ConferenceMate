@@ -11,5 +11,9 @@ namespace MSC.CM.XaSh.Views
         {
             InitializeComponent();
         }
+        private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ((ListView)sender).SelectedItem = null; // de-select the row
+        }
     }
 }
