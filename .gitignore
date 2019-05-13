@@ -49,3 +49,7 @@ src/MSC.CM.XamSh/MSC.CM.XamSh.iOS/bin
 src/MSC.CM.XamSh/MSC.CM.XamSh.iOS/obj
 
 
+/src/MSC.CM.XaSh/MSC.CM.XaSh/MSC.CM.XaSh/bin/Debug/netstandard2.0
+/src/MSC.CM.XaSh/MSC.CM.XaSh/MSC.CM.XaSh/obj
+/src/MSC.CM.XaSh/MSC.CM.XaSh/MSC.CM.XaSh.Android/bin/Debug
+/src/MSC.CM.XaSh/MSC.CM.XaSh/MSC.CM.XaSh.Android/obj
