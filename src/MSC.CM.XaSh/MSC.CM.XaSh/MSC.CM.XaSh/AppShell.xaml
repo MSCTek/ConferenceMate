@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-       xmlns:local="clr-namespace:MSC.CM.XaSh.Views"
+       xmlns:views="clr-namespace:MSC.CM.XaSh.Views"
        xmlns:controls="clr-namespace:MSC.CM.XaSh.Controls"
        RouteHost="companyname.com"
        RouteScheme="app"
        Route="MSC.CM.XaSh"
        FlyoutHeaderBehavior="CollapseOnScroll"
-       Title="MSC.CM.XaSh"
+       Navigating="OnNavigating"
+       Navigated="OnNavigated"
        x:Class="MSC.CM.XaSh.AppShell"
        x:Name="self">
 
@@ -54,7 +55,15 @@
     -->
     <Shell.Resources>
         <ResourceDictionary>
+            
+            <Color x:Key="MS.Red">#F25022</Color>
+            <Color x:Key="MS.Green">#7FBA00</Color>
+            <Color x:Key="MS.Blue">#00A4EF</Color>
+            <Color x:Key="MS.Yellow">#FFB900</Color>
+            <Color x:Key="MS.Gray">#737373</Color>
+            
             <Color x:Key="NavigationPrimary">#2196F3</Color>
+            
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource NavigationPrimary}" />
                 <Setter Property="Shell.ShellForegroundColor" Value="White" />
@@ -66,23 +75,85 @@
                 <Setter Property="Shell.ShellTabBarUnselectedColor" Value="#95FFFFFF"/>
                 <Setter Property="Shell.ShellTabBarTitleColor" Value="White"/>
             </Style>
+            
             <Style TargetType="ShellItem" BasedOn="{StaticResource BaseStyle}" />
+
+            <Style x:Key="WelcomeShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
+                <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource MS.Red}" />
+            </Style>
+            <Style x:Key="SpeakerShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
+                <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource MS.Blue}" />
+            </Style>
+            <Style x:Key="SessionShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
+                <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource MS.Green}" />
+            </Style>
+            <Style x:Key="ProfileShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
+                <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource MS.Yellow}" />
+            </Style>
         </ResourceDictionary>
     </Shell.Resources>
-
-    <!-- Your Pages -->
-    <ShellItem>
-        <ShellSection Title="Browse" Icon="tab_feed.png">
-            <ShellContent ContentTemplate="{DataTemplate local:ItemsPage}" />
-        </ShellSection>
-        <ShellSection Title="About" Icon="tab_about.png">
-            <ShellContent ContentTemplate="{DataTemplate local:AboutPage}" />
-        </ShellSection>
-    </ShellItem>
 
     <Shell.FlyoutHeader>
         <controls:FlyoutHeader />
     </Shell.FlyoutHeader>
+
+    <FlyoutItem Title="Basics" FlyoutDisplayOptions="AsMultipleItems">
+
+        <Tab Route="welcome" Title="Welcome" Icon="tab_about.png">
+            <ShellContent Route="generalInfo" Title="General Info" Style="{StaticResource WelcomeShell}" Icon="tab_about.png">
+                <views:GeneralInfoPage />
+            </ShellContent>
+            <ShellContent Route="localWeather" Title="Local Weather" Style="{StaticResource WelcomeShell}" Icon="tab_about.png">
+                <views:LocalWeatherPage />
+            </ShellContent>
+            <ShellContent Route="announcements" Title="Announcements" Style="{StaticResource WelcomeShell}" Icon="tab_about.png">
+                <views:AnnouncementsPage />
+            </ShellContent>
+        </Tab>
+
+        <Tab Route="speakers" Title="Speakers" Icon="tab_about.png">
+            <ShellContent Route="speakers" Title="Speakers" Style="{StaticResource SpeakerShell}" Icon="tab_about.png">
+                <views:SpeakerPage />
+            </ShellContent>
+        </Tab>
+
+        <Tab Route="sessions" Title="Sessions" Icon="tab_about.png">
+            <ShellContent Route="sessionsByRoom" Title="Sessions By Room" Style="{StaticResource SessionShell}" Icon="tab_about.png">
+                <views:SessionsByRoomPage />
+            </ShellContent>
+            <ShellContent Route="sessionsByTime" Title="Sessions By Time" Style="{StaticResource SessionShell}" Icon="tab_about.png">
+                <views:SessionsByTimePage />
+            </ShellContent>
+            <ShellContent Route="workshops" Title="Workshops" Style="{StaticResource SessionShell}" Icon="tab_about.png">
+                <views:WorkshopsPage />
+            </ShellContent>
+            <!--<ShellContent Route="hackathons" Title="Hackathons" Style="{StaticResource SessionShell}" Icon="tab_about.png">
+                <views:AboutPage />
+            </ShellContent>-->
+        </Tab>
+
+        <Tab Route="mystuff" Title="My Stuff" Icon="tab_about.png">
+            <ShellContent Route="profile" Title="My Profile" Style="{StaticResource ProfileShell}" Icon="tab_about.png">
+                <views:MyProfilePage />
+            </ShellContent>
+            <ShellContent Route="favorites"  Title="My Favorites" Style="{StaticResource ProfileShell}" Icon="tab_about.png">
+                <views:MyFavoritesPage />
+            </ShellContent>
+        </Tab>
+
+    </FlyoutItem>
+
+    <Shell.MenuItems>
+        <MenuItem Text="Feedback"
+                  Icon="tab_feed.png"
+                  BindingContext="{x:Reference self}"
+                  Command="{Binding FeedbackPageCommand}" />
+        <MenuItem Text="About"
+                  Icon="tab_feed.png"
+                  BindingContext="{x:Reference self}"
+                  Command="{Binding AboutPageCommand}" />
+    </Shell.MenuItems>
+
 
     <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.

@@ -16,6 +16,43 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\MSC.CM.Xam\MSC.CM.Xam.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\AnnouncementsPage.xaml.cs">
+      <DependentUpon>AnnouncementsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GeneralInfoPage.xaml.cs">
+      <DependentUpon>GeneralInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\LocalWeatherPage.xaml.cs">
+      <DependentUpon>LocalWeatherPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MyFavoritesPage.xaml.cs">
+      <DependentUpon>MyFavoritesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MyProfilePage.xaml.cs">
+      <DependentUpon>MyProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SessionsByRoomPage.xaml.cs">
+      <DependentUpon>SessionsByRoomPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SessionsByTimePage.xaml.cs">
+      <DependentUpon>SessionsByTimePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\WorkshopsPage.xaml.cs">
+      <DependentUpon>WorkshopsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SpeakerPage.xaml.cs">
+      <DependentUpon>SpeakerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\FeedbackPage.xaml.cs">
+      <DependentUpon>FeedbackPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Controls\FlyoutHeader.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

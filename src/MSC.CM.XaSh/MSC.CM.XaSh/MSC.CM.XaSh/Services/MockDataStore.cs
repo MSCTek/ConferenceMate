@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MSC.CM.XaSh.Models;
 
 namespace MSC.CM.XaSh.Services
 {
-    public class MockDataStore : IDataStore<Item>
+    public class MockDataStore : IDataStore
     {
-        List<Item> items;
+        //List<Item> items;
 
         public MockDataStore()
         {
-            items = new List<Item>();
+            /*items = new List<Item>();
             var mockItems = new List<Item>
             {
                 new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is an item description." },
@@ -26,10 +25,10 @@ namespace MSC.CM.XaSh.Services
             foreach (var item in mockItems)
             {
                 items.Add(item);
-            }
+            }*/
         }
 
-        public async Task<bool> AddItemAsync(Item item)
+        /*public async Task<bool> AddItemAsync(Item item)
         {
             items.Add(item);
 
@@ -61,6 +60,6 @@ namespace MSC.CM.XaSh.Services
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(items);
-        }
+        }*/
     }
 }

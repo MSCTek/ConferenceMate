@@ -3,6 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MSC.CM.XaSh.App">
     <Application.Resources>
-        
+        <ResourceDictionary>
+            <Color x:Key="MS.Red">#F25022</Color>
+            <Color x:Key="MS.Green">#7FBA00</Color>
+            <Color x:Key="MS.Blue">#00A4EF</Color>
+            <Color x:Key="MS.Yellow">#FFB900</Color>
+            <Color x:Key="MS.Gray">#737373</Color>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
