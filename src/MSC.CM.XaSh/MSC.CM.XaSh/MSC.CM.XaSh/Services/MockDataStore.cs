@@ -1,11 +1,13 @@
-﻿using System;
+﻿using MSC.CM.Xam;
+using MSC.CM.Xam.ModelObj.CM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MSC.CM.XaSh.Services
 {
-    public class MockDataStore : IDataStore
+    public class MockDataStore : IDataStore<Announcement>
     {
         //List<Item> items;
 
@@ -26,6 +28,21 @@ namespace MSC.CM.XaSh.Services
             {
                 items.Add(item);
             }*/
+        }
+
+        public async Task<Announcement> GetItemAsync(string id)
+        {
+            return null;
+        }
+
+        public async Task<IEnumerable<Announcement>> GetItemsAsync(bool forceRefresh = false)
+        {
+            var returnMe = new List<Announcement>();
+
+            returnMe.Add(Xam.ModelData.CM.DemoAnnouncement.SampleAnnouncement00.ToModelObj());
+            returnMe.Add(Xam.ModelData.CM.DemoAnnouncement.SampleAnnouncement01.ToModelObj());
+
+            return returnMe;
         }
 
         /*public async Task<bool> AddItemAsync(Item item)

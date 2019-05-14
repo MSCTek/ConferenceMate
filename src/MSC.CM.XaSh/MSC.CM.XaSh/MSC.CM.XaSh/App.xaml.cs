@@ -8,12 +8,15 @@ namespace MSC.CM.XaSh
 {
     public partial class App : Application
     {
+        public static string AzureBackendUrl = "http://myfirstmobileapp-mobileappservice.azurewebsites.net";
 
+        public static bool UseMockDataStore { get; set; } = false;
         public App()
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            Startup.Init();
+
             MainPage = new AppShell();
         }
 
