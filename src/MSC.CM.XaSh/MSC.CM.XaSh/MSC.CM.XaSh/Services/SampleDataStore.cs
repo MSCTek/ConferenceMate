@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace MSC.CM.XaSh.Services
 {
-    public class MockDataStore : IDataStore
+    public class SampleDataStore : IDataStore
     {
-        public MockDataStore()
+        public SampleDataStore()
         {
-            
         }
 
         public async Task<IEnumerable<Announcement>> GetAnnouncementsAsync(bool forceRefresh = false)
@@ -23,6 +22,5 @@ namespace MSC.CM.XaSh.Services
 
             return returnMe;
         }
-
     }
 }

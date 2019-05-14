@@ -14,31 +14,28 @@ namespace MSC.CM.XaSh.ViewModels
 {
     public class AnnouncementsViewModel : BaseViewModel
     {
-        public ObservableCollection<Announcement> Announcements { get; private set; }
-        public Command LoadItemsCommand { get; set; }
-
-        private IDataStore _dataStore;
-        public IDataStore DataStore
-        {
-            get
-            {
-                if (_dataStore != null)
-                    return _dataStore;
-                return _dataStore;
-            }
-            set => _dataStore = value;
-        }
-
-        public AnnouncementsViewModel(IDataStore store = null)
+        public AnnouncementsViewModel(IDataStore store = null, IDataLoader loader = null)
         {
             DataStore = store;
+            DataLoader = loader;
             Title = "Announcements";
             Announcements = new ObservableCollection<Announcement>();
 
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            RefreshCommand = new Command(async () => await RefreshDataCommand());
         }
 
-        async Task ExecuteLoadItemsCommand()
+        public ObservableCollection<Announcement> Announcements { get; private set; }
+
+        public IDataLoader DataLoader { get; set; }
+
+        public IDataStore DataStore { get; set; }
+
+        public Command LoadItemsCommand { get; set; }
+
+        public Command RefreshCommand { get; set; }
+
+        private async Task ExecuteLoadItemsCommand()
         {
             if (IsBusy)
                 return;
@@ -47,7 +44,48 @@ namespace MSC.CM.XaSh.ViewModels
 
             try
             {
+                //clear local list
                 Announcements.Clear();
+
+                //populate local list
+                var items = await DataStore.GetAnnouncementsAsync(true);
+                foreach (var item in items)
+                {
+                    Announcements.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task RefreshDataCommand()
+        {
+            //why is this already true???
+            //if (IsBusy)
+            //    return;
+
+            IsBusy = true;
+
+            try
+            {
+                if (await DataLoader.HeartbeatCheck())
+                {
+                    //load SQLite from API or sample data
+                    await DataLoader.LoadAnnouncementsAsync();
+                }
+
+                await Task.Delay(500);
+
+                //clear local list
+                Announcements.Clear();
+
+                //populate local list
                 var items = await DataStore.GetAnnouncementsAsync(true);
                 foreach (var item in items)
                 {
@@ -64,5 +102,4 @@ namespace MSC.CM.XaSh.ViewModels
             }
         }
     }
-
 }

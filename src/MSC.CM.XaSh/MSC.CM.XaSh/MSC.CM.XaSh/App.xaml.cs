@@ -6,14 +6,17 @@ using MSC.CM.XaSh.Views;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using MSC.CM.XaSh.Database;
+using System.IO;
 
 namespace MSC.CM.XaSh
 {
     public partial class App : Application
     {
-        public static string AzureBackendUrl = "http://myfirstmobileapp-mobileappservice.azurewebsites.net";
+        public static string AzureBackendUrl = "https://conferencemate.azurewebsites.net/api/CM";
 
-        public static bool UseMockDataStore { get; set; } = false;
+        private static ConferenceMateDatabase database;
+
         public App()
         {
             InitializeComponent();
@@ -23,13 +26,24 @@ namespace MSC.CM.XaSh
             MainPage = new AppShell();
         }
 
-        protected override void OnStart()
+        public static ConferenceMateDatabase Database
         {
-            // Handle when your app starts
+            get
+            {
+                if (database == null)
+                {
+                    database = new ConferenceMateDatabase(
+                      Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ConferenceMate.db3"));
+                }
+                return database;
+            }
+        }
 
-            AppCenter.Start("android=eb56638a-6ad3-4c3f-b084-52f3b84633d6;" +
-                  "ios=daee1b97-de5f-4f66-8982-5ee228fa79fe;",
-                  typeof(Analytics), typeof(Crashes));
+        public static bool UseSampleDataStore { get; set; } = false;
+
+        protected override void OnResume()
+        {
+            // Handle when your app resumes
         }
 
         protected override void OnSleep()
@@ -37,9 +51,13 @@ namespace MSC.CM.XaSh
             // Handle when your app sleeps
         }
 
-        protected override void OnResume()
+        protected override void OnStart()
         {
-            // Handle when your app resumes
+            // Handle when your app starts
+
+            AppCenter.Start("android=eb56638a-6ad3-4c3f-b084-52f3b84633d6;" +
+                  "ios=daee1b97-de5f-4f66-8982-5ee228fa79fe;",
+                  typeof(Analytics), typeof(Crashes));
         }
     }
 }

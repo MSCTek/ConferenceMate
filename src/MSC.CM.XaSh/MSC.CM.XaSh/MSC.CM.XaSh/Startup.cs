@@ -20,6 +20,27 @@ namespace MSC.CM.XaSh
     {
         public static IServiceProvider ServiceProvider { get; set; }
 
+        public static string ExtractAppSettings(string filename)
+        {
+            var location = FileSystem.CacheDirectory;
+            string full = null;
+            var a = Assembly.GetExecutingAssembly();
+            using (var resFilestream = a.GetManifestResourceStream(filename))
+            {
+                if (resFilestream != null)
+                {
+                    full = Path.Combine(location, filename);
+
+                    using (var stream = File.Create(full))
+                    {
+                        resFilestream.CopyTo(stream);
+                    }
+                }
+            }
+
+            return full;
+        }
+
         public static void Init()
         {
             var configLocation = ExtractAppSettings("MSC.CM.XaSh.appsettings.json");
@@ -40,32 +61,33 @@ namespace MSC.CM.XaSh
             ServiceProvider = host.Services;
         }
 
-        static void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
+        private static void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
         {
             var world = ctx.Configuration["Hello"];
 
-           
-            services.AddHttpClient("AzureWebsites", client =>
-            {
-                client.BaseAddress = new Uri(App.AzureBackendUrl);
-            })
-            .AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
-            {
-                TimeSpan.FromSeconds(1),
-                TimeSpan.FromSeconds(5),
-                TimeSpan.FromSeconds(10)
-            }));
+            //TODO: PAUL to take advantage of this goodness, wire up the CGH httpclient to use the transient http error policy
+            //services.AddHttpClient("AzureWebsites", client =>
+            //{
+            //    client.BaseAddress = new Uri(App.AzureBackendUrl);
+            //    client.DefaultRequestHeaders.Add("api-version", "1");
+            //})
+            //.AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+            //{
+            //    TimeSpan.FromSeconds(1),
+            //    TimeSpan.FromSeconds(5),
+            //    TimeSpan.FromSeconds(10)
+            //}));
 
-            if (ctx.HostingEnvironment.IsDevelopment())
+            if (ctx.HostingEnvironment.IsDevelopment() && App.UseSampleDataStore)
             {
-                services.AddSingleton<IDataStore, MockDataStore>();
-
+                services.AddSingleton<IDataStore, SampleDataStore>();
+                services.AddSingleton<IDataLoader, SampleDataLoader>();
             }
             else
             {
                 services.AddSingleton<IDataStore, AzureDataStore>();
+                services.AddSingleton<IDataLoader, AzureDataLoader>();
             }
-
 
             services.AddTransient<AboutViewModel>(); //viewmodel are created new, everytime
             services.AddTransient<AnnouncementsViewModel>();
@@ -82,27 +104,6 @@ namespace MSC.CM.XaSh
             //services.AddTransient<MainPage>();
 
             services.AddSingleton<App>(); //App is a singleton
-        }
-
-        public static string ExtractAppSettings(string filename)
-        {
-            var location = FileSystem.CacheDirectory;
-            string full = null;
-            var a = Assembly.GetExecutingAssembly();
-            using (var resFilestream = a.GetManifestResourceStream(filename))
-            {
-                if (resFilestream != null)
-                {
-                    full = Path.Combine(location, filename);
-
-                    using (var stream = File.Create(full))
-                    {
-                        resFilestream.CopyTo(stream);
-                    }
-                }
-            }
-
-            return full;
         }
     }
 }

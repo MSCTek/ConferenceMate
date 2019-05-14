@@ -7,11 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSC.CM.XaSh.Android", "MSC.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSC.CM.XaSh.iOS", "MSC.CM.XaSh\MSC.CM.XaSh.iOS\MSC.CM.XaSh.iOS.csproj", "{3E4F5084-B2E4-412D-ADC3-162070656599}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSC.CM.XaSh", "MSC.CM.XaSh\MSC.CM.XaSh\MSC.CM.XaSh.csproj", "{FEE34DD4-8527-40A9-BFBE-96830EEEE040}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSC.CM.XaSh", "MSC.CM.XaSh\MSC.CM.XaSh\MSC.CM.XaSh.csproj", "{FEE34DD4-8527-40A9-BFBE-96830EEEE040}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSC.CM.Xam", "..\MSC.CM.Xam\MSC.CM.Xam.csproj", "{B518471F-763F-42A1-8706-FC31C618D426}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSC.ConferenceMate.DTO", "..\MSC.ConferenceMate.DTO\MSC.ConferenceMate.DTO.csproj", "{AE2899BD-8ACF-4080-BE59-474C59003976}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSC.ConferenceMate.DataService", "..\MSC.ConferenceMate.DataService\MSC.ConferenceMate.DataService.csproj", "{E56C856D-ACE9-49AE-A11B-A48DC2562D97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +103,18 @@ Global
 		{AE2899BD-8ACF-4080-BE59-474C59003976}.Release|iPhone.Build.0 = Release|Any CPU
 		{AE2899BD-8ACF-4080-BE59-474C59003976}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{AE2899BD-8ACF-4080-BE59-474C59003976}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{E56C856D-ACE9-49AE-A11B-A48DC2562D97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E56C856D-ACE9-49AE-A11B-A48DC2562D97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E56C856D-ACE9-49AE-A11B-A48DC2562D97}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{E56C856D-ACE9-49AE-A11B-A48DC2562D97}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{E56C856D-ACE9-49AE-A11B-A48DC2562D97}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{E56C856D-ACE9-49AE-A11B-A48DC2562D97}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{E56C856D-ACE9-49AE-A11B-A48DC2562D97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E56C856D-ACE9-49AE-A11B-A48DC2562D97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E56C856D-ACE9-49AE-A11B-A48DC2562D97}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{E56C856D-ACE9-49AE-A11B-A48DC2562D97}.Release|iPhone.Build.0 = Release|Any CPU
+		{E56C856D-ACE9-49AE-A11B-A48DC2562D97}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{E56C856D-ACE9-49AE-A11B-A48DC2562D97}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
