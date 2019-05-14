@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using MSC.CM.XaSh.Services;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Microsoft.AppCenter.Crashes;
 
 namespace MSC.CM.XaSh.ViewModels
 {
@@ -56,7 +57,7 @@ namespace MSC.CM.XaSh.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Crashes.TrackError(ex);
             }
             finally
             {

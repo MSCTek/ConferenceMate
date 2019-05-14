@@ -1,4 +1,5 @@
-﻿using MSC.CM.XaSh.ViewModels;
+﻿using Microsoft.AppCenter.Analytics;
+using MSC.CM.XaSh.ViewModels;
 using System;
 
 using Xamarin.Forms;
@@ -25,6 +26,7 @@ namespace MSC.CM.XaSh.Views
 
         protected override void OnAppearing()
         {
+            Analytics.TrackEvent("AnnouncementsPage");
             base.OnAppearing();
 
             if (viewModel.Announcements.Count == 0)
