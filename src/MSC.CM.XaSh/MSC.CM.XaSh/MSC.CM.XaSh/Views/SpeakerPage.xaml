@@ -9,21 +9,22 @@
         <vm:SpeakerViewModel />
     </ContentPage.BindingContext>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="{StaticResource MS.Blue}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
-                </ContentView>
-            </StackLayout>
-        </StackLayout>
-        <ScrollView Grid.Row="1">
-            <Label Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="Center"/>
-        </ScrollView>
-    </Grid>
+    <ContentPage.Content>
+        <ListView Margin="20" ItemsSource="{Binding Speakers}" ItemSelected="OnItemSelected" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="10">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding User.FirstName}" FontAttributes="Bold" LineBreakMode="WordWrap" />
+                                <Label Text="{Binding User.LastName}" FontAttributes="Bold" LineBreakMode="WordWrap" />
+                            </StackLayout>
+                            <Label Text="{Binding User.Biography}" FontAttributes="Italic" LineBreakMode="WordWrap" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
 
 </ContentPage>
