@@ -17,20 +17,19 @@ namespace MSC.CM.XaSh.ViewModels
         public ObservableCollection<Announcement> Announcements { get; private set; }
         public Command LoadItemsCommand { get; set; }
 
-        private IDataStore<Announcement> _dataStore;
-        public IDataStore<Announcement> DataStore
+        private IDataStore _dataStore;
+        public IDataStore DataStore
         {
             get
             {
                 if (_dataStore != null)
                     return _dataStore;
-                //_dataStore = DependencyService.Get<IDataStore<Announcement>>();
                 return _dataStore;
             }
             set => _dataStore = value;
         }
 
-        public AnnouncementsViewModel(IDataStore<Announcement> store = null)
+        public AnnouncementsViewModel(IDataStore store = null)
         {
             DataStore = store;
             Title = "Announcements";
@@ -49,7 +48,7 @@ namespace MSC.CM.XaSh.ViewModels
             try
             {
                 Announcements.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await DataStore.GetAnnouncementsAsync(true);
                 foreach (var item in items)
                 {
                     Announcements.Add(item);

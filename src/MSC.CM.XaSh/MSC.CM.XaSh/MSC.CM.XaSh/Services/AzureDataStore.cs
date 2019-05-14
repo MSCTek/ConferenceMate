@@ -9,7 +9,7 @@ using Xamarin.Essentials;
 
 namespace MSC.CM.XaSh.Services
 {
-    public class AzureDataStore : IDataStore<Announcement>
+    public class AzureDataStore : IDataStore
     {
         HttpClient _client;
         IEnumerable<Announcement> _announcements;
@@ -28,12 +28,7 @@ namespace MSC.CM.XaSh.Services
 
         bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
 
-        public async Task<Announcement> GetItemAsync(string id)
-        {
-            return null;
-        }
-
-        public async Task<IEnumerable<Announcement>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Announcement>> GetAnnouncementsAsync(bool forceRefresh = false)
         {
             return null;
         }

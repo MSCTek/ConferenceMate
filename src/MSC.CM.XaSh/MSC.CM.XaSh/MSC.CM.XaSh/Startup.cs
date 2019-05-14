@@ -58,12 +58,12 @@ namespace MSC.CM.XaSh
 
             if (ctx.HostingEnvironment.IsDevelopment())
             {
-                services.AddSingleton<IDataStore<Announcement>, MockDataStore>();
+                services.AddSingleton<IDataStore, MockDataStore>();
 
             }
             else
             {
-                services.AddSingleton<IDataStore<Announcement>, AzureDataStore>();
+                services.AddSingleton<IDataStore, AzureDataStore>();
             }
 
 
