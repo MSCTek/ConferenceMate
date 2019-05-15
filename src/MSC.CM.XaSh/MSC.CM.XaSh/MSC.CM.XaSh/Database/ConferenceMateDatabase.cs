@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AppCenter.Crashes;
 using MSC.CM.Xam.ModelData.CM;
@@ -45,6 +46,7 @@ namespace MSC.CM.XaSh.Database
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(ex.StackTrace);
                 Crashes.TrackError(ex);
             }
         }

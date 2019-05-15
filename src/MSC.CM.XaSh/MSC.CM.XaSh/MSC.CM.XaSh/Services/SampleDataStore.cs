@@ -13,12 +13,32 @@ namespace MSC.CM.XaSh.Services
         {
         }
 
-        public async Task<IEnumerable<Announcement>> GetAnnouncementsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Announcement>> GetAnnouncementsAsync()
         {
             var returnMe = new List<Announcement>();
 
             returnMe.Add(Xam.ModelData.CM.DemoAnnouncement.SampleAnnouncement00.ToModelObj());
             returnMe.Add(Xam.ModelData.CM.DemoAnnouncement.SampleAnnouncement01.ToModelObj());
+
+            return returnMe;
+        }
+
+        public async Task<IEnumerable<Session>> GetSessionsAsync()
+        {
+            var returnMe = new List<Session>();
+
+            returnMe.Add(Xam.ModelData.CM.DemoSession.SampleSession00.ToModelObj());
+            returnMe.Add(Xam.ModelData.CM.DemoSession.SampleSession01.ToModelObj());
+
+            return returnMe;
+        }
+
+        public async Task<IEnumerable<SessionSpeaker>> GetSpeakersAsync()
+        {
+            var returnMe = new List<SessionSpeaker>();
+
+            returnMe.Add(Xam.ModelData.CM.DemoSessionSpeaker.SampleSessionSpeaker00.ToModelObj());
+            returnMe.Add(Xam.ModelData.CM.DemoSessionSpeaker.SampleSessionSpeaker01.ToModelObj());
 
             return returnMe;
         }

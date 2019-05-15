@@ -7,6 +7,10 @@ namespace MSC.CM.XaSh.Services
 {
     public interface IDataStore
     {
-        Task<IEnumerable<Announcement>> GetAnnouncementsAsync(bool forceRefresh = false);
+        Task<IEnumerable<Announcement>> GetAnnouncementsAsync();
+
+        Task<IEnumerable<Session>> GetSessionsAsync();
+
+        Task<IEnumerable<SessionSpeaker>> GetSpeakersAsync();
     }
 }

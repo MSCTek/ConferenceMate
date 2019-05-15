@@ -38,17 +38,18 @@ namespace MSC.CM.XaSh.ViewModels
 
             try
             {
-                if (Connectivity.NetworkAccess == NetworkAccess.Internet && await DataLoader.HeartbeatCheck())
+                if ((Connectivity.NetworkAccess == NetworkAccess.Internet && await DataLoader.HeartbeatCheck()) || App.UseSampleDataStore)
                 {
                     //load SQLite from API or sample data
-                    await DataLoader.LoadAnnouncementsAsync();
+                    var count = await DataLoader.LoadAnnouncementsAsync();
+                    Debug.WriteLine($"Loaded {count} Announcements.");
                 }
 
                 //clear local list
                 Announcements.Clear();
 
                 //populate local list
-                var items = await DataStore.GetAnnouncementsAsync(true);
+                var items = await DataStore.GetAnnouncementsAsync();
                 foreach (var item in items)
                 {
                     Announcements.Add(item);
@@ -56,6 +57,7 @@ namespace MSC.CM.XaSh.ViewModels
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(ex.StackTrace);
                 Crashes.TrackError(ex);
             }
             finally

@@ -22,7 +22,7 @@ namespace MSC.CM.XaSh.Services
     {
         private SQLiteAsyncConnection conn = App.Database.conn;
 
-        private ILogger<AzureDataStore> logger;
+        private ILogger<AzureDataLoader> logger;
         private IWebApiDataServiceCM webAPIDataService;
 
         public AzureDataLoader()
@@ -32,7 +32,7 @@ namespace MSC.CM.XaSh.Services
         //TODO: PAUL to take advantage of this goodness, wire up the CGH httpclient to use the transient http error policy
         //private HttpClient client;
         //public AzureDataLoader(ILogger<AzureDataStore> _logger = null, IHttpClientFactory _httpClientFactory = null)
-        public AzureDataLoader(ILogger<AzureDataStore> _logger = null)
+        public AzureDataLoader(ILogger<AzureDataLoader> _logger = null)
         {
             logger = _logger;
             //client = _httpClientFactory == null ? new HttpClient() : _httpClientFactory.CreateClient("AzureWebsites");
@@ -67,18 +67,185 @@ namespace MSC.CM.XaSh.Services
             }
         }
 
-        public async Task<int> LoadAnnouncementsAsync()
+        public async Task<int> LoadAnnouncementsAsync(bool forceRefresh = false)
         {
             try
             {
                 DateTime? lastUpdatedDate = null;
-                if (await conn.Table<Announcement>().CountAsync() > 0)
+                if (!forceRefresh)
                 {
-                    var lastUpdated = await conn.Table<Announcement>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
-                    lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
+                    if (await conn.Table<Announcement>().CountAsync() > 0)
+                    {
+                        var lastUpdated = await conn.Table<Announcement>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                        lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
+                    }
                 }
-
+                else
+                {
+                    //truncate the table
+                    await conn.Table<Announcement>().DeleteAsync();
+                }
                 var dtos = await webAPIDataService.GetAllPagesAnnouncementsAsync(lastUpdatedDate);
+                int count = 0;
+                if (dtos.Any())
+                {
+                    foreach (var r in dtos)
+                    {
+                        count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                    }
+                    return count;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                return 0;
+            }
+        }
+
+        public async Task<int> LoadRoomsAsync(bool forceRefresh = false)
+        {
+            try
+            {
+                DateTime? lastUpdatedDate = null;
+                if (!forceRefresh)
+                {
+                    if (await conn.Table<Room>().CountAsync() > 0)
+                    {
+                        var lastUpdated = await conn.Table<Room>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                        lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
+                    }
+                }
+                else
+                {
+                    //truncate the table
+                    await conn.Table<Room>().DeleteAsync();
+                }
+                var dtos = await webAPIDataService.GetAllPagesRoomsAsync(lastUpdatedDate);
+                int count = 0;
+                if (dtos.Any())
+                {
+                    foreach (var r in dtos)
+                    {
+                        count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                    }
+                    return count;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                return 0;
+            }
+        }
+
+        public async Task<int> LoadSessionsAsync(bool forceRefresh = false)
+        {
+            try
+            {
+                DateTime? lastUpdatedDate = null;
+                if (!forceRefresh)
+                {
+                    if (await conn.Table<Session>().CountAsync() > 0)
+                    {
+                        var lastUpdated = await conn.Table<Session>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                        lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
+                    }
+                }
+                else
+                {
+                    //truncate the table
+                    await conn.Table<Session>().DeleteAsync();
+                }
+                var dtos = await webAPIDataService.GetAllPagesSessionsAsync(lastUpdatedDate);
+                int count = 0;
+                if (dtos.Any())
+                {
+                    foreach (var r in dtos)
+                    {
+                        count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                    }
+                    return count;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                return 0;
+            }
+        }
+
+        public async Task<int> LoadSessionSpeakersAsync(bool forceRefresh = false)
+        {
+            try
+            {
+                DateTime? lastUpdatedDate = null;
+                if (!forceRefresh)
+                {
+                    if (await conn.Table<SessionSpeaker>().CountAsync() > 0)
+                    {
+                        var lastUpdated = await conn.Table<SessionSpeaker>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                        lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
+                    }
+                }
+                else
+                {
+                    //truncate the table
+                    await conn.Table<SessionSpeaker>().DeleteAsync();
+                }
+                var dtos = await webAPIDataService.GetAllPagesSessionSpeakersAsync(lastUpdatedDate);
+                int count = 0;
+                if (dtos.Any())
+                {
+                    foreach (var r in dtos)
+                    {
+                        count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                    }
+                    return count;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                return 0;
+            }
+        }
+
+        public async Task<int> LoadUsersAsync(bool forceRefresh = false)
+        {
+            try
+            {
+                DateTime? lastUpdatedDate = null;
+                if (!forceRefresh)
+                {
+                    if (await conn.Table<User>().CountAsync() > 0)
+                    {
+                        var lastUpdated = await conn.Table<User>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                        lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
+                    }
+                }
+                else
+                {
+                    //truncate the table
+                    await conn.Table<User>().DeleteAsync();
+                }
+                var dtos = await webAPIDataService.GetAllPagesUsersAsync(lastUpdatedDate);
                 int count = 0;
                 if (dtos.Any())
                 {

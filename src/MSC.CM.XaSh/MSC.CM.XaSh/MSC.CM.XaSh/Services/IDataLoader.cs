@@ -9,6 +9,14 @@ namespace MSC.CM.XaSh.Services
     {
         Task<bool> HeartbeatCheck();
 
-        Task<int> LoadAnnouncementsAsync();
+        Task<int> LoadAnnouncementsAsync(bool forceRefresh = false);
+
+        Task<int> LoadRoomsAsync(bool forceRefresh = false);
+
+        Task<int> LoadSessionsAsync(bool forceRefresh = false);
+
+        Task<int> LoadSessionSpeakersAsync(bool forceRefresh = false);
+
+        Task<int> LoadUsersAsync(bool forceRefresh = false);
     }
 }

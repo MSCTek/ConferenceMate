@@ -2,29 +2,24 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MSC.CM.XaSh.Views.SpeakerPage"
-             xmlns:vm="clr-namespace:MSC.CM.XaSh.ViewModels"
              Title="{Binding Title}">
-    
-    <ContentPage.BindingContext>
-        <vm:SpeakerViewModel />
-    </ContentPage.BindingContext>
 
-    <ContentPage.Content>
-        <ListView Margin="20" ItemsSource="{Binding Speakers}" ItemSelected="OnItemSelected" HasUnevenRows="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Margin="10">
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding User.FirstName}" FontAttributes="Bold" LineBreakMode="WordWrap" />
-                                <Label Text="{Binding User.LastName}" FontAttributes="Bold" LineBreakMode="WordWrap" />
-                            </StackLayout>
-                            <Label Text="{Binding User.Biography}" FontAttributes="Italic" LineBreakMode="WordWrap" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </ContentPage.Content>
-
+  <ContentPage.Content>
+    <ListView Margin="20" ItemsSource="{Binding Speakers}" ItemSelected="OnItemSelected"
+              HasUnevenRows="True">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <StackLayout Margin="10">
+              <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding User.FirstName}" FontAttributes="Bold" LineBreakMode="WordWrap" />
+                <Label Text="{Binding User.LastName}" FontAttributes="Bold" LineBreakMode="WordWrap" />
+              </StackLayout>
+              <Label Text="{Binding User.Biography}" FontAttributes="Italic" LineBreakMode="WordWrap" />
+            </StackLayout>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </ContentPage.Content>
 </ContentPage>

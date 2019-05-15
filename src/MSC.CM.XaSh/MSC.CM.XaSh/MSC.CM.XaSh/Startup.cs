@@ -80,12 +80,15 @@ namespace MSC.CM.XaSh
 
             if (ctx.HostingEnvironment.IsDevelopment() && App.UseSampleDataStore)
             {
-                services.AddSingleton<IDataStore, SampleDataStore>();
+                //load vms directly from sample data
+                //services.AddSingleton<IDataStore, SampleDataStore>();
+                //load vms from SQLite
+                services.AddSingleton<IDataStore, SQLiteDataStore>();
                 services.AddSingleton<IDataLoader, SampleDataLoader>();
             }
             else
             {
-                services.AddSingleton<IDataStore, AzureDataStore>();
+                services.AddSingleton<IDataStore, SQLiteDataStore>();
                 services.AddSingleton<IDataLoader, AzureDataLoader>();
             }
 
