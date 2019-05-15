@@ -8,8 +8,10 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <ListView Margin="20" ItemsSource="{Binding Announcements}" ItemSelected="OnItemSelected" HasUnevenRows="True"
-                  IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">
+
+        <ListView x:Name="MainListView" Margin="20" ItemsSource="{Binding Announcements}"
+                  ItemSelected="OnItemSelected" HasUnevenRows="True" IsPullToRefreshEnabled="True"
+                  Refreshing="MainListView_Refreshing">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -22,4 +24,16 @@
             </ListView.ItemTemplate>
         </ListView>
     </ContentPage.Content>
+
+    <!-- collectionview does not have pull to refresh yet, nor does it come with the graphic -->
+    <!--<CollectionView x:Name="MainListView" Margin="20" ItemsSource="{Binding Announcements}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Margin="10">
+                        <Label Text="{Binding Title}" FontAttributes="Bold" LineBreakMode="WordWrap" />
+                        <Label Text="{Binding Description}" FontAttributes="Italic" LineBreakMode="WordWrap" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>-->
 </ContentPage>

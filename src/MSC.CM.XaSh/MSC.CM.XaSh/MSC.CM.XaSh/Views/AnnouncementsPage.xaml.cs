@@ -9,13 +9,35 @@ namespace MSC.CM.XaSh.Views
 {
     public partial class AnnouncementsPage : ContentPage
     {
-        AnnouncementsViewModel viewModel;
+        private AnnouncementsViewModel viewModel;
+
         public AnnouncementsPage()
         {
             InitializeComponent();
             BindingContext = viewModel = Startup.ServiceProvider?.GetService<AnnouncementsViewModel>() ?? new AnnouncementsViewModel();
         }
-        async void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        protected async override void OnAppearing()
+        {
+            Analytics.TrackEvent("AnnouncementsPage");
+            base.OnAppearing();
+
+            if (viewModel.Announcements.Count == 0)
+            {
+                MainListView.IsRefreshing = true;
+                await viewModel.RefreshListViewData();
+                MainListView.EndRefresh();
+            }
+        }
+
+        private async void MainListView_Refreshing(object sender, EventArgs e)
+        {
+            MainListView.IsRefreshing = true;
+            await viewModel.RefreshListViewData();
+            MainListView.EndRefresh();
+        }
+
+        private async void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //string catName = (e.CurrentSelection.FirstOrDefault() as Animal).Name;
             // This works because route names are unique in this application.
@@ -24,18 +46,9 @@ namespace MSC.CM.XaSh.Views
             // await Shell.Current.GoToAsync($"//animals/domestic/cats/catdetails?name={catName}");
         }
 
-        protected override void OnAppearing()
-        {
-            Analytics.TrackEvent("AnnouncementsPage");
-            base.OnAppearing();
-
-            if (viewModel.Announcements.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
-        }
-
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            ((ListView)sender).SelectedItem = null; // de-select the row
+            MainListView.SelectedItem = null; // de-select the row
         }
     }
 }

@@ -2,55 +2,57 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
 using Xamarin.Forms;
-
-
 using MSC.CM.XaSh.Services;
+using GalaSoft.MvvmLight;
+using Microsoft.AppCenter.Crashes;
+using System.Diagnostics;
+using Microsoft.AppCenter.Analytics;
+using Xamarin.Essentials;
+using System.Threading.Tasks;
 
 namespace MSC.CM.XaSh.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : ViewModelBase
     {
-        //public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
+        private bool _isBusy;
+        private string _title;
 
-        bool isBusy = false;
         public bool IsBusy
         {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            get { return _isBusy; }
+            set { if (Set(ref _isBusy, value)) { OnIsBusyChanged(); } }
         }
 
-        string title = string.Empty;
         public string Title
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            get { return string.IsNullOrEmpty(_title) ? string.Empty : _title; }
+            set { Set(ref _title, value); }
         }
 
-        protected bool SetProperty<T>(ref T backingStore, T value,
-            [CallerMemberName]string propertyName = "",
-            Action onChanged = null)
+        public async Task CheckAppCenter()
         {
-            if (EqualityComparer<T>.Default.Equals(backingStore, value))
-                return false;
-
-            backingStore = value;
-            onChanged?.Invoke();
-            OnPropertyChanged(propertyName);
-            return true;
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                try
+                {
+                    Debug.WriteLine($"Analytics are Enabled? {await Analytics.IsEnabledAsync()}");
+                    Debug.WriteLine($"Crash Reporting is Enabled? {await Crashes.IsEnabledAsync()}");
+                    //Debug.WriteLine($"Distribution Notices are Enabled? {await Distribute.IsEnabledAsync()}");
+                    //Debug.WriteLine($"Push Notifications are Enabled? {await Push.IsEnabledAsync()}");
+                }
+                catch (Exception ex)
+                {
+                    //ha ha - this probably won't work right away...but what the heck?
+                    Crashes.TrackError(ex);
+                    Debug.WriteLine("App Center enable check is Failing!");
+                }
+            }
         }
 
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        protected virtual void OnIsBusyChanged()
         {
-            var changed = PropertyChanged;
-            if (changed == null)
-                return;
-
-            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Debug.WriteLine($"IsBusy: {IsBusy}");
         }
-        #endregion
     }
 }

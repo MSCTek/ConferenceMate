@@ -9,6 +9,8 @@ using MSC.CM.XaSh.Services;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Microsoft.AppCenter.Crashes;
+using GalaSoft.MvvmLight.Command;
+using Xamarin.Essentials;
 
 namespace MSC.CM.XaSh.ViewModels
 {
@@ -20,9 +22,6 @@ namespace MSC.CM.XaSh.ViewModels
             DataLoader = loader;
             Title = "Announcements";
             Announcements = new ObservableCollection<Announcement>();
-
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-            RefreshCommand = new Command(async () => await RefreshDataCommand());
         }
 
         public ObservableCollection<Announcement> Announcements { get; private set; }
@@ -31,56 +30,19 @@ namespace MSC.CM.XaSh.ViewModels
 
         public IDataStore DataStore { get; set; }
 
-        public Command LoadItemsCommand { get; set; }
-
-        public Command RefreshCommand { get; set; }
-
-        private async Task ExecuteLoadItemsCommand()
+        public async Task RefreshListViewData()
         {
-            if (IsBusy)
-                return;
+            if (IsBusy) { return; }
 
             IsBusy = true;
 
             try
             {
-                //clear local list
-                Announcements.Clear();
-
-                //populate local list
-                var items = await DataStore.GetAnnouncementsAsync(true);
-                foreach (var item in items)
-                {
-                    Announcements.Add(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                Crashes.TrackError(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        private async Task RefreshDataCommand()
-        {
-            //why is this already true???
-            //if (IsBusy)
-            //    return;
-
-            IsBusy = true;
-
-            try
-            {
-                if (await DataLoader.HeartbeatCheck())
+                if (Connectivity.NetworkAccess == NetworkAccess.Internet && await DataLoader.HeartbeatCheck())
                 {
                     //load SQLite from API or sample data
                     await DataLoader.LoadAnnouncementsAsync();
                 }
-
-                await Task.Delay(500);
 
                 //clear local list
                 Announcements.Clear();
