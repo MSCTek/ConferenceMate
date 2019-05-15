@@ -4,22 +4,23 @@
              x:Class="MSC.CM.XaSh.Views.SpeakerPage"
              Title="{Binding Title}">
 
-  <ContentPage.Content>
-    <ListView Margin="20" ItemsSource="{Binding Speakers}" ItemSelected="OnItemSelected"
-              HasUnevenRows="True">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <StackLayout Margin="10">
-              <StackLayout Orientation="Horizontal">
-                <Label Text="{Binding User.FirstName}" FontAttributes="Bold" LineBreakMode="WordWrap" />
-                <Label Text="{Binding User.LastName}" FontAttributes="Bold" LineBreakMode="WordWrap" />
-              </StackLayout>
-              <Label Text="{Binding User.Biography}" FontAttributes="Italic" LineBreakMode="WordWrap" />
-            </StackLayout>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-  </ContentPage.Content>
+    <ContentPage.Content>
+        <ListView x:Name="MainListView" Margin="20" ItemsSource="{Binding Sessions}"
+                  ItemSelected="OnItemSelected" HasUnevenRows="True" IsPullToRefreshEnabled="True"
+                  Refreshing="MainListView_Refreshing">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="10">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding User.FirstName}" FontAttributes="Bold" LineBreakMode="WordWrap" />
+                                <Label Text="{Binding User.LastName}" FontAttributes="Bold" LineBreakMode="WordWrap" />
+                            </StackLayout>
+                            <Label Text="{Binding User.Biography}" FontAttributes="Italic" LineBreakMode="WordWrap" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
 </ContentPage>

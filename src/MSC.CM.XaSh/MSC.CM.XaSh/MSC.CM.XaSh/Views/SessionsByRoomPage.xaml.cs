@@ -1,7 +1,6 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using MSC.CM.XaSh.ViewModels;
 using System;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

@@ -38,10 +38,15 @@ namespace MSC.CM.XaSh.ViewModels
 
             try
             {
-                if (Connectivity.NetworkAccess == NetworkAccess.Internet && await DataLoader.HeartbeatCheck())
+                if ((Connectivity.NetworkAccess == NetworkAccess.Internet && await DataLoader.HeartbeatCheck()) || App.UseSampleDataStore)
                 {
                     //load SQLite from API or sample data
-                    await DataLoader.LoadAnnouncementsAsync();
+                    var ctUsers = await DataLoader.LoadUsersAsync();
+                    Debug.WriteLine($"Loaded {ctUsers} Users.");
+                    var ctSessions = await DataLoader.LoadSessionsAsync();
+                    Debug.WriteLine($"Loaded {ctSessions} Sessions.");
+                    var ctSessionSpeakers = await DataLoader.LoadSessionSpeakersAsync();
+                    Debug.WriteLine($"Loaded {ctSessionSpeakers} SessionSpeakers.");
                 }
 
                 //clear local list
@@ -56,6 +61,7 @@ namespace MSC.CM.XaSh.ViewModels
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(ex.StackTrace);
                 Crashes.TrackError(ex);
             }
             finally
