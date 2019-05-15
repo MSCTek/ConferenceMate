@@ -266,7 +266,9 @@ namespace MSC.CM.Xam
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
 				UserId = source.UserId,
-			};
+                SessionIdUserId = $"{source.SessionId}{source.UserId}"
+
+            };
 		}
 
 		public static dataCM.Sponsor ToModelData(this objCM.Sponsor source)
