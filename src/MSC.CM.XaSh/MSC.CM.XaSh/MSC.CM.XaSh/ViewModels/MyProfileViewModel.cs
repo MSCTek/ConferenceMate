@@ -18,9 +18,6 @@ namespace MSC.CM.XaSh.ViewModels
             DataStore = store;
             DataLoader = loader;
             Title = "My Profile";
-
-            //TODO: remove this - only for testing
-            Preferences.Set(App.CURRENT_USER_ID, 2);
         }
 
         public User CurrentUser
