@@ -176,4 +176,7 @@
       <Name>MSC.CM.XaSh</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\xamarinstore.jpg" />
+  </ItemGroup>
 </Project>
