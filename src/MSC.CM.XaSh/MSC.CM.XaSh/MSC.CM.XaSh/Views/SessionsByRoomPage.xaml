@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MSC.CM.XaSh.Views.SessionsByRoomPage"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             Visual="Material"
+             BackgroundColor="{StaticResource LTGray}">
 
     <!-- For ios, use 100 on pages that will be tabbed at the top -->
     <ContentPage.Padding>
@@ -10,16 +12,18 @@
     </ContentPage.Padding>
 
     <ContentPage.Content>
-        <ListView x:Name="MainListView" Margin="20" ItemsSource="{Binding Sessions}"
+        <ListView x:Name="MainListView" Margin="15" ItemsSource="{Binding Sessions}" SeparatorVisibility="None"
                   ItemSelected="OnItemSelected" HasUnevenRows="True" IsPullToRefreshEnabled="True"
-                  Refreshing="MainListView_Refreshing">
+                  Refreshing="MainListView_Refreshing" BackgroundColor="Transparent">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Margin="10">
-                            <Label Text="{Binding Title}" FontAttributes="Bold" LineBreakMode="WordWrap" />
-                            <Label Text="{Binding Description}" FontAttributes="Italic" LineBreakMode="WordWrap" />
-                        </StackLayout>
+                        <Frame Margin="5">
+                            <StackLayout>
+                                <Label Text="{Binding Title}" FontAttributes="Bold" LineBreakMode="WordWrap" />
+                                <Label Text="{Binding Description}" FontAttributes="Italic" LineBreakMode="WordWrap" />
+                            </StackLayout>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

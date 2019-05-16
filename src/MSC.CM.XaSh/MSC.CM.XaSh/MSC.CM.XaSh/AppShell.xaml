@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
-       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:views="clr-namespace:MSC.CM.XaSh.Views"
        xmlns:controls="clr-namespace:MSC.CM.XaSh.Controls"
        RouteHost="companyname.com"
@@ -45,25 +45,26 @@
         PLEASE give us feedback on your experience: good, bad, and ugly.
         https://www.surveymonkey.com/r/VTJNWTM
 
-        Thanks for trying out this preview! 
+        Thanks for trying out this preview!
 
         - David Ortinau, Senior Program Manager for Mobile Dev Tools [david.ortinau@microsoft.com]
     -->
 
-    <!-- 
-        Styles and Resources 
+    <!--
+        Styles and Resources
     -->
     <Shell.Resources>
         <ResourceDictionary>
-            
+
             <Color x:Key="MS.Red">#F25022</Color>
             <Color x:Key="MS.Green">#7FBA00</Color>
             <Color x:Key="MS.Blue">#00A4EF</Color>
             <Color x:Key="MS.Yellow">#FFB900</Color>
             <Color x:Key="MS.Gray">#737373</Color>
-            
+            <Color x:Key="LTGray">#ECECEC</Color>
+
             <Color x:Key="NavigationPrimary">#2196F3</Color>
-            
+
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource NavigationPrimary}" />
                 <Setter Property="Shell.ShellForegroundColor" Value="White" />
@@ -71,11 +72,11 @@
                 <Setter Property="Shell.ShellDisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.ShellUnselectedColor" Value="#95FFFFFF" />
                 <Setter Property="Shell.ShellTabBarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
-                <Setter Property="Shell.ShellTabBarForegroundColor" Value="White"/>
-                <Setter Property="Shell.ShellTabBarUnselectedColor" Value="#95FFFFFF"/>
-                <Setter Property="Shell.ShellTabBarTitleColor" Value="White"/>
+                <Setter Property="Shell.ShellTabBarForegroundColor" Value="White" />
+                <Setter Property="Shell.ShellTabBarUnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.ShellTabBarTitleColor" Value="White" />
             </Style>
-            
+
             <Style TargetType="ShellItem" BasedOn="{StaticResource BaseStyle}" />
 
             <Style x:Key="WelcomeShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
@@ -140,7 +141,6 @@
                 <views:MyFavoritesPage />
             </ShellContent>
         </Tab>
-
     </FlyoutItem>
 
     <Shell.MenuItems>
@@ -154,8 +154,7 @@
                   Command="{Binding AboutPageCommand}" />
     </Shell.MenuItems>
 
-
-    <!-- Optional Templates 
+    <!-- Optional Templates
     // These may be provided inline as below or as separate classes.
 
     // This header appears at the top of the Flyout.
@@ -184,5 +183,4 @@
     </Shell.MenuItemTemplate>
 
     -->
-
 </Shell>

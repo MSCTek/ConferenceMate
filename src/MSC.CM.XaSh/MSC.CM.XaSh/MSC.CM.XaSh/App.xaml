@@ -9,6 +9,7 @@
             <Color x:Key="MS.Blue">#00A4EF</Color>
             <Color x:Key="MS.Yellow">#FFB900</Color>
             <Color x:Key="MS.Gray">#737373</Color>
+            <Color x:Key="LTGray">#ECECEC</Color>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
