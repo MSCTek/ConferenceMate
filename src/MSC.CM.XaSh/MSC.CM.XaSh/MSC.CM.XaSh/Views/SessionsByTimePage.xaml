@@ -4,6 +4,11 @@
              x:Class="MSC.CM.XaSh.Views.SessionsByTimePage"
              Title="{Binding Title}">
 
+    <!-- For ios, use 100 on pages that will be tabbed at the top -->
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" iOS="0,100,0,0" Default="0,0,0,0" />
+    </ContentPage.Padding>
+
     <ContentPage.Content>
         <ListView x:Name="MainListView" Margin="20" ItemsSource="{Binding Sessions}"
                   ItemSelected="OnItemSelected" HasUnevenRows="True" IsPullToRefreshEnabled="True"

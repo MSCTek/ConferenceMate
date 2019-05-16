@@ -4,7 +4,12 @@
              x:Class="MSC.CM.XaSh.Views.WorkshopsPage"
              xmlns:vm="clr-namespace:MSC.CM.XaSh.ViewModels"
              Title="{Binding Title}">
-    
+
+    <!-- For ios, use 100 on pages that will be tabbed at the top -->
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" iOS="0,100,0,0" Default="0,0,0,0" />
+    </ContentPage.Padding>
+
     <ContentPage.BindingContext>
         <vm:WorkshopsViewModel />
     </ContentPage.BindingContext>
@@ -22,8 +27,7 @@
             </StackLayout>
         </StackLayout>
         <ScrollView Grid.Row="1">
-            <Label Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="Center" />
         </ScrollView>
     </Grid>
-
 </ContentPage>
