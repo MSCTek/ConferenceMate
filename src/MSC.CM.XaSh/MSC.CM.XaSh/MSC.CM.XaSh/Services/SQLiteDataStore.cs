@@ -103,5 +103,11 @@ namespace MSC.CM.XaSh.Services
             }
             return returnMe;
         }
+
+        public async Task<objModel.User> GetUserByIdAsync(int userId)
+        {
+            var dataResult = await conn.Table<dataModel.User>().Where(x => x.UserId == userId).FirstOrDefaultAsync();
+            return (dataResult != null) ? dataResult.ToModelObj() : null;
+        }
     }
 }

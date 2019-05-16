@@ -42,5 +42,10 @@ namespace MSC.CM.XaSh.Services
 
             return returnMe;
         }
+
+        public Task<User> GetUserByIdAsync(int userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

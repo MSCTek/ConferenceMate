@@ -2,33 +2,43 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MSC.CM.XaSh.Views.MyProfilePage"
-             xmlns:vm="clr-namespace:MSC.CM.XaSh.ViewModels"
+             xmlns:circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              Title="{Binding Title}"
-             Visual="Material">
+             Visual="Material"
+             BackgroundColor="{StaticResource LTGray}">
 
     <!-- For ios, use 100 on pages that will be tabbed at the top -->
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness" iOS="0,100,0,0" Default="0,0,0,0" />
     </ContentPage.Padding>
 
-    <ContentPage.BindingContext>
-        <vm:MyProfileViewModel />
-    </ContentPage.BindingContext>
-
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="{StaticResource MS.Yellow}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
-                </ContentView>
-            </StackLayout>
-        </StackLayout>
-        <ScrollView Grid.Row="1">
-            <Label Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="Center" />
-        </ScrollView>
-    </Grid>
+    <ScrollView>
+        <Grid BackgroundColor="{StaticResource LTGray}" Margin="15" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Frame Grid.Row="0" Margin="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <circle:CircleImage Grid.Column="0" Source="xamarinstore.png" WidthRequest="100" HeightRequest="100"
+                                        Aspect="AspectFill" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
+                    <StackLayout Grid.Column="1" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding CurrentUser.FirstName}" FontSize="Medium" FontAttributes="Bold" />
+                            <Label Text="{Binding CurrentUser.LastName}" FontSize="Medium" FontAttributes="Bold" />
+                        </StackLayout>
+                        <Label Text="{Binding CurrentUser.JobTitle}" LineBreakMode="WordWrap" />
+                        <Label Text="{Binding CurrentUser.CompanyName}" LineBreakMode="WordWrap" />
+                        <Label Text="{Binding CurrentUser.UserName}" />
+                        <Label Text="{Binding CurrentUser.Email}" />
+                        <Label Text="{Binding CurrentUser.Biography}" LineBreakMode="WordWrap" />
+                    </StackLayout>
+                </Grid>
+            </Frame>
+        </Grid>
+    </ScrollView>
 </ContentPage>

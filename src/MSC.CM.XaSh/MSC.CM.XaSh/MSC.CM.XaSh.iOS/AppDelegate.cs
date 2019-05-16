@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Xamarin.Forms;
 
 namespace MSC.CM.XaSh.iOS
 {
@@ -24,7 +25,8 @@ namespace MSC.CM.XaSh.iOS
         {
             global::Xamarin.Forms.Forms.SetFlags("Shell_Experimental", "Visual_Experimental", "CollectionView_Experimental", "FastRenderers_Experimental");
             global::Xamarin.Forms.Forms.Init();
-            FormsMaterial.Init();
+            ImageCircle.Forms.Plugin.iOS.ImageCircleRenderer.Init();
+            global::Xamarin.Forms.FormsMaterial.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

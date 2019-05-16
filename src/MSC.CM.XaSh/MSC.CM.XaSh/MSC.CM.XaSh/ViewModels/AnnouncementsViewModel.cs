@@ -26,10 +26,6 @@ namespace MSC.CM.XaSh.ViewModels
 
         public ObservableCollection<Announcement> Announcements { get; private set; }
 
-        public IDataLoader DataLoader { get; set; }
-
-        public IDataStore DataStore { get; set; }
-
         public async Task RefreshListViewData()
         {
             if (IsBusy) { return; }

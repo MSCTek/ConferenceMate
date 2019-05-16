@@ -24,10 +24,6 @@ namespace MSC.CM.XaSh.ViewModels
             Speakers = new ObservableCollection<User>();
         }
 
-        public IDataLoader DataLoader { get; set; }
-
-        public IDataStore DataStore { get; set; }
-
         public ObservableCollection<User> Speakers { get; private set; }
 
         public async Task RefreshListViewData()

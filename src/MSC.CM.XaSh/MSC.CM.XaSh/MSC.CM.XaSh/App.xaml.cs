@@ -13,8 +13,8 @@ namespace MSC.CM.XaSh
 {
     public partial class App : Application
     {
+        public const string CURRENT_USER_ID = "CURRENT_USER_ID";
         public static string AzureBackendUrl = "https://conferencemate.azurewebsites.net/api/CM";
-
         private static ConferenceMateDatabase database;
 
         public App()

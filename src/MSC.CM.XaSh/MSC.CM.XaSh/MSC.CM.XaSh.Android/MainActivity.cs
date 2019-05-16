@@ -29,6 +29,7 @@ namespace MSC.CM.XaSh.Droid
 
             global::Xamarin.Forms.Forms.SetFlags("Shell_Experimental", "Visual_Experimental", "CollectionView_Experimental", "FastRenderers_Experimental");
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             FormsMaterial.Init(this, savedInstanceState);
             LoadApplication(new App());

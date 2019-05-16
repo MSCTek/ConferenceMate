@@ -22,10 +22,6 @@ namespace MSC.CM.XaSh.ViewModels
             Sessions = new ObservableCollection<Session>();
         }
 
-        public IDataLoader DataLoader { get; set; }
-
-        public IDataStore DataStore { get; set; }
-
         public ObservableCollection<Session> Sessions { get; private set; }
 
         public async Task RefreshListViewData()

@@ -18,6 +18,10 @@ namespace MSC.CM.XaSh.ViewModels
         private bool _isBusy;
         private string _title;
 
+        public IDataLoader DataLoader { get; set; }
+
+        public IDataStore DataStore { get; set; }
+
         public bool IsBusy
         {
             get { return _isBusy; }
