@@ -24,7 +24,7 @@
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
-                    <circle:CircleImage Grid.Column="0" Source="xamarinstore.png" WidthRequest="100" HeightRequest="100"
+                    <circle:CircleImage Grid.Column="0" Source="xamarinstore.jpg" WidthRequest="100" HeightRequest="100"
                                         Aspect="AspectFill" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
                     <StackLayout Grid.Column="1" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
                         <StackLayout Orientation="Horizontal">
