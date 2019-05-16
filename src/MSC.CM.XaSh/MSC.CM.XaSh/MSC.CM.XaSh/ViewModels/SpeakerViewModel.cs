@@ -21,14 +21,14 @@ namespace MSC.CM.XaSh.ViewModels
             DataStore = store;
             DataLoader = loader;
             Title = "Speakers";
-            Speakers = new ObservableCollection<SessionSpeaker>();
+            Speakers = new ObservableCollection<User>();
         }
 
         public IDataLoader DataLoader { get; set; }
 
         public IDataStore DataStore { get; set; }
 
-        public ObservableCollection<SessionSpeaker> Speakers { get; private set; }
+        public ObservableCollection<User> Speakers { get; private set; }
 
         public async Task RefreshListViewData()
         {

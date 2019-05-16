@@ -11,6 +11,6 @@ namespace MSC.CM.XaSh.Services
 
         Task<IEnumerable<Session>> GetSessionsAsync();
 
-        Task<IEnumerable<SessionSpeaker>> GetSpeakersAsync();
+        Task<IEnumerable<User>> GetSpeakersAsync();
     }
 }

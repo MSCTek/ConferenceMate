@@ -78,24 +78,27 @@ namespace MSC.CM.XaSh.Services
             return returnMe;
         }
 
-        public async Task<IEnumerable<objModel.SessionSpeaker>> GetSpeakersAsync()
+        public async Task<IEnumerable<objModel.User>> GetSpeakersAsync()
         {
             //includes session and user data
-            var returnMe = new List<objModel.SessionSpeaker>();
-            var dataResults = await conn.Table<dataModel.SessionSpeaker>().ToListAsync();
+            var returnMe = new List<objModel.User>();
+
+            //TODO: fix this
+            //var dataResults = await conn.Table<dataModel.SessionSpeaker>().ToListAsync();
+            //IEnumerable<int> dataResults = await conn.QueryAsync<int>("select distinct UserId from SessionSpeaker");
+            //IEnumerable<int> dataResults = await conn.QueryAsync<int>("select UserId from SessionSpeaker");
+            List<int> dataResults = (await conn.Table<dataModel.SessionSpeaker>().ToListAsync()).Select(x => x.UserId).Distinct().ToList();
 
             if (dataResults.Any())
             {
-                foreach (var d in dataResults)
+                foreach (var userId in dataResults)
                 {
-                    var objMod = d.ToModelObj();
-                    var session = await conn.Table<dataModel.Session>()
-                        .Where(x => x.SessionId == d.SessionId).FirstOrDefaultAsync();
-                    objMod.Session = session != null ? session.ToModelObj() : null;
                     var user = await conn.Table<dataModel.User>()
-                       .Where(x => x.UserId == d.UserId).FirstOrDefaultAsync();
-                    objMod.User = user != null ? user.ToModelObj() : null;
-                    returnMe.Add(objMod);
+                       .Where(x => x.UserId == userId).FirstOrDefaultAsync();
+                    if (user != null)
+                    {
+                        returnMe.Add(user.ToModelObj());
+                    }
                 }
             }
             return returnMe;

@@ -33,12 +33,12 @@ namespace MSC.CM.XaSh.Services
             return returnMe;
         }
 
-        public async Task<IEnumerable<SessionSpeaker>> GetSpeakersAsync()
+        public async Task<IEnumerable<User>> GetSpeakersAsync()
         {
-            var returnMe = new List<SessionSpeaker>();
+            var returnMe = new List<User>();
 
-            returnMe.Add(Xam.ModelData.CM.DemoSessionSpeaker.SampleSessionSpeaker00.ToModelObj());
-            returnMe.Add(Xam.ModelData.CM.DemoSessionSpeaker.SampleSessionSpeaker01.ToModelObj());
+            returnMe.Add(Xam.ModelData.CM.DemoUser.SampleUser00.ToModelObj());
+            returnMe.Add(Xam.ModelData.CM.DemoUser.SampleUser01.ToModelObj());
 
             return returnMe;
         }

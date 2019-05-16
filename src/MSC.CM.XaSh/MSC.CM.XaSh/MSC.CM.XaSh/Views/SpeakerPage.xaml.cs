@@ -1,6 +1,7 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using MSC.CM.XaSh.ViewModels;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,24 +22,24 @@ namespace MSC.CM.XaSh.Views
             Analytics.TrackEvent("SpeakerPage");
             base.OnAppearing();
 
-            if (viewModel.Speakers.Count == 0)
-            {
-                MainListView.IsRefreshing = true;
-                await viewModel.RefreshListViewData();
-                MainListView.EndRefresh();
-            }
+            await Refresh();
         }
 
         private async void MainListView_Refreshing(object sender, EventArgs e)
         {
-            MainListView.IsRefreshing = true;
-            await viewModel.RefreshListViewData();
-            MainListView.EndRefresh();
+            await Refresh();
         }
 
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             ((ListView)sender).SelectedItem = null; // de-select the row
+        }
+
+        private async Task Refresh()
+        {
+            MainListView.IsRefreshing = true;
+            await viewModel.RefreshListViewData();
+            MainListView.EndRefresh();
         }
     }
 }

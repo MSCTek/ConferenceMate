@@ -5,7 +5,7 @@
              Title="{Binding Title}">
 
     <ContentPage.Content>
-        <ListView x:Name="MainListView" Margin="20" ItemsSource="{Binding Sessions}"
+        <ListView x:Name="MainListView" Margin="20" ItemsSource="{Binding Speakers}"
                   ItemSelected="OnItemSelected" HasUnevenRows="True" IsPullToRefreshEnabled="True"
                   Refreshing="MainListView_Refreshing">
             <ListView.ItemTemplate>
@@ -13,10 +13,10 @@
                     <ViewCell>
                         <StackLayout Margin="10">
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding User.FirstName}" FontAttributes="Bold" LineBreakMode="WordWrap" />
-                                <Label Text="{Binding User.LastName}" FontAttributes="Bold" LineBreakMode="WordWrap" />
+                                <Label Text="{Binding FirstName}" FontAttributes="Bold" LineBreakMode="WordWrap" />
+                                <Label Text="{Binding LastName}" FontAttributes="Bold" LineBreakMode="WordWrap" />
                             </StackLayout>
-                            <Label Text="{Binding User.Biography}" FontAttributes="Italic" LineBreakMode="WordWrap" />
+                            <Label Text="{Binding Biography}" FontAttributes="Italic" LineBreakMode="WordWrap" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
