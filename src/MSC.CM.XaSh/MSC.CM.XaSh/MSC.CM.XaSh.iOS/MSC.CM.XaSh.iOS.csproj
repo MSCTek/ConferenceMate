@@ -185,4 +185,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\xamarinstore.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\hamburger.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\hamburger%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\hamburger%403x.png" />
+  </ItemGroup>
 </Project>

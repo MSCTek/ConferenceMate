@@ -10,7 +10,8 @@
        Navigating="OnNavigating"
        Navigated="OnNavigated"
        x:Class="MSC.CM.XaSh.AppShell"
-       x:Name="self">
+       x:Name="self"
+       FlyoutIcon="hamburger.png">
 
     <!--
         XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -134,11 +135,11 @@
         </Tab>
 
         <Tab Route="mystuff" Title="My Stuff" Icon="tab_about.png">
-            <ShellContent Route="profile" Title="My Profile" Style="{StaticResource ProfileShell}" Icon="tab_about.png">
-                <views:MyProfilePage />
-            </ShellContent>
             <ShellContent Route="favorites"  Title="My Favorites" Style="{StaticResource ProfileShell}" Icon="tab_about.png">
                 <views:MyFavoritesPage />
+            </ShellContent>
+            <ShellContent Route="profile" Title="My Profile" Style="{StaticResource ProfileShell}" Icon="tab_about.png">
+                <views:MyProfilePage />
             </ShellContent>
         </Tab>
     </FlyoutItem>
