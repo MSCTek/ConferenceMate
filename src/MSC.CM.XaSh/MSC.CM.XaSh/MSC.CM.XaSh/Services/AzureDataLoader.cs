@@ -21,13 +21,8 @@ namespace MSC.CM.XaSh.Services
     public class AzureDataLoader : IDataLoader
     {
         private SQLiteAsyncConnection conn = App.Database.conn;
-
         private ILogger<AzureDataLoader> logger;
         private IWebApiDataServiceCM webAPIDataService;
-
-        public AzureDataLoader()
-        {
-        }
 
         //TODO: PAUL to take advantage of this goodness, wire up the CGH httpclient to use the transient http error policy
         //private HttpClient client;
@@ -86,6 +81,86 @@ namespace MSC.CM.XaSh.Services
                     await conn.Table<Announcement>().DeleteAsync();
                 }
                 var dtos = await webAPIDataService.GetAllPagesAnnouncementsAsync(lastUpdatedDate);
+                int count = 0;
+                if (dtos.Any())
+                {
+                    foreach (var r in dtos)
+                    {
+                        count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                    }
+                    return count;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                return 0;
+            }
+        }
+
+        public async Task<int> LoadFeedbackInitiatorTypesAsync(bool forceRefresh = false)
+        {
+            try
+            {
+                DateTime? lastUpdatedDate = null;
+                if (!forceRefresh)
+                {
+                    if (await conn.Table<FeedbackInitiatorType>().CountAsync() > 0)
+                    {
+                        var lastUpdated = await conn.Table<FeedbackInitiatorType>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                        lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
+                    }
+                }
+                else
+                {
+                    //truncate the table
+                    await conn.Table<FeedbackInitiatorType>().DeleteAsync();
+                }
+                var dtos = await webAPIDataService.GetAllPagesFeedbackInitiatorTypesAsync(lastUpdatedDate);
+                int count = 0;
+                if (dtos.Any())
+                {
+                    foreach (var r in dtos)
+                    {
+                        count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                    }
+                    return count;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                return 0;
+            }
+        }
+
+        public async Task<int> LoadFeedbackTypesAsync(bool forceRefresh = false)
+        {
+            try
+            {
+                DateTime? lastUpdatedDate = null;
+                if (!forceRefresh)
+                {
+                    if (await conn.Table<FeedbackType>().CountAsync() > 0)
+                    {
+                        var lastUpdated = await conn.Table<FeedbackType>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                        lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
+                    }
+                }
+                else
+                {
+                    //truncate the table
+                    await conn.Table<FeedbackType>().DeleteAsync();
+                }
+                var dtos = await webAPIDataService.GetAllPagesFeedbackTypesAsync(lastUpdatedDate);
                 int count = 0;
                 if (dtos.Any())
                 {

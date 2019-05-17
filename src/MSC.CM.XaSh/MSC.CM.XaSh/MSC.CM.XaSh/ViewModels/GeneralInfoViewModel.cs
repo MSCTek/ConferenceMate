@@ -42,8 +42,12 @@ namespace MSC.CM.XaSh.ViewModels
             if ((Connectivity.NetworkAccess == NetworkAccess.Internet && await DataLoader.HeartbeatCheck()) || App.UseSampleDataStore)
             {
                 //load SQLite from API or sample data
-                var count = await DataLoader.LoadUsersAsync();
-                Debug.WriteLine($"Loaded {count} Users.");
+                var countUsers = await DataLoader.LoadUsersAsync();
+                Debug.WriteLine($"Loaded {countUsers} Users.");
+                var countFeedbackInitTypes = await DataLoader.LoadFeedbackInitiatorTypesAsync();
+                Debug.WriteLine($"Loaded {countFeedbackInitTypes} Feedback Initiator Types.");
+                var countFeedbackTypes = await DataLoader.LoadFeedbackTypesAsync();
+                Debug.WriteLine($"Loaded {countFeedbackTypes} Feedback Types.");
             }
         }
     }

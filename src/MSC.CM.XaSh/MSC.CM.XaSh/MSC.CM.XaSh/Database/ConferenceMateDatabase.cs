@@ -43,6 +43,8 @@ namespace MSC.CM.XaSh.Database
                 conn.CreateTableAsync<SponsorFeaturedEvent>().Wait();
                 conn.CreateTableAsync<SponsorType>().Wait();
                 conn.CreateTableAsync<User>().Wait();
+
+                conn.CreateTableAsync<MobileModelData.UploadQueue>().Wait();
             }
             catch (Exception ex)
             {

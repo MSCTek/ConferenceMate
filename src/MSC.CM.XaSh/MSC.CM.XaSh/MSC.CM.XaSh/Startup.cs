@@ -85,11 +85,13 @@ namespace MSC.CM.XaSh
                 //load vms from SQLite
                 services.AddSingleton<IDataStore, SQLiteDataStore>();
                 services.AddSingleton<IDataLoader, SampleDataLoader>();
+                services.AddSingleton<IDataUploader, SampleDataUploader>();
             }
             else
             {
                 services.AddSingleton<IDataStore, SQLiteDataStore>();
                 services.AddSingleton<IDataLoader, AzureDataLoader>();
+                services.AddSingleton<IDataUploader, AzureDataUploader>();
             }
 
             services.AddTransient<AboutViewModel>(); //viewmodel are created new, everytime

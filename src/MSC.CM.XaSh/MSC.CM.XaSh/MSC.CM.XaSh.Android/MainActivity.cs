@@ -7,6 +7,9 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Xamarin.Forms;
+using MSC.CM.XaSh.Services;
+using Android.Content;
+using MSC.CM.XaSh.Droid.Services;
 
 namespace MSC.CM.XaSh.Droid
 {
@@ -32,7 +35,27 @@ namespace MSC.CM.XaSh.Droid
             ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             FormsMaterial.Init(this, savedInstanceState);
+
             LoadApplication(new App());
+
+            //safe backgrounding
+            SubscribeToMessages();
+        }
+
+        private void SubscribeToMessages()
+        {
+            //implement safe backgrounding
+            MessagingCenter.Subscribe<StartUploadDataMessage>(this, "StartUploadDataMessage", message =>
+            {
+                var intent = new Intent(this, typeof(DroidRunQueuedUpdateService));
+                StartService(intent);
+            });
+
+            MessagingCenter.Subscribe<StopUploadDataMessage>(this, "StopUploadDataMessage", message =>
+            {
+                var intent = new Intent(this, typeof(StopUploadDataMessage));
+                StopService(intent);
+            });
         }
     }
 }

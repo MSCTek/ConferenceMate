@@ -14,7 +14,7 @@ namespace MSC.CM.XaSh.Views
         public SessionsByRoomPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = Startup.ServiceProvider?.GetService<SessionsByRoomViewModel>();
+            BindingContext = viewModel = Startup.ServiceProvider?.GetService<SessionsByRoomViewModel>() ?? new SessionsByRoomViewModel();
         }
 
         protected async override void OnAppearing()

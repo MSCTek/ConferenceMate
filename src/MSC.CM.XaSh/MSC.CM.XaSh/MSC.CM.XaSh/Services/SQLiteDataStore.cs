@@ -49,6 +49,22 @@ namespace MSC.CM.XaSh.Services
             return returnMe;
         }
 
+        public async Task<IEnumerable<objModel.FeedbackType>> GetFeedbackTypesAsync()
+        {
+            //includes session and user data
+            var returnMe = new List<objModel.FeedbackType>();
+            var dataResults = await conn.Table<dataModel.FeedbackType>().ToListAsync();
+
+            if (dataResults.Any())
+            {
+                foreach (var d in dataResults)
+                {
+                    returnMe.Add(d.ToModelObj());
+                }
+            }
+            return returnMe;
+        }
+
         public async Task<IEnumerable<objModel.Session>> GetSessionsAsync()
         {
             //includes session and user data
@@ -108,6 +124,11 @@ namespace MSC.CM.XaSh.Services
         {
             var dataResult = await conn.Table<dataModel.User>().Where(x => x.UserId == userId).FirstOrDefaultAsync();
             return (dataResult != null) ? dataResult.ToModelObj() : null;
+        }
+
+        public async Task<int> WriteFeedbackRecord(dataModel.Feedback feedbackData)
+        {
+            return await conn.InsertAsync(feedbackData);
         }
     }
 }

@@ -22,6 +22,8 @@ namespace MSC.CM.XaSh.ViewModels
 
         public IDataStore DataStore { get; set; }
 
+        public IDataUploader DataUploader { get; set; }
+
         public bool IsBusy
         {
             get { return _isBusy; }

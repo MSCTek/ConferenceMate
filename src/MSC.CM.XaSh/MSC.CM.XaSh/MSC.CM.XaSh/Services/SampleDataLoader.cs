@@ -32,6 +32,36 @@ namespace MSC.CM.XaSh.Services
             return await conn.InsertAllAsync(myList);
         }
 
+        public async Task<int> LoadFeedbackInitiatorTypesAsync(bool forceRefresh = false)
+        {
+            if (await conn.Table<FeedbackInitiatorType>().CountAsync() > 0)
+            {
+                await conn.Table<FeedbackInitiatorType>().Where(x => x.FeedbackInitiatorTypeId != 0).DeleteAsync();
+            }
+
+            var myList = new List<FeedbackInitiatorType>() {
+                DemoFeedbackInitiatorType.SampleFeedbackInitiatorType00,
+                DemoFeedbackInitiatorType.SampleFeedbackInitiatorType01
+            };
+
+            return await conn.InsertAllAsync(myList);
+        }
+
+        public async Task<int> LoadFeedbackTypesAsync(bool forceRefresh = false)
+        {
+            if (await conn.Table<FeedbackType>().CountAsync() > 0)
+            {
+                await conn.Table<FeedbackType>().Where(x => x.FeedbackTypeId != 0).DeleteAsync();
+            }
+
+            var myList = new List<FeedbackType>() {
+                DemoFeedbackType.SampleFeedbackType00,
+                DemoFeedbackType.SampleFeedbackType01
+            };
+
+            return await conn.InsertAllAsync(myList);
+        }
+
         public async Task<int> LoadRoomsAsync(bool forceRefresh = false)
         {
             if (await conn.Table<Room>().CountAsync() > 0)

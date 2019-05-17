@@ -14,7 +14,7 @@ namespace MSC.CM.XaSh.Views
         public SessionsByTimePage()
         {
             InitializeComponent();
-            BindingContext = viewModel = Startup.ServiceProvider?.GetService<SessionsByTimeViewModel>();
+            BindingContext = viewModel = Startup.ServiceProvider?.GetService<SessionsByTimeViewModel>() ?? new SessionsByTimeViewModel();
         }
 
         protected async override void OnAppearing()

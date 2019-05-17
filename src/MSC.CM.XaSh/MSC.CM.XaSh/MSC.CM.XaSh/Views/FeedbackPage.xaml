@@ -6,24 +6,35 @@
              Title="{Binding Title}"
              Visual="Material">
 
-    <ContentPage.BindingContext>
-        <vm:FeedbackViewModel />
-    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="{StaticResource MS.Gray}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
-                </ContentView>
+            <StackLayout Margin="5" Grid.Row="0">
+                <Label Text="We would love to hear from you!" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Medium" />
             </StackLayout>
-        </StackLayout>
-        <ScrollView Grid.Row="1">
-            <Label Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="Center" />
-        </ScrollView>
-    </Grid>
+
+            <ScrollView Grid.Row="1">
+                <StackLayout Padding="16,10,16,40" Spacing="10">
+
+                    <Label Text="Feedback Type" />
+                    <Picker
+                        ItemsSource="{Binding FeedbackTypeList}"
+                        ItemDisplayBinding="{Binding Code}"
+                        SelectedItem="{Binding SelectedFeedbackType}" />
+
+                    <Label Text="Title" />
+                    <Editor Text="{Binding FeedbackTitle}" MaxLength="1000" AutoSize="TextChanges" Keyboard="Text" />
+
+                    <Label Text="Description" />
+                    <Editor Text="{Binding Description}" MaxLength="2000" AutoSize="TextChanges" Keyboard="Text" />
+
+                    <Button Text="Submit" Command="{Binding SubmitFeedbackCommand}" />
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>

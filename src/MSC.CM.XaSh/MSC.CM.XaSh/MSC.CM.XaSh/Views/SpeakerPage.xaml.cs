@@ -14,7 +14,7 @@ namespace MSC.CM.XaSh.Views
         public SpeakerPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = Startup.ServiceProvider?.GetService<SpeakerViewModel>();
+            BindingContext = viewModel = Startup.ServiceProvider?.GetService<SpeakerViewModel>() ?? new SpeakerViewModel();
         }
 
         protected async override void OnAppearing()

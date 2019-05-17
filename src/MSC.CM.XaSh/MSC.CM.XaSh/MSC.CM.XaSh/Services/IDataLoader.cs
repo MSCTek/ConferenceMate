@@ -11,6 +11,10 @@ namespace MSC.CM.XaSh.Services
 
         Task<int> LoadAnnouncementsAsync(bool forceRefresh = false);
 
+        Task<int> LoadFeedbackInitiatorTypesAsync(bool forceRefresh = false);
+
+        Task<int> LoadFeedbackTypesAsync(bool forceRefresh = false);
+
         Task<int> LoadRoomsAsync(bool forceRefresh = false);
 
         Task<int> LoadSessionsAsync(bool forceRefresh = false);
