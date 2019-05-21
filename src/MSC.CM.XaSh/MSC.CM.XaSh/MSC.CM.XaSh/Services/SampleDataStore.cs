@@ -24,6 +24,16 @@ namespace MSC.CM.XaSh.Services
             return returnMe;
         }
 
+        public async Task<IEnumerable<modelObj.Session>> GetFavoriteSessionsAsync()
+        {
+            var returnMe = new List<modelObj.Session>();
+
+            returnMe.Add(modelData.DemoSession.SampleSession00.ToModelObj());
+            returnMe.Add(modelData.DemoSession.SampleSession01.ToModelObj());
+
+            return returnMe;
+        }
+
         public async Task<IEnumerable<modelObj.FeedbackType>> GetFeedbackTypesAsync()
         {
             var returnMe = new List<modelObj.FeedbackType>();

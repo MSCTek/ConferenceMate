@@ -49,6 +49,41 @@ namespace MSC.CM.XaSh.Services
             return returnMe;
         }
 
+        public async Task<IEnumerable<objModel.Session>> GetFavoriteSessionsAsync()
+        {
+            //includes session and user data
+            var returnMe = new List<objModel.Session>();
+            var dataResults = await conn.Table<dataModel.SessionLike>().ToListAsync();
+            int currentUserId = Preferences.Get(App.CURRENT_USER_ID, 0);
+
+            if (dataResults.Any())
+            {
+                foreach (var d in dataResults)
+                {
+                    //var sessionObjMod = d.ToModelObj();
+                    var sessionDataMod = await conn.Table<dataModel.Session>().Where(x => x.SessionId == d.SessionId && d.UserId == currentUserId).FirstOrDefaultAsync();
+                    if (sessionDataMod != null)
+                    {
+                        var sessionObjMod = sessionDataMod.ToModelObj();
+                        var sessionSpeakers = await conn.Table<dataModel.SessionSpeaker>()
+                            .Where(x => x.SessionId == d.SessionId).ToListAsync();
+                        foreach (var s in sessionSpeakers)
+                        {
+                            var speaker = s.ToModelObj();
+                            var user = await conn.Table<dataModel.User>()
+                                .Where(x => x.UserId == speaker.UserId).FirstOrDefaultAsync();
+                            speaker.User = user != null ? user.ToModelObj() : null;
+
+                            sessionObjMod.SessionSpeakers.Add(s.ToModelObj());
+                        }
+
+                        returnMe.Add(sessionObjMod);
+                    }
+                }
+            }
+            return returnMe;
+        }
+
         public async Task<IEnumerable<objModel.FeedbackType>> GetFeedbackTypesAsync()
         {
             //includes session and user data

@@ -17,6 +17,8 @@ namespace MSC.CM.XaSh.Services
 
         Task<int> LoadRoomsAsync(bool forceRefresh = false);
 
+        Task<int> LoadSessionLikesAsync(bool forceRefresh = false);
+
         Task<int> LoadSessionsAsync(bool forceRefresh = false);
 
         Task<int> LoadSessionSpeakersAsync(bool forceRefresh = false);

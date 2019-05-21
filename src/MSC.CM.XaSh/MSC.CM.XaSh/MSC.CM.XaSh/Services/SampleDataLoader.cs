@@ -77,6 +77,21 @@ namespace MSC.CM.XaSh.Services
             return await conn.InsertAllAsync(myList);
         }
 
+        public async Task<int> LoadSessionLikesAsync(bool forceRefresh = false)
+        {
+            if (await conn.Table<SessionLike>().CountAsync() > 0)
+            {
+                await conn.Table<SessionLike>().Where(x => x.SessionId != 0).DeleteAsync();
+            }
+
+            var myList = new List<SessionLike>() {
+                DemoSessionLike.SampleSessionLike00,
+                DemoSessionLike.SampleSessionLike01,
+            };
+
+            return await conn.InsertAllAsync(myList);
+        }
+
         public async Task<int> LoadSessionsAsync(bool forceRefresh = false)
         {
             if (await conn.Table<Session>().CountAsync() > 0)

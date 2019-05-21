@@ -10,6 +10,8 @@ namespace MSC.CM.XaSh.Services
     {
         Task<IEnumerable<modelObj.Announcement>> GetAnnouncementsAsync();
 
+        Task<IEnumerable<modelObj.Session>> GetFavoriteSessionsAsync();
+
         Task<IEnumerable<modelObj.FeedbackType>> GetFeedbackTypesAsync();
 
         Task<IEnumerable<modelObj.Session>> GetSessionsAsync();

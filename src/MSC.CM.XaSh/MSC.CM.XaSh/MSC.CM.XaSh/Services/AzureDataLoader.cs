@@ -224,6 +224,46 @@ namespace MSC.CM.XaSh.Services
             }
         }
 
+        public async Task<int> LoadSessionLikesAsync(bool forceRefresh = false)
+        {
+            try
+            {
+                DateTime? lastUpdatedDate = null;
+                if (!forceRefresh)
+                {
+                    if (await conn.Table<SessionLike>().CountAsync() > 0)
+                    {
+                        var lastUpdated = await conn.Table<SessionLike>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                        lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
+                    }
+                }
+                else
+                {
+                    //truncate the table
+                    await conn.Table<SessionLike>().DeleteAsync();
+                }
+                var dtos = await webAPIDataService.GetAllPagesSessionLikesAsync(lastUpdatedDate);
+                int count = 0;
+                if (dtos.Any())
+                {
+                    foreach (var r in dtos)
+                    {
+                        count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                    }
+                    return count;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                return 0;
+            }
+        }
+
         public async Task<int> LoadSessionsAsync(bool forceRefresh = false)
         {
             try
