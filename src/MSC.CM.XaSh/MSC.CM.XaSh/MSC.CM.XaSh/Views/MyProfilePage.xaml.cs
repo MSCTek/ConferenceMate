@@ -15,6 +15,8 @@ namespace MSC.CM.XaSh.Views
         {
             InitializeComponent();
             BindingContext = viewModel = Startup.ServiceProvider?.GetService<MyProfileViewModel>() ?? new MyProfileViewModel();
+            //TODO: workaround https://github.com/xamarin/Xamarin.Forms/issues/6098
+            Refresh();
         }
 
         protected async override void OnAppearing()
@@ -22,12 +24,12 @@ namespace MSC.CM.XaSh.Views
             Analytics.TrackEvent("MyProfilePage");
             base.OnAppearing();
 
-            await viewModel.LoadVM();
+            await Refresh();
         }
 
         private async Task Refresh()
         {
-            //await viewModel.RefreshListViewData();
+            await viewModel.LoadVM();
         }
     }
 }

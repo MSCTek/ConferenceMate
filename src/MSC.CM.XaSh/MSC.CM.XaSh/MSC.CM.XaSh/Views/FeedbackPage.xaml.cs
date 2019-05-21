@@ -15,6 +15,8 @@ namespace MSC.CM.XaSh.Views
         {
             InitializeComponent();
             BindingContext = viewModel = Startup.ServiceProvider?.GetService<FeedbackViewModel>() ?? new FeedbackViewModel();
+            //TODO: workaround https://github.com/xamarin/Xamarin.Forms/issues/6098
+            viewModel.LoadData();
         }
 
         protected async override void OnAppearing()

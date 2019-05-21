@@ -1,7 +1,9 @@
-﻿using MSC.CM.XaSh.Views;
+﻿using MSC.CM.XaSh.ViewModels;
+using MSC.CM.XaSh.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -31,15 +33,36 @@ namespace MSC.CM.XaSh
 
         private void OnNavigated(object sender, ShellNavigatedEventArgs e)
         {
+            /*
+             * https://github.com/xamarin/Xamarin.Forms/issues/6098
+             *
+             * Debug.WriteLine(sender);
+            Debug.WriteLine(e);
+            var source = e.Source;
+            var currentLocation = e.Current.Location;
+
+            //go find this page and fire off OnAppearing();
+            var shell = (Shell)sender;  //this
+
+            var flyoutItem_Home = this.Items[0];
+
+            //var appTabs = flyoutItem_Home.Tabs;
+
+            var welcomeTab = flyoutItem_Home.Items[0];
+
+            var currentPage = welcomeTab.CurrentItem.Content as Page;
+            var currentVM = currentPage.BindingContext as BaseViewModel;
+
+            this.Items.Where(x => x.Route == currentLocation.ToString()).FirstOrDefault();*/
         }
 
         private void OnNavigating(object sender, ShellNavigatingEventArgs e)
         {
             // Cancel any back navigation
-            //if (e.Source == ShellNavigationSource.Pop)
-            //{
-            //    e.Cancel();
-            //}
+            if (e.Source == ShellNavigationSource.Pop)
+            {
+                e.Cancel();
+            }
         }
 
         private void RegisterRoutes()

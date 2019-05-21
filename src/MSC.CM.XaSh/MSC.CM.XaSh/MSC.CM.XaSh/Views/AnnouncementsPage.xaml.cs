@@ -15,6 +15,8 @@ namespace MSC.CM.XaSh.Views
         {
             InitializeComponent();
             BindingContext = viewModel = Startup.ServiceProvider?.GetService<AnnouncementsViewModel>() ?? new AnnouncementsViewModel();
+            //TODO: workaround https://github.com/xamarin/Xamarin.Forms/issues/6098
+            Refresh();
         }
 
         protected async override void OnAppearing()

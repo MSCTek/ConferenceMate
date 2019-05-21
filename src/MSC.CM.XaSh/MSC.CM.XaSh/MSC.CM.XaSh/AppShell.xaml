@@ -83,14 +83,14 @@
             <Style x:Key="WelcomeShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
                 <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource MS.Red}" />
             </Style>
+            <Style x:Key="AnnouncementsShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
+                <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource MS.Yellow}" />
+            </Style>
             <Style x:Key="SpeakerShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
                 <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource MS.Blue}" />
             </Style>
             <Style x:Key="SessionShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
                 <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource MS.Green}" />
-            </Style>
-            <Style x:Key="ProfileShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
-                <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource MS.Yellow}" />
             </Style>
         </ResourceDictionary>
     </Shell.Resources>
@@ -99,7 +99,7 @@
         <controls:FlyoutHeader />
     </Shell.FlyoutHeader>
 
-    <FlyoutItem Title="Basics" FlyoutDisplayOptions="AsMultipleItems">
+    <FlyoutItem Title="Home" FlyoutDisplayOptions="AsMultipleItems">
 
         <Tab Route="welcome" Title="Welcome" Icon="tab_about.png">
             <ShellContent Route="generalInfo" Title="General Info" Style="{StaticResource WelcomeShell}" Icon="tab_about.png">
@@ -108,7 +108,16 @@
             <ShellContent Route="localWeather" Title="Local Weather" Style="{StaticResource WelcomeShell}" Icon="tab_about.png">
                 <views:LocalWeatherPage />
             </ShellContent>
-            <ShellContent Route="announcements" Title="Announcements" Style="{StaticResource WelcomeShell}" Icon="tab_about.png">
+            <ShellContent Route="favorites"  Title="My Favorites" Style="{StaticResource WelcomeShell}" Icon="tab_about.png">
+                <views:MyFavoritesPage />
+            </ShellContent>
+            <ShellContent Route="profile" Title="My Profile" Style="{StaticResource WelcomeShell}" Icon="tab_about.png">
+                <views:MyProfilePage />
+            </ShellContent>
+        </Tab>
+
+        <Tab Route="announcements" Title="Announcements" Icon="tab_about.png">
+            <ShellContent Route="announcements" Title="Announcements" Style="{StaticResource AnnouncementsShell}" Icon="tab_about.png">
                 <views:AnnouncementsPage />
             </ShellContent>
         </Tab>
@@ -132,15 +141,6 @@
             <!--<ShellContent Route="hackathons" Title="Hackathons" Style="{StaticResource SessionShell}" Icon="tab_about.png">
                 <views:AboutPage />
             </ShellContent>-->
-        </Tab>
-
-        <Tab Route="mystuff" Title="My Stuff" Icon="tab_about.png">
-            <ShellContent Route="favorites"  Title="My Favorites" Style="{StaticResource ProfileShell}" Icon="tab_about.png">
-                <views:MyFavoritesPage />
-            </ShellContent>
-            <ShellContent Route="profile" Title="My Profile" Style="{StaticResource ProfileShell}" Icon="tab_about.png">
-                <views:MyProfilePage />
-            </ShellContent>
         </Tab>
     </FlyoutItem>
 

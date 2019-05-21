@@ -16,7 +16,9 @@ namespace MSC.CM.XaSh.ViewModels
             DataLoader = loader;
             Title = "GeneralInfo";
 
-            CurrentUserId = Preferences.Get(App.CURRENT_USER_ID, 1); //default it at 1
+            var currentUser = Preferences.Get(App.CURRENT_USER_ID, 0);
+            //if no one is logged in, default it at 1
+            CurrentUserId = currentUser == 0 ? 1 : currentUser;
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             base.CheckAppCenter();

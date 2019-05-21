@@ -9,6 +9,7 @@ using MSC.ConferenceMate.DataService.Models;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -53,6 +54,7 @@ namespace MSC.CM.XaSh.Services
         {
             try
             {
+                Debug.WriteLine("Heartbeat Check");
                 return await webAPIDataService.IsServiceOnlineAsync();
             }
             catch (Exception ex)
