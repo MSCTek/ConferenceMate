@@ -69,6 +69,11 @@ namespace MSC.CM.XaSh.Services
             throw new NotImplementedException();
         }
 
+        public async Task SetSessionLikeAsync(int sessionId, bool value)
+        {
+            return;
+        }
+
         public async Task<int> WriteFeedbackRecord(modelData.Feedback feedbackData)
         {
             return 0;

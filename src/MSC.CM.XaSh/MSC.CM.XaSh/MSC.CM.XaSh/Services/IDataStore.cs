@@ -20,6 +20,8 @@ namespace MSC.CM.XaSh.Services
 
         Task<modelObj.User> GetUserByIdAsync(int userId);
 
+        Task SetSessionLikeAsync(int sessionId, bool value);
+
         Task<int> WriteFeedbackRecord(modelData.Feedback feedbackData);
     }
 }

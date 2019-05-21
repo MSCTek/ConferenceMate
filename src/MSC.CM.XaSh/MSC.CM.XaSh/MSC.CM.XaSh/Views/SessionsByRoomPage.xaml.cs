@@ -1,6 +1,8 @@
 ﻿using Microsoft.AppCenter.Analytics;
+using MSC.CM.Xam.ModelObj.CM;
 using MSC.CM.XaSh.ViewModels;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -42,6 +44,13 @@ namespace MSC.CM.XaSh.Views
             MainListView.IsRefreshing = true;
             await viewModel.RefreshListViewData();
             MainListView.EndRefresh();
+        }
+
+        private void Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            Xamarin.Forms.Switch mySwitch = sender as Xamarin.Forms.Switch;
+            var session = mySwitch.Parent.Parent.BindingContext as Session;
+            viewModel.SetSessionLike(session.SessionId, e.Value);
         }
     }
 }

@@ -1,9 +1,11 @@
-﻿using Microsoft.AppCenter.Crashes;
+﻿using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Microsoft.Extensions.Logging;
 using MSC.CM.Xam;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -102,10 +104,10 @@ namespace MSC.CM.XaSh.Services
 
         public async Task<IEnumerable<objModel.Session>> GetSessionsAsync()
         {
-            //includes session and user data
+            //includes session, speaker and favorite data
             var returnMe = new List<objModel.Session>();
             var dataResults = await conn.Table<dataModel.Session>().ToListAsync();
-
+            int currentUserId = Preferences.Get(App.CURRENT_USER_ID, 0);
             if (dataResults.Any())
             {
                 foreach (var d in dataResults)
@@ -122,7 +124,12 @@ namespace MSC.CM.XaSh.Services
 
                         sessionObjMod.SessionSpeakers.Add(s.ToModelObj());
                     }
-
+                    var sessionLikes = await conn.Table<dataModel.SessionLike>()
+                        .Where(x => x.SessionId == d.SessionId && x.UserId == currentUserId && x.IsDeleted == false).ToListAsync();
+                    foreach (var s in sessionLikes)
+                    {
+                        sessionObjMod.SessionLikes.Add(s.ToModelObj());
+                    }
                     returnMe.Add(sessionObjMod);
                 }
             }
@@ -159,6 +166,51 @@ namespace MSC.CM.XaSh.Services
         {
             var dataResult = await conn.Table<dataModel.User>().Where(x => x.UserId == userId).FirstOrDefaultAsync();
             return (dataResult != null) ? dataResult.ToModelObj() : null;
+        }
+
+        public async Task SetSessionLikeAsync(int sessionId, bool value)
+        {
+            var dataResult = await conn.Table<dataModel.SessionLike>().Where(x => x.SessionId == sessionId).FirstOrDefaultAsync();
+            if (dataResult != null)
+            {
+                dataResult.IsDeleted = !value;
+                dataResult.ModifiedUtcDate = DateTime.UtcNow;
+
+                await conn.InsertOrReplaceAsync(dataResult);
+            }
+            else
+            {
+                if (Preferences.Get(App.CURRENT_USER_ID, 0) != 0)
+                {
+                    var user = await GetUserByIdAsync(Preferences.Get(App.CURRENT_USER_ID, 0));
+                    if (user != null)
+                    {
+                        dataResult = new dataModel.SessionLike()
+                        {
+                            CreatedBy = user.UserName,
+                            CreatedUtcDate = DateTime.UtcNow,
+                            DataVersion = 1,
+                            IsDeleted = !value,
+                            ModifiedBy = user.UserName,
+                            ModifiedUtcDate = DateTime.UtcNow,
+                            UserId = user.UserId,
+                            SessionId = sessionId,
+                            SessionIdUserId = $"{user.UserId}{sessionId}"
+                        };
+                        await conn.InsertAsync(dataResult);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Can't find user in SQLite");
+                        Analytics.TrackEvent($"SetSessionLikeAsync - Can't find user in SQLite - id: {Preferences.Get(App.CURRENT_USER_ID, 0)}");
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("No User Logged In");
+                    Analytics.TrackEvent($"SetSessionLikeAsync - No user is logged in");
+                }
+            }
         }
 
         public async Task<int> WriteFeedbackRecord(dataModel.Feedback feedbackData)

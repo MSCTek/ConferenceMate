@@ -65,5 +65,11 @@ namespace MSC.CM.XaSh.ViewModels
                 IsBusy = false;
             }
         }
+
+        internal async Task SetSessionLike(int sessionId, bool value)
+        {
+            DataStore.SetSessionLikeAsync(sessionId, value);
+            //DataUploader.QueueAsync()
+        }
     }
 }

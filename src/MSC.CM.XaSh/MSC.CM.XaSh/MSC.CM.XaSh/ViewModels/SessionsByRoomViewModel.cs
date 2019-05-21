@@ -43,6 +43,8 @@ namespace MSC.CM.XaSh.ViewModels
                     Debug.WriteLine($"Loaded {ctSessions} Sessions.");
                     var ctSessionSpeakers = await DataLoader.LoadSessionSpeakersAsync();
                     Debug.WriteLine($"Loaded {ctSessionSpeakers} SessionSpeakers.");
+                    var ctSessionLikes = await DataLoader.LoadSessionLikesAsync();
+                    Debug.WriteLine($"Loaded {ctSessionLikes} SessionLikes.");
                 }
 
                 //clear local list
@@ -64,6 +66,12 @@ namespace MSC.CM.XaSh.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        internal async Task SetSessionLike(int sessionId, bool value)
+        {
+            DataStore.SetSessionLikeAsync(sessionId, value);
+            //DataUploader.QueueAsync()
         }
     }
 }
