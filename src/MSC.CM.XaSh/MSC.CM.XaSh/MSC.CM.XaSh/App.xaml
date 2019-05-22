@@ -10,6 +10,39 @@
             <Color x:Key="MS.Yellow">#FFB900</Color>
             <Color x:Key="MS.Gray">#737373</Color>
             <Color x:Key="LTGray">#ECECEC</Color>
+
+            <Style x:Key="FA.Solid.LabelStyle"  TargetType="Label">
+                <Setter Property="FontFamily">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="fa-solid-900.ttf#Font Awesome 5 Free Solid"
+                                    iOS="Font Awesome 5 Free"
+                                    WinPhone="Assets/fa-solid-900.ttf#Font Awesome 5 Free Solid" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="FA.Solid.ButtonStyle"  TargetType="Button">
+                <Setter Property="FontFamily">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="fa-solid-900.ttf#Font Awesome 5 Free Solid"
+                                    iOS="Font Awesome 5 Free"
+                                    WinPhone="Assets/fa-solid-900.ttf#Font Awesome 5 Free Solid" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="FA.Brands.LabelStyle"  TargetType="Label">
+                <Setter Property="FontFamily">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:String"
+                                    Android="fa-brands-400.ttf#Font Awesome 5 Brands Regular"
+                                    iOS="Font Awesome 5 Brands"
+                                    WinPhone="Assets/fa-brands-400.ttf#Font Awesome 5 Brands" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

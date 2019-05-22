@@ -1,4 +1,5 @@
 ﻿using Microsoft.AppCenter.Analytics;
+using MSC.CM.Xam.ModelObj.CM;
 using MSC.CM.XaSh.ViewModels;
 using System;
 using System.Diagnostics;
@@ -18,6 +19,7 @@ namespace MSC.CM.XaSh.Views
             BindingContext = viewModel = Startup.ServiceProvider?.GetService<MyFavoritesViewModel>() ?? new MyFavoritesViewModel();
             //TODO: workaround https://github.com/xamarin/Xamarin.Forms/issues/6098
             Refresh();
+            MainListView.EndRefresh();
         }
 
         protected async override void OnAppearing()

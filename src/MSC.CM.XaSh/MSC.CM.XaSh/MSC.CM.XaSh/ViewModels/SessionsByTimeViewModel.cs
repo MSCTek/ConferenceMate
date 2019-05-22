@@ -9,11 +9,15 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using System.Diagnostics;
 using Microsoft.AppCenter.Crashes;
+using GalaSoft.MvvmLight.Command;
+using MSC.CM.XaSh.Helpers;
 
 namespace MSC.CM.XaSh.ViewModels
 {
     public class SessionsByTimeViewModel : BaseViewModel
     {
+        private ObservableCollection<Session> _sessions;
+
         public SessionsByTimeViewModel(IDataStore store = null, IDataLoader loader = null)
         {
             DataStore = store;
@@ -22,7 +26,33 @@ namespace MSC.CM.XaSh.ViewModels
             Sessions = new ObservableCollection<Session>();
         }
 
-        public ObservableCollection<Session> Sessions { get; private set; }
+        public RelayCommand<int> LikeCommand
+        {
+            get
+            {
+                return new RelayCommand<int>(async (sessionId) =>
+                {
+                    try
+                    {
+                        if (await DataStore.ToggleSessionLikeAsync(sessionId))
+                        {
+                            //re populate local list from sqlite
+                            Sessions = (await DataStore.GetSessionsAsync()).ToObservableCollection();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Crashes.TrackError(ex);
+                    }
+                });
+            }
+        }
+
+        public ObservableCollection<Session> Sessions
+        {
+            get { return _sessions; }
+            set { Set(nameof(Sessions), ref _sessions, value); }
+        }
 
         public async Task RefreshListViewData()
         {

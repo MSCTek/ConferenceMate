@@ -22,6 +22,8 @@ namespace MSC.CM.XaSh.Services
 
         Task SetSessionLikeAsync(int sessionId, bool value);
 
+        Task<bool> ToggleSessionLikeAsync(int sessionId);
+
         Task<int> WriteFeedbackRecord(modelData.Feedback feedbackData);
     }
 }

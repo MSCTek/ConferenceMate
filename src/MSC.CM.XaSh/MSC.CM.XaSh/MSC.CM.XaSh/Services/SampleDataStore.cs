@@ -74,6 +74,11 @@ namespace MSC.CM.XaSh.Services
             return;
         }
 
+        public async Task<bool> ToggleSessionLikeAsync(int sessionId)
+        {
+            return false;
+        }
+
         public async Task<int> WriteFeedbackRecord(modelData.Feedback feedbackData)
         {
             return 0;

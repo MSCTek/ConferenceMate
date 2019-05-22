@@ -45,6 +45,7 @@ namespace MSC.CM.XaSh.Database
                 conn.CreateTableAsync<User>().Wait();
 
                 conn.CreateTableAsync<MobileModelData.UploadQueue>().Wait();
+                conn.CreateTableAsync<MobileModelData.LastUpdated>().Wait();
             }
             catch (Exception ex)
             {

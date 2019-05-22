@@ -48,9 +48,9 @@ namespace MSC.CM.XaSh.Views
 
         private void Switch_Toggled(object sender, ToggledEventArgs e)
         {
-            Xamarin.Forms.Switch mySwitch = sender as Xamarin.Forms.Switch;
-            var session = mySwitch.Parent.Parent.BindingContext as Session;
-            viewModel.SetSessionLike(session.SessionId, e.Value);
+            //Xamarin.Forms.Switch mySwitch = sender as Xamarin.Forms.Switch;
+            //var session = mySwitch.Parent.Parent.BindingContext as Session;
+            //viewModel.SetSessionLike(session.SessionId, e.Value);
         }
     }
 }

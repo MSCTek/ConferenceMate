@@ -1,4 +1,5 @@
 ﻿using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using MSC.CM.Xam.ModelObj.CM;
 using MSC.CM.XaSh.ViewModels;
 using System;
@@ -48,9 +49,16 @@ namespace MSC.CM.XaSh.Views
 
         private void Switch_Toggled(object sender, ToggledEventArgs e)
         {
-            Xamarin.Forms.Switch mySwitch = sender as Xamarin.Forms.Switch;
-            var session = mySwitch.Parent.Parent.BindingContext as Session;
-            viewModel.SetSessionLike(session.SessionId, e.Value);
+            /*try
+            {
+                Xamarin.Forms.Switch mySwitch = sender as Xamarin.Forms.Switch;
+                var session = mySwitch.Parent.Parent.BindingContext as Session;
+                viewModel.SetSessionLike(session.SessionId, e.Value);
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }*/
         }
     }
 }

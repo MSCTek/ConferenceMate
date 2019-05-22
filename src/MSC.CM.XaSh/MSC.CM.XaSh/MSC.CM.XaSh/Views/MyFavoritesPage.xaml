@@ -2,15 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MSC.CM.XaSh.Views.MyFavoritesPage"
-             xmlns:vm="clr-namespace:MSC.CM.XaSh.ViewModels"
+             xmlns:conv="clr-namespace:MSC.CM.XaSh.Converters"
              Title="{Binding Title}"
              Visual="Material"
-             BackgroundColor="{StaticResource LTGray}">
+             BackgroundColor="{StaticResource LTGray}"
+             x:Name="MyFavPage">
 
     <!-- For ios, use 100 on pages that will be tabbed at the top -->
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness" iOS="0,100,0,0" Default="0,0,0,0" />
     </ContentPage.Padding>
+
+    <ContentPage.Resources>
+        <conv:BoolToHeartColorConverter x:Key="BoolToHeartColorConverter" />
+    </ContentPage.Resources>
 
     <ContentPage.Content>
         <ListView x:Name="MainListView" Margin="15" ItemsSource="{Binding Sessions}" SeparatorVisibility="None"
@@ -20,10 +25,24 @@
                 <DataTemplate>
                     <ViewCell>
                         <Frame Margin="5">
-                            <StackLayout>
-                                <Label Text="{Binding Title}" FontAttributes="Bold" LineBreakMode="WordWrap" />
-                                <Label Text="{Binding Description}" FontAttributes="Italic" LineBreakMode="WordWrap" />
-                            </StackLayout>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="60" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout>
+                                    <Label Text="{Binding Title}" FontAttributes="Bold" LineBreakMode="WordWrap" />
+                                    <Label Text="{Binding Description}" FontAttributes="Italic" LineBreakMode="WordWrap" />
+                                    <Label Text="{Binding SpeakerList}" LineBreakMode="WordWrap" />
+                                </StackLayout>
+                                <Label x:Name="heartIcon" Grid.Column="1" Text="&#xf004;" Style="{StaticResource FA.Solid.LabelStyle}"
+                                       HeightRequest="70" WidthRequest="70" FontSize="30" VerticalOptions="Center" HorizontalOptions="Center"
+                                       TextColor="{Binding HasLikes, Converter={StaticResource BoolToHeartColorConverter}}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference MyFavPage}, Path=BindingContext.LikeCommand}" CommandParameter="{Binding SessionId}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
                         </Frame>
                     </ViewCell>
                 </DataTemplate>
