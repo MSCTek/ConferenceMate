@@ -415,7 +415,8 @@ namespace MSC.CM.XaSh.Services
 
         private async Task<bool> NeedsDataRefresh(UpdateableTableNames updateableTableName)
         {
-            var record = await conn.Table<MobileModelData.LastUpdated>().Where(x => x.TableName == updateableTableName.ToString()).FirstOrDefaultAsync();
+            string tableName = updateableTableName.ToString();
+            var record = await conn.Table<MobileModelData.LastUpdated>().Where(x => x.TableName == tableName).FirstOrDefaultAsync();
             if (record != null)
             {
                 return (record.LastUpdatedUTC < DateTime.UtcNow.AddMinutes(MAX_MINUTES_BETWEEN_UPDATES)) ? true : false;

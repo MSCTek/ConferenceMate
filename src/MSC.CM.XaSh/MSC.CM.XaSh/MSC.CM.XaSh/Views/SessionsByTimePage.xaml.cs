@@ -19,6 +19,7 @@ namespace MSC.CM.XaSh.Views
             BindingContext = viewModel = Startup.ServiceProvider?.GetService<SessionsByTimeViewModel>() ?? new SessionsByTimeViewModel();
             //TODO: workaround https://github.com/xamarin/Xamarin.Forms/issues/6098
             Refresh();
+            MainListView.EndRefresh();
         }
 
         protected async override void OnAppearing()
