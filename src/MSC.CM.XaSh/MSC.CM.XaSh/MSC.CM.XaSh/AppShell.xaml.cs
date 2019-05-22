@@ -22,8 +22,12 @@ namespace MSC.CM.XaSh
         }
 
         public ICommand AboutPageCommand => new Command(async () => await NavigateToPageAsync("about"));
+        public ICommand AnnouncementsPageCommand => new Command(async () => await NavigateToPageAsync("announcements"));
         public ICommand FeedbackPageCommand => new Command(async () => await NavigateToPageAsync("feedback"));
+        public ICommand MyFavoritesPageCommand => new Command(async () => await NavigateToPageAsync("favorites"));
+        public ICommand MyProfilePageCommand => new Command(async () => await NavigateToPageAsync("profile"));
         public Dictionary<string, Type> Routes { get { return routes; } }
+        public ICommand WorkshopsPageCommand => new Command(async () => await NavigateToPageAsync("workshops"));
 
         private async Task NavigateToPageAsync(string pageName)
         {
@@ -58,21 +62,20 @@ namespace MSC.CM.XaSh
 
         private void OnNavigating(object sender, ShellNavigatingEventArgs e)
         {
+            //TODO: this fires when the user is navigating backwards, out of any navigation page.
             // Cancel any back navigation
-            if (e.Source == ShellNavigationSource.Pop)
-            {
-                e.Cancel();
-            }
+            //if (e.Source == ShellNavigationSource.Pop)
+            //{
+            //    e.Cancel();
+            //}
         }
 
         private void RegisterRoutes()
         {
-            //routes.Add("monkeydetails", typeof(MonkeyDetailPage));
-            //routes.Add("beardetails", typeof(BearDetailPage));
-            //routes.Add("catdetails", typeof(CatDetailPage));
-            //routes.Add("dogdetails", typeof(DogDetailPage));
-            //routes.Add("elephantdetails", typeof(ElephantDetailPage));
-
+            routes.Add("announcements", typeof(AnnouncementsPage));
+            routes.Add("workshops", typeof(WorkshopsPage));
+            routes.Add("favorites", typeof(MyFavoritesPage));
+            routes.Add("profile", typeof(MyProfilePage));
             routes.Add("about", typeof(AboutPage));
             routes.Add("feedback", typeof(FeedbackPage));
 

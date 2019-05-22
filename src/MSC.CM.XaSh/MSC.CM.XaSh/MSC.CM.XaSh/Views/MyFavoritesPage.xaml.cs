@@ -17,9 +17,6 @@ namespace MSC.CM.XaSh.Views
         {
             InitializeComponent();
             BindingContext = viewModel = Startup.ServiceProvider?.GetService<MyFavoritesViewModel>() ?? new MyFavoritesViewModel();
-            //TODO: workaround https://github.com/xamarin/Xamarin.Forms/issues/6098
-            Refresh();
-            MainListView.EndRefresh();
         }
 
         protected async override void OnAppearing()

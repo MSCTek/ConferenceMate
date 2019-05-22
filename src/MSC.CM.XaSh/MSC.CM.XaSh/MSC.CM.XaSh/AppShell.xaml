@@ -80,16 +80,16 @@
 
             <Style TargetType="ShellItem" BasedOn="{StaticResource BaseStyle}" />
 
-            <Style x:Key="WelcomeShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
+            <Style x:Key="RedShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
                 <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource MS.Red}" />
             </Style>
-            <Style x:Key="SpeakerShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
+            <Style x:Key="BlueShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
                 <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource MS.Blue}" />
             </Style>
-            <Style x:Key="SessionShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
+            <Style x:Key="GreenShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
                 <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource MS.Green}" />
             </Style>
-            <Style x:Key="MyStuffShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
+            <Style x:Key="YellowShell" TargetType="Element" BasedOn="{StaticResource BaseStyle}">
                 <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource MS.Yellow}" />
             </Style>
         </ResourceDictionary>
@@ -101,50 +101,48 @@
 
     <FlyoutItem Title="Home" FlyoutDisplayOptions="AsMultipleItems">
 
-        <Tab Route="welcome" Title="Welcome" Icon="tab_about.png">
-            <ShellContent Route="generalInfo" Title="General Info" Style="{StaticResource WelcomeShell}" Icon="tab_about.png">
+        <Tab Title="Welcome" Icon="tab_about.png">
+            <ShellContent Route="generalInfo" Title="General Info" Style="{StaticResource RedShell}" Icon="tab_about.png">
                 <views:GeneralInfoPage />
-            </ShellContent>
-            <ShellContent Route="announcements" Title="Announcements" Style="{StaticResource WelcomeShell}" Icon="tab_about.png">
-                <views:AnnouncementsPage />
-            </ShellContent>
-            <ShellContent Route="localWeather" Title="Local Weather" Style="{StaticResource WelcomeShell}" Icon="tab_about.png">
-                <views:LocalWeatherPage />
             </ShellContent>
         </Tab>
 
-        <Tab Route="speakers" Title="Speakers" Icon="tab_about.png">
-            <ShellContent Route="speakers" Title="Speakers" Style="{StaticResource SpeakerShell}" Icon="tab_about.png">
+        <Tab Title="Speakers" Icon="tab_about.png">
+            <ShellContent Route="speakers" Title="Speakers" Style="{StaticResource YellowShell}" Icon="tab_about.png">
                 <views:SpeakerPage />
             </ShellContent>
         </Tab>
 
-        <Tab Route="sessions" Title="Sessions" Icon="tab_about.png">
-            <ShellContent Route="sessionsByRoom" Title="Sessions By Room" Style="{StaticResource SessionShell}" Icon="tab_about.png">
+        <Tab Title="Sessions By Room" Icon="tab_about.png">
+            <ShellContent Route="sessionsByRoom" Title="Sessions By Room" Style="{StaticResource BlueShell}" Icon="tab_about.png">
                 <views:SessionsByRoomPage />
             </ShellContent>
-            <ShellContent Route="sessionsByTime" Title="Sessions By Time" Style="{StaticResource SessionShell}" Icon="tab_about.png">
-                <views:SessionsByTimePage />
-            </ShellContent>
-            <ShellContent Route="workshops" Title="Workshops" Style="{StaticResource SessionShell}" Icon="tab_about.png">
-                <views:WorkshopsPage />
-            </ShellContent>
-            <!--<ShellContent Route="hackathons" Title="Hackathons" Style="{StaticResource SessionShell}" Icon="tab_about.png">
-                <views:AboutPage />
-            </ShellContent>-->
         </Tab>
 
-        <Tab Route="mystuff" Title="My Stuff" Icon="tab_about.png">
-            <ShellContent Route="favorites"  Title="My Favorites" Style="{StaticResource MyStuffShell}" Icon="tab_about.png">
-                <views:MyFavoritesPage />
-            </ShellContent>
-            <ShellContent Route="profile" Title="My Profile" Style="{StaticResource MyStuffShell}" Icon="tab_about.png">
-                <views:MyProfilePage />
+        <Tab Title="Sessions By Time" Icon="tab_about.png">
+            <ShellContent Route="sessionsByTime" Title="Sessions By Time" Style="{StaticResource GreenShell}" Icon="tab_about.png">
+                <views:SessionsByTimePage />
             </ShellContent>
         </Tab>
     </FlyoutItem>
 
     <Shell.MenuItems>
+        <MenuItem Text="Announcements"
+                  Icon="tab_feed.png"
+                  BindingContext="{x:Reference self}"
+                  Command="{Binding AnnouncementsPageCommand}" />
+        <MenuItem Text="My Favorites"
+                  Icon="tab_feed.png"
+                  BindingContext="{x:Reference self}"
+                  Command="{Binding MyFavoritesPageCommand}" />
+        <MenuItem Text="My Profile"
+                  Icon="tab_feed.png"
+                  BindingContext="{x:Reference self}"
+                  Command="{Binding MyProfilePageCommand}" />
+        <MenuItem Text="Workshops"
+                  Icon="tab_feed.png"
+                  BindingContext="{x:Reference self}"
+                  Command="{Binding WorkshopsPageCommand}" />
         <MenuItem Text="Feedback"
                   Icon="tab_feed.png"
                   BindingContext="{x:Reference self}"
@@ -154,34 +152,4 @@
                   BindingContext="{x:Reference self}"
                   Command="{Binding AboutPageCommand}" />
     </Shell.MenuItems>
-
-    <!-- Optional Templates
-    // These may be provided inline as below or as separate classes.
-
-    // This header appears at the top of the Flyout.
-    <Shell.FlyoutHeaderTemplate>
-	<DataTemplate>
-            <Grid>ContentHere</Grid>
-        </DataTemplate>
-    </Shell.FlyoutHeaderTemplate>
-
-    // ItemTemplate is for ShellItems as displayed in a Flyout
-    <Shell.ItemTemplate>
-        <DataTemplate>
-            <ContentView>
-                Bindable Properties: Title, Icon
-            </ContentView>
-        </DataTemplate>
-    </Shell.ItemTemplate>
-
-    // MenuItemTemplate is for MenuItems as displayed in a Flyout
-    <Shell.MenuItemTemplate>
-        <DataTemplate>
-            <ContentView>
-                Bindable Properties: Text, Icon
-            </ContentView>
-        </DataTemplate>
-    </Shell.MenuItemTemplate>
-
-    -->
 </Shell>
