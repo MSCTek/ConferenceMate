@@ -42,6 +42,8 @@ jobs:
       restoreSolution: '**/*.sln'
   - task: XamariniOS@2
     inputs:
+      clean: true
+      runNugetRestore: true
       solutionFile: '**/*iOS.csproj'
       configuration: '$(buildConfiguration)'
       buildForSimulator: true
