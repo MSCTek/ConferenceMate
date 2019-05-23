@@ -32,7 +32,7 @@ jobs:
 
 - job: iOS
   pool:
-    vmImage: 'macOS-10.13'
+    vmImage: 'macOS-10.14'
   variables:
     buildConfiguration: 'Debug'
   steps:
