@@ -1,6 +1,7 @@
 ﻿using MSC.CM.Xam.ModelObj.CM;
 using MSC.CM.XaSh.Services;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -26,11 +27,15 @@ namespace MSC.CM.XaSh.ViewModels
             set { Set(ref _currentUser, value); }
         }
 
+        public ICommand EditProfileCommand => new Command(() => Shell.Current.GoToAsync(new ShellNavigationState("profileedit")));
+
         public bool IsUserLoggedIn
         {
             get { return _isUserLoggedIn; }
             set { Set(ref _isUserLoggedIn, value); }
         }
+
+        public ICommand TwitterCommand => new Command(() => Device.OpenUri(new Uri("https://www.twitter.com"))); //if(CurrentUser != null) { Device.OpenUri(new Uri(CurrentUser.TwitterUrl)); });
 
         public async Task LoadVM()
         {

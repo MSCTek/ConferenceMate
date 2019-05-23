@@ -54,6 +54,9 @@
     <Compile Update="Views\MyFavoritesPage.xaml.cs">
       <DependentUpon>MyFavoritesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\MyProfileEditPage.xaml.cs">
+      <DependentUpon>MyProfileEditPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MyProfilePage.xaml.cs">
       <DependentUpon>MyProfilePage.xaml</DependentUpon>
     </Compile>

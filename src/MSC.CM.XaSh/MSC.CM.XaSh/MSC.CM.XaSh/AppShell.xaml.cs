@@ -79,6 +79,8 @@ namespace MSC.CM.XaSh
             routes.Add("about", typeof(AboutPage));
             routes.Add("feedback", typeof(FeedbackPage));
 
+            routes.Add("profileedit", typeof(MyProfileEditPage));
+
             foreach (var item in routes)
             {
                 Routing.RegisterRoute(item.Key, item.Value);

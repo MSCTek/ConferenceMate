@@ -35,13 +35,19 @@
                         <Label Text="{Binding CurrentUser.CompanyName}" LineBreakMode="WordWrap" />
                         <Label Text="{Binding CurrentUser.UserName}" />
                         <Label Text="{Binding CurrentUser.Email}" />
-                        <Label IsVisible="{Binding DoesUserTweet}" x:Name="TwitterIcon" Style="{StaticResource FA.Brands.LabelStyle}"
-                               Text="" HeightRequest="100" TextColor="#00aced" FontSize="42">
+                        <!--<Label IsVisible="{Binding DoesUserTweet}" x:Name="TwitterIcon" Style="{StaticResource FA.Brands.LabelStyle}"
+                               Text="{StaticResource FontAwesomeTwitter}" HeightRequest="100" TextColor="#00aced" FontSize="42">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding TwitterCommand}" />
                             </Label.GestureRecognizers>
-                        </Label>
+                        </Label>-->
                         <Label Text="{Binding CurrentUser.Biography}" LineBreakMode="WordWrap" />
+                        <Label x:Name="EditProfileIcon" Style="{StaticResource FA.Solid.LabelStyle}"
+                               Text="&#xf044;" HeightRequest="100" TextColor="#00aced" FontSize="42">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding EditProfileCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
                     </StackLayout>
                 </Grid>
             </Frame>

@@ -11,6 +11,10 @@
             <Color x:Key="MS.Gray">#737373</Color>
             <Color x:Key="LTGray">#ECECEC</Color>
 
+            <x:String x:Key="FontAwesomeFacebook">&#xf082;</x:String>
+            <x:String x:Key="FontAwesomeTwitter">&#xf081;</x:String>
+            <x:String x:Key="FontAwesomeSlack">&#xf198;</x:String>
+
             <Style x:Key="FA.Solid.LabelStyle"  TargetType="Label">
                 <Setter Property="FontFamily">
                     <Setter.Value>

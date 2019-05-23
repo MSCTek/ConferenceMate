@@ -106,6 +106,8 @@ namespace MSC.CM.XaSh
             services.AddTransient<SpeakerViewModel>();
             services.AddTransient<WorkshopsViewModel>();
 
+            services.AddTransient<MyProfileEditViewModel>();
+
             //services.AddTransient<MainPage>();
 
             services.AddSingleton<App>(); //App is a singleton
