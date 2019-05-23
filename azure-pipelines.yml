@@ -1,34 +1,50 @@
-# Xamarin.Android
-# Build a Xamarin.Android project.
-# Add steps that test, sign, and distribute an app, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
+# https://docs.microsoft.com/vsts/pipelines/languages/xamarin
+jobs:
 
-trigger:
-- master
+- job: AutomatedTests
+  pool:
+    VMImage: 'windows-2019'
+  steps:
+  - task: VSTest@2
+    inputs:
+      testSelector: 'testAssemblies'
+      testAssemblyVer2: '**\*test*.dll
+        !**\*TestAdapter.dll
+        !**\obj\**'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
 
-pool:
-  vmImage: 'macos-latest'
+- job: Android
+  pool:
+    vmImage: 'windows-2019'
+  variables:
+    buildConfiguration: 'Debug'
+    outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+  steps:
+  - task: NuGetToolInstaller@0
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '**/*.sln'
+  - task: XamarinAndroid@1
+    inputs:
+      projectFile: '**/*droid*.csproj'
+      outputDirectory: '$(outputDirectory)'
+      configuration: '$(buildConfiguration)'
 
-variables:
-  buildConfiguration: 'Release'
-  outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
-
-steps:
-- task: NuGetToolInstaller@0
-
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '**/*.sln'
-
-- task: XamarinAndroid@1
-  inputs:
-    projectFile: '**/*droid*.csproj'
-    outputDirectory: '$(outputDirectory)'
-    configuration: '$(buildConfiguration)'
-
-- task: XamariniOS@2
-  inputs:
-    solutionFile: '**/*.sln'
-    configuration: 'Release'
-    packageApp: true
-    runNugetRestore: false
+- job: iOS
+  pool:
+    vmImage: 'macOS-10.14'
+  variables:
+    buildConfiguration: 'Debug'
+  steps:
+  - task: NuGetToolInstaller@0
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '**/*.sln'
+  - task: XamariniOS@2
+    inputs:
+      clean: true
+      runNugetRestore: true
+      solutionFile: '**/*iOS.csproj'
+      configuration: '$(buildConfiguration)'
+      buildForSimulator: true
+      packageApp: false
