@@ -64,9 +64,9 @@ namespace MSC.CM.XaSh.Services
             return returnMe;
         }
 
-        public Task<modelObj.User> GetUserByIdAsync(int userId)
+        public async Task<modelObj.User> GetUserByIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            return modelData.DemoUser.SampleUser00.ToModelObj();
         }
 
         public async Task SetSessionLikeAsync(int sessionId, bool value)
@@ -77,6 +77,11 @@ namespace MSC.CM.XaSh.Services
         public async Task<bool> ToggleSessionLikeAsync(int sessionId)
         {
             return false;
+        }
+
+        public async Task<int> UpdateUserRecord(modelData.User editedCurrentUser)
+        {
+            return 0;
         }
 
         public async Task<int> WriteFeedbackRecord(modelData.Feedback feedbackData)

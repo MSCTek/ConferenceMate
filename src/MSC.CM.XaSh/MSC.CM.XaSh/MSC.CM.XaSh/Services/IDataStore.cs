@@ -24,6 +24,8 @@ namespace MSC.CM.XaSh.Services
 
         Task<bool> ToggleSessionLikeAsync(int sessionId);
 
+        Task<int> UpdateUserRecord(modelData.User editedCurrentUser);
+
         Task<int> WriteFeedbackRecord(modelData.Feedback feedbackData);
     }
 }

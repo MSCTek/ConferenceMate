@@ -20,10 +20,11 @@ namespace MSC.CM.XaSh.ViewModels
         private string _lastName;
         private string _twitterUrl;
 
-        public MyProfileEditViewModel(IDataStore store = null, IDataLoader loader = null)
+        public MyProfileEditViewModel(IDataStore store = null, IDataLoader loader = null, IDataUploader uploader = null)
         {
             DataStore = store;
             DataLoader = loader;
+            DataUploader = uploader;
             Title = "Edit My Profile";
         }
 
@@ -32,6 +33,8 @@ namespace MSC.CM.XaSh.ViewModels
             get { return _biography; }
             set { Set(ref _biography, value); }
         }
+
+        public ICommand CancelCommand => new Command(() => ExecuteCancelCommand());
 
         public ICommand ChangeProfileImageCommand => new Command(() => DoWhateverWeNeedToDoToCaptureAnImage());
 
@@ -71,6 +74,8 @@ namespace MSC.CM.XaSh.ViewModels
             set { Set(ref _lastName, value); }
         }
 
+        public ICommand SaveCommand => new Command(() => ExecuteSaveCommand());
+
         public string TwitterUrl
         {
             get { return _twitterUrl; }
@@ -92,8 +97,6 @@ namespace MSC.CM.XaSh.ViewModels
                 LastName = CurrentUser.LastName;
                 JobTitle = CurrentUser.JobTitle;
                 TwitterUrl = CurrentUser.TwitterUrl;
-
-                //IsUserLoggedIn = CurrentUser != null ? true : false;
             }
         }
 
@@ -101,6 +104,83 @@ namespace MSC.CM.XaSh.ViewModels
         {
             //do something here
             Debug.WriteLine("Do Whatever We Need To Do To Capture An Image");
+        }
+
+        private void ExecuteCancelCommand()
+        {
+            Biography = CurrentUser.Biography;
+            CompanyName = CurrentUser.CompanyName;
+            Email = CurrentUser.Email;
+            FirstName = CurrentUser.FirstName;
+            LastName = CurrentUser.LastName;
+            JobTitle = CurrentUser.JobTitle;
+            TwitterUrl = CurrentUser.TwitterUrl;
+        }
+
+        private async void ExecuteSaveCommand()
+        {
+            if (ValidateProfile())
+            {
+                var editedCurrentUser = new Xam.ModelData.CM.User()
+                {
+                    AvatarUrl = CurrentUser.AvatarUrl,
+                    Biography = Biography,
+                    BirthDate = CurrentUser.BirthDate,
+                    BlogUrl = CurrentUser.BlogUrl,
+                    CompanyName = CompanyName,
+                    CompanyWebsiteUrl = CurrentUser.CompanyWebsiteUrl,
+                    CreatedBy = CurrentUser.CreatedBy,
+                    CreatedUtcDate = CurrentUser.CreatedUtcDate,
+                    Email = Email,
+                    FirstName = FirstName,
+                    GenderTypeId = CurrentUser.GenderTypeId,
+                    IsDeleted = false,
+                    JobTitle = JobTitle,
+                    LastLogin = CurrentUser.LastLogin,
+                    LastName = LastName,
+                    LinkedInUrl = CurrentUser.LinkedInUrl,
+                    ModifiedBy = CurrentUser.UserName,
+                    ModifiedUtcDate = DateTime.UtcNow,
+                    //PhotoUrl  <= //TODO
+                    PreferredLanguageId = CurrentUser.PreferredLanguageId,
+                    TwitterUrl = TwitterUrl,
+                    UserName = CurrentUser.UserName,
+                    UserId = CurrentUser.UserId,
+                    DataVersion = CurrentUser.DataVersion,
+                    Password = CurrentUser.Password,
+                    Salt = CurrentUser.Salt
+                };
+                if (await DataStore.UpdateUserRecord(editedCurrentUser) == 1)
+                {
+                    await DataUploader.QueueAsync(CurrentUser.UserId, QueueableObjects.UserProfileUpdate);
+                    DataUploader.StartSafeQueuedUpdates();
+                }
+            }
+        }
+
+        private bool ValidateProfile()
+        {
+            if (string.IsNullOrEmpty(FirstName))
+            {
+                AppShell.Current.DisplayAlert("Error", "First Name is Required", "OK");
+                return false;
+            }
+            if (string.IsNullOrEmpty(LastName))
+            {
+                AppShell.Current.DisplayAlert("Error", "Last Name is Required", "OK");
+                return false;
+            }
+            if (string.IsNullOrEmpty(Email))
+            {
+                AppShell.Current.DisplayAlert("Error", "Email is Required", "OK");
+                return false;
+            }
+            if (!Helpers.RegexUtilities.IsValidEmail(Email))
+            {
+                AppShell.Current.DisplayAlert("Error", "Email is Not Valid", "OK");
+                return false;
+            }
+            return true;
         }
 
         //public ICommand SaveCommand => new Command(() => Device.OpenUri(new Uri(CurrentUser.TwitterUrl)));

@@ -30,13 +30,13 @@
                         <Label Text="{Binding CurrentUser.UserName}" />
                     </StackLayout>
 
-                    <Entry Text="{Binding FirstName}" Placeholder="First Name" />
-                    <Entry Text="{Binding LastName}" Placeholder="Last Name" />
+                    <Entry Text="{Binding FirstName}" Placeholder="First Name*" />
+                    <Entry Text="{Binding LastName}" Placeholder="Last Name*" />
 
                     <Entry Text="{Binding JobTitle}"  Placeholder="Job Title" />
                     <Entry Text="{Binding CompanyName}"  Placeholder="Company Name" />
 
-                    <Entry Text="{Binding Email}" Placeholder="Email" />
+                    <Entry Text="{Binding Email}" Placeholder="Email*" />
 
                     <Label IsVisible="{Binding DoesUserTweet}" x:Name="TwitterIcon" Style="{StaticResource FA.Brands.LabelStyle}"
                                Text="{StaticResource FontAwesomeTwitter}" HeightRequest="60" TextColor="#00aced" FontSize="30">
@@ -45,6 +45,11 @@
                     <Entry Text="{Binding TwitterUrl}" Placeholder="Your Twitter URL" />
 
                     <Editor Text="{Binding Biography}" Placeholder="Biography" MaxLength="2000" AutoSize="TextChanges" Keyboard="Text" />
+
+                    <StackLayout Orientation="Horizontal">
+                        <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="Center" />
+                        <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="Center" />
+                    </StackLayout>
                 </StackLayout>
             </Frame>
         </Grid>

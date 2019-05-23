@@ -265,6 +265,11 @@ namespace MSC.CM.XaSh.Services
             return false;
         }
 
+        public async Task<int> UpdateUserRecord(dataModel.User editedCurrentUser)
+        {
+            return await conn.UpdateAsync(editedCurrentUser);
+        }
+
         public async Task<int> WriteFeedbackRecord(dataModel.Feedback feedbackData)
         {
             return await conn.InsertAsync(feedbackData);

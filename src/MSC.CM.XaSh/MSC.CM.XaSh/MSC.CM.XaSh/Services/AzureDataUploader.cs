@@ -28,7 +28,8 @@ namespace MSC.CM.XaSh.Services
         Feedback,
         Chat,
         Bingo,
-        Note
+        Note,
+        UserProfileUpdate
     }
 
     public class AzureDataUploader : IDataUploader
@@ -91,7 +92,35 @@ namespace MSC.CM.XaSh.Services
             {
                 UploadQueue queue = new UploadQueue()
                 {
-                    RecordId = recordId,
+                    UploadQueueId = Guid.NewGuid(),
+                    RecordIdGuid = recordId,
+                    RecordIdInt = null,
+                    QueueableObject = objName.ToString(),
+                    DateQueued = DateTime.UtcNow,
+                    NumAttempts = 0,
+                    Success = false
+                };
+
+                int count = await conn.InsertOrReplaceAsync(queue);
+
+                Debug.WriteLine($"Queued {recordId} of type {objName}");
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                Debug.WriteLine($"Error in {nameof(QueueAsync)}");
+            }
+        }
+
+        public async Task QueueAsync(int recordId, QueueableObjects objName)
+        {
+            try
+            {
+                UploadQueue queue = new UploadQueue()
+                {
+                    UploadQueueId = Guid.NewGuid(),
+                    RecordIdGuid = null,
+                    RecordIdInt = recordId,
                     QueueableObject = objName.ToString(),
                     DateQueued = DateTime.UtcNow,
                     NumAttempts = 0,
@@ -137,7 +166,7 @@ namespace MSC.CM.XaSh.Services
         {
             if (webAPIDataService == null) { Analytics.TrackEvent("FATAL: RunQueuedFeedbackCreate webAPIDataService == null"); return false; }
 
-            var record = await conn.Table<Feedback>().Where(x => x.FeedbackId == q.RecordId).FirstOrDefaultAsync();
+            var record = await conn.Table<Feedback>().Where(x => x.FeedbackId == q.RecordIdGuid).FirstOrDefaultAsync();
             if (record != null)
             {
                 var result = await webAPIDataService.CreateFeedbackAsync(record.ToDto());
@@ -148,9 +177,9 @@ namespace MSC.CM.XaSh.Services
                 }
                 else if (result.StatusCode == System.Net.HttpStatusCode.Conflict)
                 {
-                    Analytics.TrackEvent($"Conflict Sending Queued Feedback record {q.RecordId}");
+                    Analytics.TrackEvent($"Conflict Sending Queued Feedback record {q.RecordIdGuid}");
                 }
-                Analytics.TrackEvent($"Error Sending Queued Feedback record {q.RecordId}");
+                Analytics.TrackEvent($"Error Sending Queued Feedback record {q.RecordIdGuid}");
                 return false;
             }
             return false;
@@ -188,12 +217,49 @@ namespace MSC.CM.XaSh.Services
                             await conn.UpdateAsync(q);
                         }
                     }
+                    else if (q.QueueableObject == QueueableObjects.UserProfileUpdate.ToString())
+                    {
+                        if (await RunQueuedUserProfileUpdate(q))
+                        {
+                            q.NumAttempts += 1;
+                            q.Success = true;
+                            await conn.UpdateAsync(q);
+                        }
+                        else
+                        {
+                            q.NumAttempts += 1;
+                            await conn.UpdateAsync(q);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
                 Crashes.TrackError(ex);
             }
+        }
+
+        private async Task<bool> RunQueuedUserProfileUpdate(UploadQueue q)
+        {
+            if (webAPIDataService == null) { Analytics.TrackEvent("FATAL: RunQueuedUserProfileUpdate webAPIDataService == null"); return false; }
+
+            var record = await conn.Table<User>().Where(x => x.UserId == q.RecordIdInt).FirstOrDefaultAsync();
+            if (record != null)
+            {
+                var result = await webAPIDataService.UpdateUserAsync(record.ToDto());
+                if (result.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine($"Successfully Sent Queued User Record");
+                    return true;
+                }
+                else if (result.StatusCode == System.Net.HttpStatusCode.Conflict)
+                {
+                    Analytics.TrackEvent($"Conflict Sending Queued User record {q.RecordIdInt}");
+                }
+                Analytics.TrackEvent($"Error Sending Queued User record {q.RecordIdInt}");
+                return false;
+            }
+            return false;
         }
     }
 

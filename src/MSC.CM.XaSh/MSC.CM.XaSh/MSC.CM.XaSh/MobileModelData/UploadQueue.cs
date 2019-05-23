@@ -12,9 +12,13 @@ namespace MSC.CM.XaSh.MobileModelData
 
         public string QueueableObject { get; set; }
 
-        [PrimaryKey]
-        public Guid RecordId { get; set; }
+        public Guid? RecordIdGuid { get; set; }
+
+        public int? RecordIdInt { get; set; }
 
         public bool Success { get; set; }
+
+        [PrimaryKey]
+        public Guid UploadQueueId { get; set; }
     }
 }
