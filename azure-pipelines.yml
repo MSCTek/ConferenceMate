@@ -2,9 +2,9 @@
 jobs:
 - job: Android
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'vs2019-win2016'
   variables:
-    buildConfiguration: 'Release'
+    buildConfiguration: 'Debug'
     outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
   steps:
   - task: NuGetToolInstaller@0
@@ -21,7 +21,7 @@ jobs:
   pool:
     vmImage: 'macOS-10.13'
   variables:
-    buildConfiguration: 'Release'
+    buildConfiguration: 'Debug'
   steps:
   - task: NuGetToolInstaller@0
   - task: NuGetCommand@2
