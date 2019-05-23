@@ -1,5 +1,18 @@
 # https://docs.microsoft.com/vsts/pipelines/languages/xamarin
 jobs:
+
+- job: AutomatedTests
+  pool:
+    VMImage: 'windows-2019'
+  steps:
+  - task: VSTest@2
+    inputs:
+      testSelector: 'testAssemblies'
+      testAssemblyVer2: '**\*test*.dll
+        !**\*TestAdapter.dll
+        !**\obj\**'
+      searchFolder: '$(System.DefaultWorkingDirectory)'
+
 - job: Android
   pool:
     vmImage: 'windows-2019'
