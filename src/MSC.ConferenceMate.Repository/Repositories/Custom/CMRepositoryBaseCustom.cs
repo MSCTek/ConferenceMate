@@ -520,7 +520,7 @@ namespace MSC.ConferenceMate.Repository
 		/// <param name="qryItem"></param>
 		/// <param name="id"></param>
 		/// <param name="numChildLevels"></param>
-		 partial void RunCustomLogicOnGetQueryableByPK_SessionLike(ref IQueryable<entCM.SessionLike> qryItem, int sessionId, int userId, int numChildLevels)
+		 partial void RunCustomLogicOnGetQueryableByPK_SessionLike(ref IQueryable<entCM.SessionLike> qryItem, System.Guid sessionLikeId, int numChildLevels)
 		 {
 			 if (numChildLevels > 0)
 			 {
@@ -537,7 +537,7 @@ namespace MSC.ConferenceMate.Repository
 		///// <param name="dbItem"></param>
 		///// <param name="id"></param>
 		///// <param name="numChildLevels"></param>
-		// partial void RunCustomLogicOnGetEntityByPK_SessionLike(ref entCM.SessionLike dbItem, int sessionId, int userId, int numChildLevels)
+		// partial void RunCustomLogicOnGetEntityByPK_SessionLike(ref entCM.SessionLike dbItem, System.Guid sessionLikeId, int numChildLevels)
 		// {
 			// if (numChildLevels > 1)
 			// {

@@ -46,6 +46,7 @@ namespace MSC.ConferenceMate.Model.CM
 		public virtual string ModifiedBy { get { return _dto.ModifiedBy; } }
 		public virtual System.DateTime ModifiedUtcDate { get { return _dto.ModifiedUtcDate; } }
 		public virtual int SessionId { get { return _dto.SessionId; } }
+		public virtual System.Guid SessionLikeId { get { return _dto.SessionLikeId; } }
 		public virtual int UserId { get { return _dto.UserId; } }
 
 		private ISession _session = null; // Foreign Key

@@ -19,8 +19,9 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.33.0.0")]
     public partial class SessionLike
     {
-        public int SessionId { get; set; } // SessionId (Primary key)
-        public int UserId { get; set; } // UserId (Primary key)
+        public System.Guid SessionLikeId { get; set; } // SessionLikeId (Primary key)
+        public int SessionId { get; set; } // SessionId
+        public int UserId { get; set; } // UserId
         public int DataVersion { get; set; } // DataVersion
         public System.DateTime CreatedUtcDate { get; set; } // CreatedUtcDate
         public string CreatedBy { get; set; } // CreatedBy (length: 200)
@@ -42,6 +43,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
 
         public SessionLike()
         {
+            SessionLikeId = System.Guid.NewGuid();
             DataVersion = 1;
             CreatedUtcDate = System.DateTime.UtcNow;
             ModifiedUtcDate = System.DateTime.UtcNow;

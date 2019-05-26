@@ -8,8 +8,9 @@ namespace MSC.ConferenceMate.DTO.CM
 			InitializePartial();
 		}
 
-		public int SessionId { get; set; } // Primary key
-		public int UserId { get; set; } // Primary key
+		public System.Guid SessionLikeId { get; set; } // Primary key
+		public int SessionId { get; set; }
+		public int UserId { get; set; }
 		public int DataVersion { get; set; }
 		public System.DateTime CreatedUtcDate { get; set; }
 		public string CreatedBy { get; set; }

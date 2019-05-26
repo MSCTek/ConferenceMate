@@ -44,8 +44,8 @@ namespace MSC.ConferenceMate.Repository.Interface
 		Task<IRepositoryActionResult<SessionCategoryType>> Delete_SessionCategoryTypeAsync(int sessionCategoryTypeId);
 		Task<SessionCategoryType> Get_SessionCategoryTypeAsync(int sessionCategoryTypeId, int numChildLevels);
 
-		Task<IRepositoryActionResult<SessionLike>> Delete_SessionLikeAsync(int sessionId, int userId);
-		Task<SessionLike> Get_SessionLikeAsync(int sessionId, int userId, int numChildLevels);
+		Task<IRepositoryActionResult<SessionLike>> Delete_SessionLikeAsync(System.Guid sessionLikeId);
+		Task<SessionLike> Get_SessionLikeAsync(System.Guid sessionLikeId, int numChildLevels);
 
 		Task<IRepositoryActionResult<SessionSessionCategoryType>> Delete_SessionSessionCategoryTypeAsync(int sessionId, int sessionCategoryTypeId);
 		Task<SessionSessionCategoryType> Get_SessionSessionCategoryTypeAsync(int sessionId, int sessionCategoryTypeId, int numChildLevels);

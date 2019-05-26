@@ -21,7 +21,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		///// <param name="dbItem"></param>
 		///// <param name="id"></param>
 		///// <param name="numChildLevels"></param>
-		// partial void RunCustomLogicOnGetEntityByPK(ref entCM.SessionLike dbItem, int sessionId, int userId, int numChildLevels)
+		// partial void RunCustomLogicOnGetEntityByPK(ref entCM.SessionLike dbItem, System.Guid sessionLikeId, int numChildLevels)
 		// {
 			// if (numChildLevels > 1)
 			// {

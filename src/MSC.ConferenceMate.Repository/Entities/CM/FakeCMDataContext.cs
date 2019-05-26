@@ -52,7 +52,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             Rooms = new FakeDbSet<Room>("RoomId");
             Sessions = new FakeDbSet<Session>("SessionId");
             SessionCategoryTypes = new FakeDbSet<SessionCategoryType>("SessionCategoryTypeId");
-            SessionLikes = new FakeDbSet<SessionLike>("SessionId", "UserId");
+            SessionLikes = new FakeDbSet<SessionLike>("SessionLikeId");
             SessionSessionCategoryTypes = new FakeDbSet<SessionSessionCategoryType>("SessionId", "SessionCategoryTypeId");
             SessionSpeakers = new FakeDbSet<SessionSpeaker>("SessionId", "UserId");
             Sponsors = new FakeDbSet<Sponsor>("SponsorId");

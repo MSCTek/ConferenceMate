@@ -39,14 +39,14 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		}
 
 		[HttpDelete]
-		[VersionedRoute(template: "SessionLikes/{sessionId}/{userId}", allowedVersion: 1)]
-		public async Task<IHttpActionResult> Delete(int sessionId, int userId)
+		[VersionedRoute(template: "SessionLikes/{sessionLikeId}", allowedVersion: 1)]
+		public async Task<IHttpActionResult> Delete(System.Guid sessionLikeId)
 		{
 			try
 			{
 				if (!base.OnActionExecuting(out HttpStatusCode httpStatusCode, out string message)) { return Content(httpStatusCode, message); }
 
-				var result = await Repo.Delete_SessionLikeAsync(sessionId, userId);
+				var result = await Repo.Delete_SessionLikeAsync(sessionLikeId);
 
 				if (result.Status == cghEnums.RepositoryActionStatus.Deleted)
 				{
@@ -117,13 +117,13 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		}
 
 		[HttpGet]
-		[VersionedRoute(template: "SessionLikes/{sessionId}/{userId}/{numChildLevels:int=0}", allowedVersion: 1)]
-		public async Task<IHttpActionResult> Get(int sessionId, int userId, int numChildLevels)
+		[VersionedRoute(template: "SessionLikes/{sessionLikeId}/{numChildLevels:int=0}", allowedVersion: 1)]
+		public async Task<IHttpActionResult> Get(System.Guid sessionLikeId, int numChildLevels)
 		{
 			try
 			{
 				if (!base.OnActionExecuting(out HttpStatusCode httpStatusCode, out string message)) { return Content(httpStatusCode, message); }
-				var dbItem = await Repo.Get_SessionLikeAsync(sessionId, userId, numChildLevels);
+				var dbItem = await Repo.Get_SessionLikeAsync(sessionLikeId, numChildLevels);
 
 				if (dbItem == null)
 				{
@@ -131,7 +131,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 					return NotFound();
 				}
 
-				RunCustomLogicOnGetEntityByPK(ref dbItem, sessionId, userId, numChildLevels);
+				RunCustomLogicOnGetEntityByPK(ref dbItem, sessionLikeId, numChildLevels);
 				return Ok(_factory.Create(dbItem));
 			}
 			catch (Exception ex)
@@ -146,8 +146,8 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		}
 
 		[HttpPatch]
-		[VersionedRoute(template: "SessionLikes/{sessionId}/{userId}", allowedVersion: 1)]
-		public async Task<IHttpActionResult> Patch(int sessionId, int userId, [FromBody] JsonPatchDocument<dtoCM.SessionLike> patchDocument)
+		[VersionedRoute(template: "SessionLikes/{sessionLikeId}", allowedVersion: 1)]
+		public async Task<IHttpActionResult> Patch(System.Guid sessionLikeId, [FromBody] JsonPatchDocument<dtoCM.SessionLike> patchDocument)
 		{
 			try
 			{
@@ -158,7 +158,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 					return BadRequest();
 				}
 
-				var dbItem = await Repo.Get_SessionLikeAsync(sessionId, userId, numChildLevels: 0);
+				var dbItem = await Repo.Get_SessionLikeAsync(sessionLikeId, numChildLevels: 0);
 				if (dbItem == null)
 				{
 					return NotFound();
@@ -168,8 +168,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 
 				// apply changes to the DTO
 				patchDocument.ApplyTo(dtoItem);
-				dtoItem.SessionId = sessionId;
-				dtoItem.UserId = userId;
+				dtoItem.SessionLikeId = sessionLikeId;
 
 				// map the DTO with applied changes to the entity, & update
 				var updatedDBItem = _factory.Create(dtoItem); // map
@@ -220,7 +219,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				{   // map to dto
 					var newDTOItem = _factory.Create(result.Entity);
 					var uriFormatted = Request.RequestUri.ToString().EndsWith("/") == true ? Request.RequestUri.ToString().Substring(0, Request.RequestUri.ToString().Length - 1) : Request.RequestUri.ToString();
-					return Created($"{uriFormatted}/{newDTOItem.SessionId}/{newDTOItem.UserId}", newDTOItem);
+					return Created($"{uriFormatted}/{newDTOItem.SessionLikeId}", newDTOItem);
 				}
 
 				Warn("Unable to create object via Web API", LogMessageType.Instance.Warn_WebApi, result.Exception, httpResponseStatusCode: 400, url: Request.RequestUri.ToString());
@@ -238,8 +237,8 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		}
 
 		[HttpPut]
-		[VersionedRoute(template: "SessionLikes/{sessionId}/{userId}", allowedVersion: 1)]
-		public async Task<IHttpActionResult> Put(int sessionId, int userId, [FromBody] dtoCM.SessionLike dtoItem)
+		[VersionedRoute(template: "SessionLikes/{sessionLikeId}", allowedVersion: 1)]
+		public async Task<IHttpActionResult> Put(System.Guid sessionLikeId, [FromBody] dtoCM.SessionLike dtoItem)
 		{
 			try
 			{
@@ -250,8 +249,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 					return BadRequest();
 				}
 
-				dtoItem.SessionId = sessionId;
-				dtoItem.UserId = userId;
+				dtoItem.SessionLikeId = sessionLikeId;
 
 				var updatedDBItem = _factory.Create(dtoItem); // map
 				var result = await Repo.UpdateAsync(updatedDBItem);
@@ -288,7 +286,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 
 		partial void RunCustomLogicAfterUpdatePut(ref MSC.ConferenceMate.Repository.Entities.CM.SessionLike updatedDBItem, ref IRepositoryActionResult<entCM.SessionLike> result);
 
-		partial void RunCustomLogicOnGetEntityByPK(ref entCM.SessionLike dbItem, int sessionId, int userId, int numChildLevels);
+		partial void RunCustomLogicOnGetEntityByPK(ref entCM.SessionLike dbItem, System.Guid sessionLikeId, int numChildLevels);
 
 		partial void RunCustomLogicAfterGetQueryableList(ref IQueryable<entCM.SessionLike> dbItems, ref List<string> filterList);
 	}

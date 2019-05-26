@@ -153,7 +153,7 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<xDTO.SessionCategoryType>> GetSessionCategoryTypeAsync(int sessionCategoryTypeId, int numChildLevels);
 
-		Task<IHttpCallResultCGHT<xDTO.SessionLike>> GetSessionLikeAsync(int sessionId, int userId, int numChildLevels);
+		Task<IHttpCallResultCGHT<xDTO.SessionLike>> GetSessionLikeAsync(System.Guid sessionLikeId, int numChildLevels);
 
 		Task<IHttpCallResultCGHT<xDTO.SessionSessionCategoryType>> GetSessionSessionCategoryTypeAsync(int sessionId, int sessionCategoryTypeId, int numChildLevels);
 
@@ -279,7 +279,7 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<xDTO.SessionCategoryType>> DeleteSessionCategoryTypeAsync(int sessionCategoryTypeId);
 
-		Task<IHttpCallResultCGHT<xDTO.SessionLike>> DeleteSessionLikeAsync(int sessionId, int userId);
+		Task<IHttpCallResultCGHT<xDTO.SessionLike>> DeleteSessionLikeAsync(System.Guid sessionLikeId);
 
 		Task<IHttpCallResultCGHT<xDTO.SessionSessionCategoryType>> DeleteSessionSessionCategoryTypeAsync(int sessionId, int sessionCategoryTypeId);
 

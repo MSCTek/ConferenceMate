@@ -865,17 +865,15 @@ namespace MSC.ConferenceMate.Repository
 			return _ctx.Set<SessionLike>();
 		}
 
-			public async Task<SessionLike> Get_SessionLikeAsync(int sessionId, int userId, int numChildLevels)
+			public async Task<SessionLike> Get_SessionLikeAsync(System.Guid sessionLikeId, int numChildLevels)
 			{
 				var qryItem = GetQueryable_SessionLike().AsNoTracking();
-				RunCustomLogicOnGetQueryableByPK_SessionLike(ref qryItem, sessionId, userId, numChildLevels);
+				RunCustomLogicOnGetQueryableByPK_SessionLike(ref qryItem, sessionLikeId, numChildLevels);
 
-				var dbItem = await qryItem.Where(
-						x => x.SessionId == sessionId
-						&& x.UserId == userId).FirstOrDefaultAsync();
+				var dbItem = await qryItem.Where(x => x.SessionLikeId == sessionLikeId).FirstOrDefaultAsync();
 				if (!(dbItem is null))
 				{
-					RunCustomLogicOnGetEntityByPK_SessionLike(ref dbItem, sessionId, userId, numChildLevels);
+					RunCustomLogicOnGetEntityByPK_SessionLike(ref dbItem, sessionLikeId, numChildLevels);
 				}
 
 				return dbItem;
@@ -883,43 +881,35 @@ namespace MSC.ConferenceMate.Repository
 
 			public async Task<SessionLike> GetFirstOrDefaultAsync(SessionLike item)
 			{
-				return await _ctx.SessionLikes.Where(
-						x => x.SessionId == item.SessionId
-						&& x.UserId == item.UserId).FirstOrDefaultAsync();
+				return await _ctx.SessionLikes.Where(x => x.SessionLikeId == item.SessionLikeId).FirstOrDefaultAsync();
 			}
 
 
 		public async Task<IRepositoryActionResult<SessionLike>> UpdateAsync(SessionLike item)
 		{
-			var oldItem = await _ctx.SessionLikes.FirstOrDefaultAsync(
-						x => x.SessionId == item.SessionId
-						&& x.UserId == item.UserId);
+			var oldItem = await _ctx.SessionLikes.FirstOrDefaultAsync(x => x.SessionLikeId == item.SessionLikeId);
 			var result = await UpdateAsync<SessionLike>(item, oldItem);
 			RunCustomLogicAfterUpdate_SessionLike(newItem: item, oldItem: oldItem, result: result);
 
 			return result;
 		}
 
-			public async Task<IRepositoryActionResult<SessionLike>> Delete_SessionLikeAsync(int sessionId, int userId)
+			public async Task<IRepositoryActionResult<SessionLike>> Delete_SessionLikeAsync(System.Guid sessionLikeId)
 			{
-				return await DeleteAsync<SessionLike>(_ctx.SessionLikes.Where(
-						x => x.SessionId == sessionId
-						&& x.UserId == userId).FirstOrDefault());
+				return await DeleteAsync<SessionLike>(_ctx.SessionLikes.Where(x => x.SessionLikeId == sessionLikeId).FirstOrDefault());
 			}
 			public async Task<IRepositoryActionResult<SessionLike>> DeleteAsync(SessionLike item)
 			{
-				return await DeleteAsync<SessionLike>(_ctx.SessionLikes.Where(
-						x => x.SessionId == item.SessionId
-						&& x.UserId == item.UserId).FirstOrDefault());
+				return await DeleteAsync<SessionLike>(_ctx.SessionLikes.Where(x => x.SessionLikeId == item.SessionLikeId).FirstOrDefault());
 			}
 
 		partial void RunCustomLogicAfterInsert_SessionLike(SessionLike item, IRepositoryActionResult<SessionLike> result);
 
 		partial void RunCustomLogicAfterUpdate_SessionLike(SessionLike newItem, SessionLike oldItem, IRepositoryActionResult<SessionLike> result);
 
-		partial void RunCustomLogicOnGetQueryableByPK_SessionLike(ref IQueryable<SessionLike> qryItem, int sessionId, int userId, int numChildLevels);
+		partial void RunCustomLogicOnGetQueryableByPK_SessionLike(ref IQueryable<SessionLike> qryItem, System.Guid sessionLikeId, int numChildLevels);
 
-		partial void RunCustomLogicOnGetEntityByPK_SessionLike(ref SessionLike dbItem, int sessionId, int userId, int numChildLevels);
+		partial void RunCustomLogicOnGetEntityByPK_SessionLike(ref SessionLike dbItem, System.Guid sessionLikeId, int numChildLevels);
 
 
 

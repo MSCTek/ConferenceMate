@@ -1250,9 +1250,9 @@ namespace MSC.ConferenceMate.API.Client
 			return retVal;
 		}
 
-		public async Task<IHttpCallResultCGHT<xDTO.SessionLike>> GetSessionLikeAsync(int sessionId, int userId, int numChildLevels)
+		public async Task<IHttpCallResultCGHT<xDTO.SessionLike>> GetSessionLikeAsync(System.Guid sessionLikeId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SessionLike>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionLikes/{sessionId}/{userId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SessionLike>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionLikes/{sessionLikeId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
@@ -1540,7 +1540,7 @@ namespace MSC.ConferenceMate.API.Client
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.SessionLike>(
 					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SessionLikes/{item.SessionId}/{item.UserId}", item);
+					$"{ExecutionContext.BaseWebApiUrl}SessionLikes/{item.SessionLikeId}", item);
 				return retVal;
 			}
 
@@ -1664,9 +1664,9 @@ namespace MSC.ConferenceMate.API.Client
 			return retVal;
 		}
 
-		public async Task<IHttpCallResultCGHT<xDTO.SessionLike>> DeleteSessionLikeAsync(int sessionId, int userId)
+		public async Task<IHttpCallResultCGHT<xDTO.SessionLike>> DeleteSessionLikeAsync(System.Guid sessionLikeId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SessionLike>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionLikes/{sessionId}/{userId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SessionLike>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionLikes/{sessionLikeId}");
 			return retVal;
 		}
 

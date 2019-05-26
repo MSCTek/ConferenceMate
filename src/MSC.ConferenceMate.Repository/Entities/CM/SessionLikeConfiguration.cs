@@ -27,10 +27,11 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         public SessionLikeConfiguration(string schema)
         {
             ToTable("Session_Like", schema);
-            HasKey(x => new { x.SessionId, x.UserId });
+            HasKey(x => x.SessionLikeId);
 
-            Property(x => x.SessionId).HasColumnName(@"SessionId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.SessionLikeId).HasColumnName(@"SessionLikeId").HasColumnType("uniqueidentifier").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.SessionId).HasColumnName(@"SessionId").HasColumnType("int").IsRequired();
+            Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsRequired();
             Property(x => x.DataVersion).HasColumnName(@"DataVersion").HasColumnType("int").IsRequired();
             Property(x => x.CreatedUtcDate).HasColumnName(@"CreatedUtcDate").HasColumnType("datetime2").IsRequired();
             Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsRequired().HasMaxLength(200);
