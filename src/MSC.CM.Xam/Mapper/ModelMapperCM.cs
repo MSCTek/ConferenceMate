@@ -235,6 +235,7 @@ namespace MSC.CM.Xam
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
+				SessionLikeId = source.SessionLikeId,
 				UserId = source.UserId,
 			};
 		}
@@ -266,9 +267,7 @@ namespace MSC.CM.Xam
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
 				UserId = source.UserId,
-                SessionIdUserId = $"{source.SessionId}{source.UserId}"
-
-            };
+			};
 		}
 
 		public static dataCM.Sponsor ToModelData(this objCM.Sponsor source)
@@ -584,6 +583,7 @@ namespace MSC.CM.Xam
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
+				SessionLikeId = source.SessionLikeId,
 				UserId = source.UserId,
 			};
 		}

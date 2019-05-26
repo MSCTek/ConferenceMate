@@ -232,6 +232,7 @@ namespace MSC.CM.Xam
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
+				SessionLikeId = source.SessionLikeId,
 				UserId = source.UserId,
 			};
 		}
@@ -579,6 +580,7 @@ namespace MSC.CM.Xam
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
+				SessionLikeId = source.SessionLikeId,
 				UserId = source.UserId,
 			};
 		}
@@ -926,6 +928,7 @@ namespace MSC.CM.Xam
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
+				SessionLikeId = source.SessionLikeId,
 				UserId = source.UserId,
 			};
 		}
@@ -1273,10 +1276,8 @@ namespace MSC.CM.Xam
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
+				SessionLikeId = source.SessionLikeId,
 				UserId = source.UserId,
-
-				// Create an extra line to handle a limitation in SQLite when dealing with tables that use composite primary keys
-				SessionIdUserId = $"{source.SessionId}{source.UserId}"
 			};
 		}
 

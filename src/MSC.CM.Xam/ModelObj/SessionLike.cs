@@ -17,6 +17,7 @@ namespace MSC.CM.Xam.ModelObj.CM
 		private string _modifiedBy;
 		private System.DateTime _modifiedUtcDate;
 		private int _sessionId;
+		private System.Guid _sessionLikeId;
 		private int _userId;
 
 
@@ -90,6 +91,16 @@ namespace MSC.CM.Xam.ModelObj.CM
 			}
 		}
 
+		public System.Guid SessionLikeId
+		{
+			get { return _sessionLikeId; }
+			set
+			{
+				Set<System.Guid>(() => SessionLikeId, ref _sessionLikeId, value);
+				RunCustomLogicSetSessionLikeId(value);
+			}
+		}
+
 		public int UserId
 		{
 			get { return _userId; }
@@ -115,6 +126,7 @@ namespace MSC.CM.Xam.ModelObj.CM
 		partial void RunCustomLogicSetModifiedBy(string value);
 		partial void RunCustomLogicSetModifiedUtcDate(System.DateTime value);
 		partial void RunCustomLogicSetSessionId(int value);
+		partial void RunCustomLogicSetSessionLikeId(System.Guid value);
 		partial void RunCustomLogicSetUserId(int value);
 
 		#endregion RunCustomLogicSet
