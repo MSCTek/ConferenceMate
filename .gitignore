@@ -13,7 +13,7 @@ src/.vs/config/applicationhost.config
 *.suo
 *.vspscc
 src/packages
-src/CodeGenHero/bin
+src/CodeGenHero/bin 
 src/CodeGenHero/obj
 src/MSC.ConferenceMate.API/bin
 src/MSC.ConferenceMate.API/obj
@@ -41,11 +41,10 @@ src/MSC.CM.Xam/bin
 src/MSC.CM.Xam/obj
 src/MSC.ConferenceMate.Xam/bin
 src/MSC.ConferenceMate.Xam/obj
-src/MSC.CM.XamSh/MSC.CM.XamSh/bin
-src/MSC.CM.XamSh/MSC.CM.XamSh/obj
-src/MSC.CM.XamSh/MSC.CM.XamSh.Android/bin
-src/MSC.CM.XamSh/MSC.CM.XamSh.Android/obj
-src/MSC.CM.XamSh/MSC.CM.XamSh.iOS/bin
-src/MSC.CM.XamSh/MSC.CM.XamSh.iOS/obj
-
+src/MSC.CM.XaSh/MSC.CM.XaSh/MSC.CM.XaSh/bin
+src/MSC.CM.XaSh/MSC.CM.XaSh/MSC.CM.XaSh/obj
+src/MSC.CM.XaSh/MSC.CM.XaSh/MSC.CM.XaSh.Android/bin
+src/MSC.CM.XaSh/MSC.CM.XaSh/MSC.CM.XaSh.Android/obj
+src/MSC.CM.XaSh/MSC.CM.XaSh/MSC.CM.XaSh.iOS/bin
+src/MSC.CM.XaSh/MSC.CM.XaSh/MSC.CM.XaSh.iOS/obj
 
