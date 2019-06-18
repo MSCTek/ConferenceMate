@@ -11,19 +11,21 @@ using System.Diagnostics;
 using Microsoft.AppCenter.Crashes;
 using GalaSoft.MvvmLight.Command;
 using MSC.CM.XaSh.Helpers;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace MSC.CM.XaSh.ViewModels
 {
     public class SessionsByTimeViewModel : BaseViewModel
     {
-        private ObservableCollection<Session> _sessions;
+        private ObservableCollection<Grouping<string, Session>> _sessionsByTime;
 
         public SessionsByTimeViewModel(IDataStore store = null, IDataLoader loader = null)
         {
             DataStore = store;
             DataLoader = loader;
             Title = "Sessions By Time";
-            Sessions = new ObservableCollection<Session>();
+            SessionsByTime = new ObservableCollection<Grouping<string, Session>>();
         }
 
         public RelayCommand<int> LikeCommand
@@ -36,8 +38,7 @@ namespace MSC.CM.XaSh.ViewModels
                     {
                         if (await DataStore.ToggleSessionLikeAsync(sessionId))
                         {
-                            //re populate local list from sqlite
-                            Sessions = (await DataStore.GetSessionsAsync()).ToObservableCollection();
+                            await RefreshListViewData();
                         }
                     }
                     catch (Exception ex)
@@ -48,10 +49,10 @@ namespace MSC.CM.XaSh.ViewModels
             }
         }
 
-        public ObservableCollection<Session> Sessions
+        public ObservableCollection<Grouping<string, Session>> SessionsByTime
         {
-            get { return _sessions; }
-            set { Set(nameof(Sessions), ref _sessions, value); }
+            get { return _sessionsByTime; }
+            set { Set(nameof(SessionsByTime), ref _sessionsByTime, value); }
         }
 
         public async Task RefreshListViewData()
@@ -75,15 +76,7 @@ namespace MSC.CM.XaSh.ViewModels
                     Debug.WriteLine($"Loaded {ctSessionSpeakers} SessionSpeakers.");
                 }
 
-                //clear local list
-                Sessions.Clear();
-
-                //populate local list
-                var items = await DataStore.GetSessionsAsync();
-                foreach (var item in items)
-                {
-                    Sessions.Add(item);
-                }
+                await RefreshSessionList();
             }
             catch (Exception ex)
             {
@@ -96,10 +89,16 @@ namespace MSC.CM.XaSh.ViewModels
             }
         }
 
-        internal async Task SetSessionLike(int sessionId, bool value)
+        private async Task RefreshSessionList()
         {
-            await DataStore.ToggleSessionLikeAsync(sessionId);
-            //DataUploader.QueueAsync();
+            var items = await DataStore.GetSessionsWithRoomsAsync();
+
+            var sorted = from session in items
+                         orderby session.StartTime
+                         group session by session.DateDisplay into sessionGroup
+                         select new Grouping<string, Session>(sessionGroup.Key, sessionGroup);
+
+            SessionsByTime = new ObservableCollection<Grouping<string, Session>>(sorted);
         }
     }
 }
