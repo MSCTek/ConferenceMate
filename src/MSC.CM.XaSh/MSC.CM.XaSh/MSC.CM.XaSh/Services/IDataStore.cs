@@ -14,13 +14,15 @@ namespace MSC.CM.XaSh.Services
 
         Task<IEnumerable<modelObj.FeedbackType>> GetFeedbackTypesAsync();
 
+        Task<modelObj.Room> GetRoomById(int roomId);
+
         Task<IEnumerable<modelObj.Session>> GetSessionsAsync();
+
+        Task<IEnumerable<modelObj.Session>> GetSessionsWithRoomsAsync();
 
         Task<IEnumerable<modelObj.User>> GetSpeakersAsync();
 
         Task<modelObj.User> GetUserByIdAsync(int userId);
-
-        Task SetSessionLikeAsync(int sessionId, bool value);
 
         Task<bool> ToggleSessionLikeAsync(int sessionId);
 

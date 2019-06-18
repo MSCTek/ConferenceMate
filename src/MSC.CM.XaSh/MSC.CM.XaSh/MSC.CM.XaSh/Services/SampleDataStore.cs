@@ -44,6 +44,11 @@ namespace MSC.CM.XaSh.Services
             return returnMe;
         }
 
+        public Task<modelObj.Room> GetRoomById(int roomId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<modelObj.Session>> GetSessionsAsync()
         {
             var returnMe = new List<modelObj.Session>();
@@ -52,6 +57,11 @@ namespace MSC.CM.XaSh.Services
             returnMe.Add(modelData.DemoSession.SampleSession01.ToModelObj());
 
             return returnMe;
+        }
+
+        public Task<IEnumerable<modelObj.Session>> GetSessionsWithRoomsAsync()
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<modelObj.User>> GetSpeakersAsync()

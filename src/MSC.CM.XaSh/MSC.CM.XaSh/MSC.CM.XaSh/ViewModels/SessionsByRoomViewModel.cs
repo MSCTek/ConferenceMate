@@ -11,19 +11,34 @@ using Microsoft.AppCenter.Crashes;
 using System.Diagnostics;
 using GalaSoft.MvvmLight.Command;
 using MSC.CM.XaSh.Helpers;
+using GalaSoft.MvvmLight;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace MSC.CM.XaSh.ViewModels
 {
+    public class Grouping<K, T> : ObservableCollection<T>
+    {
+        public Grouping(K key, IEnumerable<T> items)
+        {
+            Key = key;
+            foreach (var item in items)
+                this.Items.Add(item);
+        }
+
+        public K Key { get; private set; }
+    }
+
     public class SessionsByRoomViewModel : BaseViewModel
     {
-        private ObservableCollection<Session> _sessions;
+        private ObservableCollection<Grouping<string, Session>> _sessionsByRoom;
 
         public SessionsByRoomViewModel(IDataStore store = null, IDataLoader loader = null)
         {
             DataStore = store;
             DataLoader = loader;
             Title = "Sessions By Room";
-            Sessions = new ObservableCollection<Session>();
+            SessionsByRoom = new ObservableCollection<Grouping<string, Session>>();
         }
 
         public RelayCommand<int> LikeCommand
@@ -34,10 +49,10 @@ namespace MSC.CM.XaSh.ViewModels
                 {
                     try
                     {
+                        Debug.WriteLine($"User likes {sessionId}");
                         if (await DataStore.ToggleSessionLikeAsync(sessionId))
                         {
-                            //re populate local list from sqlite
-                            Sessions = (await DataStore.GetSessionsAsync()).ToObservableCollection();
+                            await RefreshSessionList();
                         }
                     }
                     catch (Exception ex)
@@ -48,10 +63,10 @@ namespace MSC.CM.XaSh.ViewModels
             }
         }
 
-        public ObservableCollection<Session> Sessions
+        public ObservableCollection<Grouping<string, Session>> SessionsByRoom
         {
-            get { return _sessions; }
-            set { Set(nameof(Sessions), ref _sessions, value); }
+            get { return _sessionsByRoom; }
+            set { Set(nameof(SessionsByRoom), ref _sessionsByRoom, value); }
         }
 
         public async Task RefreshListViewData()
@@ -77,15 +92,7 @@ namespace MSC.CM.XaSh.ViewModels
                     Debug.WriteLine($"Loaded {ctSessionLikes} SessionLikes.");
                 }
 
-                //clear local list
-                Sessions.Clear();
-
-                //populate local list
-                var items = await DataStore.GetSessionsAsync();
-                foreach (var item in items)
-                {
-                    Sessions.Add(item);
-                }
+                await RefreshSessionList();
             }
             catch (Exception ex)
             {
@@ -102,6 +109,18 @@ namespace MSC.CM.XaSh.ViewModels
         {
             //DataStore.SetSessionLikeAsync(sessionId, value);
             //DataUploader.QueueAsync()
+        }
+
+        private async Task RefreshSessionList()
+        {
+            var items = await DataStore.GetSessionsWithRoomsAsync();
+
+            var sorted = from session in items
+                         orderby session.StartTime
+                         group session by session.Room.Title into sessionGroup
+                         select new Grouping<string, Session>(sessionGroup.Key, sessionGroup);
+
+            SessionsByRoom = new ObservableCollection<Grouping<string, Session>>(sorted);
         }
     }
 }
