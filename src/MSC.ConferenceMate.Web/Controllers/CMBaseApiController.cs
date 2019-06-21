@@ -22,6 +22,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 	{
 		private ILoggingService _log;
 		private ICMRepository _repository;
+		readonly Web.Infrastructure.ISession _session;
 
 		public CMBaseApiController()
 		{
@@ -48,11 +49,19 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			}
 		}
 
-		public CMBaseApiController(ILoggingService log, ICMRepository repository)
+
+
+		public CMBaseApiController(ILoggingService log, ICMRepository repository, Web.Infrastructure.ISession session)
 		{
 			_repository = repository;
 			_log = log;
+			_session = session;
 			RunCustomLogicAfterCtor();
+		}
+
+		public CMBaseApiController(ILoggingService log, ICMRepository repository)
+			: this(log, repository, null)
+		{
 		}
 
 		public CodeGenHero.Logging.Enums.LogLevel CurrentLogLevel
