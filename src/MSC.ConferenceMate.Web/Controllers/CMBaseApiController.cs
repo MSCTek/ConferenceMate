@@ -52,7 +52,6 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		{
 			_repository = repository;
 			_log = log;
-
 			RunCustomLogicAfterCtor();
 		}
 

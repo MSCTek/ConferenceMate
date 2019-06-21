@@ -9,7 +9,7 @@ namespace MSC.ConferenceMate.Repository.Interface
 	public partial interface ICMRepository : ICMRepositoryCrud
 	{
 
-		ICMDataContext CMDataContext { get; }
+		CMDataContext CMDataContext { get; }
 
 		Task<IRepositoryActionResult<Announcement>> Delete_AnnouncementAsync(int announcementId);
 		Task<Announcement> Get_AnnouncementAsync(int announcementId, int numChildLevels);

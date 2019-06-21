@@ -10,6 +10,9 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 {
 	public partial class CMAPIStatusController : CMBaseApiController
 	{
+		public CMAPIStatusController() : base()
+		{
+		}
 
 		public CMAPIStatusController(ILoggingService log, ICMRepository repository)
 			: base(log, repository)

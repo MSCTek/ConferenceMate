@@ -265,8 +265,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CMUserSecurityController.cs" />
-    <Compile Include="Controllers\CMAPIStatusController.cs" />
-    <Compile Include="Controllers\CMBaseApiController.cs" />
+    <Compile Include="Controllers\CMAPIStatusController.cs">
+      <DependentUpon>APIStatusController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CMBaseApiController.cs">
+      <DependentUpon>APIBaseController_CM.cgh</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\CM\AnnouncementsController.cs" />
     <Compile Include="Controllers\CM\Custom\AnnouncementsControllerCustom.cs" />
     <Compile Include="Controllers\CM\Custom\FeaturedEventsControllerCustom.cs" />
