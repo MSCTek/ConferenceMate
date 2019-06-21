@@ -12,9 +12,9 @@ namespace MSC.ConferenceMate.Repository
 {
 	public abstract partial class CMRepositoryBase : ICMRepositoryCrud
 	{
-		private CMDataContext _ctx;
+		private ICMDataContext _ctx;
 
-		public CMRepositoryBase(CMDataContext ctx)
+		public CMRepositoryBase(ICMDataContext ctx)
 		{
 			_ctx = ctx;
 

@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\MSC.ConferenceMate.Web.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,16 +46,92 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="CodeGenHero.DataService, Version=1.0.30.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CodeGenHero.DataService.1.0.30\lib\net46\CodeGenHero.DataService.dll</HintPath>
+    </Reference>
+    <Reference Include="CodeGenHero.Logging, Version=1.0.7.0, Culture=neutral, PublicKeyToken=32065bcb7d985959, processorArchitecture=MSIL">
+      <HintPath>..\packages\CodeGenHero.Logging.1.0.7\lib\net46\CodeGenHero.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="CodeGenHero.Logging.Log4net, Version=1.0.3.0, Culture=neutral, PublicKeyToken=32065bcb7d985959, processorArchitecture=MSIL">
+      <HintPath>..\packages\CodeGenHero.Logging.Log4net.1.0.3\lib\net46\CodeGenHero.Logging.Log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="CodeGenHero.Repository, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CodeGenHero.Repository.1.0.6\lib\net46\CodeGenHero.Repository.dll</HintPath>
+    </Reference>
+    <Reference Include="CodeGenHero.Repository.AutoMapper, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CodeGenHero.Repository.AutoMapper.1.0.7\lib\net46\CodeGenHero.Repository.AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="CodeGenHero.WebApi, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CodeGenHero.WebApi.1.0.5\lib\net46\CodeGenHero.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Marvin.JsonPatch, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Marvin.JsonPatch.2.1.1\lib\portable40-net40+win8\Marvin.JsonPatch.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Owin, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.4\lib\net45\System.Web.Http.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -67,8 +144,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http">
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
@@ -99,8 +174,14 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebApi.OutputCache.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Strathweb.CacheOutput.WebApi2.0.11.0\lib\net45\WebApi.OutputCache.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="WebApi.OutputCache.V2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Strathweb.CacheOutput.WebApi2.0.11.0\lib\net45\WebApi.OutputCache.V2.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -174,18 +255,70 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddRequiredHeaderParameter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CMUserSecurityController.cs" />
+    <Compile Include="Controllers\CMAPIStatusController.cs" />
+    <Compile Include="Controllers\CMBaseApiController.cs" />
+    <Compile Include="Controllers\CM\AnnouncementsController.cs" />
+    <Compile Include="Controllers\CM\Custom\AnnouncementsControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\FeaturedEventsControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\FeedbackInitiatorTypesControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\FeedbacksControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\FeedbackTypesControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\GenderTypesControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\LanguageTypesControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\LookupListsControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\RoomsControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\SessionCategoryTypesControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\SessionLikesControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\SessionsControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\SessionSessionCategoryTypesControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\SessionSpeakersControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\SponsorFeaturedEventsControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\SponsorsControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\SponsorTypesControllerCustom.cs" />
+    <Compile Include="Controllers\CM\Custom\UsersControllerCustom.cs" />
+    <Compile Include="Controllers\CM\FeaturedEventsController.cs" />
+    <Compile Include="Controllers\CM\FeedbackInitiatorTypesController.cs" />
+    <Compile Include="Controllers\CM\FeedbacksController.cs" />
+    <Compile Include="Controllers\CM\FeedbackTypesController.cs" />
+    <Compile Include="Controllers\CM\GenderTypesController.cs" />
+    <Compile Include="Controllers\CM\LanguageTypesController.cs" />
+    <Compile Include="Controllers\CM\LookupListsController.cs" />
+    <Compile Include="Controllers\CM\RoomsController.cs" />
+    <Compile Include="Controllers\CM\SessionCategoryTypesController.cs" />
+    <Compile Include="Controllers\CM\SessionLikesController.cs" />
+    <Compile Include="Controllers\CM\SessionsController.cs" />
+    <Compile Include="Controllers\CM\SessionSessionCategoryTypesController.cs" />
+    <Compile Include="Controllers\CM\SessionSpeakersController.cs" />
+    <Compile Include="Controllers\CM\SponsorFeaturedEventsController.cs" />
+    <Compile Include="Controllers\CM\SponsorsController.cs" />
+    <Compile Include="Controllers\CM\SponsorTypesController.cs" />
+    <Compile Include="Controllers\CM\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DryIoc\Container.cs" />
+    <Compile Include="DryIoc\Expression.cs" />
+    <Compile Include="DryIoc\FastExpressionCompiler.cs" />
+    <Compile Include="DryIoc\ImTools.cs" />
+    <Compile Include="DryIoc\Mvc\DryIocMvc.cs" />
+    <Compile Include="DryIoc\WebApi\DryIocWebApi.cs" />
+    <Compile Include="DryIoc\Web\DryIocWeb.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\CMDataContextFactory.cs" />
+    <Compile Include="Infrastructure\ICMDataContextFactory.cs" />
+    <Compile Include="Infrastructure\IoCDependencyResolver.cs" />
+    <Compile Include="Infrastructure\Session.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -203,6 +336,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Controllers\APIBaseController_CM.cgh" />
+    <Content Include="Controllers\APIStatusController_CM.cgh" />
+    <Content Include="Controllers\CM\Custom\WebApiControllerPartialMethods_CM.cgh" />
+    <Content Include="Controllers\CM\WebApiController_CM.cgh" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -264,6 +401,16 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MSC.ConferenceMate.DTO\MSC.ConferenceMate.DTO.csproj">
+      <Project>{6774a31a-070b-4c61-adb5-b21dce9e69f9}</Project>
+      <Name>MSC.ConferenceMate.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MSC.ConferenceMate.Repository\MSC.ConferenceMate.Repository.csproj">
+      <Project>{a35cdf7f-cf6a-4242-8919-01beeb81e72d}</Project>
+      <Name>MSC.ConferenceMate.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -9,9 +9,9 @@ namespace MSC.ConferenceMate.Repository
 {
 	public partial class CMRepository : CMRepositoryBase, ICMRepository
 	{
-		private CMDataContext _ctx;
+		private ICMDataContext _ctx;
 
-		public CMRepository(CMDataContext ctx) : base(ctx)
+		public CMRepository(ICMDataContext ctx) : base(ctx)
 		{
 			_ctx = ctx;
 
@@ -29,7 +29,7 @@ namespace MSC.ConferenceMate.Repository
 			}
 		}
 
-		public CMDataContext CMDataContext { get { return _ctx; } }
+		public ICMDataContext CMDataContext { get { return _ctx; } }
 
 	}
 }
