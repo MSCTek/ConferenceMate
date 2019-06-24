@@ -18,9 +18,18 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <ListView x:Name="MainListView" Margin="15" ItemsSource="{Binding Sessions}" SeparatorVisibility="None"
+        <ListView x:Name="MainListView" Margin="15" ItemsSource="{Binding SessionsByTime}" SeparatorVisibility="None"
                   ItemSelected="OnItemSelected" HasUnevenRows="True" IsPullToRefreshEnabled="True"
-                  Refreshing="MainListView_Refreshing" BackgroundColor="Transparent">
+                  Refreshing="MainListView_Refreshing" BackgroundColor="Transparent" IsGroupingEnabled="True">
+
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="{Binding Key}" FontAttributes="Bold" FontSize="Medium" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

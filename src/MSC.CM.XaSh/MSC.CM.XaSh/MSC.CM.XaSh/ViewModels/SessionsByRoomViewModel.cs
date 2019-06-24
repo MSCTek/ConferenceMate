@@ -105,12 +105,6 @@ namespace MSC.CM.XaSh.ViewModels
             }
         }
 
-        internal async Task SetSessionLike(int sessionId, bool value)
-        {
-            //DataStore.SetSessionLikeAsync(sessionId, value);
-            //DataUploader.QueueAsync()
-        }
-
         private async Task RefreshSessionList()
         {
             var items = await DataStore.GetSessionsWithRoomsAsync();
