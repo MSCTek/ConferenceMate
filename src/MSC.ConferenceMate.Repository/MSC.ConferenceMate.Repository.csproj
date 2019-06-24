@@ -47,6 +47,36 @@
     <Compile Include="Entities\CM\AnnouncementConfiguration.cs">
       <DependentUpon>ConferenceMateContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\CM\AspNetRole.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\AspNetRoleConfiguration.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\AspNetUser.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\AspNetUserClaim.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\AspNetUserClaimConfiguration.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\AspNetUserConfiguration.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\AspNetUserLogin.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\AspNetUserLoginConfiguration.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\AspNetUserRole.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\AspNetUserRoleConfiguration.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\CM\CMDataContext.cs">
       <DependentUpon>ConferenceMateContext.tt</DependentUpon>
     </Compile>
@@ -103,10 +133,28 @@
     <Compile Include="Entities\CM\LanguageTypeConfiguration.cs">
       <DependentUpon>ConferenceMateContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\CM\Log.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\LogConfiguration.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\LogType.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\LogTypeConfiguration.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\CM\LookupList.cs">
       <DependentUpon>ConferenceMateContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\CM\LookupListConfiguration.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\RefreshToken.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\RefreshTokenConfiguration.cs">
       <DependentUpon>ConferenceMateContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\CM\Room.cs">
@@ -163,10 +211,10 @@
     <Compile Include="Entities\CM\SponsorTypeConfiguration.cs">
       <DependentUpon>ConferenceMateContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\CM\User.cs">
+    <Compile Include="Entities\CM\UserProfile.cs">
       <DependentUpon>ConferenceMateContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\CM\UserConfiguration.cs">
+    <Compile Include="Entities\CM\UserProfileConfiguration.cs">
       <DependentUpon>ConferenceMateContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\ICMRepository.cs">
@@ -192,7 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper">
-      <Version>8.1.0</Version>
+      <Version>8.1.1</Version>
     </PackageReference>
     <PackageReference Include="CodeGenHero.Repository">
       <Version>1.0.6</Version>

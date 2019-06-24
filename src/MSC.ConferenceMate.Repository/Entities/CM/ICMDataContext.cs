@@ -18,13 +18,21 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
     public partial interface ICMDataContext : System.IDisposable
     {
         System.Data.Entity.DbSet<Announcement> Announcements { get; set; } // Announcement
+        System.Data.Entity.DbSet<AspNetRole> AspNetRoles { get; set; } // AspNetRoles
+        System.Data.Entity.DbSet<AspNetUser> AspNetUsers { get; set; } // AspNetUsers
+        System.Data.Entity.DbSet<AspNetUserClaim> AspNetUserClaims { get; set; } // AspNetUserClaims
+        System.Data.Entity.DbSet<AspNetUserLogin> AspNetUserLogins { get; set; } // AspNetUserLogins
+        System.Data.Entity.DbSet<AspNetUserRole> AspNetUserRoles { get; set; } // AspNetUserRoles
         System.Data.Entity.DbSet<FeaturedEvent> FeaturedEvents { get; set; } // FeaturedEvent
         System.Data.Entity.DbSet<Feedback> Feedbacks { get; set; } // Feedback
         System.Data.Entity.DbSet<FeedbackInitiatorType> FeedbackInitiatorTypes { get; set; } // FeedbackInitiatorType
         System.Data.Entity.DbSet<FeedbackType> FeedbackTypes { get; set; } // FeedbackType
         System.Data.Entity.DbSet<GenderType> GenderTypes { get; set; } // GenderType
         System.Data.Entity.DbSet<LanguageType> LanguageTypes { get; set; } // LanguageType
+        System.Data.Entity.DbSet<Log> Logs { get; set; } // Log
+        System.Data.Entity.DbSet<LogType> LogTypes { get; set; } // LogType
         System.Data.Entity.DbSet<LookupList> LookupLists { get; set; } // LookupList
+        System.Data.Entity.DbSet<RefreshToken> RefreshTokens { get; set; } // RefreshToken
         System.Data.Entity.DbSet<Room> Rooms { get; set; } // Room
         System.Data.Entity.DbSet<Session> Sessions { get; set; } // Session
         System.Data.Entity.DbSet<SessionCategoryType> SessionCategoryTypes { get; set; } // SessionCategoryType
@@ -34,7 +42,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         System.Data.Entity.DbSet<Sponsor> Sponsors { get; set; } // Sponsor
         System.Data.Entity.DbSet<SponsorFeaturedEvent> SponsorFeaturedEvents { get; set; } // Sponsor_FeaturedEvent
         System.Data.Entity.DbSet<SponsorType> SponsorTypes { get; set; } // SponsorType
-        System.Data.Entity.DbSet<User> Users { get; set; } // Users
+        System.Data.Entity.DbSet<UserProfile> UserProfiles { get; set; } // UserProfile
 
         int SaveChanges();
         System.Threading.Tasks.Task<int> SaveChangesAsync();

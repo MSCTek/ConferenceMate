@@ -48,21 +48,8 @@ namespace MSC.ConferenceMate.Model.CM
 		public virtual System.DateTime ModifiedUtcDate { get { return _dto.ModifiedUtcDate; } }
 		public virtual int SponsorTypeId { get { return _dto.SponsorTypeId; } }
 
-		private List<ISponsor> _sponsors = null; // Reverse Navigation
+		// Excluding 'Sponsors' per configuration setting.
 
-
-		public virtual List<ISponsor> Sponsors
-		{
-			get
-			{
-				if (_sponsors == null)
-				{
-					OnLazyLoadRequest(this, new LoadRequestSponsorType(nameof(Sponsors)));
-				}
-
-				return _sponsors;
-			}
-		}
 
 
 

@@ -21,7 +21,7 @@ using entCM = MSC.ConferenceMate.Repository.Entities.CM;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
-	public partial class FeedbackTypesCMController : CMBaseApiController
+	public partial class FeedbackTypesCMController : CMBaseApiControllerAuthorized
 	{
 			private const string GET_LIST_ROUTE_NAME = "FeedbackTypesCMList";
 			private const int maxPageSize = 100;

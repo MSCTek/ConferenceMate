@@ -32,6 +32,12 @@ namespace MSC.ConferenceMate.Repository.Interface
 		Task<IRepositoryActionResult<LanguageType>> Delete_LanguageTypeAsync(int languageTypeId);
 		Task<LanguageType> Get_LanguageTypeAsync(int languageTypeId, int numChildLevels);
 
+		Task<IRepositoryActionResult<Log>> Delete_LogAsync(int id);
+		Task<Log> Get_LogAsync(int id, int numChildLevels);
+
+		Task<IRepositoryActionResult<LogType>> Delete_LogTypeAsync(int id);
+		Task<LogType> Get_LogTypeAsync(int id, int numChildLevels);
+
 		Task<IRepositoryActionResult<LookupList>> Delete_LookupListAsync(int lookupListId);
 		Task<LookupList> Get_LookupListAsync(int lookupListId, int numChildLevels);
 
@@ -44,14 +50,14 @@ namespace MSC.ConferenceMate.Repository.Interface
 		Task<IRepositoryActionResult<SessionCategoryType>> Delete_SessionCategoryTypeAsync(int sessionCategoryTypeId);
 		Task<SessionCategoryType> Get_SessionCategoryTypeAsync(int sessionCategoryTypeId, int numChildLevels);
 
-		Task<IRepositoryActionResult<SessionLike>> Delete_SessionLikeAsync(System.Guid sessionLikeId);
-		Task<SessionLike> Get_SessionLikeAsync(System.Guid sessionLikeId, int numChildLevels);
+		Task<IRepositoryActionResult<SessionLike>> Delete_SessionLikeAsync(int sessionId, int userProfileId);
+		Task<SessionLike> Get_SessionLikeAsync(int sessionId, int userProfileId, int numChildLevels);
 
 		Task<IRepositoryActionResult<SessionSessionCategoryType>> Delete_SessionSessionCategoryTypeAsync(int sessionId, int sessionCategoryTypeId);
 		Task<SessionSessionCategoryType> Get_SessionSessionCategoryTypeAsync(int sessionId, int sessionCategoryTypeId, int numChildLevels);
 
-		Task<IRepositoryActionResult<SessionSpeaker>> Delete_SessionSpeakerAsync(int sessionId, int userId);
-		Task<SessionSpeaker> Get_SessionSpeakerAsync(int sessionId, int userId, int numChildLevels);
+		Task<IRepositoryActionResult<SessionSpeaker>> Delete_SessionSpeakerAsync(int sessionId, int userProfileId);
+		Task<SessionSpeaker> Get_SessionSpeakerAsync(int sessionId, int userProfileId, int numChildLevels);
 
 		Task<IRepositoryActionResult<Sponsor>> Delete_SponsorAsync(int sponsorId);
 		Task<Sponsor> Get_SponsorAsync(int sponsorId, int numChildLevels);
@@ -62,8 +68,8 @@ namespace MSC.ConferenceMate.Repository.Interface
 		Task<IRepositoryActionResult<SponsorType>> Delete_SponsorTypeAsync(int sponsorTypeId);
 		Task<SponsorType> Get_SponsorTypeAsync(int sponsorTypeId, int numChildLevels);
 
-		Task<IRepositoryActionResult<User>> Delete_UserAsync(int userId);
-		Task<User> Get_UserAsync(int userId, int numChildLevels);
+		Task<IRepositoryActionResult<UserProfile>> Delete_UserProfileAsync(int userProfileId);
+		Task<UserProfile> Get_UserProfileAsync(int userProfileId, int numChildLevels);
 
 	}
 }

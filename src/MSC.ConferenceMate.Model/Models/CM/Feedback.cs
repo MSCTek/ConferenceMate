@@ -59,27 +59,14 @@ namespace MSC.ConferenceMate.Model.CM
 		public virtual int? SessionId { get { return _dto.SessionId; } }
 		public virtual string Source { get { return _dto.Source; } }
 		public virtual string Title { get { return _dto.Title; } }
-		public virtual int? UserId { get { return _dto.UserId; } }
+		public virtual int UserProfileId { get { return _dto.UserProfileId; } }
 
-		private IFeaturedEvent _featuredEvent = null; // Foreign Key
+		// Excluding 'FeaturedEvent' per configuration setting.
 		private IFeedbackInitiatorType _feedbackInitiatorType = null; // Foreign Key
 		private IFeedbackType _feedbackType = null; // Foreign Key
-		private ISession _session = null; // Foreign Key
-		private IUser _user = null; // Foreign Key
+		// Excluding 'Session' per configuration setting.
+		private IUserProfile _userProfile = null; // Foreign Key
 
-
-		public virtual IFeaturedEvent FeaturedEvent
-		{
-			get
-			{
-				if (_featuredEvent == null)
-				{
-					OnLazyLoadRequest(this, new LoadRequestFeedback(nameof(FeaturedEvent)));
-				}
-
-				return _featuredEvent;
-			}
-		}
 
 		public virtual IFeedbackInitiatorType FeedbackInitiatorType
 		{
@@ -107,29 +94,16 @@ namespace MSC.ConferenceMate.Model.CM
 			}
 		}
 
-		public virtual ISession Session
+		public virtual IUserProfile UserProfile
 		{
 			get
 			{
-				if (_session == null)
+				if (_userProfile == null && _dto != null && _dto.UserProfile != null)
 				{
-					OnLazyLoadRequest(this, new LoadRequestFeedback(nameof(Session)));
+					_userProfile = new UserProfile(Log, DataService, _dto.UserProfile);
 				}
 
-				return _session;
-			}
-		}
-
-		public virtual IUser User
-		{
-			get
-			{
-				if (_user == null && _dto != null && _dto.User != null)
-				{
-					_user = new User(Log, DataService, _dto.User);
-				}
-
-				return _user;
+				return _userProfile;
 			}
 		}
 

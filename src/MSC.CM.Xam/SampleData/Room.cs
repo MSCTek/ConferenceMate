@@ -5,8 +5,8 @@ namespace MSC.CM.Xam.ModelData.CM
 {
 	public static class DemoRoom
 	{
-		public static int SampleRoomId0000 = 179454933;
-		public static int SampleRoomId0100 = 1158400312;
+		public static int SampleRoomId0000 = 1851998887;
+		public static int SampleRoomId0100 = 1372120977;
 
 		public static Room SampleRoom00
 		{

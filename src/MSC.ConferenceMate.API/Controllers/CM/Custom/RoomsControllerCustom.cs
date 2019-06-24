@@ -5,7 +5,7 @@ using entCM = MSC.ConferenceMate.Repository.Entities.CM;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
-	public partial class RoomsCMController : CMBaseApiController
+	public partial class RoomsCMController : CMBaseApiControllerAuthorized
 	{
 
 		//partial void RunCustomLogicAfterInsert(ref entCM.Room newDBItem, ref IRepositoryActionResult<entCM.Room> result) {}

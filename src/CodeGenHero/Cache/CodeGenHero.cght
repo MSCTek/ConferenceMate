@@ -2,7 +2,7 @@
   {
     "ConnectionStringName": "{MSC.ConferenceMate.Repository}\\Entities\\CM\\ConferenceMateContext.tt",
     "DataSetName": "CM",
-    "ProjectName": "MSC.ConferenceMate.Web",
+    "ProjectName": "MSC.ConferenceMate.API",
     "RelativePath": "\\Controllers",
     "TemplateId": "4cb75f55-706b-4b42-835b-dd823d4afc91",
     "TemplateName": "APIBaseController",
@@ -11,7 +11,7 @@
   {
     "ConnectionStringName": "{MSC.ConferenceMate.Repository}\\Entities\\CM\\ConferenceMateContext.tt",
     "DataSetName": "CM",
-    "ProjectName": "MSC.ConferenceMate.Web",
+    "ProjectName": "MSC.ConferenceMate.API",
     "RelativePath": "\\Controllers",
     "TemplateId": "a5d78309-5a18-4a09-9225-03e602b52187",
     "TemplateName": "APIStatusController",
@@ -101,7 +101,7 @@
   {
     "ConnectionStringName": "{MSC.ConferenceMate.Repository}\\Entities\\CM\\ConferenceMateContext.tt",
     "DataSetName": "CM",
-    "ProjectName": "MSC.ConferenceMate.Web",
+    "ProjectName": "MSC.ConferenceMate.API",
     "RelativePath": "\\Controllers\\CM",
     "TemplateId": "4b60314b-c212-46e3-8945-3d5daecee905",
     "TemplateName": "WebApiController",
@@ -110,7 +110,7 @@
   {
     "ConnectionStringName": "{MSC.ConferenceMate.Repository}\\Entities\\CM\\ConferenceMateContext.tt",
     "DataSetName": "CM",
-    "ProjectName": "MSC.ConferenceMate.Web",
+    "ProjectName": "MSC.ConferenceMate.API",
     "RelativePath": "\\Controllers\\CM\\Custom",
     "TemplateId": "54f0612b-5235-437d-af2d-0b75efa68630",
     "TemplateName": "WebApiControllerPartialMethods",

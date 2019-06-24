@@ -15,8 +15,8 @@ namespace MSC.ConferenceMate.Model.CM.Interface
 		System.DateTime ModifiedUtcDate { get; }
 		int SponsorId { get; }
 
-		IFeaturedEvent FeaturedEvent { get; }
-		ISponsor Sponsor { get; }
+		// Excluding 'FeaturedEvent' per configuration setting.
+		// Excluding 'Sponsor' per configuration setting.
 
 
 	}

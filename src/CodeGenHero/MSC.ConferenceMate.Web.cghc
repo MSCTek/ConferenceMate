@@ -324,7 +324,7 @@
     {
       "HiddenIndicator": false,
       "Name": "UseAuthorizedBaseController",
-      "Value": "false"
+      "Value": "true"
     },
     {
       "HiddenIndicator": false,

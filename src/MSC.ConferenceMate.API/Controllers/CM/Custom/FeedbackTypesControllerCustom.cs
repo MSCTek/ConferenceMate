@@ -5,7 +5,7 @@ using entCM = MSC.ConferenceMate.Repository.Entities.CM;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
-	public partial class FeedbackTypesCMController : CMBaseApiController
+	public partial class FeedbackTypesCMController : CMBaseApiControllerAuthorized
 	{
 
 		//partial void RunCustomLogicAfterInsert(ref entCM.FeedbackType newDBItem, ref IRepositoryActionResult<entCM.FeedbackType> result) {}

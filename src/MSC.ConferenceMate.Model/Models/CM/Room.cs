@@ -53,21 +53,8 @@ namespace MSC.ConferenceMate.Model.CM
 		public virtual string ShortTitle { get { return _dto.ShortTitle; } }
 		public virtual string Title { get { return _dto.Title; } }
 
-		private List<ISession> _sessions = null; // Reverse Navigation
+		// Excluding 'Sessions' per configuration setting.
 
-
-		public virtual List<ISession> Sessions
-		{
-			get
-			{
-				if (_sessions == null)
-				{
-					OnLazyLoadRequest(this, new LoadRequestRoom(nameof(Sessions)));
-				}
-
-				return _sessions;
-			}
-		}
 
 
 

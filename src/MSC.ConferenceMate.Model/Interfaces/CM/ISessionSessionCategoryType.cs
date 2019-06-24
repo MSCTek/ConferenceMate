@@ -15,8 +15,8 @@ namespace MSC.ConferenceMate.Model.CM.Interface
 		int SessionCategoryTypeId { get; }
 		int SessionId { get; }
 
-		ISession Session { get; }
-		ISessionCategoryType SessionCategoryType { get; }
+		// Excluding 'Session' per configuration setting.
+		// Excluding 'SessionCategoryType' per configuration setting.
 
 
 	}

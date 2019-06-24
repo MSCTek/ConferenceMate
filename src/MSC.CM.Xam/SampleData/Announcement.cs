@@ -5,8 +5,8 @@ namespace MSC.CM.Xam.ModelData.CM
 {
 	public static class DemoAnnouncement
 	{
-		public static int SampleAnnouncementId0000 = 628976890;
-		public static int SampleAnnouncementId0100 = 1090072241;
+		public static int SampleAnnouncementId0000 = 1952125025;
+		public static int SampleAnnouncementId0100 = 1030480622;
 
 		public static Announcement SampleAnnouncement00
 		{

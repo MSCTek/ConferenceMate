@@ -21,7 +21,7 @@ using entCM = MSC.ConferenceMate.Repository.Entities.CM;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
-	public partial class SponsorsCMController : CMBaseApiController
+	public partial class SponsorsCMController : CMBaseApiControllerAuthorized
 	{
 			private const string GET_LIST_ROUTE_NAME = "SponsorsCMList";
 			private const int maxPageSize = 100;

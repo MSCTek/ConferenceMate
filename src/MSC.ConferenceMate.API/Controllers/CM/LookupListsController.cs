@@ -21,7 +21,7 @@ using entCM = MSC.ConferenceMate.Repository.Entities.CM;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
-	public partial class LookupListsCMController : CMBaseApiController
+	public partial class LookupListsCMController : CMBaseApiControllerAuthorized
 	{
 			private const string GET_LIST_ROUTE_NAME = "LookupListsCMList";
 			private const int maxPageSize = 100;

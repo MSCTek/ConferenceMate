@@ -8,9 +8,8 @@ namespace MSC.ConferenceMate.DTO.CM
 			InitializePartial();
 		}
 
-		public System.Guid SessionLikeId { get; set; } // Primary key
-		public int SessionId { get; set; }
-		public int UserId { get; set; }
+		public int SessionId { get; set; } // Primary key
+		public int UserProfileId { get; set; } // Primary key
 		public int DataVersion { get; set; }
 		public System.DateTime CreatedUtcDate { get; set; }
 		public string CreatedBy { get; set; }
@@ -18,7 +17,7 @@ namespace MSC.ConferenceMate.DTO.CM
 		public string ModifiedBy { get; set; }
 		public bool IsDeleted { get; set; }
 		// public virtual Session Session { get; set; }  -- Excluded navigation property per configuration.
-		// public virtual User User { get; set; }  -- Excluded navigation property per configuration.
+		public virtual UserProfile UserProfile { get; set; } 
 
 
 		partial void InitializePartial();

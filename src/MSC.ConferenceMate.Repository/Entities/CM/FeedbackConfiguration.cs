@@ -30,6 +30,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             HasKey(x => x.FeedbackId);
 
             Property(x => x.FeedbackId).HasColumnName(@"FeedbackId").HasColumnType("uniqueidentifier").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.UserProfileId).HasColumnName(@"UserProfileId").HasColumnType("int").IsRequired();
             Property(x => x.Title).HasColumnName(@"Title").HasColumnType("nvarchar").IsOptional().HasMaxLength(1024);
             Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar").IsOptional().HasMaxLength(2048);
             Property(x => x.FeedbackTypeId).HasColumnName(@"FeedbackTypeId").HasColumnType("int").IsRequired();
@@ -39,7 +40,6 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             Property(x => x.Latitude).HasColumnName(@"Latitude").HasColumnType("float").IsRequired();
             Property(x => x.Longitude).HasColumnName(@"Longitude").HasColumnType("float").IsRequired();
             Property(x => x.Dispositioned).HasColumnName(@"Dispositioned").HasColumnType("bit").IsRequired();
-            Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsOptional();
             Property(x => x.SessionId).HasColumnName(@"SessionId").HasColumnType("int").IsOptional();
             Property(x => x.FeaturedEventId).HasColumnName(@"FeaturedEventId").HasColumnType("int").IsOptional();
             Property(x => x.IsPublic).HasColumnName(@"IsPublic").HasColumnType("bit").IsRequired();
@@ -54,9 +54,9 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             // Foreign keys
             HasOptional(a => a.FeaturedEvent).WithMany(b => b.Feedbacks).HasForeignKey(c => c.FeaturedEventId).WillCascadeOnDelete(false); // FK_Feedback_FeaturedEvent
             HasOptional(a => a.Session).WithMany(b => b.Feedbacks).HasForeignKey(c => c.SessionId).WillCascadeOnDelete(false); // FK_Feedback_Session
-            HasOptional(a => a.User).WithMany(b => b.Feedbacks).HasForeignKey(c => c.UserId).WillCascadeOnDelete(false); // FK_Feedback_Users
             HasRequired(a => a.FeedbackInitiatorType).WithMany(b => b.Feedbacks).HasForeignKey(c => c.FeedbackInitiatorTypeId).WillCascadeOnDelete(false); // FK_Feedback_FeedbackInitiatorType
             HasRequired(a => a.FeedbackType).WithMany(b => b.Feedbacks).HasForeignKey(c => c.FeedbackTypeId).WillCascadeOnDelete(false); // FK_Feedback_FeedbackType
+            HasRequired(a => a.UserProfile).WithMany(b => b.Feedbacks).HasForeignKey(c => c.UserProfileId).WillCascadeOnDelete(false); // FK_Feedback_UserProfile
             InitializePartial();
         }
         partial void InitializePartial();

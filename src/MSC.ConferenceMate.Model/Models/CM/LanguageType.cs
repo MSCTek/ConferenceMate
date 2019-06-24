@@ -54,33 +54,31 @@ namespace MSC.ConferenceMate.Model.CM
 		public virtual string ThreeLetterIsoLanguageName { get { return _dto.ThreeLetterIsoLanguageName; } }
 		public virtual string TwoLetterIsoLanguageName { get { return _dto.TwoLetterIsoLanguageName; } }
 
-		private List<ILookupList> _lookupLists = null; // Reverse Navigation
-		private List<IUser> _users = null; // Reverse Navigation
+		// Excluding 'LookupLists' per configuration setting.
+		private List<IUserProfile> _userProfiles = null; // Reverse Navigation
 
 
-		public virtual List<ILookupList> LookupLists
+		public virtual List<IUserProfile> UserProfiles
 		{
 			get
 			{
-				if (_lookupLists == null)
-				{
-					OnLazyLoadRequest(this, new LoadRequestLanguageType(nameof(LookupLists)));
+				if (_userProfiles == null && _dto != null)
+				{	// The core DTO object is loaded, but this property is not loaded.
+					if (_dto.UserProfiles != null)
+					{	// The core DTO object has data for this property, load it into the model.
+						_userProfiles = new List<IUserProfile>();
+						foreach (var dtoItem in _dto.UserProfiles)
+						{
+							_userProfiles.Add(new UserProfile(Log, DataService, dtoItem));
+						}
+					}
+					else
+					{	// Trigger the load data request - The core DTO object is loaded and does not have data for this property.
+						OnLazyLoadRequest(this, new LoadRequestLanguageType(nameof(UserProfiles)));
+					}
 				}
 
-				return _lookupLists;
-			}
-		}
-
-		public virtual List<IUser> Users
-		{
-			get
-			{
-				if (_users == null)
-				{
-					OnLazyLoadRequest(this, new LoadRequestLanguageType(nameof(Users)));
-				}
-
-				return _users;
+				return _userProfiles;
 			}
 		}
 

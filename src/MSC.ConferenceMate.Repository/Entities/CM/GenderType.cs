@@ -31,9 +31,9 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         // Reverse navigation
 
         /// <summary>
-        /// Child Users where [Users].[GenderTypeId] point to this entity (FK_Users_GenderType_GenderTypeId)
+        /// Child UserProfiles where [UserProfile].[GenderTypeId] point to this entity (FK_UserProfile_GenderType_GenderTypeId)
         /// </summary>
-        public System.Collections.Generic.ICollection<User> Users { get; set; } // Users.FK_Users_GenderType_GenderTypeId
+        public System.Collections.Generic.ICollection<UserProfile> UserProfiles { get; set; } // UserProfile.FK_UserProfile_GenderType_GenderTypeId
 
         public GenderType()
         {
@@ -41,7 +41,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             CreatedUtcDate = System.DateTime.UtcNow;
             ModifiedUtcDate = System.DateTime.UtcNow;
             IsDeleted = false;
-            Users = new System.Collections.Generic.List<User>();
+            UserProfiles = new System.Collections.Generic.List<UserProfile>();
             InitializePartial();
         }
 

@@ -74,7 +74,7 @@ namespace MSC.CM.Xam
 				SessionId = source.SessionId,
 				Source = source.Source,
 				Title = source.Title,
-				UserId = source.UserId,
+				UserProfileId = source.UserProfileId,
 			};
 		}
 
@@ -141,6 +141,37 @@ namespace MSC.CM.Xam
 				NativeName = source.NativeName,
 				ThreeLetterIsoLanguageName = source.ThreeLetterIsoLanguageName,
 				TwoLetterIsoLanguageName = source.TwoLetterIsoLanguageName,
+			};
+		}
+
+		public static dtoCM.Log ToDto(this objCM.Log source)
+		{
+			return new dtoCM.Log()
+			{
+				ClientIpAddress = source.ClientIpAddress,
+				Date = source.Date,
+				Exception = source.Exception,
+				ExecutionTimeInMilliseconds = source.ExecutionTimeInMilliseconds,
+				HttpResponseStatusCode = source.HttpResponseStatusCode,
+				Id = source.Id,
+				Level = source.Level,
+				Logger = source.Logger,
+				LogGuid = source.LogGuid,
+				LogMessageTypeId = source.LogMessageTypeId,
+				Message = source.Message,
+				MethodName = source.MethodName,
+				Thread = source.Thread,
+				Url = source.Url,
+				UserName = source.UserName,
+			};
+		}
+
+		public static dtoCM.LogType ToDto(this objCM.LogType source)
+		{
+			return new dtoCM.LogType()
+			{
+				Id = source.Id,
+				Type = source.Type,
 			};
 		}
 
@@ -232,8 +263,7 @@ namespace MSC.CM.Xam
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
-				SessionLikeId = source.SessionLikeId,
-				UserId = source.UserId,
+				UserProfileId = source.UserProfileId,
 			};
 		}
 
@@ -263,7 +293,7 @@ namespace MSC.CM.Xam
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
-				UserId = source.UserId,
+				UserProfileId = source.UserProfileId,
 			};
 		}
 
@@ -320,10 +350,11 @@ namespace MSC.CM.Xam
 			};
 		}
 
-		public static dtoCM.User ToDto(this objCM.User source)
+		public static dtoCM.UserProfile ToDto(this objCM.UserProfile source)
 		{
-			return new dtoCM.User()
+			return new dtoCM.UserProfile()
 			{
+				AspNetUsersId = source.AspNetUsersId,
 				AvatarUrl = source.AvatarUrl,
 				Biography = source.Biography,
 				BirthDate = source.BirthDate,
@@ -333,7 +364,6 @@ namespace MSC.CM.Xam
 				CreatedBy = source.CreatedBy,
 				CreatedUtcDate = source.CreatedUtcDate,
 				DataVersion = source.DataVersion,
-				Email = source.Email,
 				FirstName = source.FirstName,
 				GenderTypeId = source.GenderTypeId,
 				IsDeleted = source.IsDeleted,
@@ -343,13 +373,10 @@ namespace MSC.CM.Xam
 				LinkedInUrl = source.LinkedInUrl,
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
-				Password = source.Password,
 				PhotoUrl = source.PhotoUrl,
 				PreferredLanguageId = source.PreferredLanguageId,
-				Salt = source.Salt,
 				TwitterUrl = source.TwitterUrl,
-				UserId = source.UserId,
-				UserName = source.UserName,
+				UserProfileId = source.UserProfileId,
 			};
 		}
 
@@ -422,7 +449,7 @@ namespace MSC.CM.Xam
 				SessionId = source.SessionId,
 				Source = source.Source,
 				Title = source.Title,
-				UserId = source.UserId,
+				UserProfileId = source.UserProfileId,
 			};
 		}
 
@@ -489,6 +516,37 @@ namespace MSC.CM.Xam
 				NativeName = source.NativeName,
 				ThreeLetterIsoLanguageName = source.ThreeLetterIsoLanguageName,
 				TwoLetterIsoLanguageName = source.TwoLetterIsoLanguageName,
+			};
+		}
+
+		public static dtoCM.Log ToDto(this dataCM.Log source)
+		{
+			return new dtoCM.Log()
+			{
+				ClientIpAddress = source.ClientIpAddress,
+				Date = source.Date,
+				Exception = source.Exception,
+				ExecutionTimeInMilliseconds = source.ExecutionTimeInMilliseconds,
+				HttpResponseStatusCode = source.HttpResponseStatusCode,
+				Id = source.Id,
+				Level = source.Level,
+				Logger = source.Logger,
+				LogGuid = source.LogGuid,
+				LogMessageTypeId = source.LogMessageTypeId,
+				Message = source.Message,
+				MethodName = source.MethodName,
+				Thread = source.Thread,
+				Url = source.Url,
+				UserName = source.UserName,
+			};
+		}
+
+		public static dtoCM.LogType ToDto(this dataCM.LogType source)
+		{
+			return new dtoCM.LogType()
+			{
+				Id = source.Id,
+				Type = source.Type,
 			};
 		}
 
@@ -580,8 +638,7 @@ namespace MSC.CM.Xam
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
-				SessionLikeId = source.SessionLikeId,
-				UserId = source.UserId,
+				UserProfileId = source.UserProfileId,
 			};
 		}
 
@@ -611,7 +668,7 @@ namespace MSC.CM.Xam
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
-				UserId = source.UserId,
+				UserProfileId = source.UserProfileId,
 			};
 		}
 
@@ -668,10 +725,11 @@ namespace MSC.CM.Xam
 			};
 		}
 
-		public static dtoCM.User ToDto(this dataCM.User source)
+		public static dtoCM.UserProfile ToDto(this dataCM.UserProfile source)
 		{
-			return new dtoCM.User()
+			return new dtoCM.UserProfile()
 			{
+				AspNetUsersId = source.AspNetUsersId,
 				AvatarUrl = source.AvatarUrl,
 				Biography = source.Biography,
 				BirthDate = source.BirthDate,
@@ -681,7 +739,6 @@ namespace MSC.CM.Xam
 				CreatedBy = source.CreatedBy,
 				CreatedUtcDate = source.CreatedUtcDate,
 				DataVersion = source.DataVersion,
-				Email = source.Email,
 				FirstName = source.FirstName,
 				GenderTypeId = source.GenderTypeId,
 				IsDeleted = source.IsDeleted,
@@ -691,13 +748,10 @@ namespace MSC.CM.Xam
 				LinkedInUrl = source.LinkedInUrl,
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
-				Password = source.Password,
 				PhotoUrl = source.PhotoUrl,
 				PreferredLanguageId = source.PreferredLanguageId,
-				Salt = source.Salt,
 				TwitterUrl = source.TwitterUrl,
-				UserId = source.UserId,
-				UserName = source.UserName,
+				UserProfileId = source.UserProfileId,
 			};
 		}
 
@@ -770,7 +824,7 @@ namespace MSC.CM.Xam
 				SessionId = source.SessionId,
 				Source = source.Source,
 				Title = source.Title,
-				UserId = source.UserId,
+				UserProfileId = source.UserProfileId,
 			};
 		}
 
@@ -837,6 +891,37 @@ namespace MSC.CM.Xam
 				NativeName = source.NativeName,
 				ThreeLetterIsoLanguageName = source.ThreeLetterIsoLanguageName,
 				TwoLetterIsoLanguageName = source.TwoLetterIsoLanguageName,
+			};
+		}
+
+		public static objCM.Log ToModelObj(this dtoCM.Log source)
+		{
+			return new objCM.Log()
+			{
+				ClientIpAddress = source.ClientIpAddress,
+				Date = source.Date,
+				Exception = source.Exception,
+				ExecutionTimeInMilliseconds = source.ExecutionTimeInMilliseconds,
+				HttpResponseStatusCode = source.HttpResponseStatusCode,
+				Id = source.Id,
+				Level = source.Level,
+				Logger = source.Logger,
+				LogGuid = source.LogGuid,
+				LogMessageTypeId = source.LogMessageTypeId,
+				Message = source.Message,
+				MethodName = source.MethodName,
+				Thread = source.Thread,
+				Url = source.Url,
+				UserName = source.UserName,
+			};
+		}
+
+		public static objCM.LogType ToModelObj(this dtoCM.LogType source)
+		{
+			return new objCM.LogType()
+			{
+				Id = source.Id,
+				Type = source.Type,
 			};
 		}
 
@@ -928,8 +1013,7 @@ namespace MSC.CM.Xam
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
-				SessionLikeId = source.SessionLikeId,
-				UserId = source.UserId,
+				UserProfileId = source.UserProfileId,
 			};
 		}
 
@@ -959,7 +1043,7 @@ namespace MSC.CM.Xam
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
-				UserId = source.UserId,
+				UserProfileId = source.UserProfileId,
 			};
 		}
 
@@ -1016,10 +1100,11 @@ namespace MSC.CM.Xam
 			};
 		}
 
-		public static objCM.User ToModelObj(this dtoCM.User source)
+		public static objCM.UserProfile ToModelObj(this dtoCM.UserProfile source)
 		{
-			return new objCM.User()
+			return new objCM.UserProfile()
 			{
+				AspNetUsersId = source.AspNetUsersId,
 				AvatarUrl = source.AvatarUrl,
 				Biography = source.Biography,
 				BirthDate = source.BirthDate,
@@ -1029,7 +1114,6 @@ namespace MSC.CM.Xam
 				CreatedBy = source.CreatedBy,
 				CreatedUtcDate = source.CreatedUtcDate,
 				DataVersion = source.DataVersion,
-				Email = source.Email,
 				FirstName = source.FirstName,
 				GenderTypeId = source.GenderTypeId,
 				IsDeleted = source.IsDeleted,
@@ -1039,13 +1123,10 @@ namespace MSC.CM.Xam
 				LinkedInUrl = source.LinkedInUrl,
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
-				Password = source.Password,
 				PhotoUrl = source.PhotoUrl,
 				PreferredLanguageId = source.PreferredLanguageId,
-				Salt = source.Salt,
 				TwitterUrl = source.TwitterUrl,
-				UserId = source.UserId,
-				UserName = source.UserName,
+				UserProfileId = source.UserProfileId,
 			};
 		}
 
@@ -1118,7 +1199,7 @@ namespace MSC.CM.Xam
 				SessionId = source.SessionId,
 				Source = source.Source,
 				Title = source.Title,
-				UserId = source.UserId,
+				UserProfileId = source.UserProfileId,
 			};
 		}
 
@@ -1185,6 +1266,37 @@ namespace MSC.CM.Xam
 				NativeName = source.NativeName,
 				ThreeLetterIsoLanguageName = source.ThreeLetterIsoLanguageName,
 				TwoLetterIsoLanguageName = source.TwoLetterIsoLanguageName,
+			};
+		}
+
+		public static dataCM.Log ToModelData(this dtoCM.Log source)
+		{
+			return new dataCM.Log()
+			{
+				ClientIpAddress = source.ClientIpAddress,
+				Date = source.Date,
+				Exception = source.Exception,
+				ExecutionTimeInMilliseconds = source.ExecutionTimeInMilliseconds,
+				HttpResponseStatusCode = source.HttpResponseStatusCode,
+				Id = source.Id,
+				Level = source.Level,
+				Logger = source.Logger,
+				LogGuid = source.LogGuid,
+				LogMessageTypeId = source.LogMessageTypeId,
+				Message = source.Message,
+				MethodName = source.MethodName,
+				Thread = source.Thread,
+				Url = source.Url,
+				UserName = source.UserName,
+			};
+		}
+
+		public static dataCM.LogType ToModelData(this dtoCM.LogType source)
+		{
+			return new dataCM.LogType()
+			{
+				Id = source.Id,
+				Type = source.Type,
 			};
 		}
 
@@ -1276,8 +1388,10 @@ namespace MSC.CM.Xam
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
-				SessionLikeId = source.SessionLikeId,
-				UserId = source.UserId,
+				UserProfileId = source.UserProfileId,
+
+				// Create an extra line to handle a limitation in SQLite when dealing with tables that use composite primary keys
+				SessionIdUserProfileId = $"{source.SessionId}{source.UserProfileId}"
 			};
 		}
 
@@ -1310,10 +1424,10 @@ namespace MSC.CM.Xam
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
 				SessionId = source.SessionId,
-				UserId = source.UserId,
+				UserProfileId = source.UserProfileId,
 
 				// Create an extra line to handle a limitation in SQLite when dealing with tables that use composite primary keys
-				SessionIdUserId = $"{source.SessionId}{source.UserId}"
+				SessionIdUserProfileId = $"{source.SessionId}{source.UserProfileId}"
 			};
 		}
 
@@ -1373,10 +1487,11 @@ namespace MSC.CM.Xam
 			};
 		}
 
-		public static dataCM.User ToModelData(this dtoCM.User source)
+		public static dataCM.UserProfile ToModelData(this dtoCM.UserProfile source)
 		{
-			return new dataCM.User()
+			return new dataCM.UserProfile()
 			{
+				AspNetUsersId = source.AspNetUsersId,
 				AvatarUrl = source.AvatarUrl,
 				Biography = source.Biography,
 				BirthDate = source.BirthDate,
@@ -1386,7 +1501,6 @@ namespace MSC.CM.Xam
 				CreatedBy = source.CreatedBy,
 				CreatedUtcDate = source.CreatedUtcDate,
 				DataVersion = source.DataVersion,
-				Email = source.Email,
 				FirstName = source.FirstName,
 				GenderTypeId = source.GenderTypeId,
 				IsDeleted = source.IsDeleted,
@@ -1396,13 +1510,10 @@ namespace MSC.CM.Xam
 				LinkedInUrl = source.LinkedInUrl,
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
-				Password = source.Password,
 				PhotoUrl = source.PhotoUrl,
 				PreferredLanguageId = source.PreferredLanguageId,
-				Salt = source.Salt,
 				TwitterUrl = source.TwitterUrl,
-				UserId = source.UserId,
-				UserName = source.UserName,
+				UserProfileId = source.UserProfileId,
 			};
 		}
 

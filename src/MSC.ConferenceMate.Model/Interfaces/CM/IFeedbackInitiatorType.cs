@@ -15,7 +15,7 @@ namespace MSC.ConferenceMate.Model.CM.Interface
 		string ModifiedBy { get; }
 		System.DateTime ModifiedUtcDate { get; }
 
-		List<IFeedback> Feedbacks { get; }
+		// Excluding 'Feedback' per configuration setting.
 
 
 	}

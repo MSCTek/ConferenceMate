@@ -21,13 +21,21 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
     public partial class CMDataContext : System.Data.Entity.DbContext, ICMDataContext
     {
         public System.Data.Entity.DbSet<Announcement> Announcements { get; set; } // Announcement
+        public System.Data.Entity.DbSet<AspNetRole> AspNetRoles { get; set; } // AspNetRoles
+        public System.Data.Entity.DbSet<AspNetUser> AspNetUsers { get; set; } // AspNetUsers
+        public System.Data.Entity.DbSet<AspNetUserClaim> AspNetUserClaims { get; set; } // AspNetUserClaims
+        public System.Data.Entity.DbSet<AspNetUserLogin> AspNetUserLogins { get; set; } // AspNetUserLogins
+        public System.Data.Entity.DbSet<AspNetUserRole> AspNetUserRoles { get; set; } // AspNetUserRoles
         public System.Data.Entity.DbSet<FeaturedEvent> FeaturedEvents { get; set; } // FeaturedEvent
         public System.Data.Entity.DbSet<Feedback> Feedbacks { get; set; } // Feedback
         public System.Data.Entity.DbSet<FeedbackInitiatorType> FeedbackInitiatorTypes { get; set; } // FeedbackInitiatorType
         public System.Data.Entity.DbSet<FeedbackType> FeedbackTypes { get; set; } // FeedbackType
         public System.Data.Entity.DbSet<GenderType> GenderTypes { get; set; } // GenderType
         public System.Data.Entity.DbSet<LanguageType> LanguageTypes { get; set; } // LanguageType
+        public System.Data.Entity.DbSet<Log> Logs { get; set; } // Log
+        public System.Data.Entity.DbSet<LogType> LogTypes { get; set; } // LogType
         public System.Data.Entity.DbSet<LookupList> LookupLists { get; set; } // LookupList
+        public System.Data.Entity.DbSet<RefreshToken> RefreshTokens { get; set; } // RefreshToken
         public System.Data.Entity.DbSet<Room> Rooms { get; set; } // Room
         public System.Data.Entity.DbSet<Session> Sessions { get; set; } // Session
         public System.Data.Entity.DbSet<SessionCategoryType> SessionCategoryTypes { get; set; } // SessionCategoryType
@@ -37,7 +45,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         public System.Data.Entity.DbSet<Sponsor> Sponsors { get; set; } // Sponsor
         public System.Data.Entity.DbSet<SponsorFeaturedEvent> SponsorFeaturedEvents { get; set; } // Sponsor_FeaturedEvent
         public System.Data.Entity.DbSet<SponsorType> SponsorTypes { get; set; } // SponsorType
-        public System.Data.Entity.DbSet<User> Users { get; set; } // Users
+        public System.Data.Entity.DbSet<UserProfile> UserProfiles { get; set; } // UserProfile
 
         static CMDataContext()
         {
@@ -93,13 +101,21 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Configurations.Add(new AnnouncementConfiguration());
+            modelBuilder.Configurations.Add(new AspNetRoleConfiguration());
+            modelBuilder.Configurations.Add(new AspNetUserConfiguration());
+            modelBuilder.Configurations.Add(new AspNetUserClaimConfiguration());
+            modelBuilder.Configurations.Add(new AspNetUserLoginConfiguration());
+            modelBuilder.Configurations.Add(new AspNetUserRoleConfiguration());
             modelBuilder.Configurations.Add(new FeaturedEventConfiguration());
             modelBuilder.Configurations.Add(new FeedbackConfiguration());
             modelBuilder.Configurations.Add(new FeedbackInitiatorTypeConfiguration());
             modelBuilder.Configurations.Add(new FeedbackTypeConfiguration());
             modelBuilder.Configurations.Add(new GenderTypeConfiguration());
             modelBuilder.Configurations.Add(new LanguageTypeConfiguration());
+            modelBuilder.Configurations.Add(new LogConfiguration());
+            modelBuilder.Configurations.Add(new LogTypeConfiguration());
             modelBuilder.Configurations.Add(new LookupListConfiguration());
+            modelBuilder.Configurations.Add(new RefreshTokenConfiguration());
             modelBuilder.Configurations.Add(new RoomConfiguration());
             modelBuilder.Configurations.Add(new SessionConfiguration());
             modelBuilder.Configurations.Add(new SessionCategoryTypeConfiguration());
@@ -109,7 +125,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             modelBuilder.Configurations.Add(new SponsorConfiguration());
             modelBuilder.Configurations.Add(new SponsorFeaturedEventConfiguration());
             modelBuilder.Configurations.Add(new SponsorTypeConfiguration());
-            modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new UserProfileConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
         }
@@ -117,13 +133,21 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         public static System.Data.Entity.DbModelBuilder CreateModel(System.Data.Entity.DbModelBuilder modelBuilder, string schema)
         {
             modelBuilder.Configurations.Add(new AnnouncementConfiguration(schema));
+            modelBuilder.Configurations.Add(new AspNetRoleConfiguration(schema));
+            modelBuilder.Configurations.Add(new AspNetUserConfiguration(schema));
+            modelBuilder.Configurations.Add(new AspNetUserClaimConfiguration(schema));
+            modelBuilder.Configurations.Add(new AspNetUserLoginConfiguration(schema));
+            modelBuilder.Configurations.Add(new AspNetUserRoleConfiguration(schema));
             modelBuilder.Configurations.Add(new FeaturedEventConfiguration(schema));
             modelBuilder.Configurations.Add(new FeedbackConfiguration(schema));
             modelBuilder.Configurations.Add(new FeedbackInitiatorTypeConfiguration(schema));
             modelBuilder.Configurations.Add(new FeedbackTypeConfiguration(schema));
             modelBuilder.Configurations.Add(new GenderTypeConfiguration(schema));
             modelBuilder.Configurations.Add(new LanguageTypeConfiguration(schema));
+            modelBuilder.Configurations.Add(new LogConfiguration(schema));
+            modelBuilder.Configurations.Add(new LogTypeConfiguration(schema));
             modelBuilder.Configurations.Add(new LookupListConfiguration(schema));
+            modelBuilder.Configurations.Add(new RefreshTokenConfiguration(schema));
             modelBuilder.Configurations.Add(new RoomConfiguration(schema));
             modelBuilder.Configurations.Add(new SessionConfiguration(schema));
             modelBuilder.Configurations.Add(new SessionCategoryTypeConfiguration(schema));
@@ -133,7 +157,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             modelBuilder.Configurations.Add(new SponsorConfiguration(schema));
             modelBuilder.Configurations.Add(new SponsorFeaturedEventConfiguration(schema));
             modelBuilder.Configurations.Add(new SponsorTypeConfiguration(schema));
-            modelBuilder.Configurations.Add(new UserConfiguration(schema));
+            modelBuilder.Configurations.Add(new UserProfileConfiguration(schema));
             return modelBuilder;
         }
 

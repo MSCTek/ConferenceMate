@@ -216,6 +216,22 @@ namespace MSC.ConferenceMate.API.Client
 			return await GetAllPageDataResultsAsync(pageDataRequest, GetLanguageTypesAsync);
 		}
 
+		public async Task<IList<xDTO.Log>> GetAllPagesLogsAsync(
+			string sort = null)
+		{
+			List<IFilterCriterion> filterCriteria = new List<IFilterCriterion>();
+			IPageDataRequest pageDataRequest = new PageDataRequest(filterCriteria: filterCriteria, sort: sort, page: 1, pageSize: 100);
+			return await GetAllPageDataResultsAsync(pageDataRequest, GetLogsAsync);
+		}
+
+		public async Task<IList<xDTO.LogType>> GetAllPagesLogTypesAsync(
+			string sort = null)
+		{
+			List<IFilterCriterion> filterCriteria = new List<IFilterCriterion>();
+			IPageDataRequest pageDataRequest = new PageDataRequest(filterCriteria: filterCriteria, sort: sort, page: 1, pageSize: 100);
+			return await GetAllPageDataResultsAsync(pageDataRequest, GetLogTypesAsync);
+		}
+
 		public async Task<IList<xDTO.LookupList>> GetAllPagesLookupListsAsync(
 			DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null)
 		{
@@ -496,7 +512,7 @@ namespace MSC.ConferenceMate.API.Client
 			return await GetAllPageDataResultsAsync(pageDataRequest, GetSponsorTypesAsync);
 		}
 
-		public async Task<IList<xDTO.User>> GetAllPagesUsersAsync(
+		public async Task<IList<xDTO.UserProfile>> GetAllPagesUserProfilesAsync(
 			DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null)
 		{
 			List<IFilterCriterion> filterCriteria = new List<IFilterCriterion>();
@@ -521,7 +537,7 @@ namespace MSC.ConferenceMate.API.Client
 			}
 
 			IPageDataRequest pageDataRequest = new PageDataRequest(filterCriteria: filterCriteria, sort: sort, page: 1, pageSize: 100);
-			return await GetAllPageDataResultsAsync(pageDataRequest, GetUsersAsync);
+			return await GetAllPageDataResultsAsync(pageDataRequest, GetUserProfilesAsync);
 		}
 
 		#endregion GetAllPages
@@ -780,6 +796,38 @@ namespace MSC.ConferenceMate.API.Client
 
 			IPageDataRequest pageDataRequest = new PageDataRequest(filterCriteria: filterCriteria, sort: sort, page: page, pageSize: pageSize);
 			return await GetLanguageTypesAsync(pageDataRequest);
+		}
+
+		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Log>>>> GetLogsAsync(IPageDataRequest pageDataRequest)
+		{
+			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.Log>>(Log, GetClient(), 
+				$"{ExecutionContext.BaseWebApiUrl}Logs", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+		}
+
+		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Log>>>> GetLogsAsync(
+			string sort = null, int page = 1, int pageSize = 100)
+		{
+			List<IFilterCriterion> filterCriteria = new List<IFilterCriterion>();
+
+			IPageDataRequest pageDataRequest = new PageDataRequest(filterCriteria: filterCriteria, sort: sort, page: page, pageSize: pageSize);
+			return await GetLogsAsync(pageDataRequest);
+		}
+
+		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.LogType>>>> GetLogTypesAsync(IPageDataRequest pageDataRequest)
+		{
+			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.LogType>>(Log, GetClient(), 
+				$"{ExecutionContext.BaseWebApiUrl}LogTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+		}
+
+		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.LogType>>>> GetLogTypesAsync(
+			string sort = null, int page = 1, int pageSize = 100)
+		{
+			List<IFilterCriterion> filterCriteria = new List<IFilterCriterion>();
+
+			IPageDataRequest pageDataRequest = new PageDataRequest(filterCriteria: filterCriteria, sort: sort, page: page, pageSize: pageSize);
+			return await GetLogTypesAsync(pageDataRequest);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.LookupList>>>> GetLookupListsAsync(IPageDataRequest pageDataRequest)
@@ -1142,14 +1190,14 @@ namespace MSC.ConferenceMate.API.Client
 			return await GetSponsorTypesAsync(pageDataRequest);
 		}
 
-		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.User>>>> GetUsersAsync(IPageDataRequest pageDataRequest)
+		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.UserProfile>>>> GetUserProfilesAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.User>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}Users", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.UserProfile>>(Log, GetClient(), 
+				$"{ExecutionContext.BaseWebApiUrl}UserProfiles", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
-		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.User>>>> GetUsersAsync(
+		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.UserProfile>>>> GetUserProfilesAsync(
 			DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null, int page = 1, int pageSize = 100)
 		{
 			List<IFilterCriterion> filterCriteria = new List<IFilterCriterion>();
@@ -1175,7 +1223,7 @@ namespace MSC.ConferenceMate.API.Client
 
 
 			IPageDataRequest pageDataRequest = new PageDataRequest(filterCriteria: filterCriteria, sort: sort, page: page, pageSize: pageSize);
-			return await GetUsersAsync(pageDataRequest);
+			return await GetUserProfilesAsync(pageDataRequest);
 		}
 
 		#endregion GetOnePage
@@ -1226,6 +1274,18 @@ namespace MSC.ConferenceMate.API.Client
 			return retVal;
 		}
 
+		public async Task<IHttpCallResultCGHT<xDTO.Log>> GetLogAsync(int id, int numChildLevels)
+		{
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.Log>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Logs/{id}?numChildLevels={numChildLevels}");
+			return retVal;
+		}
+
+		public async Task<IHttpCallResultCGHT<xDTO.LogType>> GetLogTypeAsync(int id, int numChildLevels)
+		{
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.LogType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}LogTypes/{id}?numChildLevels={numChildLevels}");
+			return retVal;
+		}
+
 		public async Task<IHttpCallResultCGHT<xDTO.LookupList>> GetLookupListAsync(int lookupListId, int numChildLevels)
 		{
 			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.LookupList>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}LookupLists/{lookupListId}?numChildLevels={numChildLevels}");
@@ -1250,9 +1310,9 @@ namespace MSC.ConferenceMate.API.Client
 			return retVal;
 		}
 
-		public async Task<IHttpCallResultCGHT<xDTO.SessionLike>> GetSessionLikeAsync(System.Guid sessionLikeId, int numChildLevels)
+		public async Task<IHttpCallResultCGHT<xDTO.SessionLike>> GetSessionLikeAsync(int sessionId, int userProfileId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SessionLike>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionLikes/{sessionLikeId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SessionLike>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionLikes/{sessionId}/{userProfileId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
@@ -1262,9 +1322,9 @@ namespace MSC.ConferenceMate.API.Client
 			return retVal;
 		}
 
-		public async Task<IHttpCallResultCGHT<xDTO.SessionSpeaker>> GetSessionSpeakerAsync(int sessionId, int userId, int numChildLevels)
+		public async Task<IHttpCallResultCGHT<xDTO.SessionSpeaker>> GetSessionSpeakerAsync(int sessionId, int userProfileId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SessionSpeaker>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionSpeakers/{sessionId}/{userId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SessionSpeaker>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionSpeakers/{sessionId}/{userProfileId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
@@ -1286,9 +1346,9 @@ namespace MSC.ConferenceMate.API.Client
 			return retVal;
 		}
 
-		public async Task<IHttpCallResultCGHT<xDTO.User>> GetUserAsync(int userId, int numChildLevels)
+		public async Task<IHttpCallResultCGHT<xDTO.UserProfile>> GetUserProfileAsync(int userProfileId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.User>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Users/{userId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.UserProfile>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}UserProfiles/{userProfileId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
@@ -1351,6 +1411,22 @@ namespace MSC.ConferenceMate.API.Client
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.LanguageType>(
 					Log, GetClient(),
 					$"{ExecutionContext.BaseWebApiUrl}LanguageTypes/", item);
+				return retVal;
+			}
+
+			public async Task<IHttpCallResultCGHT<xDTO.Log>> CreateLogAsync(xDTO.Log item)
+			{
+				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.Log>(
+					Log, GetClient(),
+					$"{ExecutionContext.BaseWebApiUrl}Logs/", item);
+				return retVal;
+			}
+
+			public async Task<IHttpCallResultCGHT<xDTO.LogType>> CreateLogTypeAsync(xDTO.LogType item)
+			{
+				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.LogType>(
+					Log, GetClient(),
+					$"{ExecutionContext.BaseWebApiUrl}LogTypes/", item);
 				return retVal;
 			}
 
@@ -1434,11 +1510,11 @@ namespace MSC.ConferenceMate.API.Client
 				return retVal;
 			}
 
-			public async Task<IHttpCallResultCGHT<xDTO.User>> CreateUserAsync(xDTO.User item)
+			public async Task<IHttpCallResultCGHT<xDTO.UserProfile>> CreateUserProfileAsync(xDTO.UserProfile item)
 			{
-				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.User>(
+				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.UserProfile>(
 					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}Users/", item);
+					$"{ExecutionContext.BaseWebApiUrl}UserProfiles/", item);
 				return retVal;
 			}
 
@@ -1504,6 +1580,22 @@ namespace MSC.ConferenceMate.API.Client
 				return retVal;
 			}
 
+			public async Task<IHttpCallResultCGHT<xDTO.Log>> UpdateLogAsync(xDTO.Log item)
+			{
+				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.Log>(
+					Log, GetClient(),
+					$"{ExecutionContext.BaseWebApiUrl}Logs/{item.Id}", item);
+				return retVal;
+			}
+
+			public async Task<IHttpCallResultCGHT<xDTO.LogType>> UpdateLogTypeAsync(xDTO.LogType item)
+			{
+				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.LogType>(
+					Log, GetClient(),
+					$"{ExecutionContext.BaseWebApiUrl}LogTypes/{item.Id}", item);
+				return retVal;
+			}
+
 			public async Task<IHttpCallResultCGHT<xDTO.LookupList>> UpdateLookupListAsync(xDTO.LookupList item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.LookupList>(
@@ -1540,7 +1632,7 @@ namespace MSC.ConferenceMate.API.Client
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.SessionLike>(
 					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SessionLikes/{item.SessionLikeId}", item);
+					$"{ExecutionContext.BaseWebApiUrl}SessionLikes/{item.SessionId}/{item.UserProfileId}", item);
 				return retVal;
 			}
 
@@ -1556,7 +1648,7 @@ namespace MSC.ConferenceMate.API.Client
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.SessionSpeaker>(
 					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SessionSpeakers/{item.SessionId}/{item.UserId}", item);
+					$"{ExecutionContext.BaseWebApiUrl}SessionSpeakers/{item.SessionId}/{item.UserProfileId}", item);
 				return retVal;
 			}
 
@@ -1584,11 +1676,11 @@ namespace MSC.ConferenceMate.API.Client
 				return retVal;
 			}
 
-			public async Task<IHttpCallResultCGHT<xDTO.User>> UpdateUserAsync(xDTO.User item)
+			public async Task<IHttpCallResultCGHT<xDTO.UserProfile>> UpdateUserProfileAsync(xDTO.UserProfile item)
 			{
-				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.User>(
+				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.UserProfile>(
 					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}Users/{item.UserId}", item);
+					$"{ExecutionContext.BaseWebApiUrl}UserProfiles/{item.UserProfileId}", item);
 				return retVal;
 			}
 
@@ -1640,6 +1732,18 @@ namespace MSC.ConferenceMate.API.Client
 			return retVal;
 		}
 
+		public async Task<IHttpCallResultCGHT<xDTO.Log>> DeleteLogAsync(int id)
+		{
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.Log>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Logs/{id}");
+			return retVal;
+		}
+
+		public async Task<IHttpCallResultCGHT<xDTO.LogType>> DeleteLogTypeAsync(int id)
+		{
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.LogType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}LogTypes/{id}");
+			return retVal;
+		}
+
 		public async Task<IHttpCallResultCGHT<xDTO.LookupList>> DeleteLookupListAsync(int lookupListId)
 		{
 			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.LookupList>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}LookupLists/{lookupListId}");
@@ -1664,9 +1768,9 @@ namespace MSC.ConferenceMate.API.Client
 			return retVal;
 		}
 
-		public async Task<IHttpCallResultCGHT<xDTO.SessionLike>> DeleteSessionLikeAsync(System.Guid sessionLikeId)
+		public async Task<IHttpCallResultCGHT<xDTO.SessionLike>> DeleteSessionLikeAsync(int sessionId, int userProfileId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SessionLike>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionLikes/{sessionLikeId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SessionLike>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionLikes/{sessionId}/{userProfileId}");
 			return retVal;
 		}
 
@@ -1676,9 +1780,9 @@ namespace MSC.ConferenceMate.API.Client
 			return retVal;
 		}
 
-		public async Task<IHttpCallResultCGHT<xDTO.SessionSpeaker>> DeleteSessionSpeakerAsync(int sessionId, int userId)
+		public async Task<IHttpCallResultCGHT<xDTO.SessionSpeaker>> DeleteSessionSpeakerAsync(int sessionId, int userProfileId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SessionSpeaker>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionSpeakers/{sessionId}/{userId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SessionSpeaker>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionSpeakers/{sessionId}/{userProfileId}");
 			return retVal;
 		}
 
@@ -1700,9 +1804,9 @@ namespace MSC.ConferenceMate.API.Client
 			return retVal;
 		}
 
-		public async Task<IHttpCallResultCGHT<xDTO.User>> DeleteUserAsync(int userId)
+		public async Task<IHttpCallResultCGHT<xDTO.UserProfile>> DeleteUserProfileAsync(int userProfileId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.User>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Users/{userId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.UserProfile>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}UserProfiles/{userProfileId}");
 			return retVal;
 		}
 

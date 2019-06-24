@@ -13,6 +13,8 @@ namespace MSC.ConferenceMate.Repository.Interface
 		ICRUDOperation<FeedbackType>,
 		ICRUDOperation<GenderType>,
 		ICRUDOperation<LanguageType>,
+		ICRUDOperation<Log>,
+		ICRUDOperation<LogType>,
 		ICRUDOperation<LookupList>,
 		ICRUDOperation<Room>,
 		ICRUDOperation<Session>,
@@ -23,7 +25,7 @@ namespace MSC.ConferenceMate.Repository.Interface
 		ICRUDOperation<Sponsor>,
 		ICRUDOperation<SponsorFeaturedEvent>,
 		ICRUDOperation<SponsorType>,
-		ICRUDOperation<User>
+		ICRUDOperation<UserProfile>
 	{
 
 		#region GetQueryable
@@ -35,6 +37,8 @@ namespace MSC.ConferenceMate.Repository.Interface
 		IQueryable<FeedbackType> GetQueryable_FeedbackType();
 		IQueryable<GenderType> GetQueryable_GenderType();
 		IQueryable<LanguageType> GetQueryable_LanguageType();
+		IQueryable<Log> GetQueryable_Log();
+		IQueryable<LogType> GetQueryable_LogType();
 		IQueryable<LookupList> GetQueryable_LookupList();
 		IQueryable<Room> GetQueryable_Room();
 		IQueryable<Session> GetQueryable_Session();
@@ -45,7 +49,7 @@ namespace MSC.ConferenceMate.Repository.Interface
 		IQueryable<Sponsor> GetQueryable_Sponsor();
 		IQueryable<SponsorFeaturedEvent> GetQueryable_SponsorFeaturedEvent();
 		IQueryable<SponsorType> GetQueryable_SponsorType();
-		IQueryable<User> GetQueryable_User();
+		IQueryable<UserProfile> GetQueryable_UserProfile();
 
 		#endregion
 

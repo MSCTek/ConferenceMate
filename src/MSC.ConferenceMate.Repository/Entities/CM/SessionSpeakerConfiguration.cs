@@ -27,10 +27,10 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         public SessionSpeakerConfiguration(string schema)
         {
             ToTable("Session_Speaker", schema);
-            HasKey(x => new { x.SessionId, x.UserId });
+            HasKey(x => new { x.SessionId, x.UserProfileId });
 
             Property(x => x.SessionId).HasColumnName(@"SessionId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.UserProfileId).HasColumnName(@"UserProfileId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.DataVersion).HasColumnName(@"DataVersion").HasColumnType("int").IsRequired();
             Property(x => x.CreatedUtcDate).HasColumnName(@"CreatedUtcDate").HasColumnType("datetime2").IsRequired();
             Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsRequired().HasMaxLength(200);
@@ -40,7 +40,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
 
             // Foreign keys
             HasRequired(a => a.Session).WithMany(b => b.SessionSpeakers).HasForeignKey(c => c.SessionId).WillCascadeOnDelete(false); // FK_Session_Speaker_Session
-            HasRequired(a => a.User).WithMany(b => b.SessionSpeakers).HasForeignKey(c => c.UserId).WillCascadeOnDelete(false); // FK_Session_Speaker_Users
+            HasRequired(a => a.UserProfile).WithMany(b => b.SessionSpeakers).HasForeignKey(c => c.UserProfileId).WillCascadeOnDelete(false); // FK_Session_Speaker_UserProfile
             InitializePartial();
         }
         partial void InitializePartial();

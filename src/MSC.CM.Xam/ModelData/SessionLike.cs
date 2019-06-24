@@ -12,11 +12,15 @@ namespace MSC.CM.Xam.ModelData.CM
 		public bool IsDeleted { get; set; }
 		public string ModifiedBy { get; set; }
 		public System.DateTime ModifiedUtcDate { get; set; }
+
+		// Mutiple primary keys - composite PK used instead [Indexed(Name = "SessionLike", Order = 1, Unique = true)]
 		public int SessionId { get; set; }
 
-		[PrimaryKey]
-		public System.Guid SessionLikeId { get; set; }
 
-		public int UserId { get; set; }
+		// Mutiple primary keys - composite PK used instead [Indexed(Name = "SessionLike", Order = 2, Unique = true)]
+		public int UserProfileId { get; set; }
+
+		[PrimaryKey]
+		public string SessionIdUserProfileId { get; set; }
 	}
 }

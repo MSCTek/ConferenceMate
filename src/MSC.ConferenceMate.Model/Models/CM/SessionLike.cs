@@ -46,36 +46,22 @@ namespace MSC.ConferenceMate.Model.CM
 		public virtual string ModifiedBy { get { return _dto.ModifiedBy; } }
 		public virtual System.DateTime ModifiedUtcDate { get { return _dto.ModifiedUtcDate; } }
 		public virtual int SessionId { get { return _dto.SessionId; } }
-		public virtual System.Guid SessionLikeId { get { return _dto.SessionLikeId; } }
-		public virtual int UserId { get { return _dto.UserId; } }
+		public virtual int UserProfileId { get { return _dto.UserProfileId; } }
 
-		private ISession _session = null; // Foreign Key
-		private IUser _user = null; // Foreign Key
+		// Excluding 'Session' per configuration setting.
+		private IUserProfile _userProfile = null; // Foreign Key
 
 
-		public virtual ISession Session
+		public virtual IUserProfile UserProfile
 		{
 			get
 			{
-				if (_session == null)
+				if (_userProfile == null && _dto != null && _dto.UserProfile != null)
 				{
-					OnLazyLoadRequest(this, new LoadRequestSessionLike(nameof(Session)));
+					_userProfile = new UserProfile(Log, DataService, _dto.UserProfile);
 				}
 
-				return _session;
-			}
-		}
-
-		public virtual IUser User
-		{
-			get
-			{
-				if (_user == null)
-				{
-					OnLazyLoadRequest(this, new LoadRequestSessionLike(nameof(User)));
-				}
-
-				return _user;
+				return _userProfile;
 			}
 		}
 

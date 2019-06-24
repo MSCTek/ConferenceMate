@@ -5,7 +5,7 @@ using entCM = MSC.ConferenceMate.Repository.Entities.CM;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
-	public partial class GenderTypesCMController : CMBaseApiController
+	public partial class GenderTypesCMController : CMBaseApiControllerAuthorized
 	{
 
 		//partial void RunCustomLogicAfterInsert(ref entCM.GenderType newDBItem, ref IRepositoryActionResult<entCM.GenderType> result) {}

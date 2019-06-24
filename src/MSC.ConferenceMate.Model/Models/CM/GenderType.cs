@@ -48,19 +48,30 @@ namespace MSC.ConferenceMate.Model.CM
 		public virtual string ModifiedBy { get { return _dto.ModifiedBy; } }
 		public virtual System.DateTime ModifiedUtcDate { get { return _dto.ModifiedUtcDate; } }
 
-		private List<IUser> _users = null; // Reverse Navigation
+		private List<IUserProfile> _userProfiles = null; // Reverse Navigation
 
 
-		public virtual List<IUser> Users
+		public virtual List<IUserProfile> UserProfiles
 		{
 			get
 			{
-				if (_users == null)
-				{
-					OnLazyLoadRequest(this, new LoadRequestGenderType(nameof(Users)));
+				if (_userProfiles == null && _dto != null)
+				{	// The core DTO object is loaded, but this property is not loaded.
+					if (_dto.UserProfiles != null)
+					{	// The core DTO object has data for this property, load it into the model.
+						_userProfiles = new List<IUserProfile>();
+						foreach (var dtoItem in _dto.UserProfiles)
+						{
+							_userProfiles.Add(new UserProfile(Log, DataService, dtoItem));
+						}
+					}
+					else
+					{	// Trigger the load data request - The core DTO object is loaded and does not have data for this property.
+						OnLazyLoadRequest(this, new LoadRequestGenderType(nameof(UserProfiles)));
+					}
 				}
 
-				return _users;
+				return _userProfiles;
 			}
 		}
 

@@ -23,7 +23,7 @@ namespace MSC.ConferenceMate.DTO.CM
 		public string ModifiedBy { get; set; }
 		public bool IsDeleted { get; set; }
 		// public virtual System.Collections.Generic.ICollection<LookupList> LookupLists { get; set; } // Many to many mapping -- Excluded navigation property per configuration.
-		// public virtual System.Collections.Generic.ICollection<User> Users { get; set; } // Many to many mapping -- Excluded navigation property per configuration.
+		public virtual System.Collections.Generic.ICollection<UserProfile> UserProfiles { get; set; } // Many to many mapping
 
 
 		partial void InitializePartial();

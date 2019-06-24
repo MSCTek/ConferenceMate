@@ -5,14 +5,10 @@ namespace MSC.CM.Xam.ModelData.CM
 {
 	public static class DemoSession
 	{
-		public static int SampleSessionId0000 = 1671307271;
-		public static int SampleSessionId0100 = 2049792612;
-        public static int SampleSessionId0200 = 1671307273;
-        public static int SampleSessionId0300 = 2049792614;
-        public static int SampleSessionId0400 = 1671307275;
-        public static int SampleSessionId0500 = 2049792616;
+		public static int SampleSessionId0000 = 1851998887;
+		public static int SampleSessionId0100 = 1372120977;
 
-        public static Session SampleSession00
+		public static Session SampleSession00
 		{
 			get
 			{
@@ -22,7 +18,7 @@ namespace MSC.CM.Xam.ModelData.CM
 					Title = "SampleTitle",
 					ShortTitle = "SampleShortTitle",
 					Description = "SampleDescription",
-					RoomId = DemoRoom.SampleRoomId0000,
+					RoomId = 0,
 					StartTime = DateTime.Now,
 					EndTime = DateTime.Now,
 					DataVersion = 0,
@@ -44,7 +40,7 @@ namespace MSC.CM.Xam.ModelData.CM
 					Title = "SampleTitle",
 					ShortTitle = "SampleShortTitle",
 					Description = "SampleDescription",
-					RoomId = DemoRoom.SampleRoomId0000,
+					RoomId = 0,
 					StartTime = DateTime.Now,
 					EndTime = DateTime.Now,
 					DataVersion = 0,
@@ -57,95 +53,5 @@ namespace MSC.CM.Xam.ModelData.CM
 			}
 		}
 
-        public static Session SampleSession02
-        {
-            get
-            {
-                return new Session()
-                {
-                    SessionId = SampleSessionId0200,
-                    Title = "SampleTitle",
-                    ShortTitle = "SampleShortTitle",
-                    Description = "SampleDescription",
-                    RoomId = DemoRoom.SampleRoomId0000,
-                    StartTime = DateTime.Now,
-                    EndTime = DateTime.Now,
-                    DataVersion = 0,
-                    CreatedUtcDate = DateTime.Now,
-                    CreatedBy = "SampleCreatedBy",
-                    ModifiedUtcDate = DateTime.Now,
-                    ModifiedBy = "SampleModifiedBy",
-                    IsDeleted = false,
-                };
-            }
-        }
-        public static Session SampleSession03
-        {
-            get
-            {
-                return new Session()
-                {
-                    SessionId = SampleSessionId0300,
-                    Title = "SampleTitle",
-                    ShortTitle = "SampleShortTitle",
-                    Description = "SampleDescription",
-                    RoomId = DemoRoom.SampleRoomId0100,
-                    StartTime = DateTime.Now,
-                    EndTime = DateTime.Now,
-                    DataVersion = 0,
-                    CreatedUtcDate = DateTime.Now,
-                    CreatedBy = "SampleCreatedBy",
-                    ModifiedUtcDate = DateTime.Now,
-                    ModifiedBy = "SampleModifiedBy",
-                    IsDeleted = false,
-                };
-            }
-        }
-
-        public static Session SampleSession04
-        {
-            get
-            {
-                return new Session()
-                {
-                    SessionId = SampleSessionId0400,
-                    Title = "SampleTitle",
-                    ShortTitle = "SampleShortTitle",
-                    Description = "SampleDescription",
-                    RoomId = DemoRoom.SampleRoomId0100,
-                    StartTime = DateTime.Now,
-                    EndTime = DateTime.Now,
-                    DataVersion = 0,
-                    CreatedUtcDate = DateTime.Now,
-                    CreatedBy = "SampleCreatedBy",
-                    ModifiedUtcDate = DateTime.Now,
-                    ModifiedBy = "SampleModifiedBy",
-                    IsDeleted = false,
-                };
-            }
-        }
-        public static Session SampleSession05
-        {
-            get
-            {
-                return new Session()
-                {
-                    SessionId = SampleSessionId0500,
-                    Title = "SampleTitle",
-                    ShortTitle = "SampleShortTitle",
-                    Description = "SampleDescription",
-                    RoomId = DemoRoom.SampleRoomId0100,
-                    StartTime = DateTime.Now,
-                    EndTime = DateTime.Now,
-                    DataVersion = 0,
-                    CreatedUtcDate = DateTime.Now,
-                    CreatedBy = "SampleCreatedBy",
-                    ModifiedUtcDate = DateTime.Now,
-                    ModifiedBy = "SampleModifiedBy",
-                    IsDeleted = false,
-                };
-            }
-        }
-
-    }
+	}
 }

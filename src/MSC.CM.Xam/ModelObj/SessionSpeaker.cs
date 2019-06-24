@@ -17,7 +17,7 @@ namespace MSC.CM.Xam.ModelObj.CM
 		private string _modifiedBy;
 		private System.DateTime _modifiedUtcDate;
 		private int _sessionId;
-		private int _userId;
+		private int _userProfileId;
 
 
 		public string CreatedBy
@@ -90,18 +90,18 @@ namespace MSC.CM.Xam.ModelObj.CM
 			}
 		}
 
-		public int UserId
+		public int UserProfileId
 		{
-			get { return _userId; }
+			get { return _userProfileId; }
 			set
 			{
-				Set<int>(() => UserId, ref _userId, value);
-				RunCustomLogicSetUserId(value);
+				Set<int>(() => UserProfileId, ref _userProfileId, value);
+				RunCustomLogicSetUserProfileId(value);
 			}
 		}
 
 		public virtual Session Session { get; set; } 
-		public virtual User User { get; set; } 
+		public virtual UserProfile UserProfile { get; set; } 
 
 
 		partial void InitializePartial();
@@ -115,7 +115,7 @@ namespace MSC.CM.Xam.ModelObj.CM
 		partial void RunCustomLogicSetModifiedBy(string value);
 		partial void RunCustomLogicSetModifiedUtcDate(System.DateTime value);
 		partial void RunCustomLogicSetSessionId(int value);
-		partial void RunCustomLogicSetUserId(int value);
+		partial void RunCustomLogicSetUserProfileId(int value);
 
 		#endregion RunCustomLogicSet
 

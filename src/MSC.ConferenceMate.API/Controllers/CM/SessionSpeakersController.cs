@@ -21,7 +21,7 @@ using entCM = MSC.ConferenceMate.Repository.Entities.CM;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
-	public partial class SessionSpeakersCMController : CMBaseApiController
+	public partial class SessionSpeakersCMController : CMBaseApiControllerAuthorized
 	{
 			private const string GET_LIST_ROUTE_NAME = "SessionSpeakersCMList";
 			private const int maxPageSize = 100;
@@ -39,14 +39,14 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		}
 
 		[HttpDelete]
-		[VersionedRoute(template: "SessionSpeakers/{sessionId}/{userId}", allowedVersion: 1)]
-		public async Task<IHttpActionResult> Delete(int sessionId, int userId)
+		[VersionedRoute(template: "SessionSpeakers/{sessionId}/{userProfileId}", allowedVersion: 1)]
+		public async Task<IHttpActionResult> Delete(int sessionId, int userProfileId)
 		{
 			try
 			{
 				if (!base.OnActionExecuting(out HttpStatusCode httpStatusCode, out string message)) { return Content(httpStatusCode, message); }
 
-				var result = await Repo.Delete_SessionSpeakerAsync(sessionId, userId);
+				var result = await Repo.Delete_SessionSpeakerAsync(sessionId, userProfileId);
 
 				if (result.Status == cghEnums.RepositoryActionStatus.Deleted)
 				{
@@ -117,13 +117,13 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		}
 
 		[HttpGet]
-		[VersionedRoute(template: "SessionSpeakers/{sessionId}/{userId}/{numChildLevels:int=0}", allowedVersion: 1)]
-		public async Task<IHttpActionResult> Get(int sessionId, int userId, int numChildLevels)
+		[VersionedRoute(template: "SessionSpeakers/{sessionId}/{userProfileId}/{numChildLevels:int=0}", allowedVersion: 1)]
+		public async Task<IHttpActionResult> Get(int sessionId, int userProfileId, int numChildLevels)
 		{
 			try
 			{
 				if (!base.OnActionExecuting(out HttpStatusCode httpStatusCode, out string message)) { return Content(httpStatusCode, message); }
-				var dbItem = await Repo.Get_SessionSpeakerAsync(sessionId, userId, numChildLevels);
+				var dbItem = await Repo.Get_SessionSpeakerAsync(sessionId, userProfileId, numChildLevels);
 
 				if (dbItem == null)
 				{
@@ -131,7 +131,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 					return NotFound();
 				}
 
-				RunCustomLogicOnGetEntityByPK(ref dbItem, sessionId, userId, numChildLevels);
+				RunCustomLogicOnGetEntityByPK(ref dbItem, sessionId, userProfileId, numChildLevels);
 				return Ok(_factory.Create(dbItem));
 			}
 			catch (Exception ex)
@@ -146,8 +146,8 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		}
 
 		[HttpPatch]
-		[VersionedRoute(template: "SessionSpeakers/{sessionId}/{userId}", allowedVersion: 1)]
-		public async Task<IHttpActionResult> Patch(int sessionId, int userId, [FromBody] JsonPatchDocument<dtoCM.SessionSpeaker> patchDocument)
+		[VersionedRoute(template: "SessionSpeakers/{sessionId}/{userProfileId}", allowedVersion: 1)]
+		public async Task<IHttpActionResult> Patch(int sessionId, int userProfileId, [FromBody] JsonPatchDocument<dtoCM.SessionSpeaker> patchDocument)
 		{
 			try
 			{
@@ -158,7 +158,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 					return BadRequest();
 				}
 
-				var dbItem = await Repo.Get_SessionSpeakerAsync(sessionId, userId, numChildLevels: 0);
+				var dbItem = await Repo.Get_SessionSpeakerAsync(sessionId, userProfileId, numChildLevels: 0);
 				if (dbItem == null)
 				{
 					return NotFound();
@@ -169,7 +169,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				// apply changes to the DTO
 				patchDocument.ApplyTo(dtoItem);
 				dtoItem.SessionId = sessionId;
-				dtoItem.UserId = userId;
+				dtoItem.UserProfileId = userProfileId;
 
 				// map the DTO with applied changes to the entity, & update
 				var updatedDBItem = _factory.Create(dtoItem); // map
@@ -220,7 +220,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				{   // map to dto
 					var newDTOItem = _factory.Create(result.Entity);
 					var uriFormatted = Request.RequestUri.ToString().EndsWith("/") == true ? Request.RequestUri.ToString().Substring(0, Request.RequestUri.ToString().Length - 1) : Request.RequestUri.ToString();
-					return Created($"{uriFormatted}/{newDTOItem.SessionId}/{newDTOItem.UserId}", newDTOItem);
+					return Created($"{uriFormatted}/{newDTOItem.SessionId}/{newDTOItem.UserProfileId}", newDTOItem);
 				}
 
 				Warn("Unable to create object via Web API", LogMessageType.Instance.Warn_WebApi, result.Exception, httpResponseStatusCode: 400, url: Request.RequestUri.ToString());
@@ -238,8 +238,8 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		}
 
 		[HttpPut]
-		[VersionedRoute(template: "SessionSpeakers/{sessionId}/{userId}", allowedVersion: 1)]
-		public async Task<IHttpActionResult> Put(int sessionId, int userId, [FromBody] dtoCM.SessionSpeaker dtoItem)
+		[VersionedRoute(template: "SessionSpeakers/{sessionId}/{userProfileId}", allowedVersion: 1)]
+		public async Task<IHttpActionResult> Put(int sessionId, int userProfileId, [FromBody] dtoCM.SessionSpeaker dtoItem)
 		{
 			try
 			{
@@ -251,7 +251,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				}
 
 				dtoItem.SessionId = sessionId;
-				dtoItem.UserId = userId;
+				dtoItem.UserProfileId = userProfileId;
 
 				var updatedDBItem = _factory.Create(dtoItem); // map
 				var result = await Repo.UpdateAsync(updatedDBItem);
@@ -288,7 +288,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 
 		partial void RunCustomLogicAfterUpdatePut(ref MSC.ConferenceMate.Repository.Entities.CM.SessionSpeaker updatedDBItem, ref IRepositoryActionResult<entCM.SessionSpeaker> result);
 
-		partial void RunCustomLogicOnGetEntityByPK(ref entCM.SessionSpeaker dbItem, int sessionId, int userId, int numChildLevels);
+		partial void RunCustomLogicOnGetEntityByPK(ref entCM.SessionSpeaker dbItem, int sessionId, int userProfileId, int numChildLevels);
 
 		partial void RunCustomLogicAfterGetQueryableList(ref IQueryable<entCM.SessionSpeaker> dbItems, ref List<string> filterList);
 	}

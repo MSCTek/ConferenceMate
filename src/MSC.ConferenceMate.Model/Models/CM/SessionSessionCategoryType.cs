@@ -48,35 +48,9 @@ namespace MSC.ConferenceMate.Model.CM
 		public virtual int SessionCategoryTypeId { get { return _dto.SessionCategoryTypeId; } }
 		public virtual int SessionId { get { return _dto.SessionId; } }
 
-		private ISession _session = null; // Foreign Key
-		private ISessionCategoryType _sessionCategoryType = null; // Foreign Key
+		// Excluding 'Session' per configuration setting.
+		// Excluding 'SessionCategoryType' per configuration setting.
 
-
-		public virtual ISession Session
-		{
-			get
-			{
-				if (_session == null)
-				{
-					OnLazyLoadRequest(this, new LoadRequestSessionSessionCategoryType(nameof(Session)));
-				}
-
-				return _session;
-			}
-		}
-
-		public virtual ISessionCategoryType SessionCategoryType
-		{
-			get
-			{
-				if (_sessionCategoryType == null)
-				{
-					OnLazyLoadRequest(this, new LoadRequestSessionSessionCategoryType(nameof(SessionCategoryType)));
-				}
-
-				return _sessionCategoryType;
-			}
-		}
 
 
 

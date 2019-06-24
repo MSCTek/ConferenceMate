@@ -7,7 +7,7 @@ namespace MSC.CM.Xam.ModelObj.CM
 	{
 		public GenderType()
 		{
-			Users = new System.Collections.Generic.List<User>(); // Reverse Navigation
+			UserProfiles = new System.Collections.Generic.List<UserProfile>(); // Reverse Navigation
 
 			InitializePartial();
 		}
@@ -102,7 +102,7 @@ namespace MSC.CM.Xam.ModelObj.CM
 			}
 		}
 
-		public virtual System.Collections.Generic.IList<User> Users { get; set; } // Many to many mapping
+		public virtual System.Collections.Generic.IList<UserProfile> UserProfiles { get; set; } // Many to many mapping
 
 
 		partial void InitializePartial();

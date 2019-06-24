@@ -5,8 +5,8 @@ namespace MSC.CM.Xam.ModelData.CM
 {
 	public static class DemoFeaturedEvent
 	{
-		public static int SampleFeaturedEventId0000 = 628976890;
-		public static int SampleFeaturedEventId0100 = 1090072241;
+		public static int SampleFeaturedEventId0000 = 360146547;
+		public static int SampleFeaturedEventId0100 = 480728670;
 
 		public static FeaturedEvent SampleFeaturedEvent00
 		{

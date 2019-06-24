@@ -5,7 +5,7 @@ using entCM = MSC.ConferenceMate.Repository.Entities.CM;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
-	public partial class SessionSessionCategoryTypesCMController : CMBaseApiController
+	public partial class SessionSessionCategoryTypesCMController : CMBaseApiControllerAuthorized
 	{
 
 		//partial void RunCustomLogicAfterInsert(ref entCM.SessionSessionCategoryType newDBItem, ref IRepositoryActionResult<entCM.SessionSessionCategoryType> result) {}

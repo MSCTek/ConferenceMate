@@ -10,23 +10,23 @@
       "Filename": "IFeaturedEvent.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:49:05.5860697-05:00",
+      "FileLastChange": "2019-06-24T16:26:16.7392537-05:00",
       "Filename": "IFeedback.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:49:08.4325959-05:00",
+      "FileLastChange": "2019-06-24T16:26:22.2032284-05:00",
       "Filename": "IFeedbackInitiatorType.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:49:11.3375964-05:00",
+      "FileLastChange": "2019-06-24T16:26:22.7642277-05:00",
       "Filename": "IFeedbackType.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:49:14.2136011-05:00",
+      "FileLastChange": "2019-06-24T15:17:27.0021628-05:00",
       "Filename": "IGenderType.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:49:17.6775966-05:00",
+      "FileLastChange": "2019-06-24T16:26:23.3122277-05:00",
       "Filename": "ILanguageType.cs"
     },
     {
@@ -34,7 +34,7 @@
       "Filename": "ILookupList.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:49:24.623601-05:00",
+      "FileLastChange": "2019-06-24T16:26:23.8122288-05:00",
       "Filename": "IRoom.cs"
     },
     {
@@ -46,15 +46,15 @@
       "Filename": "ISessionCategoryType.cs"
     },
     {
-      "FileLastChange": "2019-05-26T17:33:02.6247099-05:00",
+      "FileLastChange": "2019-06-24T16:26:24.1362289-05:00",
       "Filename": "ISessionLike.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:49:39.9376011-05:00",
+      "FileLastChange": "2019-06-24T16:26:24.5182292-05:00",
       "Filename": "ISessionSessionCategoryType.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:49:44.4956025-05:00",
+      "FileLastChange": "2019-06-24T16:26:24.8722275-05:00",
       "Filename": "ISessionSpeaker.cs"
     },
     {
@@ -62,16 +62,24 @@
       "Filename": "ISponsor.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:49:56.0486037-05:00",
+      "FileLastChange": "2019-06-24T16:26:25.227233-05:00",
       "Filename": "ISponsorFeaturedEvent.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:50:01.4031645-05:00",
+      "FileLastChange": "2019-06-24T16:26:25.6152273-05:00",
       "Filename": "ISponsorType.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:50:06.3161622-05:00",
-      "Filename": "IUser.cs"
+      "FileLastChange": "2019-06-24T13:50:45.3416861-05:00",
+      "Filename": "ILog.cs"
+    },
+    {
+      "FileLastChange": "2019-06-24T13:50:48.2456844-05:00",
+      "Filename": "ILogType.cs"
+    },
+    {
+      "FileLastChange": "2019-06-24T16:26:26.08023-05:00",
+      "Filename": "IUserProfile.cs"
     }
   ]
 }

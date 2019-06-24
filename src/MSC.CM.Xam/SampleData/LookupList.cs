@@ -5,8 +5,8 @@ namespace MSC.CM.Xam.ModelData.CM
 {
 	public static class DemoLookupList
 	{
-		public static int SampleLookupListId0000 = 179454933;
-		public static int SampleLookupListId0100 = 1158400312;
+		public static int SampleLookupListId0000 = 1851998887;
+		public static int SampleLookupListId0100 = 1372120977;
 
 		public static LookupList SampleLookupList00
 		{

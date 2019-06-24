@@ -5,8 +5,8 @@ namespace MSC.CM.Xam.ModelData.CM
 {
 	public static class DemoSponsorType
 	{
-		public static int SampleSponsorTypeId0000 = 385564283;
-		public static int SampleSponsorTypeId0100 = 335336076;
+		public static int SampleSponsorTypeId0000 = 566255897;
+		public static int SampleSponsorTypeId0100 = 1805148081;
 
 		public static SponsorType SampleSponsorType00
 		{

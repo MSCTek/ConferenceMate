@@ -29,6 +29,6 @@ namespace MSC.CM.Xam.ModelData.CM
 		public int? SessionId { get; set; }
 		public string Source { get; set; }
 		public string Title { get; set; }
-		public int? UserId { get; set; }
+		public int UserProfileId { get; set; }
 	}
 }

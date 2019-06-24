@@ -5,8 +5,8 @@ namespace MSC.CM.Xam.ModelData.CM
 {
 	public static class DemoSessionCategoryType
 	{
-		public static int SampleSessionCategoryTypeId0000 = 1671307273;
-		public static int SampleSessionCategoryTypeId0100 = 2049792619;
+		public static int SampleSessionCategoryTypeId0000 = 1851998887;
+		public static int SampleSessionCategoryTypeId0100 = 1372120977;
 
 		public static SessionCategoryType SampleSessionCategoryType00
 		{

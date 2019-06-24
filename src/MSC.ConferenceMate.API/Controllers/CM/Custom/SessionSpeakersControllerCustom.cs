@@ -5,7 +5,7 @@ using entCM = MSC.ConferenceMate.Repository.Entities.CM;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
-	public partial class SessionSpeakersCMController : CMBaseApiController
+	public partial class SessionSpeakersCMController : CMBaseApiControllerAuthorized
 	{
 
 		//partial void RunCustomLogicAfterInsert(ref entCM.SessionSpeaker newDBItem, ref IRepositoryActionResult<entCM.SessionSpeaker> result) {}
@@ -21,7 +21,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		///// <param name="dbItem"></param>
 		///// <param name="id"></param>
 		///// <param name="numChildLevels"></param>
-		// partial void RunCustomLogicOnGetEntityByPK(ref entCM.SessionSpeaker dbItem, int sessionId, int userId, int numChildLevels)
+		// partial void RunCustomLogicOnGetEntityByPK(ref entCM.SessionSpeaker dbItem, int sessionId, int userProfileId, int numChildLevels)
 		// {
 			// if (numChildLevels > 1)
 			// {

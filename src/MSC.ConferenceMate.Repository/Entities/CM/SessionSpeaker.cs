@@ -20,7 +20,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
     public partial class SessionSpeaker
     {
         public int SessionId { get; set; } // SessionId (Primary key)
-        public int UserId { get; set; } // UserId (Primary key)
+        public int UserProfileId { get; set; } // UserProfileId (Primary key)
         public int DataVersion { get; set; } // DataVersion
         public System.DateTime CreatedUtcDate { get; set; } // CreatedUtcDate
         public string CreatedBy { get; set; } // CreatedBy (length: 200)
@@ -36,9 +36,9 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         public Session Session { get; set; } // FK_Session_Speaker_Session
 
         /// <summary>
-        /// Parent User pointed by [Session_Speaker].([UserId]) (FK_Session_Speaker_Users)
+        /// Parent UserProfile pointed by [Session_Speaker].([UserProfileId]) (FK_Session_Speaker_UserProfile)
         /// </summary>
-        public User User { get; set; } // FK_Session_Speaker_Users
+        public UserProfile UserProfile { get; set; } // FK_Session_Speaker_UserProfile
 
         public SessionSpeaker()
         {

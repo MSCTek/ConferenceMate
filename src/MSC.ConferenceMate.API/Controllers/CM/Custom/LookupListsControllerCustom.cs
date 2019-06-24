@@ -5,7 +5,7 @@ using entCM = MSC.ConferenceMate.Repository.Entities.CM;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
-	public partial class LookupListsCMController : CMBaseApiController
+	public partial class LookupListsCMController : CMBaseApiControllerAuthorized
 	{
 
 		//partial void RunCustomLogicAfterInsert(ref entCM.LookupList newDBItem, ref IRepositoryActionResult<entCM.LookupList> result) {}

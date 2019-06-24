@@ -27,11 +27,10 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         public SessionLikeConfiguration(string schema)
         {
             ToTable("Session_Like", schema);
-            HasKey(x => x.SessionLikeId);
+            HasKey(x => new { x.SessionId, x.UserProfileId });
 
-            Property(x => x.SessionLikeId).HasColumnName(@"SessionLikeId").HasColumnType("uniqueidentifier").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.SessionId).HasColumnName(@"SessionId").HasColumnType("int").IsRequired();
-            Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsRequired();
+            Property(x => x.SessionId).HasColumnName(@"SessionId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.UserProfileId).HasColumnName(@"UserProfileId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.DataVersion).HasColumnName(@"DataVersion").HasColumnType("int").IsRequired();
             Property(x => x.CreatedUtcDate).HasColumnName(@"CreatedUtcDate").HasColumnType("datetime2").IsRequired();
             Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar").IsRequired().HasMaxLength(200);
@@ -41,7 +40,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
 
             // Foreign keys
             HasRequired(a => a.Session).WithMany(b => b.SessionLikes).HasForeignKey(c => c.SessionId).WillCascadeOnDelete(false); // FK_Session_Like_Session
-            HasRequired(a => a.User).WithMany(b => b.SessionLikes).HasForeignKey(c => c.UserId).WillCascadeOnDelete(false); // FK_Session_Like_Users
+            HasRequired(a => a.UserProfile).WithMany(b => b.SessionLikes).HasForeignKey(c => c.UserProfileId).WillCascadeOnDelete(false); // FK_Session_Like_UserProfile
             InitializePartial();
         }
         partial void InitializePartial();

@@ -25,6 +25,10 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IList<xDTO.LanguageType>> GetAllPagesLanguageTypesAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null);
 
+		Task<IList<xDTO.Log>> GetAllPagesLogsAsync(string sort = null);
+
+		Task<IList<xDTO.LogType>> GetAllPagesLogTypesAsync(string sort = null);
+
 		Task<IList<xDTO.LookupList>> GetAllPagesLookupListsAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null);
 
 		Task<IList<xDTO.Room>> GetAllPagesRoomsAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null);
@@ -45,7 +49,7 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IList<xDTO.SponsorType>> GetAllPagesSponsorTypesAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null);
 
-		Task<IList<xDTO.User>> GetAllPagesUsersAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null);
+		Task<IList<xDTO.UserProfile>> GetAllPagesUserProfilesAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null);
 
 
 		#endregion GetAllPages
@@ -80,6 +84,14 @@ namespace MSC.ConferenceMate.API.Client.Interface
 		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.LanguageType>>>> GetLanguageTypesAsync(IPageDataRequest pageDataRequest);
 
 		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.LanguageType>>>> GetLanguageTypesAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null, int page = 1, int pageSize = 100);
+
+		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Log>>>> GetLogsAsync(IPageDataRequest pageDataRequest);
+
+		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Log>>>> GetLogsAsync(string sort = null, int page = 1, int pageSize = 100);
+
+		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.LogType>>>> GetLogTypesAsync(IPageDataRequest pageDataRequest);
+
+		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.LogType>>>> GetLogTypesAsync(string sort = null, int page = 1, int pageSize = 100);
 
 		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.LookupList>>>> GetLookupListsAsync(IPageDataRequest pageDataRequest);
 
@@ -121,9 +133,9 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.SponsorType>>>> GetSponsorTypesAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null, int page = 1, int pageSize = 100);
 
-		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.User>>>> GetUsersAsync(IPageDataRequest pageDataRequest);
+		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.UserProfile>>>> GetUserProfilesAsync(IPageDataRequest pageDataRequest);
 
-		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.User>>>> GetUsersAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null, int page = 1, int pageSize = 100);
+		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.UserProfile>>>> GetUserProfilesAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null, int page = 1, int pageSize = 100);
 
 
 		#endregion GetPageData
@@ -145,6 +157,10 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<xDTO.LanguageType>> GetLanguageTypeAsync(int languageTypeId, int numChildLevels);
 
+		Task<IHttpCallResultCGHT<xDTO.Log>> GetLogAsync(int id, int numChildLevels);
+
+		Task<IHttpCallResultCGHT<xDTO.LogType>> GetLogTypeAsync(int id, int numChildLevels);
+
 		Task<IHttpCallResultCGHT<xDTO.LookupList>> GetLookupListAsync(int lookupListId, int numChildLevels);
 
 		Task<IHttpCallResultCGHT<xDTO.Room>> GetRoomAsync(int roomId, int numChildLevels);
@@ -153,11 +169,11 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<xDTO.SessionCategoryType>> GetSessionCategoryTypeAsync(int sessionCategoryTypeId, int numChildLevels);
 
-		Task<IHttpCallResultCGHT<xDTO.SessionLike>> GetSessionLikeAsync(System.Guid sessionLikeId, int numChildLevels);
+		Task<IHttpCallResultCGHT<xDTO.SessionLike>> GetSessionLikeAsync(int sessionId, int userProfileId, int numChildLevels);
 
 		Task<IHttpCallResultCGHT<xDTO.SessionSessionCategoryType>> GetSessionSessionCategoryTypeAsync(int sessionId, int sessionCategoryTypeId, int numChildLevels);
 
-		Task<IHttpCallResultCGHT<xDTO.SessionSpeaker>> GetSessionSpeakerAsync(int sessionId, int userId, int numChildLevels);
+		Task<IHttpCallResultCGHT<xDTO.SessionSpeaker>> GetSessionSpeakerAsync(int sessionId, int userProfileId, int numChildLevels);
 
 		Task<IHttpCallResultCGHT<xDTO.Sponsor>> GetSponsorAsync(int sponsorId, int numChildLevels);
 
@@ -165,7 +181,7 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<xDTO.SponsorType>> GetSponsorTypeAsync(int sponsorTypeId, int numChildLevels);
 
-		Task<IHttpCallResultCGHT<xDTO.User>> GetUserAsync(int userId, int numChildLevels);
+		Task<IHttpCallResultCGHT<xDTO.UserProfile>> GetUserProfileAsync(int userProfileId, int numChildLevels);
 
 
 		#endregion Get By PK
@@ -187,6 +203,10 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<xDTO.LanguageType>> CreateLanguageTypeAsync(xDTO.LanguageType item);
 
+		Task<IHttpCallResultCGHT<xDTO.Log>> CreateLogAsync(xDTO.Log item);
+
+		Task<IHttpCallResultCGHT<xDTO.LogType>> CreateLogTypeAsync(xDTO.LogType item);
+
 		Task<IHttpCallResultCGHT<xDTO.LookupList>> CreateLookupListAsync(xDTO.LookupList item);
 
 		Task<IHttpCallResultCGHT<xDTO.Room>> CreateRoomAsync(xDTO.Room item);
@@ -207,7 +227,7 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<xDTO.SponsorType>> CreateSponsorTypeAsync(xDTO.SponsorType item);
 
-		Task<IHttpCallResultCGHT<xDTO.User>> CreateUserAsync(xDTO.User item);
+		Task<IHttpCallResultCGHT<xDTO.UserProfile>> CreateUserProfileAsync(xDTO.UserProfile item);
 
 
 		#endregion Create
@@ -229,6 +249,10 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<xDTO.LanguageType>> UpdateLanguageTypeAsync(xDTO.LanguageType item);
 
+		Task<IHttpCallResultCGHT<xDTO.Log>> UpdateLogAsync(xDTO.Log item);
+
+		Task<IHttpCallResultCGHT<xDTO.LogType>> UpdateLogTypeAsync(xDTO.LogType item);
+
 		Task<IHttpCallResultCGHT<xDTO.LookupList>> UpdateLookupListAsync(xDTO.LookupList item);
 
 		Task<IHttpCallResultCGHT<xDTO.Room>> UpdateRoomAsync(xDTO.Room item);
@@ -249,7 +273,7 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<xDTO.SponsorType>> UpdateSponsorTypeAsync(xDTO.SponsorType item);
 
-		Task<IHttpCallResultCGHT<xDTO.User>> UpdateUserAsync(xDTO.User item);
+		Task<IHttpCallResultCGHT<xDTO.UserProfile>> UpdateUserProfileAsync(xDTO.UserProfile item);
 
 
 		#endregion Update
@@ -271,6 +295,10 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<xDTO.LanguageType>> DeleteLanguageTypeAsync(int languageTypeId);
 
+		Task<IHttpCallResultCGHT<xDTO.Log>> DeleteLogAsync(int id);
+
+		Task<IHttpCallResultCGHT<xDTO.LogType>> DeleteLogTypeAsync(int id);
+
 		Task<IHttpCallResultCGHT<xDTO.LookupList>> DeleteLookupListAsync(int lookupListId);
 
 		Task<IHttpCallResultCGHT<xDTO.Room>> DeleteRoomAsync(int roomId);
@@ -279,11 +307,11 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<xDTO.SessionCategoryType>> DeleteSessionCategoryTypeAsync(int sessionCategoryTypeId);
 
-		Task<IHttpCallResultCGHT<xDTO.SessionLike>> DeleteSessionLikeAsync(System.Guid sessionLikeId);
+		Task<IHttpCallResultCGHT<xDTO.SessionLike>> DeleteSessionLikeAsync(int sessionId, int userProfileId);
 
 		Task<IHttpCallResultCGHT<xDTO.SessionSessionCategoryType>> DeleteSessionSessionCategoryTypeAsync(int sessionId, int sessionCategoryTypeId);
 
-		Task<IHttpCallResultCGHT<xDTO.SessionSpeaker>> DeleteSessionSpeakerAsync(int sessionId, int userId);
+		Task<IHttpCallResultCGHT<xDTO.SessionSpeaker>> DeleteSessionSpeakerAsync(int sessionId, int userProfileId);
 
 		Task<IHttpCallResultCGHT<xDTO.Sponsor>> DeleteSponsorAsync(int sponsorId);
 
@@ -291,7 +319,7 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<xDTO.SponsorType>> DeleteSponsorTypeAsync(int sponsorTypeId);
 
-		Task<IHttpCallResultCGHT<xDTO.User>> DeleteUserAsync(int userId);
+		Task<IHttpCallResultCGHT<xDTO.UserProfile>> DeleteUserProfileAsync(int userProfileId);
 
 
 		#endregion Delete

@@ -585,6 +585,138 @@ namespace MSC.ConferenceMate.Repository
 
 		#endregion LanguageType
 
+		#region Log
+
+		public async Task<IRepositoryActionResult<Log>> InsertAsync(Log item)
+		{
+			var result = await InsertAsync<Log>(item);
+			RunCustomLogicAfterInsert_Log(item, result);
+
+			return result;
+		}
+
+
+		public IQueryable<Log> GetQueryable_Log()
+		{
+			return _ctx.Set<Log>();
+		}
+
+			public async Task<Log> Get_LogAsync(int id, int numChildLevels)
+			{
+				var qryItem = GetQueryable_Log().AsNoTracking();
+				RunCustomLogicOnGetQueryableByPK_Log(ref qryItem, id, numChildLevels);
+
+				var dbItem = await qryItem.Where(x => x.Id == id).FirstOrDefaultAsync();
+				if (!(dbItem is null))
+				{
+					RunCustomLogicOnGetEntityByPK_Log(ref dbItem, id, numChildLevels);
+				}
+
+				return dbItem;
+			}
+
+			public async Task<Log> GetFirstOrDefaultAsync(Log item)
+			{
+				return await _ctx.Logs.Where(x => x.Id == item.Id).FirstOrDefaultAsync();
+			}
+
+
+		public async Task<IRepositoryActionResult<Log>> UpdateAsync(Log item)
+		{
+			var oldItem = await _ctx.Logs.FirstOrDefaultAsync(x => x.Id == item.Id);
+			var result = await UpdateAsync<Log>(item, oldItem);
+			RunCustomLogicAfterUpdate_Log(newItem: item, oldItem: oldItem, result: result);
+
+			return result;
+		}
+
+			public async Task<IRepositoryActionResult<Log>> Delete_LogAsync(int id)
+			{
+				return await DeleteAsync<Log>(_ctx.Logs.Where(x => x.Id == id).FirstOrDefault());
+			}
+			public async Task<IRepositoryActionResult<Log>> DeleteAsync(Log item)
+			{
+				return await DeleteAsync<Log>(_ctx.Logs.Where(x => x.Id == item.Id).FirstOrDefault());
+			}
+
+		partial void RunCustomLogicAfterInsert_Log(Log item, IRepositoryActionResult<Log> result);
+
+		partial void RunCustomLogicAfterUpdate_Log(Log newItem, Log oldItem, IRepositoryActionResult<Log> result);
+
+		partial void RunCustomLogicOnGetQueryableByPK_Log(ref IQueryable<Log> qryItem, int id, int numChildLevels);
+
+		partial void RunCustomLogicOnGetEntityByPK_Log(ref Log dbItem, int id, int numChildLevels);
+
+
+
+		#endregion Log
+
+		#region LogType
+
+		public async Task<IRepositoryActionResult<LogType>> InsertAsync(LogType item)
+		{
+			var result = await InsertAsync<LogType>(item);
+			RunCustomLogicAfterInsert_LogType(item, result);
+
+			return result;
+		}
+
+
+		public IQueryable<LogType> GetQueryable_LogType()
+		{
+			return _ctx.Set<LogType>();
+		}
+
+			public async Task<LogType> Get_LogTypeAsync(int id, int numChildLevels)
+			{
+				var qryItem = GetQueryable_LogType().AsNoTracking();
+				RunCustomLogicOnGetQueryableByPK_LogType(ref qryItem, id, numChildLevels);
+
+				var dbItem = await qryItem.Where(x => x.Id == id).FirstOrDefaultAsync();
+				if (!(dbItem is null))
+				{
+					RunCustomLogicOnGetEntityByPK_LogType(ref dbItem, id, numChildLevels);
+				}
+
+				return dbItem;
+			}
+
+			public async Task<LogType> GetFirstOrDefaultAsync(LogType item)
+			{
+				return await _ctx.LogTypes.Where(x => x.Id == item.Id).FirstOrDefaultAsync();
+			}
+
+
+		public async Task<IRepositoryActionResult<LogType>> UpdateAsync(LogType item)
+		{
+			var oldItem = await _ctx.LogTypes.FirstOrDefaultAsync(x => x.Id == item.Id);
+			var result = await UpdateAsync<LogType>(item, oldItem);
+			RunCustomLogicAfterUpdate_LogType(newItem: item, oldItem: oldItem, result: result);
+
+			return result;
+		}
+
+			public async Task<IRepositoryActionResult<LogType>> Delete_LogTypeAsync(int id)
+			{
+				return await DeleteAsync<LogType>(_ctx.LogTypes.Where(x => x.Id == id).FirstOrDefault());
+			}
+			public async Task<IRepositoryActionResult<LogType>> DeleteAsync(LogType item)
+			{
+				return await DeleteAsync<LogType>(_ctx.LogTypes.Where(x => x.Id == item.Id).FirstOrDefault());
+			}
+
+		partial void RunCustomLogicAfterInsert_LogType(LogType item, IRepositoryActionResult<LogType> result);
+
+		partial void RunCustomLogicAfterUpdate_LogType(LogType newItem, LogType oldItem, IRepositoryActionResult<LogType> result);
+
+		partial void RunCustomLogicOnGetQueryableByPK_LogType(ref IQueryable<LogType> qryItem, int id, int numChildLevels);
+
+		partial void RunCustomLogicOnGetEntityByPK_LogType(ref LogType dbItem, int id, int numChildLevels);
+
+
+
+		#endregion LogType
+
 		#region LookupList
 
 		public async Task<IRepositoryActionResult<LookupList>> InsertAsync(LookupList item)
@@ -865,15 +997,17 @@ namespace MSC.ConferenceMate.Repository
 			return _ctx.Set<SessionLike>();
 		}
 
-			public async Task<SessionLike> Get_SessionLikeAsync(System.Guid sessionLikeId, int numChildLevels)
+			public async Task<SessionLike> Get_SessionLikeAsync(int sessionId, int userProfileId, int numChildLevels)
 			{
 				var qryItem = GetQueryable_SessionLike().AsNoTracking();
-				RunCustomLogicOnGetQueryableByPK_SessionLike(ref qryItem, sessionLikeId, numChildLevels);
+				RunCustomLogicOnGetQueryableByPK_SessionLike(ref qryItem, sessionId, userProfileId, numChildLevels);
 
-				var dbItem = await qryItem.Where(x => x.SessionLikeId == sessionLikeId).FirstOrDefaultAsync();
+				var dbItem = await qryItem.Where(
+						x => x.SessionId == sessionId
+						&& x.UserProfileId == userProfileId).FirstOrDefaultAsync();
 				if (!(dbItem is null))
 				{
-					RunCustomLogicOnGetEntityByPK_SessionLike(ref dbItem, sessionLikeId, numChildLevels);
+					RunCustomLogicOnGetEntityByPK_SessionLike(ref dbItem, sessionId, userProfileId, numChildLevels);
 				}
 
 				return dbItem;
@@ -881,35 +1015,43 @@ namespace MSC.ConferenceMate.Repository
 
 			public async Task<SessionLike> GetFirstOrDefaultAsync(SessionLike item)
 			{
-				return await _ctx.SessionLikes.Where(x => x.SessionLikeId == item.SessionLikeId).FirstOrDefaultAsync();
+				return await _ctx.SessionLikes.Where(
+						x => x.SessionId == item.SessionId
+						&& x.UserProfileId == item.UserProfileId).FirstOrDefaultAsync();
 			}
 
 
 		public async Task<IRepositoryActionResult<SessionLike>> UpdateAsync(SessionLike item)
 		{
-			var oldItem = await _ctx.SessionLikes.FirstOrDefaultAsync(x => x.SessionLikeId == item.SessionLikeId);
+			var oldItem = await _ctx.SessionLikes.FirstOrDefaultAsync(
+						x => x.SessionId == item.SessionId
+						&& x.UserProfileId == item.UserProfileId);
 			var result = await UpdateAsync<SessionLike>(item, oldItem);
 			RunCustomLogicAfterUpdate_SessionLike(newItem: item, oldItem: oldItem, result: result);
 
 			return result;
 		}
 
-			public async Task<IRepositoryActionResult<SessionLike>> Delete_SessionLikeAsync(System.Guid sessionLikeId)
+			public async Task<IRepositoryActionResult<SessionLike>> Delete_SessionLikeAsync(int sessionId, int userProfileId)
 			{
-				return await DeleteAsync<SessionLike>(_ctx.SessionLikes.Where(x => x.SessionLikeId == sessionLikeId).FirstOrDefault());
+				return await DeleteAsync<SessionLike>(_ctx.SessionLikes.Where(
+						x => x.SessionId == sessionId
+						&& x.UserProfileId == userProfileId).FirstOrDefault());
 			}
 			public async Task<IRepositoryActionResult<SessionLike>> DeleteAsync(SessionLike item)
 			{
-				return await DeleteAsync<SessionLike>(_ctx.SessionLikes.Where(x => x.SessionLikeId == item.SessionLikeId).FirstOrDefault());
+				return await DeleteAsync<SessionLike>(_ctx.SessionLikes.Where(
+						x => x.SessionId == item.SessionId
+						&& x.UserProfileId == item.UserProfileId).FirstOrDefault());
 			}
 
 		partial void RunCustomLogicAfterInsert_SessionLike(SessionLike item, IRepositoryActionResult<SessionLike> result);
 
 		partial void RunCustomLogicAfterUpdate_SessionLike(SessionLike newItem, SessionLike oldItem, IRepositoryActionResult<SessionLike> result);
 
-		partial void RunCustomLogicOnGetQueryableByPK_SessionLike(ref IQueryable<SessionLike> qryItem, System.Guid sessionLikeId, int numChildLevels);
+		partial void RunCustomLogicOnGetQueryableByPK_SessionLike(ref IQueryable<SessionLike> qryItem, int sessionId, int userProfileId, int numChildLevels);
 
-		partial void RunCustomLogicOnGetEntityByPK_SessionLike(ref SessionLike dbItem, System.Guid sessionLikeId, int numChildLevels);
+		partial void RunCustomLogicOnGetEntityByPK_SessionLike(ref SessionLike dbItem, int sessionId, int userProfileId, int numChildLevels);
 
 
 
@@ -1007,17 +1149,17 @@ namespace MSC.ConferenceMate.Repository
 			return _ctx.Set<SessionSpeaker>();
 		}
 
-			public async Task<SessionSpeaker> Get_SessionSpeakerAsync(int sessionId, int userId, int numChildLevels)
+			public async Task<SessionSpeaker> Get_SessionSpeakerAsync(int sessionId, int userProfileId, int numChildLevels)
 			{
 				var qryItem = GetQueryable_SessionSpeaker().AsNoTracking();
-				RunCustomLogicOnGetQueryableByPK_SessionSpeaker(ref qryItem, sessionId, userId, numChildLevels);
+				RunCustomLogicOnGetQueryableByPK_SessionSpeaker(ref qryItem, sessionId, userProfileId, numChildLevels);
 
 				var dbItem = await qryItem.Where(
 						x => x.SessionId == sessionId
-						&& x.UserId == userId).FirstOrDefaultAsync();
+						&& x.UserProfileId == userProfileId).FirstOrDefaultAsync();
 				if (!(dbItem is null))
 				{
-					RunCustomLogicOnGetEntityByPK_SessionSpeaker(ref dbItem, sessionId, userId, numChildLevels);
+					RunCustomLogicOnGetEntityByPK_SessionSpeaker(ref dbItem, sessionId, userProfileId, numChildLevels);
 				}
 
 				return dbItem;
@@ -1027,7 +1169,7 @@ namespace MSC.ConferenceMate.Repository
 			{
 				return await _ctx.SessionSpeakers.Where(
 						x => x.SessionId == item.SessionId
-						&& x.UserId == item.UserId).FirstOrDefaultAsync();
+						&& x.UserProfileId == item.UserProfileId).FirstOrDefaultAsync();
 			}
 
 
@@ -1035,33 +1177,33 @@ namespace MSC.ConferenceMate.Repository
 		{
 			var oldItem = await _ctx.SessionSpeakers.FirstOrDefaultAsync(
 						x => x.SessionId == item.SessionId
-						&& x.UserId == item.UserId);
+						&& x.UserProfileId == item.UserProfileId);
 			var result = await UpdateAsync<SessionSpeaker>(item, oldItem);
 			RunCustomLogicAfterUpdate_SessionSpeaker(newItem: item, oldItem: oldItem, result: result);
 
 			return result;
 		}
 
-			public async Task<IRepositoryActionResult<SessionSpeaker>> Delete_SessionSpeakerAsync(int sessionId, int userId)
+			public async Task<IRepositoryActionResult<SessionSpeaker>> Delete_SessionSpeakerAsync(int sessionId, int userProfileId)
 			{
 				return await DeleteAsync<SessionSpeaker>(_ctx.SessionSpeakers.Where(
 						x => x.SessionId == sessionId
-						&& x.UserId == userId).FirstOrDefault());
+						&& x.UserProfileId == userProfileId).FirstOrDefault());
 			}
 			public async Task<IRepositoryActionResult<SessionSpeaker>> DeleteAsync(SessionSpeaker item)
 			{
 				return await DeleteAsync<SessionSpeaker>(_ctx.SessionSpeakers.Where(
 						x => x.SessionId == item.SessionId
-						&& x.UserId == item.UserId).FirstOrDefault());
+						&& x.UserProfileId == item.UserProfileId).FirstOrDefault());
 			}
 
 		partial void RunCustomLogicAfterInsert_SessionSpeaker(SessionSpeaker item, IRepositoryActionResult<SessionSpeaker> result);
 
 		partial void RunCustomLogicAfterUpdate_SessionSpeaker(SessionSpeaker newItem, SessionSpeaker oldItem, IRepositoryActionResult<SessionSpeaker> result);
 
-		partial void RunCustomLogicOnGetQueryableByPK_SessionSpeaker(ref IQueryable<SessionSpeaker> qryItem, int sessionId, int userId, int numChildLevels);
+		partial void RunCustomLogicOnGetQueryableByPK_SessionSpeaker(ref IQueryable<SessionSpeaker> qryItem, int sessionId, int userProfileId, int numChildLevels);
 
-		partial void RunCustomLogicOnGetEntityByPK_SessionSpeaker(ref SessionSpeaker dbItem, int sessionId, int userId, int numChildLevels);
+		partial void RunCustomLogicOnGetEntityByPK_SessionSpeaker(ref SessionSpeaker dbItem, int sessionId, int userProfileId, int numChildLevels);
 
 
 
@@ -1275,71 +1417,71 @@ namespace MSC.ConferenceMate.Repository
 
 		#endregion SponsorType
 
-		#region User
+		#region UserProfile
 
-		public async Task<IRepositoryActionResult<User>> InsertAsync(User item)
+		public async Task<IRepositoryActionResult<UserProfile>> InsertAsync(UserProfile item)
 		{
-			var result = await InsertAsync<User>(item);
-			RunCustomLogicAfterInsert_User(item, result);
+			var result = await InsertAsync<UserProfile>(item);
+			RunCustomLogicAfterInsert_UserProfile(item, result);
 
 			return result;
 		}
 
 
-		public IQueryable<User> GetQueryable_User()
+		public IQueryable<UserProfile> GetQueryable_UserProfile()
 		{
-			return _ctx.Set<User>();
+			return _ctx.Set<UserProfile>();
 		}
 
-			public async Task<User> Get_UserAsync(int userId, int numChildLevels)
+			public async Task<UserProfile> Get_UserProfileAsync(int userProfileId, int numChildLevels)
 			{
-				var qryItem = GetQueryable_User().AsNoTracking();
-				RunCustomLogicOnGetQueryableByPK_User(ref qryItem, userId, numChildLevels);
+				var qryItem = GetQueryable_UserProfile().AsNoTracking();
+				RunCustomLogicOnGetQueryableByPK_UserProfile(ref qryItem, userProfileId, numChildLevels);
 
-				var dbItem = await qryItem.Where(x => x.UserId == userId).FirstOrDefaultAsync();
+				var dbItem = await qryItem.Where(x => x.UserProfileId == userProfileId).FirstOrDefaultAsync();
 				if (!(dbItem is null))
 				{
-					RunCustomLogicOnGetEntityByPK_User(ref dbItem, userId, numChildLevels);
+					RunCustomLogicOnGetEntityByPK_UserProfile(ref dbItem, userProfileId, numChildLevels);
 				}
 
 				return dbItem;
 			}
 
-			public async Task<User> GetFirstOrDefaultAsync(User item)
+			public async Task<UserProfile> GetFirstOrDefaultAsync(UserProfile item)
 			{
-				return await _ctx.Users.Where(x => x.UserId == item.UserId).FirstOrDefaultAsync();
+				return await _ctx.UserProfiles.Where(x => x.UserProfileId == item.UserProfileId).FirstOrDefaultAsync();
 			}
 
 
-		public async Task<IRepositoryActionResult<User>> UpdateAsync(User item)
+		public async Task<IRepositoryActionResult<UserProfile>> UpdateAsync(UserProfile item)
 		{
-			var oldItem = await _ctx.Users.FirstOrDefaultAsync(x => x.UserId == item.UserId);
-			var result = await UpdateAsync<User>(item, oldItem);
-			RunCustomLogicAfterUpdate_User(newItem: item, oldItem: oldItem, result: result);
+			var oldItem = await _ctx.UserProfiles.FirstOrDefaultAsync(x => x.UserProfileId == item.UserProfileId);
+			var result = await UpdateAsync<UserProfile>(item, oldItem);
+			RunCustomLogicAfterUpdate_UserProfile(newItem: item, oldItem: oldItem, result: result);
 
 			return result;
 		}
 
-			public async Task<IRepositoryActionResult<User>> Delete_UserAsync(int userId)
+			public async Task<IRepositoryActionResult<UserProfile>> Delete_UserProfileAsync(int userProfileId)
 			{
-				return await DeleteAsync<User>(_ctx.Users.Where(x => x.UserId == userId).FirstOrDefault());
+				return await DeleteAsync<UserProfile>(_ctx.UserProfiles.Where(x => x.UserProfileId == userProfileId).FirstOrDefault());
 			}
-			public async Task<IRepositoryActionResult<User>> DeleteAsync(User item)
+			public async Task<IRepositoryActionResult<UserProfile>> DeleteAsync(UserProfile item)
 			{
-				return await DeleteAsync<User>(_ctx.Users.Where(x => x.UserId == item.UserId).FirstOrDefault());
+				return await DeleteAsync<UserProfile>(_ctx.UserProfiles.Where(x => x.UserProfileId == item.UserProfileId).FirstOrDefault());
 			}
 
-		partial void RunCustomLogicAfterInsert_User(User item, IRepositoryActionResult<User> result);
+		partial void RunCustomLogicAfterInsert_UserProfile(UserProfile item, IRepositoryActionResult<UserProfile> result);
 
-		partial void RunCustomLogicAfterUpdate_User(User newItem, User oldItem, IRepositoryActionResult<User> result);
+		partial void RunCustomLogicAfterUpdate_UserProfile(UserProfile newItem, UserProfile oldItem, IRepositoryActionResult<UserProfile> result);
 
-		partial void RunCustomLogicOnGetQueryableByPK_User(ref IQueryable<User> qryItem, int userId, int numChildLevels);
+		partial void RunCustomLogicOnGetQueryableByPK_UserProfile(ref IQueryable<UserProfile> qryItem, int userProfileId, int numChildLevels);
 
-		partial void RunCustomLogicOnGetEntityByPK_User(ref User dbItem, int userId, int numChildLevels);
+		partial void RunCustomLogicOnGetEntityByPK_UserProfile(ref UserProfile dbItem, int userProfileId, int numChildLevels);
 
 
 
-		#endregion User
+		#endregion UserProfile
 
 	}
 }

@@ -21,13 +21,21 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
     public partial class FakeCMDataContext : ICMDataContext
     {
         public System.Data.Entity.DbSet<Announcement> Announcements { get; set; }
+        public System.Data.Entity.DbSet<AspNetRole> AspNetRoles { get; set; }
+        public System.Data.Entity.DbSet<AspNetUser> AspNetUsers { get; set; }
+        public System.Data.Entity.DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public System.Data.Entity.DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public System.Data.Entity.DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
         public System.Data.Entity.DbSet<FeaturedEvent> FeaturedEvents { get; set; }
         public System.Data.Entity.DbSet<Feedback> Feedbacks { get; set; }
         public System.Data.Entity.DbSet<FeedbackInitiatorType> FeedbackInitiatorTypes { get; set; }
         public System.Data.Entity.DbSet<FeedbackType> FeedbackTypes { get; set; }
         public System.Data.Entity.DbSet<GenderType> GenderTypes { get; set; }
         public System.Data.Entity.DbSet<LanguageType> LanguageTypes { get; set; }
+        public System.Data.Entity.DbSet<Log> Logs { get; set; }
+        public System.Data.Entity.DbSet<LogType> LogTypes { get; set; }
         public System.Data.Entity.DbSet<LookupList> LookupLists { get; set; }
+        public System.Data.Entity.DbSet<RefreshToken> RefreshTokens { get; set; }
         public System.Data.Entity.DbSet<Room> Rooms { get; set; }
         public System.Data.Entity.DbSet<Session> Sessions { get; set; }
         public System.Data.Entity.DbSet<SessionCategoryType> SessionCategoryTypes { get; set; }
@@ -37,28 +45,36 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         public System.Data.Entity.DbSet<Sponsor> Sponsors { get; set; }
         public System.Data.Entity.DbSet<SponsorFeaturedEvent> SponsorFeaturedEvents { get; set; }
         public System.Data.Entity.DbSet<SponsorType> SponsorTypes { get; set; }
-        public System.Data.Entity.DbSet<User> Users { get; set; }
+        public System.Data.Entity.DbSet<UserProfile> UserProfiles { get; set; }
 
         public FakeCMDataContext()
         {
             Announcements = new FakeDbSet<Announcement>("AnnouncementId");
+            AspNetRoles = new FakeDbSet<AspNetRole>("Id");
+            AspNetUsers = new FakeDbSet<AspNetUser>("Id");
+            AspNetUserClaims = new FakeDbSet<AspNetUserClaim>("Id");
+            AspNetUserLogins = new FakeDbSet<AspNetUserLogin>("LoginProvider", "ProviderKey", "UserId");
+            AspNetUserRoles = new FakeDbSet<AspNetUserRole>("UserId", "RoleId");
             FeaturedEvents = new FakeDbSet<FeaturedEvent>("FeaturedEventId");
             Feedbacks = new FakeDbSet<Feedback>("FeedbackId");
             FeedbackInitiatorTypes = new FakeDbSet<FeedbackInitiatorType>("FeedbackInitiatorTypeId");
             FeedbackTypes = new FakeDbSet<FeedbackType>("FeedbackTypeId");
             GenderTypes = new FakeDbSet<GenderType>("GenderTypeId");
             LanguageTypes = new FakeDbSet<LanguageType>("LanguageTypeId");
+            Logs = new FakeDbSet<Log>("Id");
+            LogTypes = new FakeDbSet<LogType>("Id");
             LookupLists = new FakeDbSet<LookupList>("LookupListId");
+            RefreshTokens = new FakeDbSet<RefreshToken>("RefreshTokenId");
             Rooms = new FakeDbSet<Room>("RoomId");
             Sessions = new FakeDbSet<Session>("SessionId");
             SessionCategoryTypes = new FakeDbSet<SessionCategoryType>("SessionCategoryTypeId");
-            SessionLikes = new FakeDbSet<SessionLike>("SessionLikeId");
+            SessionLikes = new FakeDbSet<SessionLike>("SessionId", "UserProfileId");
             SessionSessionCategoryTypes = new FakeDbSet<SessionSessionCategoryType>("SessionId", "SessionCategoryTypeId");
-            SessionSpeakers = new FakeDbSet<SessionSpeaker>("SessionId", "UserId");
+            SessionSpeakers = new FakeDbSet<SessionSpeaker>("SessionId", "UserProfileId");
             Sponsors = new FakeDbSet<Sponsor>("SponsorId");
             SponsorFeaturedEvents = new FakeDbSet<SponsorFeaturedEvent>("SponsorId", "FeaturedEventId");
             SponsorTypes = new FakeDbSet<SponsorType>("SponsorTypeId");
-            Users = new FakeDbSet<User>("UserId");
+            UserProfiles = new FakeDbSet<UserProfile>("UserProfileId");
 
             InitializePartial();
         }

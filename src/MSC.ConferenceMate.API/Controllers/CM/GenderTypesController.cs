@@ -21,7 +21,7 @@ using entCM = MSC.ConferenceMate.Repository.Entities.CM;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
-	public partial class GenderTypesCMController : CMBaseApiController
+	public partial class GenderTypesCMController : CMBaseApiControllerAuthorized
 	{
 			private const string GET_LIST_ROUTE_NAME = "GenderTypesCMList";
 			private const int maxPageSize = 100;

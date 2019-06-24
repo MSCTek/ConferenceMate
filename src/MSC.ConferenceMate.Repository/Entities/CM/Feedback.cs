@@ -20,6 +20,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
     public partial class Feedback
     {
         public System.Guid FeedbackId { get; set; } // FeedbackId (Primary key)
+        public int UserProfileId { get; set; } // UserProfileId
         public string Title { get; set; } // Title (length: 1024)
         public string Description { get; set; } // Description (length: 2048)
         public int FeedbackTypeId { get; set; } // FeedbackTypeId
@@ -29,7 +30,6 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         public double Latitude { get; set; } // Latitude
         public double Longitude { get; set; } // Longitude
         public bool Dispositioned { get; set; } // Dispositioned
-        public int? UserId { get; set; } // UserId
         public int? SessionId { get; set; } // SessionId
         public int? FeaturedEventId { get; set; } // FeaturedEventId
         public bool IsPublic { get; set; } // IsPublic
@@ -64,9 +64,9 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         public Session Session { get; set; } // FK_Feedback_Session
 
         /// <summary>
-        /// Parent User pointed by [Feedback].([UserId]) (FK_Feedback_Users)
+        /// Parent UserProfile pointed by [Feedback].([UserProfileId]) (FK_Feedback_UserProfile)
         /// </summary>
-        public User User { get; set; } // FK_Feedback_Users
+        public UserProfile UserProfile { get; set; } // FK_Feedback_UserProfile
 
         public Feedback()
         {

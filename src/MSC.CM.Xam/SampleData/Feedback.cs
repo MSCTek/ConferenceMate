@@ -5,8 +5,8 @@ namespace MSC.CM.Xam.ModelData.CM
 {
 	public static class DemoFeedback
 	{
-		public static System.Guid SampleFeedbackId0000 = Guid.Parse("f427ac34-92b9-4f7f-a1e9-07dc4cab8a99");
-		public static System.Guid SampleFeedbackId0100 = Guid.Parse("fbbcb3d1-123d-4ce1-acae-bbc2db465415");
+		public static System.Guid SampleFeedbackId0000 = Guid.Parse("98902645-acf7-4fab-bc97-c861dfd00657");
+		public static System.Guid SampleFeedbackId0100 = Guid.Parse("66173c11-9878-47a1-b808-44a5ac7016fb");
 
 		public static Feedback SampleFeedback00
 		{
@@ -15,6 +15,7 @@ namespace MSC.CM.Xam.ModelData.CM
 				return new Feedback()
 				{
 					FeedbackId = SampleFeedbackId0000,
+					UserProfileId = 0,
 					Title = "SampleTitle",
 					Description = "SampleDescription",
 					FeedbackTypeId = 0,
@@ -24,7 +25,6 @@ namespace MSC.CM.Xam.ModelData.CM
 					Latitude = 0,
 					Longitude = 0,
 					Dispositioned = false,
-					UserId = 0,
 					SessionId = 0,
 					FeaturedEventId = 0,
 					IsPublic = false,
@@ -45,6 +45,7 @@ namespace MSC.CM.Xam.ModelData.CM
 				return new Feedback()
 				{
 					FeedbackId = SampleFeedbackId0100,
+					UserProfileId = 0,
 					Title = "SampleTitle",
 					Description = "SampleDescription",
 					FeedbackTypeId = 0,
@@ -54,7 +55,6 @@ namespace MSC.CM.Xam.ModelData.CM
 					Latitude = 0,
 					Longitude = 0,
 					Dispositioned = false,
-					UserId = 0,
 					SessionId = 0,
 					FeaturedEventId = 0,
 					IsPublic = false,

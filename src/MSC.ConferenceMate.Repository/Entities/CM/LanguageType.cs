@@ -41,9 +41,9 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         /// </summary>
         public System.Collections.Generic.ICollection<LookupList> LookupLists { get; set; } // LookupList.FK_LookupList_LanguageType
         /// <summary>
-        /// Child Users where [Users].[PreferredLanguageId] point to this entity (FK_Users_LanguageType)
+        /// Child UserProfiles where [UserProfile].[PreferredLanguageId] point to this entity (FK_UserProfile_LanguageType)
         /// </summary>
-        public System.Collections.Generic.ICollection<User> Users { get; set; } // Users.FK_Users_LanguageType
+        public System.Collections.Generic.ICollection<UserProfile> UserProfiles { get; set; } // UserProfile.FK_UserProfile_LanguageType
 
         public LanguageType()
         {
@@ -53,7 +53,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             ModifiedUtcDate = System.DateTime.UtcNow;
             IsDeleted = false;
             LookupLists = new System.Collections.Generic.List<LookupList>();
-            Users = new System.Collections.Generic.List<User>();
+            UserProfiles = new System.Collections.Generic.List<UserProfile>();
             InitializePartial();
         }
 

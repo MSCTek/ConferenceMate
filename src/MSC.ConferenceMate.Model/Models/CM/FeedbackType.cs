@@ -48,21 +48,8 @@ namespace MSC.ConferenceMate.Model.CM
 		public virtual string ModifiedBy { get { return _dto.ModifiedBy; } }
 		public virtual System.DateTime ModifiedUtcDate { get { return _dto.ModifiedUtcDate; } }
 
-		private List<IFeedback> _feedbacks = null; // Reverse Navigation
+		// Excluding 'Feedbacks' per configuration setting.
 
-
-		public virtual List<IFeedback> Feedbacks
-		{
-			get
-			{
-				if (_feedbacks == null)
-				{
-					OnLazyLoadRequest(this, new LoadRequestFeedbackType(nameof(Feedbacks)));
-				}
-
-				return _feedbacks;
-			}
-		}
 
 
 

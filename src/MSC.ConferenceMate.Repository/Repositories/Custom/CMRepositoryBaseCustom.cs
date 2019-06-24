@@ -115,7 +115,7 @@ namespace MSC.ConferenceMate.Repository
 				 .Include(x => x.FeedbackInitiatorType).AsNoTracking()
 				 .Include(x => x.FeedbackType).AsNoTracking()
 				 // .Include(x => x.Session).AsNoTracking() -- Excluded navigation property per configuration.
-				 .Include(x => x.User).AsNoTracking();
+				 .Include(x => x.UserProfile).AsNoTracking();
 			 }
 		 }
 
@@ -249,8 +249,8 @@ namespace MSC.ConferenceMate.Repository
 		 {
 			 if (numChildLevels > 0)
 			 {
-				 qryItem = qryItem;
-				 // .Include(x => x.Users).AsNoTracking(); -- Excluded navigation property per configuration.
+				 qryItem = qryItem
+				 .Include(x => x.UserProfiles).AsNoTracking();
 			 }
 		 }
 
@@ -294,9 +294,9 @@ namespace MSC.ConferenceMate.Repository
 		 {
 			 if (numChildLevels > 0)
 			 {
-				 qryItem = qryItem;
-				 // .Include(x => x.LookupLists).AsNoTracking(); -- Excluded navigation property per configuration.
-				 // .Include(x => x.Users).AsNoTracking(); -- Excluded navigation property per configuration.
+				 qryItem = qryItem
+				 // .Include(x => x.LookupLists).AsNoTracking() -- Excluded navigation property per configuration.
+				 .Include(x => x.UserProfiles).AsNoTracking();
 			 }
 		 }
 
@@ -308,6 +308,92 @@ namespace MSC.ConferenceMate.Repository
 		///// <param name="id"></param>
 		///// <param name="numChildLevels"></param>
 		// partial void RunCustomLogicOnGetEntityByPK_LanguageType(ref entCM.LanguageType dbItem, int languageTypeId, int numChildLevels)
+		// {
+			// if (numChildLevels > 1)
+			// {
+				// int[] orderLineItemIds = dbItem.OrderLineItems.Select(x => x.OrderLineItemId).ToArray();
+
+				// var lineItemDiscounts = Repo.CMDataContext.OrderLineItemDiscounts.Where(x => orderLineItemIds.Contains(x.OrderLineItemId)).ToList();
+
+				// foreach (var lineItemDiscount in lineItemDiscounts)
+				// { // Find the match and add the item to it.
+					// var orderLineItem = dbItem.OrderLineItems.Where(x => x.OrderLineItemId == lineItemDiscount.OrderLineItemId).FirstOrDefault();
+
+					// if (orderLineItem == null)
+					// {
+						// throw new System.Data.Entity.Core.ObjectNotFoundException($"Unable to locate matching OrderLineItem record for {lineItemDiscount.OrderLineItemId}."
+					// }
+
+					// orderLineItem.LineItemDiscounts.Add(lineItemDiscount);
+				// }
+			// }
+
+		// }
+
+		/// <summary>
+		/// Custom logic that is generally used to include related entities to return with the parent entity that was requested.
+		/// </summary>
+		/// <param name="qryItem"></param>
+		/// <param name="id"></param>
+		/// <param name="numChildLevels"></param>
+		 partial void RunCustomLogicOnGetQueryableByPK_Log(ref IQueryable<entCM.Log> qryItem, int id, int numChildLevels)
+		 {
+			 if (numChildLevels > 0)
+			 {
+			 }
+		 }
+
+
+		///// <summary>
+		///// A sample implementation of custom logic used to either manipulate a DTO item or include related entities.
+		///// </summary>
+		///// <param name="dbItem"></param>
+		///// <param name="id"></param>
+		///// <param name="numChildLevels"></param>
+		// partial void RunCustomLogicOnGetEntityByPK_Log(ref entCM.Log dbItem, int id, int numChildLevels)
+		// {
+			// if (numChildLevels > 1)
+			// {
+				// int[] orderLineItemIds = dbItem.OrderLineItems.Select(x => x.OrderLineItemId).ToArray();
+
+				// var lineItemDiscounts = Repo.CMDataContext.OrderLineItemDiscounts.Where(x => orderLineItemIds.Contains(x.OrderLineItemId)).ToList();
+
+				// foreach (var lineItemDiscount in lineItemDiscounts)
+				// { // Find the match and add the item to it.
+					// var orderLineItem = dbItem.OrderLineItems.Where(x => x.OrderLineItemId == lineItemDiscount.OrderLineItemId).FirstOrDefault();
+
+					// if (orderLineItem == null)
+					// {
+						// throw new System.Data.Entity.Core.ObjectNotFoundException($"Unable to locate matching OrderLineItem record for {lineItemDiscount.OrderLineItemId}."
+					// }
+
+					// orderLineItem.LineItemDiscounts.Add(lineItemDiscount);
+				// }
+			// }
+
+		// }
+
+		/// <summary>
+		/// Custom logic that is generally used to include related entities to return with the parent entity that was requested.
+		/// </summary>
+		/// <param name="qryItem"></param>
+		/// <param name="id"></param>
+		/// <param name="numChildLevels"></param>
+		 partial void RunCustomLogicOnGetQueryableByPK_LogType(ref IQueryable<entCM.LogType> qryItem, int id, int numChildLevels)
+		 {
+			 if (numChildLevels > 0)
+			 {
+			 }
+		 }
+
+
+		///// <summary>
+		///// A sample implementation of custom logic used to either manipulate a DTO item or include related entities.
+		///// </summary>
+		///// <param name="dbItem"></param>
+		///// <param name="id"></param>
+		///// <param name="numChildLevels"></param>
+		// partial void RunCustomLogicOnGetEntityByPK_LogType(ref entCM.LogType dbItem, int id, int numChildLevels)
 		// {
 			// if (numChildLevels > 1)
 			// {
@@ -520,13 +606,13 @@ namespace MSC.ConferenceMate.Repository
 		/// <param name="qryItem"></param>
 		/// <param name="id"></param>
 		/// <param name="numChildLevels"></param>
-		 partial void RunCustomLogicOnGetQueryableByPK_SessionLike(ref IQueryable<entCM.SessionLike> qryItem, System.Guid sessionLikeId, int numChildLevels)
+		 partial void RunCustomLogicOnGetQueryableByPK_SessionLike(ref IQueryable<entCM.SessionLike> qryItem, int sessionId, int userProfileId, int numChildLevels)
 		 {
 			 if (numChildLevels > 0)
 			 {
-				 qryItem = qryItem;
-				 // .Include(x => x.Session).AsNoTracking(); -- Excluded navigation property per configuration.
-				 // .Include(x => x.User).AsNoTracking(); -- Excluded navigation property per configuration.
+				 qryItem = qryItem
+				 // .Include(x => x.Session).AsNoTracking() -- Excluded navigation property per configuration.
+				 .Include(x => x.UserProfile).AsNoTracking();
 			 }
 		 }
 
@@ -537,7 +623,7 @@ namespace MSC.ConferenceMate.Repository
 		///// <param name="dbItem"></param>
 		///// <param name="id"></param>
 		///// <param name="numChildLevels"></param>
-		// partial void RunCustomLogicOnGetEntityByPK_SessionLike(ref entCM.SessionLike dbItem, System.Guid sessionLikeId, int numChildLevels)
+		// partial void RunCustomLogicOnGetEntityByPK_SessionLike(ref entCM.SessionLike dbItem, int sessionId, int userProfileId, int numChildLevels)
 		// {
 			// if (numChildLevels > 1)
 			// {
@@ -612,13 +698,13 @@ namespace MSC.ConferenceMate.Repository
 		/// <param name="qryItem"></param>
 		/// <param name="id"></param>
 		/// <param name="numChildLevels"></param>
-		 partial void RunCustomLogicOnGetQueryableByPK_SessionSpeaker(ref IQueryable<entCM.SessionSpeaker> qryItem, int sessionId, int userId, int numChildLevels)
+		 partial void RunCustomLogicOnGetQueryableByPK_SessionSpeaker(ref IQueryable<entCM.SessionSpeaker> qryItem, int sessionId, int userProfileId, int numChildLevels)
 		 {
 			 if (numChildLevels > 0)
 			 {
-				 qryItem = qryItem;
-				 // .Include(x => x.Session).AsNoTracking(); -- Excluded navigation property per configuration.
-				 // .Include(x => x.User).AsNoTracking(); -- Excluded navigation property per configuration.
+				 qryItem = qryItem
+				 // .Include(x => x.Session).AsNoTracking() -- Excluded navigation property per configuration.
+				 .Include(x => x.UserProfile).AsNoTracking();
 			 }
 		 }
 
@@ -629,7 +715,7 @@ namespace MSC.ConferenceMate.Repository
 		///// <param name="dbItem"></param>
 		///// <param name="id"></param>
 		///// <param name="numChildLevels"></param>
-		// partial void RunCustomLogicOnGetEntityByPK_SessionSpeaker(ref entCM.SessionSpeaker dbItem, int sessionId, int userId, int numChildLevels)
+		// partial void RunCustomLogicOnGetEntityByPK_SessionSpeaker(ref entCM.SessionSpeaker dbItem, int sessionId, int userProfileId, int numChildLevels)
 		// {
 			// if (numChildLevels > 1)
 			// {
@@ -795,16 +881,17 @@ namespace MSC.ConferenceMate.Repository
 		/// <param name="qryItem"></param>
 		/// <param name="id"></param>
 		/// <param name="numChildLevels"></param>
-		 partial void RunCustomLogicOnGetQueryableByPK_User(ref IQueryable<entCM.User> qryItem, int userId, int numChildLevels)
+		 partial void RunCustomLogicOnGetQueryableByPK_UserProfile(ref IQueryable<entCM.UserProfile> qryItem, int userProfileId, int numChildLevels)
 		 {
 			 if (numChildLevels > 0)
 			 {
 				 qryItem = qryItem
+				 // .Include(x => x.AspNetUser).AsNoTracking() -- Excluded navigation property per configuration.
 				 .Include(x => x.GenderType).AsNoTracking()
-				 .Include(x => x.LanguageType).AsNoTracking()
-				 // .Include(x => x.Feedbacks).AsNoTracking() -- Excluded navigation property per configuration.
-				 .Include(x => x.SessionLikes).AsNoTracking()
-				 .Include(x => x.SessionSpeakers).AsNoTracking();
+				 .Include(x => x.LanguageType).AsNoTracking();
+				 // .Include(x => x.Feedbacks).AsNoTracking(); -- Excluded navigation property per configuration.
+				 // .Include(x => x.SessionLikes).AsNoTracking(); -- Excluded navigation property per configuration.
+				 // .Include(x => x.SessionSpeakers).AsNoTracking(); -- Excluded navigation property per configuration.
 			 }
 		 }
 
@@ -815,7 +902,7 @@ namespace MSC.ConferenceMate.Repository
 		///// <param name="dbItem"></param>
 		///// <param name="id"></param>
 		///// <param name="numChildLevels"></param>
-		// partial void RunCustomLogicOnGetEntityByPK_User(ref entCM.User dbItem, int userId, int numChildLevels)
+		// partial void RunCustomLogicOnGetEntityByPK_UserProfile(ref entCM.UserProfile dbItem, int userProfileId, int numChildLevels)
 		// {
 			// if (numChildLevels > 1)
 			// {

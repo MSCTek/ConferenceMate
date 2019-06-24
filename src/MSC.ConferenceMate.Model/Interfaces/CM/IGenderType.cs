@@ -15,7 +15,7 @@ namespace MSC.ConferenceMate.Model.CM.Interface
 		string ModifiedBy { get; }
 		System.DateTime ModifiedUtcDate { get; }
 
-		List<IUser> Users { get; }
+		List<IUserProfile> UserProfiles { get; }
 
 
 	}

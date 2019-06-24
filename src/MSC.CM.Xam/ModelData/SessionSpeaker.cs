@@ -18,9 +18,9 @@ namespace MSC.CM.Xam.ModelData.CM
 
 
 		// Mutiple primary keys - composite PK used instead [Indexed(Name = "SessionSpeaker", Order = 2, Unique = true)]
-		public int UserId { get; set; }
+		public int UserProfileId { get; set; }
 
 		[PrimaryKey]
-		public string SessionIdUserId { get; set; }
+		public string SessionIdUserProfileId { get; set; }
 	}
 }

@@ -21,8 +21,8 @@ namespace MSC.ConferenceMate.Model.CM.Interface
 		string ThreeLetterIsoLanguageName { get; }
 		string TwoLetterIsoLanguageName { get; }
 
-		List<ILookupList> LookupLists { get; }
-		List<IUser> Users { get; }
+		// Excluding 'LookupList' per configuration setting.
+		List<IUserProfile> UserProfiles { get; }
 
 
 	}

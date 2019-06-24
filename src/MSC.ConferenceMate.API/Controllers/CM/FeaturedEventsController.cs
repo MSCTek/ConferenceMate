@@ -21,7 +21,7 @@ using entCM = MSC.ConferenceMate.Repository.Entities.CM;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
-	public partial class FeaturedEventsCMController : CMBaseApiController
+	public partial class FeaturedEventsCMController : CMBaseApiControllerAuthorized
 	{
 			private const string GET_LIST_ROUTE_NAME = "FeaturedEventsCMList";
 			private const int maxPageSize = 100;

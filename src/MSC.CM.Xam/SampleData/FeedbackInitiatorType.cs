@@ -5,8 +5,8 @@ namespace MSC.CM.Xam.ModelData.CM
 {
 	public static class DemoFeedbackInitiatorType
 	{
-		public static int SampleFeedbackInitiatorTypeId0000 = 835086240;
-		public static int SampleFeedbackInitiatorTypeId0100 = 267008005;
+		public static int SampleFeedbackInitiatorTypeId0000 = 360146547;
+		public static int SampleFeedbackInitiatorTypeId0100 = 480728670;
 
 		public static FeedbackInitiatorType SampleFeedbackInitiatorType00
 		{

@@ -10,7 +10,7 @@
       "Filename": "FeaturedEvent.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:48:27.0045458-05:00",
+      "FileLastChange": "2019-06-24T15:17:16.958644-05:00",
       "Filename": "Feedback.cs"
     },
     {
@@ -22,11 +22,11 @@
       "Filename": "FeedbackType.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:48:32.4125448-05:00",
+      "FileLastChange": "2019-06-24T15:17:17.9986417-05:00",
       "Filename": "GenderType.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:48:34.2075459-05:00",
+      "FileLastChange": "2019-06-24T15:17:18.3926448-05:00",
       "Filename": "LanguageType.cs"
     },
     {
@@ -46,7 +46,7 @@
       "Filename": "SessionCategoryType.cs"
     },
     {
-      "FileLastChange": "2019-05-26T17:33:02.0707076-05:00",
+      "FileLastChange": "2019-06-24T15:17:18.7926426-05:00",
       "Filename": "SessionLike.cs"
     },
     {
@@ -54,7 +54,7 @@
       "Filename": "SessionSessionCategoryType.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:48:48.2010674-05:00",
+      "FileLastChange": "2019-06-24T15:17:19.2476441-05:00",
       "Filename": "SessionSpeaker.cs"
     },
     {
@@ -70,8 +70,16 @@
       "Filename": "SponsorType.cs"
     },
     {
-      "FileLastChange": "2019-05-11T16:48:56.8410695-05:00",
-      "Filename": "User.cs"
+      "FileLastChange": "2019-06-24T13:50:33.6181489-05:00",
+      "Filename": "Log.cs"
+    },
+    {
+      "FileLastChange": "2019-06-24T13:50:35.9961515-05:00",
+      "Filename": "LogType.cs"
+    },
+    {
+      "FileLastChange": "2019-06-24T15:24:10.5153048-05:00",
+      "Filename": "UserProfile.cs"
     }
   ]
 }

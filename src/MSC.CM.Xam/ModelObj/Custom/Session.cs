@@ -26,9 +26,9 @@ namespace MSC.CM.Xam.ModelObj.CM
                 {
                     foreach (var s in SessionSpeakers)
                     {
-                        if (s.User != null)
+                        if (s.UserProfile != null)
                         {
-                            returnMe += $"{s.User.DisplayName} ";
+                            returnMe += $"{s.UserProfile.DisplayName} ";
                         }
                     }
                 }

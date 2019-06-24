@@ -20,7 +20,7 @@ namespace MSC.ConferenceMate.Model.CM.Interface
 		string ShortTitle { get; }
 		string Title { get; }
 
-		List<ISession> Sessions { get; }
+		// Excluding 'Session' per configuration setting.
 
 
 	}

@@ -2,51 +2,51 @@
   "FileGroupMessage": "",
   "FileList": [
     {
-      "FileLastChange": "2019-05-12T11:00:50.1752506-05:00",
+      "FileLastChange": "2019-06-24T16:40:30.3554463-05:00",
       "Filename": "Announcement.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:53.3398964-05:00",
+      "FileLastChange": "2019-06-24T16:40:31.6144458-05:00",
       "Filename": "FeaturedEvent.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:53.7828974-05:00",
+      "FileLastChange": "2019-06-24T16:40:31.9114457-05:00",
       "Filename": "Feedback.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:54.1248978-05:00",
+      "FileLastChange": "2019-06-24T16:40:32.3919376-05:00",
       "Filename": "FeedbackInitiatorType.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:54.4328982-05:00",
+      "FileLastChange": "2019-06-24T16:40:32.7169364-05:00",
       "Filename": "FeedbackType.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:54.7029326-05:00",
+      "FileLastChange": "2019-06-24T16:40:33.7059374-05:00",
       "Filename": "GenderType.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:54.9569301-05:00",
+      "FileLastChange": "2019-06-24T16:40:34.806938-05:00",
       "Filename": "LanguageType.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:55.2769696-05:00",
+      "FileLastChange": "2019-06-24T16:40:38.5669368-05:00",
       "Filename": "LookupList.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:55.5299691-05:00",
+      "FileLastChange": "2019-06-24T16:40:39.6699368-05:00",
       "Filename": "Room.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:55.8550068-05:00",
+      "FileLastChange": "2019-06-24T16:40:39.918938-05:00",
       "Filename": "Session.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:56.1341164-05:00",
+      "FileLastChange": "2019-06-24T16:40:40.1559398-05:00",
       "Filename": "SessionCategoryType.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:56.3831143-05:00",
+      "FileLastChange": "2019-06-24T16:29:38.7440249-05:00",
       "Filename": "SessionLike.cs"
     },
     {
@@ -54,11 +54,11 @@
       "Filename": "SessionSessionCategoryType.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:56.9211171-05:00",
+      "FileLastChange": "2019-06-24T16:29:39.2100259-05:00",
       "Filename": "SessionSpeaker.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:57.2392695-05:00",
+      "FileLastChange": "2019-06-24T16:40:40.4909384-05:00",
       "Filename": "Sponsor.cs"
     },
     {
@@ -66,12 +66,20 @@
       "Filename": "SponsorFeaturedEvent.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:57.7552708-05:00",
+      "FileLastChange": "2019-06-24T16:40:40.8689372-05:00",
       "Filename": "SponsorType.cs"
     },
     {
-      "FileLastChange": "2019-05-12T11:00:58.1512681-05:00",
-      "Filename": "User.cs"
+      "FileLastChange": "2019-06-24T16:40:36.3419391-05:00",
+      "Filename": "Log.cs"
+    },
+    {
+      "FileLastChange": "2019-06-24T16:40:37.259938-05:00",
+      "Filename": "LogType.cs"
+    },
+    {
+      "FileLastChange": "2019-06-24T16:40:41.1889391-05:00",
+      "Filename": "UserProfile.cs"
     }
   ]
 }

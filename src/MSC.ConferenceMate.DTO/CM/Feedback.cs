@@ -9,6 +9,7 @@ namespace MSC.ConferenceMate.DTO.CM
 		}
 
 		public System.Guid FeedbackId { get; set; } // Primary key
+		public int UserProfileId { get; set; }
 		public string Title { get; set; }
 		public string Description { get; set; }
 		public int FeedbackTypeId { get; set; }
@@ -18,7 +19,6 @@ namespace MSC.ConferenceMate.DTO.CM
 		public double Latitude { get; set; }
 		public double Longitude { get; set; }
 		public bool Dispositioned { get; set; }
-		public int? UserId { get; set; }
 		public int? SessionId { get; set; }
 		public int? FeaturedEventId { get; set; }
 		public bool IsPublic { get; set; }
@@ -33,7 +33,7 @@ namespace MSC.ConferenceMate.DTO.CM
 		public virtual FeedbackInitiatorType FeedbackInitiatorType { get; set; } 
 		public virtual FeedbackType FeedbackType { get; set; } 
 		// public virtual Session Session { get; set; }  -- Excluded navigation property per configuration.
-		public virtual User User { get; set; } 
+		public virtual UserProfile UserProfile { get; set; } 
 
 
 		partial void InitializePartial();

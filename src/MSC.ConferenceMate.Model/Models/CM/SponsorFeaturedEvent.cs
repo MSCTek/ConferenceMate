@@ -48,35 +48,9 @@ namespace MSC.ConferenceMate.Model.CM
 		public virtual System.DateTime ModifiedUtcDate { get { return _dto.ModifiedUtcDate; } }
 		public virtual int SponsorId { get { return _dto.SponsorId; } }
 
-		private IFeaturedEvent _featuredEvent = null; // Foreign Key
-		private ISponsor _sponsor = null; // Foreign Key
+		// Excluding 'FeaturedEvent' per configuration setting.
+		// Excluding 'Sponsor' per configuration setting.
 
-
-		public virtual IFeaturedEvent FeaturedEvent
-		{
-			get
-			{
-				if (_featuredEvent == null)
-				{
-					OnLazyLoadRequest(this, new LoadRequestSponsorFeaturedEvent(nameof(FeaturedEvent)));
-				}
-
-				return _featuredEvent;
-			}
-		}
-
-		public virtual ISponsor Sponsor
-		{
-			get
-			{
-				if (_sponsor == null)
-				{
-					OnLazyLoadRequest(this, new LoadRequestSponsorFeaturedEvent(nameof(Sponsor)));
-				}
-
-				return _sponsor;
-			}
-		}
 
 
 

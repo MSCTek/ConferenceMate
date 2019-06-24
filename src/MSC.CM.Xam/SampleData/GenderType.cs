@@ -5,8 +5,8 @@ namespace MSC.CM.Xam.ModelData.CM
 {
 	public static class DemoGenderType
 	{
-		public static int SampleGenderTypeId0000 = 179454933;
-		public static int SampleGenderTypeId0100 = 1158400312;
+		public static int SampleGenderTypeId0000 = 360146547;
+		public static int SampleGenderTypeId0100 = 480728670;
 
 		public static GenderType SampleGenderType00
 		{

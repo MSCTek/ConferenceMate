@@ -30,7 +30,7 @@ namespace MSC.ConferenceMate.Repository.Infrastructure
 				// .ForMember(d => d.FeedbackInitiatorType, opt => opt.Ignore())
 				// .ForMember(d => d.FeedbackType, opt => opt.Ignore())
 				.ForMember(d => d.Session, opt => opt.Ignore()) //  -- Excluded navigation property per configuration.
-				// .ForMember(d => d.User, opt => opt.Ignore())
+				// .ForMember(d => d.UserProfile, opt => opt.Ignore())
 			.ReverseMap();
 
 			CreateMap<xDTO.FeedbackInitiatorType, xENT.FeedbackInitiatorType>()
@@ -42,12 +42,18 @@ namespace MSC.ConferenceMate.Repository.Infrastructure
 			.ReverseMap();
 
 			CreateMap<xDTO.GenderType, xENT.GenderType>()
-				.ForMember(d => d.Users, opt => opt.Ignore()) // Reverse nav -- Excluded navigation property per configuration.
+				// .ForMember(d => d.UserProfiles, opt => opt.Ignore()) // Reverse nav
 			.ReverseMap();
 
 			CreateMap<xDTO.LanguageType, xENT.LanguageType>()
 				.ForMember(d => d.LookupLists, opt => opt.Ignore()) // Reverse nav -- Excluded navigation property per configuration.
-				.ForMember(d => d.Users, opt => opt.Ignore()) // Reverse nav -- Excluded navigation property per configuration.
+				// .ForMember(d => d.UserProfiles, opt => opt.Ignore()) // Reverse nav
+			.ReverseMap();
+
+			CreateMap<xDTO.Log, xENT.Log>()
+			.ReverseMap();
+
+			CreateMap<xDTO.LogType, xENT.LogType>()
 			.ReverseMap();
 
 			CreateMap<xDTO.LookupList, xENT.LookupList>()
@@ -72,7 +78,7 @@ namespace MSC.ConferenceMate.Repository.Infrastructure
 
 			CreateMap<xDTO.SessionLike, xENT.SessionLike>()
 				.ForMember(d => d.Session, opt => opt.Ignore()) //  -- Excluded navigation property per configuration.
-				.ForMember(d => d.User, opt => opt.Ignore()) //  -- Excluded navigation property per configuration.
+				// .ForMember(d => d.UserProfile, opt => opt.Ignore())
 			.ReverseMap();
 
 			CreateMap<xDTO.SessionSessionCategoryType, xENT.SessionSessionCategoryType>()
@@ -82,7 +88,7 @@ namespace MSC.ConferenceMate.Repository.Infrastructure
 
 			CreateMap<xDTO.SessionSpeaker, xENT.SessionSpeaker>()
 				.ForMember(d => d.Session, opt => opt.Ignore()) //  -- Excluded navigation property per configuration.
-				.ForMember(d => d.User, opt => opt.Ignore()) //  -- Excluded navigation property per configuration.
+				// .ForMember(d => d.UserProfile, opt => opt.Ignore())
 			.ReverseMap();
 
 			CreateMap<xDTO.Sponsor, xENT.Sponsor>()
@@ -99,10 +105,11 @@ namespace MSC.ConferenceMate.Repository.Infrastructure
 				.ForMember(d => d.Sponsors, opt => opt.Ignore()) // Reverse nav -- Excluded navigation property per configuration.
 			.ReverseMap();
 
-			CreateMap<xDTO.User, xENT.User>()
+			CreateMap<xDTO.UserProfile, xENT.UserProfile>()
 				.ForMember(d => d.Feedbacks, opt => opt.Ignore()) // Reverse nav -- Excluded navigation property per configuration.
-				// .ForMember(d => d.SessionLikes, opt => opt.Ignore()) // Reverse nav
-				// .ForMember(d => d.SessionSpeakers, opt => opt.Ignore()) // Reverse nav
+				.ForMember(d => d.SessionLikes, opt => opt.Ignore()) // Reverse nav -- Excluded navigation property per configuration.
+				.ForMember(d => d.SessionSpeakers, opt => opt.Ignore()) // Reverse nav -- Excluded navigation property per configuration.
+				.ForMember(d => d.AspNetUser, opt => opt.Ignore()) //  -- Excluded navigation property per configuration.
 				// .ForMember(d => d.GenderType, opt => opt.Ignore())
 				// .ForMember(d => d.LanguageType, opt => opt.Ignore())
 			.ReverseMap();

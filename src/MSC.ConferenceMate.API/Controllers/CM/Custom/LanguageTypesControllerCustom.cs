@@ -5,7 +5,7 @@ using entCM = MSC.ConferenceMate.Repository.Entities.CM;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
-	public partial class LanguageTypesCMController : CMBaseApiController
+	public partial class LanguageTypesCMController : CMBaseApiControllerAuthorized
 	{
 
 		//partial void RunCustomLogicAfterInsert(ref entCM.LanguageType newDBItem, ref IRepositoryActionResult<entCM.LanguageType> result) {}

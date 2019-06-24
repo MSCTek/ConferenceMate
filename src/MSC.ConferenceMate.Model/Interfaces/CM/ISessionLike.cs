@@ -13,11 +13,10 @@ namespace MSC.ConferenceMate.Model.CM.Interface
 		string ModifiedBy { get; }
 		System.DateTime ModifiedUtcDate { get; }
 		int SessionId { get; }
-		System.Guid SessionLikeId { get; }
-		int UserId { get; }
+		int UserProfileId { get; }
 
-		ISession Session { get; }
-		IUser User { get; }
+		// Excluding 'Session' per configuration setting.
+		IUserProfile UserProfile { get; }
 
 
 	}

@@ -26,13 +26,13 @@ namespace MSC.ConferenceMate.Model.CM.Interface
 		int? SessionId { get; }
 		string Source { get; }
 		string Title { get; }
-		int? UserId { get; }
+		int UserProfileId { get; }
 
-		IFeaturedEvent FeaturedEvent { get; }
+		// Excluding 'FeaturedEvent' per configuration setting.
 		IFeedbackInitiatorType FeedbackInitiatorType { get; }
 		IFeedbackType FeedbackType { get; }
-		ISession Session { get; }
-		IUser User { get; }
+		// Excluding 'Session' per configuration setting.
+		IUserProfile UserProfile { get; }
 
 
 	}
