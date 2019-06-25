@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CGH.QuikRide.API</name>
+    </assembly>
+    <members>
+        <member name="P:MSC.ConferenceMate.API.Controllers.CM.CMBaseApiController.Log">
+             <summary>
+            
+             </summary>
+             <remarks>
+             This is private for a reason - using ILoggingService here in place of Log4NetLoggingService would be preferable.
+             However, doing so causes the CallerMemberName and CallerFilePath attributes to return null.
+             This is because those attributes are used by the compiler (not at runtime) to do their magic.
+             Thus, by abstracting them in an interface the compiler cannot tell which methods are calling.
+             </remarks>
+        </member>
+        <member name="P:MSC.ConferenceMate.API.Controllers.CM.CMBaseApiControllerAuthorized.Log">
+             <summary>
+            
+             </summary>
+             <remarks>
+             This is private for a reason - using ILoggingService here in place of Log4NetLoggingService would be preferable.
+             However, doing so causes the CallerMemberName and CallerFilePath attributes to return null.
+             This is because those attributes are used by the compiler (not at runtime) to do their magic.
+             Thus, by abstracting them in an interface the compiler cannot tell which methods are calling.
+             </remarks>
+        </member>
+        <member name="M:MSC.ConferenceMate.API.Startup.ConfigureOAuthForJWT(Owin.IAppBuilder)">
+            <summary>
+            Configure JWT usage - path, duration, and format of token.
+            </summary>
+            <param name="app"></param>
+        </member>
+        <member name="M:MSC.ConferenceMate.API.Startup.ConfigureJWTConsumption(Owin.IAppBuilder)">
+            <summary>
+            Handles consuming a JWT, which enables use of the [Authorize] attributes on controllers.
+            </summary>
+            <param name="app"></param>
+        </member>
+    </members>
+</doc>

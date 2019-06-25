@@ -14,56 +14,56 @@ using Xamarin.Essentials;
 
 namespace MSC.CM.XaSh.ViewModels
 {
-    public class SpeakerViewModel : BaseViewModel
-    {
-        public SpeakerViewModel(IDataStore store = null, IDataLoader loader = null)
-        {
-            DataStore = store;
-            DataLoader = loader;
-            Title = "Speakers";
-            Speakers = new ObservableCollection<User>();
-        }
+	public class SpeakerViewModel : BaseViewModel
+	{
+		public SpeakerViewModel(IDataStore store = null, IDataLoader loader = null)
+		{
+			DataStore = store;
+			DataLoader = loader;
+			Title = "Speakers";
+			Speakers = new ObservableCollection<UserProfile>();
+		}
 
-        public ObservableCollection<User> Speakers { get; private set; }
+		public ObservableCollection<UserProfile> Speakers { get; private set; }
 
-        public async Task RefreshListViewData()
-        {
-            if (IsBusy) { return; }
+		public async Task RefreshListViewData()
+		{
+			if (IsBusy) { return; }
 
-            IsBusy = true;
+			IsBusy = true;
 
-            try
-            {
-                if ((Connectivity.NetworkAccess == NetworkAccess.Internet && await DataLoader.HeartbeatCheck()) || App.UseSampleDataStore)
-                {
-                    //load SQLite from API or sample data
-                    var ctUsers = await DataLoader.LoadUsersAsync();
-                    Debug.WriteLine($"Loaded {ctUsers} Users.");
-                    var ctSessions = await DataLoader.LoadSessionsAsync();
-                    Debug.WriteLine($"Loaded {ctSessions} Sessions.");
-                    var ctSessionSpeakers = await DataLoader.LoadSessionSpeakersAsync();
-                    Debug.WriteLine($"Loaded {ctSessionSpeakers} SessionSpeakers.");
-                }
+			try
+			{
+				if ((Connectivity.NetworkAccess == NetworkAccess.Internet && await DataLoader.HeartbeatCheck()) || App.UseSampleDataStore)
+				{
+					//load SQLite from API or sample data
+					var ctUsers = await DataLoader.LoadUsersAsync();
+					Debug.WriteLine($"Loaded {ctUsers} Users.");
+					var ctSessions = await DataLoader.LoadSessionsAsync();
+					Debug.WriteLine($"Loaded {ctSessions} Sessions.");
+					var ctSessionSpeakers = await DataLoader.LoadSessionSpeakersAsync();
+					Debug.WriteLine($"Loaded {ctSessionSpeakers} SessionSpeakers.");
+				}
 
-                //clear local list
-                Speakers.Clear();
+				//clear local list
+				Speakers.Clear();
 
-                //populate local list
-                var items = await DataStore.GetSpeakersAsync();
-                foreach (var item in items)
-                {
-                    Speakers.Add(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.StackTrace);
-                Crashes.TrackError(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-    }
+				//populate local list
+				var items = await DataStore.GetSpeakersAsync();
+				foreach (var item in items)
+				{
+					Speakers.Add(item);
+				}
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex.StackTrace);
+				Crashes.TrackError(ex);
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
+	}
 }
