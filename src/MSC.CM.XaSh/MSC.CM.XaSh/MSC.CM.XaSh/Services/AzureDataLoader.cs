@@ -22,31 +22,31 @@ namespace MSC.CM.XaSh.Services
 	public class AzureDataLoader : IDataLoader
 	{
 		private const int MAX_MINUTES_BETWEEN_UPDATES = 10;
+
+		private HttpClient _client;
+		private ILogger<AzureDataLoader> _logger;
 		private SQLiteAsyncConnection conn = App.Database.conn;
-		private ILogger<AzureDataLoader> logger;
 		private IWebApiDataServiceCM webAPIDataService;
 
-		//TODO: PAUL to take advantage of this goodness, wire up the CGH httpclient to use the transient http error policy
-		//private HttpClient client;
 		//public AzureDataLoader(ILogger<AzureDataStore> _logger = null, IHttpClientFactory _httpClientFactory = null)
-		public AzureDataLoader(ILogger<AzureDataLoader> _logger = null)
+		public AzureDataLoader(IHttpClientFactory httpClientFactory = null, ILogger<AzureDataLoader> logger = null)
 		{
-			logger = _logger;
-			//client = _httpClientFactory == null ? new HttpClient() : _httpClientFactory.CreateClient("AzureWebsites");
+			_logger = logger;
+			_client = httpClientFactory == null ? new HttpClient() : httpClientFactory.CreateClient("BackEndAPI");
 
 			//if (_httpClientFactory == null)
 			//    client.BaseAddress = new Uri($"{App.AzureBackendUrl}/");
 
-			var webApiExecutionContextType = new CMWebApiExecutionContextType();
-			webApiExecutionContextType.Current = (int)ExecutionContextTypes.Base;
+			//var webApiExecutionContextType = new CMWebApiExecutionContextType();
+			//webApiExecutionContextType.Current = (int)ExecutionContextTypes.Base;
 
-			WebApiExecutionContext context = new WebApiExecutionContext(
-				executionContextType: webApiExecutionContextType,
-				baseWebApiUrl: App.AzureBackendUrl,
-				baseFileUrl: string.Empty,
-				connectionIdentifier: null);
+			//WebApiExecutionContext context = new WebApiExecutionContext(
+			//	executionContextType: webApiExecutionContextType,
+			//	baseWebApiUrl: App.AzureBackendUrl,
+			//	baseFileUrl: string.Empty,
+			//	connectionIdentifier: null);
 
-			webAPIDataService = new WebApiDataServiceCM(null, context);
+			webAPIDataService = new WebApiDataServiceCM(null, _client);
 		}
 
 		public enum UpdateableTableNames

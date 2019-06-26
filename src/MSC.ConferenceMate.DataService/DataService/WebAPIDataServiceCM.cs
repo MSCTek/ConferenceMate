@@ -6,16 +6,17 @@ using CodeGenHero.Logging;
 using CodeGenHero.DataService;
 using MSC.ConferenceMate.API.Client.Interface;
 using xDTO = MSC.ConferenceMate.DTO.CM;
+using System.Net.Http;
 
 namespace MSC.ConferenceMate.API.Client
 {
 	public partial class WebApiDataServiceCM : WebApiDataServiceBase, IWebApiDataServiceCM
 	{
-		public WebApiDataServiceCM(ILoggingService log, IWebApiExecutionContext context) : base(log, context)
+		public WebApiDataServiceCM(ILoggingService log, HttpClient httpClient) : base(log, httpClient, isServiceOnlineRelativeUrl: "CM/APIStatus")
 		{ }
 
-		private WebApiDataServiceCM() : base()
-		{ }
+		//private WebApiDataServiceCM() : base()
+		//{ }
 
 
 		#region GetAllPages
@@ -549,8 +550,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Announcement>>>> GetAnnouncementsAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.Announcement>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}Announcements", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.Announcement>>(Log, HttpClient, 
+				$"CM/Announcements", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Announcement>>>> GetAnnouncementsAsync(
@@ -585,8 +586,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.FeaturedEvent>>>> GetFeaturedEventsAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.FeaturedEvent>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}FeaturedEvents", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.FeaturedEvent>>(Log, HttpClient, 
+				$"CM/FeaturedEvents", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.FeaturedEvent>>>> GetFeaturedEventsAsync(
@@ -621,8 +622,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Feedback>>>> GetFeedbacksAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.Feedback>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}Feedbacks", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.Feedback>>(Log, HttpClient, 
+				$"CM/Feedbacks", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Feedback>>>> GetFeedbacksAsync(
@@ -657,8 +658,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.FeedbackInitiatorType>>>> GetFeedbackInitiatorTypesAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.FeedbackInitiatorType>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}FeedbackInitiatorTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.FeedbackInitiatorType>>(Log, HttpClient, 
+				$"CM/FeedbackInitiatorTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.FeedbackInitiatorType>>>> GetFeedbackInitiatorTypesAsync(
@@ -693,8 +694,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.FeedbackType>>>> GetFeedbackTypesAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.FeedbackType>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}FeedbackTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.FeedbackType>>(Log, HttpClient, 
+				$"CM/FeedbackTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.FeedbackType>>>> GetFeedbackTypesAsync(
@@ -729,8 +730,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.GenderType>>>> GetGenderTypesAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.GenderType>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}GenderTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.GenderType>>(Log, HttpClient, 
+				$"CM/GenderTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.GenderType>>>> GetGenderTypesAsync(
@@ -765,8 +766,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.LanguageType>>>> GetLanguageTypesAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.LanguageType>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}LanguageTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.LanguageType>>(Log, HttpClient, 
+				$"CM/LanguageTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.LanguageType>>>> GetLanguageTypesAsync(
@@ -801,8 +802,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Log>>>> GetLogsAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.Log>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}Logs", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.Log>>(Log, HttpClient, 
+				$"CM/Logs", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Log>>>> GetLogsAsync(
@@ -817,8 +818,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.LogType>>>> GetLogTypesAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.LogType>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}LogTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.LogType>>(Log, HttpClient, 
+				$"CM/LogTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.LogType>>>> GetLogTypesAsync(
@@ -833,8 +834,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.LookupList>>>> GetLookupListsAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.LookupList>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}LookupLists", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.LookupList>>(Log, HttpClient, 
+				$"CM/LookupLists", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.LookupList>>>> GetLookupListsAsync(
@@ -869,8 +870,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Room>>>> GetRoomsAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.Room>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}Rooms", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.Room>>(Log, HttpClient, 
+				$"CM/Rooms", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Room>>>> GetRoomsAsync(
@@ -905,8 +906,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Session>>>> GetSessionsAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.Session>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}Sessions", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.Session>>(Log, HttpClient, 
+				$"CM/Sessions", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Session>>>> GetSessionsAsync(
@@ -941,8 +942,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.SessionCategoryType>>>> GetSessionCategoryTypesAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.SessionCategoryType>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}SessionCategoryTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.SessionCategoryType>>(Log, HttpClient, 
+				$"CM/SessionCategoryTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.SessionCategoryType>>>> GetSessionCategoryTypesAsync(
@@ -977,8 +978,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.SessionLike>>>> GetSessionLikesAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.SessionLike>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}SessionLikes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.SessionLike>>(Log, HttpClient, 
+				$"CM/SessionLikes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.SessionLike>>>> GetSessionLikesAsync(
@@ -1013,8 +1014,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.SessionSessionCategoryType>>>> GetSessionSessionCategoryTypesAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.SessionSessionCategoryType>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}SessionSessionCategoryTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.SessionSessionCategoryType>>(Log, HttpClient, 
+				$"CM/SessionSessionCategoryTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.SessionSessionCategoryType>>>> GetSessionSessionCategoryTypesAsync(
@@ -1049,8 +1050,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.SessionSpeaker>>>> GetSessionSpeakersAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.SessionSpeaker>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}SessionSpeakers", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.SessionSpeaker>>(Log, HttpClient, 
+				$"CM/SessionSpeakers", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.SessionSpeaker>>>> GetSessionSpeakersAsync(
@@ -1085,8 +1086,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Sponsor>>>> GetSponsorsAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.Sponsor>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}Sponsors", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.Sponsor>>(Log, HttpClient, 
+				$"CM/Sponsors", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Sponsor>>>> GetSponsorsAsync(
@@ -1121,8 +1122,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.SponsorFeaturedEvent>>>> GetSponsorFeaturedEventsAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.SponsorFeaturedEvent>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}SponsorFeaturedEvents", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.SponsorFeaturedEvent>>(Log, HttpClient, 
+				$"CM/SponsorFeaturedEvents", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.SponsorFeaturedEvent>>>> GetSponsorFeaturedEventsAsync(
@@ -1157,8 +1158,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.SponsorType>>>> GetSponsorTypesAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.SponsorType>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}SponsorTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.SponsorType>>(Log, HttpClient, 
+				$"CM/SponsorTypes", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.SponsorType>>>> GetSponsorTypesAsync(
@@ -1193,8 +1194,8 @@ namespace MSC.ConferenceMate.API.Client
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.UserProfile>>>> GetUserProfilesAsync(IPageDataRequest pageDataRequest)
 		{
 			List<string> filter = BuildFilter(pageDataRequest.FilterCriteria);
-			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.UserProfile>>(Log, GetClient(), 
-				$"{ExecutionContext.BaseWebApiUrl}UserProfiles", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
+			return await SerializationHelper.Instance.SerializeCallResultsGet<IList<xDTO.UserProfile>>(Log, HttpClient, 
+				$"CM/UserProfiles", filter, page: pageDataRequest.Page, pageSize: pageDataRequest.PageSize);
 		}
 
 		public async Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.UserProfile>>>> GetUserProfilesAsync(
@@ -1234,121 +1235,121 @@ namespace MSC.ConferenceMate.API.Client
 
 		public async Task<IHttpCallResultCGHT<xDTO.Announcement>> GetAnnouncementAsync(int announcementId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.Announcement>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Announcements/{announcementId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.Announcement>(Log, HttpClient, $"CM/Announcements/{announcementId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.FeaturedEvent>> GetFeaturedEventAsync(int featuredEventId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.FeaturedEvent>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}FeaturedEvents/{featuredEventId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.FeaturedEvent>(Log, HttpClient, $"CM/FeaturedEvents/{featuredEventId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.Feedback>> GetFeedbackAsync(System.Guid feedbackId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.Feedback>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Feedbacks/{feedbackId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.Feedback>(Log, HttpClient, $"CM/Feedbacks/{feedbackId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.FeedbackInitiatorType>> GetFeedbackInitiatorTypeAsync(int feedbackInitiatorTypeId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.FeedbackInitiatorType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}FeedbackInitiatorTypes/{feedbackInitiatorTypeId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.FeedbackInitiatorType>(Log, HttpClient, $"CM/FeedbackInitiatorTypes/{feedbackInitiatorTypeId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.FeedbackType>> GetFeedbackTypeAsync(int feedbackTypeId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.FeedbackType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}FeedbackTypes/{feedbackTypeId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.FeedbackType>(Log, HttpClient, $"CM/FeedbackTypes/{feedbackTypeId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.GenderType>> GetGenderTypeAsync(int genderTypeId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.GenderType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}GenderTypes/{genderTypeId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.GenderType>(Log, HttpClient, $"CM/GenderTypes/{genderTypeId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.LanguageType>> GetLanguageTypeAsync(int languageTypeId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.LanguageType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}LanguageTypes/{languageTypeId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.LanguageType>(Log, HttpClient, $"CM/LanguageTypes/{languageTypeId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.Log>> GetLogAsync(int id, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.Log>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Logs/{id}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.Log>(Log, HttpClient, $"CM/Logs/{id}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.LogType>> GetLogTypeAsync(int id, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.LogType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}LogTypes/{id}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.LogType>(Log, HttpClient, $"CM/LogTypes/{id}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.LookupList>> GetLookupListAsync(int lookupListId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.LookupList>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}LookupLists/{lookupListId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.LookupList>(Log, HttpClient, $"CM/LookupLists/{lookupListId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.Room>> GetRoomAsync(int roomId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.Room>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Rooms/{roomId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.Room>(Log, HttpClient, $"CM/Rooms/{roomId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.Session>> GetSessionAsync(int sessionId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.Session>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Sessions/{sessionId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.Session>(Log, HttpClient, $"CM/Sessions/{sessionId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.SessionCategoryType>> GetSessionCategoryTypeAsync(int sessionCategoryTypeId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SessionCategoryType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionCategoryTypes/{sessionCategoryTypeId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SessionCategoryType>(Log, HttpClient, $"CM/SessionCategoryTypes/{sessionCategoryTypeId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.SessionLike>> GetSessionLikeAsync(int sessionId, int userProfileId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SessionLike>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionLikes/{sessionId}/{userProfileId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SessionLike>(Log, HttpClient, $"CM/SessionLikes/{sessionId}/{userProfileId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.SessionSessionCategoryType>> GetSessionSessionCategoryTypeAsync(int sessionId, int sessionCategoryTypeId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SessionSessionCategoryType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionSessionCategoryTypes/{sessionId}/{sessionCategoryTypeId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SessionSessionCategoryType>(Log, HttpClient, $"CM/SessionSessionCategoryTypes/{sessionId}/{sessionCategoryTypeId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.SessionSpeaker>> GetSessionSpeakerAsync(int sessionId, int userProfileId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SessionSpeaker>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionSpeakers/{sessionId}/{userProfileId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SessionSpeaker>(Log, HttpClient, $"CM/SessionSpeakers/{sessionId}/{userProfileId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.Sponsor>> GetSponsorAsync(int sponsorId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.Sponsor>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Sponsors/{sponsorId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.Sponsor>(Log, HttpClient, $"CM/Sponsors/{sponsorId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.SponsorFeaturedEvent>> GetSponsorFeaturedEventAsync(int sponsorId, int featuredEventId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SponsorFeaturedEvent>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SponsorFeaturedEvents/{sponsorId}/{featuredEventId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SponsorFeaturedEvent>(Log, HttpClient, $"CM/SponsorFeaturedEvents/{sponsorId}/{featuredEventId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.SponsorType>> GetSponsorTypeAsync(int sponsorTypeId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SponsorType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SponsorTypes/{sponsorTypeId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.SponsorType>(Log, HttpClient, $"CM/SponsorTypes/{sponsorTypeId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.UserProfile>> GetUserProfileAsync(int userProfileId, int numChildLevels)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.UserProfile>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}UserProfiles/{userProfileId}?numChildLevels={numChildLevels}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsGet<xDTO.UserProfile>(Log, HttpClient, $"CM/UserProfiles/{userProfileId}?numChildLevels={numChildLevels}");
 			return retVal;
 		}
 
@@ -1361,160 +1362,160 @@ namespace MSC.ConferenceMate.API.Client
 			public async Task<IHttpCallResultCGHT<xDTO.Announcement>> CreateAnnouncementAsync(xDTO.Announcement item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.Announcement>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}Announcements/", item);
+					Log, HttpClient,
+					$"CM/Announcements/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.FeaturedEvent>> CreateFeaturedEventAsync(xDTO.FeaturedEvent item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.FeaturedEvent>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}FeaturedEvents/", item);
+					Log, HttpClient,
+					$"CM/FeaturedEvents/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.Feedback>> CreateFeedbackAsync(xDTO.Feedback item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.Feedback>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}Feedbacks/", item);
+					Log, HttpClient,
+					$"CM/Feedbacks/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.FeedbackInitiatorType>> CreateFeedbackInitiatorTypeAsync(xDTO.FeedbackInitiatorType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.FeedbackInitiatorType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}FeedbackInitiatorTypes/", item);
+					Log, HttpClient,
+					$"CM/FeedbackInitiatorTypes/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.FeedbackType>> CreateFeedbackTypeAsync(xDTO.FeedbackType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.FeedbackType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}FeedbackTypes/", item);
+					Log, HttpClient,
+					$"CM/FeedbackTypes/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.GenderType>> CreateGenderTypeAsync(xDTO.GenderType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.GenderType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}GenderTypes/", item);
+					Log, HttpClient,
+					$"CM/GenderTypes/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.LanguageType>> CreateLanguageTypeAsync(xDTO.LanguageType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.LanguageType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}LanguageTypes/", item);
+					Log, HttpClient,
+					$"CM/LanguageTypes/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.Log>> CreateLogAsync(xDTO.Log item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.Log>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}Logs/", item);
+					Log, HttpClient,
+					$"CM/Logs/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.LogType>> CreateLogTypeAsync(xDTO.LogType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.LogType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}LogTypes/", item);
+					Log, HttpClient,
+					$"CM/LogTypes/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.LookupList>> CreateLookupListAsync(xDTO.LookupList item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.LookupList>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}LookupLists/", item);
+					Log, HttpClient,
+					$"CM/LookupLists/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.Room>> CreateRoomAsync(xDTO.Room item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.Room>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}Rooms/", item);
+					Log, HttpClient,
+					$"CM/Rooms/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.Session>> CreateSessionAsync(xDTO.Session item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.Session>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}Sessions/", item);
+					Log, HttpClient,
+					$"CM/Sessions/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.SessionCategoryType>> CreateSessionCategoryTypeAsync(xDTO.SessionCategoryType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.SessionCategoryType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SessionCategoryTypes/", item);
+					Log, HttpClient,
+					$"CM/SessionCategoryTypes/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.SessionLike>> CreateSessionLikeAsync(xDTO.SessionLike item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.SessionLike>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SessionLikes/", item);
+					Log, HttpClient,
+					$"CM/SessionLikes/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.SessionSessionCategoryType>> CreateSessionSessionCategoryTypeAsync(xDTO.SessionSessionCategoryType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.SessionSessionCategoryType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SessionSessionCategoryTypes/", item);
+					Log, HttpClient,
+					$"CM/SessionSessionCategoryTypes/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.SessionSpeaker>> CreateSessionSpeakerAsync(xDTO.SessionSpeaker item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.SessionSpeaker>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SessionSpeakers/", item);
+					Log, HttpClient,
+					$"CM/SessionSpeakers/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.Sponsor>> CreateSponsorAsync(xDTO.Sponsor item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.Sponsor>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}Sponsors/", item);
+					Log, HttpClient,
+					$"CM/Sponsors/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.SponsorFeaturedEvent>> CreateSponsorFeaturedEventAsync(xDTO.SponsorFeaturedEvent item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.SponsorFeaturedEvent>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SponsorFeaturedEvents/", item);
+					Log, HttpClient,
+					$"CM/SponsorFeaturedEvents/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.SponsorType>> CreateSponsorTypeAsync(xDTO.SponsorType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.SponsorType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SponsorTypes/", item);
+					Log, HttpClient,
+					$"CM/SponsorTypes/", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.UserProfile>> CreateUserProfileAsync(xDTO.UserProfile item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPost<xDTO.UserProfile>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}UserProfiles/", item);
+					Log, HttpClient,
+					$"CM/UserProfiles/", item);
 				return retVal;
 			}
 
@@ -1527,160 +1528,160 @@ namespace MSC.ConferenceMate.API.Client
 			public async Task<IHttpCallResultCGHT<xDTO.Announcement>> UpdateAnnouncementAsync(xDTO.Announcement item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.Announcement>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}Announcements/{item.AnnouncementId}", item);
+					Log, HttpClient,
+					$"CM/Announcements/{item.AnnouncementId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.FeaturedEvent>> UpdateFeaturedEventAsync(xDTO.FeaturedEvent item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.FeaturedEvent>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}FeaturedEvents/{item.FeaturedEventId}", item);
+					Log, HttpClient,
+					$"CM/FeaturedEvents/{item.FeaturedEventId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.Feedback>> UpdateFeedbackAsync(xDTO.Feedback item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.Feedback>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}Feedbacks/{item.FeedbackId}", item);
+					Log, HttpClient,
+					$"CM/Feedbacks/{item.FeedbackId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.FeedbackInitiatorType>> UpdateFeedbackInitiatorTypeAsync(xDTO.FeedbackInitiatorType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.FeedbackInitiatorType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}FeedbackInitiatorTypes/{item.FeedbackInitiatorTypeId}", item);
+					Log, HttpClient,
+					$"CM/FeedbackInitiatorTypes/{item.FeedbackInitiatorTypeId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.FeedbackType>> UpdateFeedbackTypeAsync(xDTO.FeedbackType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.FeedbackType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}FeedbackTypes/{item.FeedbackTypeId}", item);
+					Log, HttpClient,
+					$"CM/FeedbackTypes/{item.FeedbackTypeId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.GenderType>> UpdateGenderTypeAsync(xDTO.GenderType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.GenderType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}GenderTypes/{item.GenderTypeId}", item);
+					Log, HttpClient,
+					$"CM/GenderTypes/{item.GenderTypeId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.LanguageType>> UpdateLanguageTypeAsync(xDTO.LanguageType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.LanguageType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}LanguageTypes/{item.LanguageTypeId}", item);
+					Log, HttpClient,
+					$"CM/LanguageTypes/{item.LanguageTypeId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.Log>> UpdateLogAsync(xDTO.Log item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.Log>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}Logs/{item.Id}", item);
+					Log, HttpClient,
+					$"CM/Logs/{item.Id}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.LogType>> UpdateLogTypeAsync(xDTO.LogType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.LogType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}LogTypes/{item.Id}", item);
+					Log, HttpClient,
+					$"CM/LogTypes/{item.Id}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.LookupList>> UpdateLookupListAsync(xDTO.LookupList item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.LookupList>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}LookupLists/{item.LookupListId}", item);
+					Log, HttpClient,
+					$"CM/LookupLists/{item.LookupListId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.Room>> UpdateRoomAsync(xDTO.Room item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.Room>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}Rooms/{item.RoomId}", item);
+					Log, HttpClient,
+					$"CM/Rooms/{item.RoomId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.Session>> UpdateSessionAsync(xDTO.Session item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.Session>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}Sessions/{item.SessionId}", item);
+					Log, HttpClient,
+					$"CM/Sessions/{item.SessionId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.SessionCategoryType>> UpdateSessionCategoryTypeAsync(xDTO.SessionCategoryType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.SessionCategoryType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SessionCategoryTypes/{item.SessionCategoryTypeId}", item);
+					Log, HttpClient,
+					$"CM/SessionCategoryTypes/{item.SessionCategoryTypeId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.SessionLike>> UpdateSessionLikeAsync(xDTO.SessionLike item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.SessionLike>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SessionLikes/{item.SessionId}/{item.UserProfileId}", item);
+					Log, HttpClient,
+					$"CM/SessionLikes/{item.SessionId}/{item.UserProfileId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.SessionSessionCategoryType>> UpdateSessionSessionCategoryTypeAsync(xDTO.SessionSessionCategoryType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.SessionSessionCategoryType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SessionSessionCategoryTypes/{item.SessionId}/{item.SessionCategoryTypeId}", item);
+					Log, HttpClient,
+					$"CM/SessionSessionCategoryTypes/{item.SessionId}/{item.SessionCategoryTypeId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.SessionSpeaker>> UpdateSessionSpeakerAsync(xDTO.SessionSpeaker item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.SessionSpeaker>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SessionSpeakers/{item.SessionId}/{item.UserProfileId}", item);
+					Log, HttpClient,
+					$"CM/SessionSpeakers/{item.SessionId}/{item.UserProfileId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.Sponsor>> UpdateSponsorAsync(xDTO.Sponsor item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.Sponsor>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}Sponsors/{item.SponsorId}", item);
+					Log, HttpClient,
+					$"CM/Sponsors/{item.SponsorId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.SponsorFeaturedEvent>> UpdateSponsorFeaturedEventAsync(xDTO.SponsorFeaturedEvent item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.SponsorFeaturedEvent>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SponsorFeaturedEvents/{item.SponsorId}/{item.FeaturedEventId}", item);
+					Log, HttpClient,
+					$"CM/SponsorFeaturedEvents/{item.SponsorId}/{item.FeaturedEventId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.SponsorType>> UpdateSponsorTypeAsync(xDTO.SponsorType item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.SponsorType>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}SponsorTypes/{item.SponsorTypeId}", item);
+					Log, HttpClient,
+					$"CM/SponsorTypes/{item.SponsorTypeId}", item);
 				return retVal;
 			}
 
 			public async Task<IHttpCallResultCGHT<xDTO.UserProfile>> UpdateUserProfileAsync(xDTO.UserProfile item)
 			{
 				var retVal = await SerializationHelper.Instance.SerializeCallResultsPut<xDTO.UserProfile>(
-					Log, GetClient(),
-					$"{ExecutionContext.BaseWebApiUrl}UserProfiles/{item.UserProfileId}", item);
+					Log, HttpClient,
+					$"CM/UserProfiles/{item.UserProfileId}", item);
 				return retVal;
 			}
 
@@ -1692,121 +1693,121 @@ namespace MSC.ConferenceMate.API.Client
 
 		public async Task<IHttpCallResultCGHT<xDTO.Announcement>> DeleteAnnouncementAsync(int announcementId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.Announcement>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Announcements/{announcementId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.Announcement>(Log, HttpClient, $"CM/Announcements/{announcementId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.FeaturedEvent>> DeleteFeaturedEventAsync(int featuredEventId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.FeaturedEvent>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}FeaturedEvents/{featuredEventId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.FeaturedEvent>(Log, HttpClient, $"CM/FeaturedEvents/{featuredEventId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.Feedback>> DeleteFeedbackAsync(System.Guid feedbackId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.Feedback>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Feedbacks/{feedbackId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.Feedback>(Log, HttpClient, $"CM/Feedbacks/{feedbackId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.FeedbackInitiatorType>> DeleteFeedbackInitiatorTypeAsync(int feedbackInitiatorTypeId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.FeedbackInitiatorType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}FeedbackInitiatorTypes/{feedbackInitiatorTypeId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.FeedbackInitiatorType>(Log, HttpClient, $"CM/FeedbackInitiatorTypes/{feedbackInitiatorTypeId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.FeedbackType>> DeleteFeedbackTypeAsync(int feedbackTypeId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.FeedbackType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}FeedbackTypes/{feedbackTypeId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.FeedbackType>(Log, HttpClient, $"CM/FeedbackTypes/{feedbackTypeId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.GenderType>> DeleteGenderTypeAsync(int genderTypeId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.GenderType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}GenderTypes/{genderTypeId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.GenderType>(Log, HttpClient, $"CM/GenderTypes/{genderTypeId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.LanguageType>> DeleteLanguageTypeAsync(int languageTypeId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.LanguageType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}LanguageTypes/{languageTypeId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.LanguageType>(Log, HttpClient, $"CM/LanguageTypes/{languageTypeId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.Log>> DeleteLogAsync(int id)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.Log>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Logs/{id}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.Log>(Log, HttpClient, $"CM/Logs/{id}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.LogType>> DeleteLogTypeAsync(int id)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.LogType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}LogTypes/{id}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.LogType>(Log, HttpClient, $"CM/LogTypes/{id}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.LookupList>> DeleteLookupListAsync(int lookupListId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.LookupList>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}LookupLists/{lookupListId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.LookupList>(Log, HttpClient, $"CM/LookupLists/{lookupListId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.Room>> DeleteRoomAsync(int roomId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.Room>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Rooms/{roomId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.Room>(Log, HttpClient, $"CM/Rooms/{roomId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.Session>> DeleteSessionAsync(int sessionId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.Session>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Sessions/{sessionId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.Session>(Log, HttpClient, $"CM/Sessions/{sessionId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.SessionCategoryType>> DeleteSessionCategoryTypeAsync(int sessionCategoryTypeId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SessionCategoryType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionCategoryTypes/{sessionCategoryTypeId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SessionCategoryType>(Log, HttpClient, $"CM/SessionCategoryTypes/{sessionCategoryTypeId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.SessionLike>> DeleteSessionLikeAsync(int sessionId, int userProfileId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SessionLike>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionLikes/{sessionId}/{userProfileId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SessionLike>(Log, HttpClient, $"CM/SessionLikes/{sessionId}/{userProfileId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.SessionSessionCategoryType>> DeleteSessionSessionCategoryTypeAsync(int sessionId, int sessionCategoryTypeId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SessionSessionCategoryType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionSessionCategoryTypes/{sessionId}/{sessionCategoryTypeId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SessionSessionCategoryType>(Log, HttpClient, $"CM/SessionSessionCategoryTypes/{sessionId}/{sessionCategoryTypeId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.SessionSpeaker>> DeleteSessionSpeakerAsync(int sessionId, int userProfileId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SessionSpeaker>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SessionSpeakers/{sessionId}/{userProfileId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SessionSpeaker>(Log, HttpClient, $"CM/SessionSpeakers/{sessionId}/{userProfileId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.Sponsor>> DeleteSponsorAsync(int sponsorId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.Sponsor>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}Sponsors/{sponsorId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.Sponsor>(Log, HttpClient, $"CM/Sponsors/{sponsorId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.SponsorFeaturedEvent>> DeleteSponsorFeaturedEventAsync(int sponsorId, int featuredEventId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SponsorFeaturedEvent>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SponsorFeaturedEvents/{sponsorId}/{featuredEventId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SponsorFeaturedEvent>(Log, HttpClient, $"CM/SponsorFeaturedEvents/{sponsorId}/{featuredEventId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.SponsorType>> DeleteSponsorTypeAsync(int sponsorTypeId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SponsorType>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}SponsorTypes/{sponsorTypeId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.SponsorType>(Log, HttpClient, $"CM/SponsorTypes/{sponsorTypeId}");
 			return retVal;
 		}
 
 		public async Task<IHttpCallResultCGHT<xDTO.UserProfile>> DeleteUserProfileAsync(int userProfileId)
 		{
-			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.UserProfile>(Log, GetClient(), $"{ExecutionContext.BaseWebApiUrl}UserProfiles/{userProfileId}");
+			var retVal = await SerializationHelper.Instance.SerializeCallResultsDelete<xDTO.UserProfile>(Log, HttpClient, $"CM/UserProfiles/{userProfileId}");
 			return retVal;
 		}
 
