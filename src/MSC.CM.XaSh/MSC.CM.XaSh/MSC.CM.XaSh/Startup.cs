@@ -16,109 +16,124 @@ using Xamarin.Essentials;
 
 namespace MSC.CM.XaSh
 {
-    public class Startup
-    {
-        public static IServiceProvider ServiceProvider { get; set; }
+	public class Startup
+	{
+		public static IServiceProvider ServiceProvider { get; set; }
 
-        public static string ExtractAppSettings(string filename)
-        {
-            var location = FileSystem.CacheDirectory;
-            string full = null;
-            var a = Assembly.GetExecutingAssembly();
-            using (var resFilestream = a.GetManifestResourceStream(filename))
-            {
-                if (resFilestream != null)
-                {
-                    full = Path.Combine(location, filename);
+		public static string ExtractAppSettings(string filename)
+		{
+			var location = FileSystem.CacheDirectory;
+			string full = null;
+			var a = Assembly.GetExecutingAssembly();
+			using (var resFilestream = a.GetManifestResourceStream(filename))
+			{
+				if (resFilestream != null)
+				{
+					full = Path.Combine(location, filename);
 
-                    using (var stream = File.Create(full))
-                    {
-                        resFilestream.CopyTo(stream);
-                    }
-                }
-            }
+					using (var stream = File.Create(full))
+					{
+						resFilestream.CopyTo(stream);
+					}
+				}
+			}
 
-            return full;
-        }
+			return full;
+		}
 
-        public static void Init()
-        {
-            var configLocation = ExtractAppSettings("MSC.CM.XaSh.appsettings.json");
+		public static void Init()
+		{
+			var configLocation = ExtractAppSettings("MSC.CM.XaSh.appsettings.json");
 
-            var host = new HostBuilder()
-                .ConfigureHostConfiguration(c =>
-                {
-                    c.AddCommandLine(new String[] { $"ContentRoot={FileSystem.AppDataDirectory}" });
-                    c.AddJsonFile(configLocation);
-                })
-                .ConfigureServices((c, x) => ConfigureServices(c, x))
-                .ConfigureLogging(l => l.AddConsole(abc =>
-                {
-                    abc.DisableColors = true;
-                }))
-                .Build();
+			var host = new HostBuilder()
+				.ConfigureHostConfiguration(c =>
+				{
+					c.AddCommandLine(new String[] { $"ContentRoot={FileSystem.AppDataDirectory}" });
+					c.AddJsonFile(configLocation);
+				})
+				.ConfigureServices((c, x) => ConfigureServices(c, x))
+				.ConfigureLogging(l => l.AddConsole(abc =>
+				{
+					abc.DisableColors = true;
+				}))
+				.Build();
 
-            ServiceProvider = host.Services;
-        }
+			ServiceProvider = host.Services;
+		}
 
-        private static void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
-        {
-            services.AddHttpClient("BackEndAPI", client =>
-            {
-                client.BaseAddress = new Uri(App.AzureBackendUrl);
-            }).ConfigureHttpClient(client =>
-            {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Add("api-version", "1");
+		private static void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
+		{
+			services.AddHttpClient("TokenAuth", client =>
+			{
+				client.BaseAddress = new Uri(App.AzureBackendUrl);
+			}).ConfigureHttpClient(client =>
+			{
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+			})
+			.AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+			{
+				TimeSpan.FromSeconds(1),
+				TimeSpan.FromSeconds(5),
+				TimeSpan.FromSeconds(10)
+			}));
 
-                //when we initially start up here, we don't have a token yet
-                string jwt = App.Token;
-                //System.Net.Http.Headers.AuthenticationHeaderValue authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", jwt);
-                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {jwt}");
-                //client.DefaultRequestHeaders.Authorization = authorization;
-            })
-            .AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
-            {
-                TimeSpan.FromSeconds(1),
-                TimeSpan.FromSeconds(5),
-                TimeSpan.FromSeconds(10)
-            }));
+			services.AddHttpClient("BackEndAPI", client =>
+			{
+				client.BaseAddress = new Uri(App.AzureBackendUrl);
+			}).ConfigureHttpClient(client =>
+			{
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+				client.DefaultRequestHeaders.Add("api-version", "1");
 
-            if (ctx.HostingEnvironment.IsDevelopment() && App.UseSampleDataStore)
-            {
-                //load vms directly from sample data
-                //services.AddSingleton<IDataStore, SampleDataStore>();
+				//when we initially start up here, we don't have a token yet
+				string jwt = App.Token;
+				//System.Net.Http.Headers.AuthenticationHeaderValue authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", jwt);
+				client.DefaultRequestHeaders.Add("Authorization", $"Bearer {jwt}");
+				//client.DefaultRequestHeaders.Authorization = authorization;
+			})
+			.AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+			{
+				TimeSpan.FromSeconds(1),
+				TimeSpan.FromSeconds(5),
+				TimeSpan.FromSeconds(10)
+			}));
 
-                //load vms from SQLite
-                services.AddSingleton<IDataStore, SQLiteDataStore>();
-                services.AddSingleton<IDataLoader, SampleDataLoader>();
-                services.AddSingleton<IDataUploader, SampleDataUploader>();
-            }
-            else
-            {
-                services.AddSingleton<IDataStore, SQLiteDataStore>();
-                services.AddSingleton<IDataLoader, AzureDataLoader>();
-                services.AddSingleton<IDataUploader, AzureDataUploader>();
-            }
+			if (ctx.HostingEnvironment.IsDevelopment() && App.UseSampleDataStore)
+			{
+				//load vms directly from sample data
+				//services.AddSingleton<IDataStore, SampleDataStore>();
 
-            services.AddTransient<AboutViewModel>(); //viewmodel are created new, everytime
-            services.AddTransient<AnnouncementsViewModel>();
-            services.AddTransient<FeedbackViewModel>();
-            services.AddTransient<GeneralInfoViewModel>();
-            services.AddTransient<LocalWeatherViewModel>();
-            services.AddTransient<MyFavoritesViewModel>();
-            services.AddTransient<MyProfileViewModel>();
-            services.AddTransient<SessionsByRoomViewModel>();
-            services.AddTransient<SessionsByTimeViewModel>();
-            services.AddTransient<SpeakerViewModel>();
-            services.AddTransient<WorkshopsViewModel>();
+				//load vms from SQLite
+				services.AddSingleton<IDataStore, SQLiteDataStore>();
+				services.AddSingleton<IDataLoader, SampleDataLoader>();
+				services.AddSingleton<IDataUploader, SampleDataUploader>();
+			}
+			else
+			{
+				services.AddSingleton<IDataStore, SQLiteDataStore>();
+				services.AddSingleton<IDataLoader, AzureDataLoader>();
+				services.AddSingleton<IDataUploader, AzureDataUploader>();
+			}
 
-            services.AddTransient<MyProfileEditViewModel>();
+			services.AddTransient<AboutViewModel>(); //viewmodel are created new, everytime
+			services.AddTransient<AnnouncementsViewModel>();
+			services.AddTransient<FeedbackViewModel>();
+			services.AddTransient<GeneralInfoViewModel>();
+			services.AddTransient<LocalWeatherViewModel>();
+			services.AddTransient<MyFavoritesViewModel>();
+			services.AddTransient<MyProfileViewModel>();
+			services.AddTransient<SessionsByRoomViewModel>();
+			services.AddTransient<SessionsByTimeViewModel>();
+			services.AddTransient<SpeakerViewModel>();
+			services.AddTransient<WorkshopsViewModel>();
 
-            //services.AddTransient<MainPage>();
+			services.AddTransient<MyProfileEditViewModel>();
 
-            services.AddSingleton<App>(); //App is a singleton
-        }
-    }
+			//services.AddTransient<MainPage>();
+
+			services.AddSingleton<App>(); //App is a singleton
+		}
+	}
 }
