@@ -63,13 +63,14 @@ namespace MSC.CM.XaSh
 
 		private static void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
 		{
-			services.AddHttpClient("TokenAuth", client =>
+			services.AddHttpClient(Consts.UNAUTHORIZED, client =>
 			{
 				client.BaseAddress = new Uri(App.AzureBackendUrl);
 			}).ConfigureHttpClient(client =>
 			{
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+				client.DefaultRequestHeaders.Add("api-version", "1"); // Not needed for token auth calls, but needed for heartbeat check.
 			})
 			.AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
 			{
@@ -78,7 +79,7 @@ namespace MSC.CM.XaSh
 				TimeSpan.FromSeconds(10)
 			}));
 
-			services.AddHttpClient("BackEndAPI", client =>
+			services.AddHttpClient(Consts.AUTHORIZED, client =>
 			{
 				client.BaseAddress = new Uri(App.AzureBackendUrl);
 			}).ConfigureHttpClient(client =>
@@ -87,11 +88,9 @@ namespace MSC.CM.XaSh
 				client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 				client.DefaultRequestHeaders.Add("api-version", "1");
 
-				//when we initially start up here, we don't have a token yet
-				string jwt = App.Token;
-				//System.Net.Http.Headers.AuthenticationHeaderValue authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", jwt);
-				client.DefaultRequestHeaders.Add("Authorization", $"Bearer {jwt}");
-				//client.DefaultRequestHeaders.Authorization = authorization;
+				string jwt = App.Token; // This gets configured after user login.
+				System.Net.Http.Headers.AuthenticationHeaderValue authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", jwt);
+				client.DefaultRequestHeaders.Authorization = authorization; // client.DefaultRequestHeaders.Add("Authorization", $"Bearer {jwt}");
 			})
 			.AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
 			{
