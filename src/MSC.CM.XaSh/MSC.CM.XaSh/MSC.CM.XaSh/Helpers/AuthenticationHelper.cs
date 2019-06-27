@@ -24,8 +24,8 @@ namespace MSC.CM.XaSh.Helpers
             AsyncHelper.RunSync(async () =>
             {
                 SecureStorage.SetAsync(Consts.AUTH_TOKEN, authToken);
-                SecureStorage.SetAsync(Consts.AUTH_TOKEN, refreshToken);
-                SecureStorage.SetAsync(Consts.AUTH_TOKEN, expiration);
+                SecureStorage.SetAsync(Consts.REFRESH_TOKEN, refreshToken);
+                //SecureStorage.SetAsync(Consts.TOKEN_EXPIRATION, expiration);
             });
         }
     }
