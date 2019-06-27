@@ -27,14 +27,18 @@
             <StackLayout>
                 <Label Text="Welcome!" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large" />
                 <Label Text="Choose a test user:" HorizontalOptions="Center" VerticalOptions="Center" />
-                <Picker SelectedIndex="{Binding CurrentUserId, Mode=TwoWay}" WidthRequest="150" HorizontalOptions="Center" VerticalOptions="Center">
+                <Picker SelectedItem="{Binding CurrentUserEmail, Mode=TwoWay}"
+                        WidthRequest="250" HorizontalOptions="Center" VerticalOptions="Center">
                     <Picker.Items>
-                        <x:String>No One Logged In</x:String>
-                        <x:String>David (1)</x:String>
-                        <x:String>James (2)</x:String>
-                        <x:String>Donovan (3)</x:String>
+                        <x:String>David@example.com</x:String>
+                        <x:String>James@example.com</x:String>
+                        <x:String>Donovan@example.com</x:String>
                     </Picker.Items>
                 </Picker>
+                <Entry Text="{Binding CurrentUserPassword, Mode=TwoWay}" IsPassword="True"
+                       WidthRequest="250" HorizontalOptions="Center" VerticalOptions="Center" />
+                <Button Text="Login"  Command="{Binding LoginCommand}"
+                       WidthRequest="150" HorizontalOptions="Center" VerticalOptions="Center" />
             </StackLayout>
         </ScrollView>
     </Grid>

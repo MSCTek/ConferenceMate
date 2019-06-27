@@ -27,7 +27,7 @@ namespace MSC.CM.XaSh.Views
 
         private async Task Refresh()
         {
-            await viewModel.RefreshUserData();
+            //await viewModel.RefreshUserData();
         }
     }
 }
