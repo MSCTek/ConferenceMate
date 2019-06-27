@@ -23,18 +23,13 @@ using static MSC.ConferenceMate.DataService.Constants.Enums;
 
 namespace MSC.CM.XaSh.Services
 {
-    public class AzureDataLoader : IDataLoader
+    public class AzureDataLoader : AzureDataLoaderBase, IDataLoader
     {
         private const int MAX_MINUTES_BETWEEN_UPDATES = 10;
 
-        private IHttpClientFactory _httpClientFactory;
-        private ILogger<AzureDataLoader> _logger;
-        private SQLiteAsyncConnection conn = App.Database.conn;
-
         public AzureDataLoader(IHttpClientFactory httpClientFactory = null, ILogger<AzureDataLoader> logger = null)
+            : base(httpClientFactory, logger)
         {
-            _logger = logger;
-            _httpClientFactory = httpClientFactory;
         }
 
         public enum UpdateableTableNames
@@ -47,47 +42,14 @@ namespace MSC.CM.XaSh.Services
 
         private bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
 
-        private IWebApiDataServiceCM WebAPIDataService
+        public Task<bool> CheckNetworkAndAPIHeartbeat()
         {
-            get
-            {
-                var client = _httpClientFactory == null ? new HttpClient() : _httpClientFactory.CreateClient("BackEndAPI");
-                return new WebApiDataServiceCM(null, client);
-            }
+            throw new NotImplementedException();
         }
 
-        public async Task<bool> CheckNetworkAndAPIHeartbeat()
+        public Task<bool> CheckRefreshAuthToken()
         {
-            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                Debug.WriteLine($"No internet connection {Connectivity.NetworkAccess.ToString()}");
-                return false;
-            }
-            else
-            {
-                if (await HeartbeatCheck())
-                {
-                    //we have connectivity and the API is up
-                    return true;
-                }
-                else
-                {
-                    Debug.WriteLine("API Heartbeat Failed");
-                    Analytics.TrackEvent("API Heartbeat Failed");
-                    return false;
-                }
-            }
-        }
-
-        public async Task<bool> CheckRefreshAuthToken()
-        {
-            //TODO:
-            //check Auth Token - these are good for 1 hr right now
-
-            //refresh auth token with refresh token, if necessary and possible
-
-            //refresh both tokens, if necessary - right now, this should happen when the profile changes
-            return true;
+            throw new NotImplementedException();
         }
 
         public async Task<bool> GetAuthToken(string user, string pass)
@@ -101,16 +63,18 @@ namespace MSC.CM.XaSh.Services
                     new KeyValuePair<string, string>("password", pass)
                 });
 
-                var client = _httpClientFactory == null ? new HttpClient() : _httpClientFactory.CreateClient("TokenAuth");
+                var client = GetHttpClient(Consts.UNAUTHORIZED);
                 var result = await client.PostAsync("/api/token ", content);
 
                 if (result.IsSuccessStatusCode)
                 {
                     var resultContent = JsonConvert.DeserializeObject<AuthenticationResult>(await result.Content.ReadAsStringAsync());
+                    //App.Token = resultContent.access_token;
 
-                    await SecureStorage.SetAsync(App.AUTH_TOKEN, resultContent.access_token);
-                    await SecureStorage.SetAsync(App.REFRESH_TOKEN, resultContent.refresh_token);
-                    await SecureStorage.SetAsync(App.TOKEN_EXPIRATION, resultContent.expires);
+                    //TODO: get the refresh token out of here too
+
+                    //AuthenticationHeaderValue auth = new AuthenticationHeaderValue("bearer", resultContent.access_token);
+                    //_client.DefaultRequestHeaders.Add(auth);
 
                     Analytics.TrackEvent("Successful Login", new Dictionary<string, string> { { "user", user } });
 
@@ -118,12 +82,7 @@ namespace MSC.CM.XaSh.Services
                 }
                 else
                 {
-                    SecureStorage.Remove(App.AUTH_TOKEN);
-                    SecureStorage.Remove(App.REFRESH_TOKEN);
-                    SecureStorage.Remove(App.TOKEN_EXPIRATION);
-
                     Analytics.TrackEvent("Unsuccessful Login", new Dictionary<string, string> { { "user", user } });
-
                     return false;
                 }
             }
@@ -140,7 +99,8 @@ namespace MSC.CM.XaSh.Services
             try
             {
                 Debug.WriteLine("Heartbeat Check");
-                return await WebAPIDataService.IsServiceOnlineAsync();
+                bool result = await GetWebAPIDataService(Consts.UNAUTHORIZED).IsServiceOnlineAsync();
+                return result;
             }
             catch (Exception ex)
             {
@@ -156,25 +116,25 @@ namespace MSC.CM.XaSh.Services
                 DateTime? lastUpdatedDate = null;
                 if (!forceRefresh)
                 {
-                    if (await conn.Table<Announcement>().CountAsync() > 0)
+                    if (await _conn.Table<Announcement>().CountAsync() > 0)
                     {
-                        var lastUpdated = await conn.Table<Announcement>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                        var lastUpdated = await _conn.Table<Announcement>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
                         lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
                     }
                 }
                 else
                 {
                     //truncate the table
-                    await conn.Table<Announcement>().DeleteAsync();
+                    await _conn.Table<Announcement>().DeleteAsync();
                 }
 
-                var dtos = await WebAPIDataService.GetAllPagesAnnouncementsAsync(lastUpdatedDate);
+                var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesAnnouncementsAsync(lastUpdatedDate);
                 int count = 0;
                 if (dtos.Any())
                 {
                     foreach (var r in dtos)
                     {
-                        count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                        count += await _conn.InsertOrReplaceAsync(r.ToModelData());
                     }
                     return count;
                 }
@@ -197,24 +157,24 @@ namespace MSC.CM.XaSh.Services
                 DateTime? lastUpdatedDate = null;
                 if (!forceRefresh)
                 {
-                    if (await conn.Table<FeedbackInitiatorType>().CountAsync() > 0)
+                    if (await _conn.Table<FeedbackInitiatorType>().CountAsync() > 0)
                     {
-                        var lastUpdated = await conn.Table<FeedbackInitiatorType>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                        var lastUpdated = await _conn.Table<FeedbackInitiatorType>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
                         lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
                     }
                 }
                 else
                 {
                     //truncate the table
-                    await conn.Table<FeedbackInitiatorType>().DeleteAsync();
+                    await _conn.Table<FeedbackInitiatorType>().DeleteAsync();
                 }
-                var dtos = await WebAPIDataService.GetAllPagesFeedbackInitiatorTypesAsync(lastUpdatedDate);
+                var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesFeedbackInitiatorTypesAsync(lastUpdatedDate);
                 int count = 0;
                 if (dtos.Any())
                 {
                     foreach (var r in dtos)
                     {
-                        count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                        count += await _conn.InsertOrReplaceAsync(r.ToModelData());
                     }
                     return count;
                 }
@@ -237,24 +197,24 @@ namespace MSC.CM.XaSh.Services
                 DateTime? lastUpdatedDate = null;
                 if (!forceRefresh)
                 {
-                    if (await conn.Table<FeedbackType>().CountAsync() > 0)
+                    if (await _conn.Table<FeedbackType>().CountAsync() > 0)
                     {
-                        var lastUpdated = await conn.Table<FeedbackType>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                        var lastUpdated = await _conn.Table<FeedbackType>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
                         lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
                     }
                 }
                 else
                 {
                     //truncate the table
-                    await conn.Table<FeedbackType>().DeleteAsync();
+                    await _conn.Table<FeedbackType>().DeleteAsync();
                 }
-                var dtos = await WebAPIDataService.GetAllPagesFeedbackTypesAsync(lastUpdatedDate);
+                var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesFeedbackTypesAsync(lastUpdatedDate);
                 int count = 0;
                 if (dtos.Any())
                 {
                     foreach (var r in dtos)
                     {
-                        count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                        count += await _conn.InsertOrReplaceAsync(r.ToModelData());
                     }
                     return count;
                 }
@@ -277,24 +237,24 @@ namespace MSC.CM.XaSh.Services
                 DateTime? lastUpdatedDate = null;
                 if (!forceRefresh)
                 {
-                    if (await conn.Table<Room>().CountAsync() > 0)
+                    if (await _conn.Table<Room>().CountAsync() > 0)
                     {
-                        var lastUpdated = await conn.Table<Room>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                        var lastUpdated = await _conn.Table<Room>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
                         lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
                     }
                 }
                 else
                 {
                     //truncate the table
-                    await conn.Table<Room>().DeleteAsync();
+                    await _conn.Table<Room>().DeleteAsync();
                 }
-                var dtos = await WebAPIDataService.GetAllPagesRoomsAsync(lastUpdatedDate);
+                var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesRoomsAsync(lastUpdatedDate);
                 int count = 0;
                 if (dtos.Any())
                 {
                     foreach (var r in dtos)
                     {
-                        count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                        count += await _conn.InsertOrReplaceAsync(r.ToModelData());
                     }
                     return count;
                 }
@@ -319,24 +279,24 @@ namespace MSC.CM.XaSh.Services
                     DateTime? lastUpdatedDate = null;
                     if (!forceRefresh)
                     {
-                        if (await conn.Table<SessionLike>().CountAsync() > 0)
+                        if (await _conn.Table<SessionLike>().CountAsync() > 0)
                         {
-                            var lastUpdated = await conn.Table<SessionLike>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                            var lastUpdated = await _conn.Table<SessionLike>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
                             lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
                         }
                     }
                     else
                     {
                         //truncate the table
-                        await conn.Table<SessionLike>().DeleteAsync();
+                        await _conn.Table<SessionLike>().DeleteAsync();
                     }
-                    var dtos = await WebAPIDataService.GetAllPagesSessionLikesAsync(lastUpdatedDate);
+                    var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesSessionLikesAsync(lastUpdatedDate);
                     int count = 0;
                     if (dtos.Any())
                     {
                         foreach (var r in dtos)
                         {
-                            count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                            count += await _conn.InsertOrReplaceAsync(r.ToModelData());
                         }
                         SetLastUpdatedNow(UpdateableTableNames.SessionLike);
                         return count;
@@ -364,24 +324,24 @@ namespace MSC.CM.XaSh.Services
                     DateTime? lastUpdatedDate = null;
                     if (!forceRefresh)
                     {
-                        if (await conn.Table<Session>().CountAsync() > 0)
+                        if (await _conn.Table<Session>().CountAsync() > 0)
                         {
-                            var lastUpdated = await conn.Table<Session>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                            var lastUpdated = await _conn.Table<Session>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
                             lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
                         }
                     }
                     else
                     {
                         //truncate the table
-                        await conn.Table<Session>().DeleteAsync();
+                        await _conn.Table<Session>().DeleteAsync();
                     }
-                    var dtos = await WebAPIDataService.GetAllPagesSessionsAsync(lastUpdatedDate);
+                    var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesSessionsAsync(lastUpdatedDate);
                     int count = 0;
                     if (dtos.Any())
                     {
                         foreach (var r in dtos)
                         {
-                            count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                            count += await _conn.InsertOrReplaceAsync(r.ToModelData());
                         }
                         SetLastUpdatedNow(UpdateableTableNames.Session);
                         return count;
@@ -409,24 +369,24 @@ namespace MSC.CM.XaSh.Services
                     DateTime? lastUpdatedDate = null;
                     if (!forceRefresh)
                     {
-                        if (await conn.Table<SessionSpeaker>().CountAsync() > 0)
+                        if (await _conn.Table<SessionSpeaker>().CountAsync() > 0)
                         {
-                            var lastUpdated = await conn.Table<SessionSpeaker>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                            var lastUpdated = await _conn.Table<SessionSpeaker>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
                             lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
                         }
                     }
                     else
                     {
                         //truncate the table
-                        await conn.Table<SessionSpeaker>().DeleteAsync();
+                        await _conn.Table<SessionSpeaker>().DeleteAsync();
                     }
-                    var dtos = await WebAPIDataService.GetAllPagesSessionSpeakersAsync(lastUpdatedDate);
+                    var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesSessionSpeakersAsync(lastUpdatedDate);
                     int count = 0;
                     if (dtos.Any())
                     {
                         foreach (var r in dtos)
                         {
-                            count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                            count += await _conn.InsertOrReplaceAsync(r.ToModelData());
                         }
                         SetLastUpdatedNow(UpdateableTableNames.SessionSpeaker);
                         return count;
@@ -454,24 +414,24 @@ namespace MSC.CM.XaSh.Services
                     DateTime? lastUpdatedDate = null;
                     if (!forceRefresh)
                     {
-                        if (await conn.Table<UserProfile>().CountAsync() > 0)
+                        if (await _conn.Table<UserProfile>().CountAsync() > 0)
                         {
-                            var lastUpdated = await conn.Table<UserProfile>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
+                            var lastUpdated = await _conn.Table<UserProfile>().OrderByDescending(x => x.ModifiedUtcDate).FirstAsync();
                             lastUpdatedDate = lastUpdated != null ? lastUpdated?.ModifiedUtcDate : null;
                         }
                     }
                     else
                     {
                         //truncate the table
-                        await conn.Table<UserProfile>().DeleteAsync();
+                        await _conn.Table<UserProfile>().DeleteAsync();
                     }
-                    var dtos = await WebAPIDataService.GetAllPagesUserProfilesAsync(lastUpdatedDate);
+                    var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesUserProfilesAsync(lastUpdatedDate);
                     int count = 0;
                     if (dtos.Any())
                     {
                         foreach (var r in dtos)
                         {
-                            count += await conn.InsertOrReplaceAsync(r.ToModelData());
+                            count += await _conn.InsertOrReplaceAsync(r.ToModelData());
                         }
                         SetLastUpdatedNow(UpdateableTableNames.User);
                         return count;
@@ -493,7 +453,7 @@ namespace MSC.CM.XaSh.Services
         private async Task<bool> NeedsDataRefresh(UpdateableTableNames updateableTableName)
         {
             string tableName = updateableTableName.ToString();
-            var record = await conn.Table<MobileModelData.LastUpdated>().Where(x => x.TableName == tableName).FirstOrDefaultAsync();
+            var record = await _conn.Table<MobileModelData.LastUpdated>().Where(x => x.TableName == tableName).FirstOrDefaultAsync();
             if (record != null)
             {
                 return (record.LastUpdatedUTC < DateTime.UtcNow.AddMinutes(MAX_MINUTES_BETWEEN_UPDATES)) ? true : false;
@@ -503,7 +463,7 @@ namespace MSC.CM.XaSh.Services
 
         private async Task<bool> SetLastUpdatedNow(UpdateableTableNames updateableTableName)
         {
-            return 1 == await conn.InsertOrReplaceAsync(new MobileModelData.LastUpdated() { TableName = updateableTableName.ToString(), LastUpdatedUTC = DateTime.UtcNow });
+            return 1 == await _conn.InsertOrReplaceAsync(new MobileModelData.LastUpdated() { TableName = updateableTableName.ToString(), LastUpdatedUTC = DateTime.UtcNow });
         }
     }
 }
