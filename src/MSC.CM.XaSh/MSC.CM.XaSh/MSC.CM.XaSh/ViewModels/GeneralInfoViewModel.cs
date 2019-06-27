@@ -75,7 +75,7 @@ namespace MSC.CM.XaSh.ViewModels
         private void AutoLogin(int currentUser)
         {
             //set the userprofileid in the preferences
-            Preferences.Set(App.CURRENT_USER_ID, CurrentUserId);
+            Preferences.Set(Consts.CURRENT_USER_ID, CurrentUserId);
 
             //we are hot wiring a car here... until we build proper authentication UI
             var email = string.Empty;
@@ -94,19 +94,22 @@ namespace MSC.CM.XaSh.ViewModels
 
         private bool IsUserLoggedIn()
         {
-            var currentId = Preferences.Get(App.CURRENT_USER_ID, 0);
+            //TODO: Rework this a bit - this is set up for quick testing right now
+            var currentId = Preferences.Get(Consts.CURRENT_USER_ID, 0);
             if (currentId == 0)
             {
                 //no user logged in yet
-                Preferences.Set(App.CURRENT_USER_EMAIL, string.Empty);
-                CurrentUserPassword = "test";
+                Preferences.Set(Consts.CURRENT_USER_ID, 1);
+                Preferences.Set(Consts.CURRENT_USER_EMAIL, "David@example.com");
+                CurrentUserEmail = "David@example.com";
+                CurrentUserPassword = "test"; //TODO: ONLY FOR TESTING
                 return false;
             }
             else
             {
                 //there is a user logged in
-                CurrentUserEmail = Preferences.Get(App.CURRENT_USER_EMAIL, string.Empty);
-                CurrentUserPassword = "test";
+                CurrentUserEmail = Preferences.Get(Consts.CURRENT_USER_EMAIL, string.Empty);
+                CurrentUserPassword = "test"; //TODO: ONLY FOR TESTING
                 return true;
             }
         }

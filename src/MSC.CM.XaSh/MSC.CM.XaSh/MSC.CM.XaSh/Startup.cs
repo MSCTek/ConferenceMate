@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using MSC.CM.Xam.ModelObj.CM;
+using MSC.CM.XaSh.Helpers;
 using MSC.CM.XaSh.Services;
 using MSC.CM.XaSh.ViewModels;
 using Polly;
@@ -88,7 +89,7 @@ namespace MSC.CM.XaSh
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("api-version", "1");
 
-                //string jwt = App.Token; // This gets configured after user login.
+                string jwt = AuthenticationHelper.GetToken(); // This gets configured after user login.
                 System.Net.Http.Headers.AuthenticationHeaderValue authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", jwt);
                 client.DefaultRequestHeaders.Authorization = authorization; // client.DefaultRequestHeaders.Add("Authorization", $"Bearer {jwt}");
             })

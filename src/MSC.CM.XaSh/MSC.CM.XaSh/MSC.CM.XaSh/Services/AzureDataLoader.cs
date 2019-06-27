@@ -69,19 +69,14 @@ namespace MSC.CM.XaSh.Services
                 if (result.IsSuccessStatusCode)
                 {
                     var resultContent = JsonConvert.DeserializeObject<AuthenticationResult>(await result.Content.ReadAsStringAsync());
-                    //App.Token = resultContent.access_token;
 
-                    //TODO: get the refresh token out of here too
-
-                    //AuthenticationHeaderValue auth = new AuthenticationHeaderValue("bearer", resultContent.access_token);
-                    //_client.DefaultRequestHeaders.Add(auth);
-
+                    AuthenticationHelper.SetTokens(resultContent.access_token, resultContent.refresh_token, resultContent.expires);
                     Analytics.TrackEvent("Successful Login", new Dictionary<string, string> { { "user", user } });
-
                     return true;
                 }
                 else
                 {
+                    AuthenticationHelper.ClearSecureStorageAuthValues();
                     Analytics.TrackEvent("Unsuccessful Login", new Dictionary<string, string> { { "user", user } });
                     return false;
                 }
