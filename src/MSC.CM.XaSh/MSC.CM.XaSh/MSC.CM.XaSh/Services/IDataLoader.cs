@@ -7,6 +7,8 @@ namespace MSC.CM.XaSh.Services
 {
     public interface IDataLoader
     {
+        Task<bool> GetAuthToken(string user, string pass);
+
         Task<bool> HeartbeatCheck();
 
         Task<int> LoadAnnouncementsAsync(bool forceRefresh = false);
