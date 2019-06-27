@@ -13,10 +13,12 @@ namespace MSC.CM.XaSh
 {
     public partial class App : Application
     {
+        public const string AUTH_TOKEN = "AUTH_TOKEN";
         public const string CURRENT_USER_EMAIL = "CURRENT_USER_EMAIL";
         public const string CURRENT_USER_ID = "CURRENT_USER_ID";
+        public const string REFRESH_TOKEN = "REFRESH_TOKEN";
+        public const string TOKEN_EXPIRATION = "TOKEN_EXPIRATION";
         public static string AzureBackendUrl = "https://conferencemate.azurewebsites.net/api/";
-        public static string Token;
         private static ConferenceMateDatabase database;
 
         public App()

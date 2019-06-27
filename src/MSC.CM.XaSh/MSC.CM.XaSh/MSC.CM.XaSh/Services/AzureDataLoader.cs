@@ -56,6 +56,40 @@ namespace MSC.CM.XaSh.Services
             }
         }
 
+        public async Task<bool> CheckNetworkAndAPIHeartbeat()
+        {
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                Debug.WriteLine($"No internet connection {Connectivity.NetworkAccess.ToString()}");
+                return false;
+            }
+            else
+            {
+                if (await HeartbeatCheck())
+                {
+                    //we have connectivity and the API is up
+                    return true;
+                }
+                else
+                {
+                    Debug.WriteLine("API Heartbeat Failed");
+                    Analytics.TrackEvent("API Heartbeat Failed");
+                    return false;
+                }
+            }
+        }
+
+        public async Task<bool> CheckRefreshAuthToken()
+        {
+            //TODO:
+            //check Auth Token - these are good for 1 hr right now
+
+            //refresh auth token with refresh token, if necessary and possible
+
+            //refresh both tokens, if necessary - right now, this should happen when the profile changes
+            return true;
+        }
+
         public async Task<bool> GetAuthToken(string user, string pass)
         {
             try
@@ -73,12 +107,10 @@ namespace MSC.CM.XaSh.Services
                 if (result.IsSuccessStatusCode)
                 {
                     var resultContent = JsonConvert.DeserializeObject<AuthenticationResult>(await result.Content.ReadAsStringAsync());
-                    App.Token = resultContent.access_token;
 
-                    //TODO: get the refresh token out of here too
-
-                    //AuthenticationHeaderValue auth = new AuthenticationHeaderValue("bearer", resultContent.access_token);
-                    //_client.DefaultRequestHeaders.Add(auth);
+                    await SecureStorage.SetAsync(App.AUTH_TOKEN, resultContent.access_token);
+                    await SecureStorage.SetAsync(App.REFRESH_TOKEN, resultContent.refresh_token);
+                    await SecureStorage.SetAsync(App.TOKEN_EXPIRATION, resultContent.expires);
 
                     Analytics.TrackEvent("Successful Login", new Dictionary<string, string> { { "user", user } });
 
@@ -86,7 +118,12 @@ namespace MSC.CM.XaSh.Services
                 }
                 else
                 {
+                    SecureStorage.Remove(App.AUTH_TOKEN);
+                    SecureStorage.Remove(App.REFRESH_TOKEN);
+                    SecureStorage.Remove(App.TOKEN_EXPIRATION);
+
                     Analytics.TrackEvent("Unsuccessful Login", new Dictionary<string, string> { { "user", user } });
+
                     return false;
                 }
             }

@@ -12,6 +12,16 @@ namespace MSC.CM.XaSh.Services
     {
         private SQLiteAsyncConnection conn = App.Database.conn;
 
+        public async Task<bool> CheckNetworkAndAPIHeartbeat()
+        {
+            return true;
+        }
+
+        public async Task<bool> CheckRefreshAuthToken()
+        {
+            return true;
+        }
+
         public async Task<bool> GetAuthToken(string user, string pass)
         {
             return true;

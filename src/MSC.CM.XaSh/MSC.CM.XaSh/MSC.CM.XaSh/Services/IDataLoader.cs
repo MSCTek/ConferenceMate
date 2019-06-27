@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace MSC.CM.XaSh.Services
 {
     public interface IDataLoader
     {
+        Task<bool> CheckNetworkAndAPIHeartbeat();
+
+        Task<bool> CheckRefreshAuthToken();
+
         Task<bool> GetAuthToken(string user, string pass);
 
         Task<bool> HeartbeatCheck();
