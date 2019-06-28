@@ -5,6 +5,9 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using MSC.ConferenceMate.API.Models;
 using MSC.ConferenceMate.API.Utils;
+using MSC.ConferenceMate.Repository;
+using MSC.ConferenceMate.Repository.Entities.CM;
+using MSC.ConferenceMate.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +31,7 @@ namespace MSC.ConferenceMate.API.Providers
 			_publicClientId = publicClientId;
 		}
 
-		public static AuthenticationProperties CreateProperties(string userName, string userId, IEnumerable<string> roles)
+		public static AuthenticationProperties CreateProperties(string userName, string userId, IEnumerable<string> roles, UserProfile userProfile)
 		{
 			IDictionary<string, string> data = new Dictionary<string, string>
 			{
@@ -36,6 +39,12 @@ namespace MSC.ConferenceMate.API.Providers
 				{ "userId", userId },
 				{ "roles", string.Join(",", roles.Select(x=>x.ToLower())) },
 			};
+
+			if (userProfile != null)
+			{
+				data.Add("userProfileId", userProfile.UserProfileId.ToString());
+			}
+
 			return new AuthenticationProperties(data);
 		}
 
@@ -100,7 +109,13 @@ namespace MSC.ConferenceMate.API.Providers
 				ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
 					CookieAuthenticationDefaults.AuthenticationType);
 
-				AuthenticationProperties properties = CreateProperties(user.UserName, user.Id, roles);
+				// Populate the UserProfileId into the ticket as well.
+				var dataContextFactory = new CMDataContextFactory();
+				var dataContext = dataContextFactory.Create();
+				ICMRepository repository = new CMRepository(dataContext);
+				var userProfileRecord = repository.CMDataContext.UserProfiles.SingleOrDefault(x => x.AspNetUsersId == user.Id);
+
+				AuthenticationProperties properties = CreateProperties(user.UserName, user.Id, roles, userProfileRecord);
 
 				AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
 				context.Validated(ticket);
