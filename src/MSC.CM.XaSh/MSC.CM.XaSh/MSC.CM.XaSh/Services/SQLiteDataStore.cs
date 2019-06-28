@@ -56,7 +56,7 @@ namespace MSC.CM.XaSh.Services
             //includes session and user data
             var returnMe = new List<objModel.Session>();
             var dataResults = await conn.Table<dataModel.SessionLike>().Where(x => x.IsDeleted == false).ToListAsync();
-            int currentUserProfileId = Preferences.Get(Consts.CURRENT_USER_ID, 0);
+            int currentUserProfileId = Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0);
 
             if (dataResults.Any())
             {
@@ -118,7 +118,7 @@ namespace MSC.CM.XaSh.Services
             //includes session, speaker and favorite data
             var returnMe = new List<objModel.Session>();
             var dataResults = await conn.Table<dataModel.Session>().ToListAsync();
-            int currentUserProfileId = Preferences.Get(Consts.CURRENT_USER_ID, 0);
+            int currentUserProfileId = Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0);
             if (dataResults.Any())
             {
                 foreach (var d in dataResults)
@@ -152,7 +152,7 @@ namespace MSC.CM.XaSh.Services
             //includes session and room data
             var returnMe = new List<objModel.Session>();
             var dataResults = await conn.Table<dataModel.Session>().ToListAsync();
-            int currentUserProfileId = Preferences.Get(Consts.CURRENT_USER_ID, 0);
+            int currentUserProfileId = Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0);
             if (dataResults.Any())
             {
                 foreach (var d in dataResults)
@@ -199,9 +199,15 @@ namespace MSC.CM.XaSh.Services
             return returnMe;
         }
 
-        public async Task<objModel.UserProfile> GetUserByUserProfileIdAsync(int userProfileId)
+        public async Task<objModel.UserProfile> GetUserByAspNetUsersIdAsync(string userId)
         {
-            var dataResult = await conn.Table<dataModel.UserProfile>().Where(x => x.UserProfileId == userProfileId).FirstOrDefaultAsync();
+            var dataResult = await conn.Table<dataModel.UserProfile>().Where(x => x.AspNetUsersId == userId).FirstOrDefaultAsync();
+            return (dataResult != null) ? dataResult.ToModelObj() : null;
+        }
+
+        public async Task<objModel.UserProfile> GetUserByUserProfileIdAsync(int userId)
+        {
+            var dataResult = await conn.Table<dataModel.UserProfile>().Where(x => x.UserProfileId == userId).FirstOrDefaultAsync();
             return (dataResult != null) ? dataResult.ToModelObj() : null;
         }
 
@@ -217,9 +223,9 @@ namespace MSC.CM.XaSh.Services
             }
             else
             {   // Create new data record.
-                if (Preferences.Get(Consts.CURRENT_USER_ID, 0) != 0)
+                if (Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0) != 0)
                 {
-                    var user = await GetUserByUserProfileIdAsync(Preferences.Get(Consts.CURRENT_USER_ID, 0));
+                    var user = await GetUserByUserProfileIdAsync(Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0));
                     if (user != null)
                     {
                         dataResult = new dataModel.SessionLike()
@@ -238,7 +244,7 @@ namespace MSC.CM.XaSh.Services
                     else
                     {
                         Debug.WriteLine("Can't find user in SQLite");
-                        Analytics.TrackEvent($"SetSessionLikeAsync - Can't find user in SQLite - id: {Preferences.Get(Consts.CURRENT_USER_ID, 0)}");
+                        Analytics.TrackEvent($"SetSessionLikeAsync - Can't find user in SQLite - id: {Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0)}");
                     }
                 }
                 else

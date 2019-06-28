@@ -11,7 +11,17 @@ namespace MSC.CM.XaSh.Helpers
         {
             SecureStorage.Remove(Consts.AUTH_TOKEN);
             SecureStorage.Remove(Consts.REFRESH_TOKEN);
-            SecureStorage.Remove(Consts.TOKEN_EXPIRATION);
+            SecureStorage.Remove(Consts.TOKEN_EXPIRATION_UTC);
+        }
+
+        public static string GetExpirationUTC()
+        {
+            return AsyncHelper.RunSync(() => SecureStorage.GetAsync(Consts.TOKEN_EXPIRATION_UTC));
+        }
+
+        public static string GetRefreshToken()
+        {
+            return AsyncHelper.RunSync(() => SecureStorage.GetAsync(Consts.REFRESH_TOKEN));
         }
 
         public static string GetToken()
@@ -25,7 +35,7 @@ namespace MSC.CM.XaSh.Helpers
             {
                 SecureStorage.SetAsync(Consts.AUTH_TOKEN, authToken);
                 SecureStorage.SetAsync(Consts.REFRESH_TOKEN, refreshToken);
-                //SecureStorage.SetAsync(Consts.TOKEN_EXPIRATION, expiration);
+                SecureStorage.SetAsync(Consts.TOKEN_EXPIRATION_UTC, expiration);
             });
         }
     }
@@ -41,5 +51,6 @@ namespace MSC.CM.XaSh.Helpers
         public string token_type { get; set; }
         public string userId { get; set; }
         public string userName { get; set; }
+        public int userProfileId { get; set; }
     }
 }

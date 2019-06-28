@@ -36,9 +36,11 @@ namespace MSC.CM.XaSh.ViewModels
             set { Set(ref _title, value); }
         }
 
+        internal bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
+
         public async Task CheckAppCenter()
         {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            if (IsConnected)
             {
                 try
                 {

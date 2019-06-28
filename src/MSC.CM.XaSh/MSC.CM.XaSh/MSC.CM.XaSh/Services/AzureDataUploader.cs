@@ -47,6 +47,8 @@ namespace MSC.CM.XaSh.Services
         {
         }
 
+        private bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
+
         //How many are queued, failed > MaxNumAttempts times?
         public async Task<int> GetCountQueuedRecordsWAttemptsAsync()
         {
@@ -56,7 +58,7 @@ namespace MSC.CM.XaSh.Services
                 //sending a message to AppCenter right away with user info
                 var dict = new Dictionary<string, string>
                     {
-                       { "userId", Preferences.Get(Consts.CURRENT_USER_ID, 0).ToString() },
+                       { "userId", Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0).ToString() },
                        { "recordCount", count.ToString() },
                        { "maxNumAttempts", MaxNumAttempts.ToString() },
                     };
@@ -127,7 +129,7 @@ namespace MSC.CM.XaSh.Services
                 return;
             }
 
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            if (IsConnected)
             {
                 await RunQueuedUpdatesAsync(token);
             }
@@ -139,7 +141,7 @@ namespace MSC.CM.XaSh.Services
 
         public void StartSafeQueuedUpdates()
         {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet) MessagingCenter.Send<StartUploadDataMessage>(new StartUploadDataMessage(), "StartUploadDataMessage");
+            if (IsConnected) MessagingCenter.Send<StartUploadDataMessage>(new StartUploadDataMessage(), "StartUploadDataMessage");
         }
 
         private async Task<bool> RunQueuedFeedbackCreate(UploadQueue q)

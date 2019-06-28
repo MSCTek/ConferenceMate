@@ -85,14 +85,13 @@ namespace MSC.CM.XaSh.ViewModels
         public async Task LoadVM()
         {
             //see if there is a user 'logged in'
-            int currentUserProfileId = Preferences.Get(Consts.CURRENT_USER_ID, 0);
-            if (currentUserProfileId != 0)
+            int currentUserId = Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0);
+            if (currentUserId != 0)
             {
-                CurrentUser = await DataStore.GetUserByUserProfileIdAsync(currentUserProfileId);
+                CurrentUser = await DataStore.GetUserByUserProfileIdAsync(currentUserId);
 
                 Biography = CurrentUser.Biography;
                 CompanyName = CurrentUser.CompanyName;
-                //Email = CurrentUser.Email;
                 FirstName = CurrentUser.FirstName;
                 LastName = CurrentUser.LastName;
                 JobTitle = CurrentUser.JobTitle;

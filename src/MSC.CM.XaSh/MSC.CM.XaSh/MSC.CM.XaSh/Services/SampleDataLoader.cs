@@ -12,27 +12,55 @@ namespace MSC.CM.XaSh.Services
     {
         private SQLiteAsyncConnection conn = App.Database.conn;
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+
+        public async Task<bool> AuthCheckAndRenewTokenIfNeeded()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+        {
+            return true;
+        }
+
+        public bool AuthCheckTokenExpiration()
+        {
+            return false;
+        }
+
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+
+        public async Task<bool> AuthGetToken(string user, string pass)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+        {
+            return true;
+        }
+
+        public void AuthRemoveToken()
+        {
+        }
+
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+
+        public async Task<bool> AuthRenewRefreshToken()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+        {
+            return true;
+        }
+
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+
         public async Task<bool> CheckNetworkAndAPIHeartbeat()
         {
             return true;
         }
 
-        public async Task<bool> CheckRefreshAuthToken()
-        {
-            return true;
-        }
-
-        public async Task<bool> GetAuthToken(string user, string pass)
-        {
-            return true;
-        }
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
         public async Task<bool> HeartbeatCheck()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             return true;
         }
 
-        public async Task<int> LoadAnnouncementsAsync(bool forceRefresh = false)
+        public async Task<int> LoadAnnouncementsAsync(bool forceRefresh = false, bool secondPass = false)
         {
             if (await conn.Table<Announcement>().CountAsync() > 0)
             {
@@ -47,7 +75,7 @@ namespace MSC.CM.XaSh.Services
             return await conn.InsertAllAsync(myList);
         }
 
-        public async Task<int> LoadFeedbackInitiatorTypesAsync(bool forceRefresh = false)
+        public async Task<int> LoadFeedbackInitiatorTypesAsync(bool forceRefresh = false, bool secondPass = false)
         {
             if (await conn.Table<FeedbackInitiatorType>().CountAsync() > 0)
             {
@@ -62,7 +90,7 @@ namespace MSC.CM.XaSh.Services
             return await conn.InsertAllAsync(myList);
         }
 
-        public async Task<int> LoadFeedbackTypesAsync(bool forceRefresh = false)
+        public async Task<int> LoadFeedbackTypesAsync(bool forceRefresh = false, bool secondPass = false)
         {
             if (await conn.Table<FeedbackType>().CountAsync() > 0)
             {
@@ -77,7 +105,7 @@ namespace MSC.CM.XaSh.Services
             return await conn.InsertAllAsync(myList);
         }
 
-        public async Task<int> LoadRoomsAsync(bool forceRefresh = false)
+        public async Task<int> LoadRoomsAsync(bool forceRefresh = false, bool secondPass = false)
         {
             if (await conn.Table<Room>().CountAsync() > 0)
             {
@@ -92,7 +120,7 @@ namespace MSC.CM.XaSh.Services
             return await conn.InsertAllAsync(myList);
         }
 
-        public async Task<int> LoadSessionLikesAsync(bool forceRefresh = false)
+        public async Task<int> LoadSessionLikesAsync(bool forceRefresh = false, bool secondPass = false)
         {
             if (await conn.Table<SessionLike>().CountAsync() > 0)
             {
@@ -107,7 +135,7 @@ namespace MSC.CM.XaSh.Services
             return await conn.InsertAllAsync(myList);
         }
 
-        public async Task<int> LoadSessionsAsync(bool forceRefresh = false)
+        public async Task<int> LoadSessionsAsync(bool forceRefresh = false, bool secondPass = false)
         {
             if (await conn.Table<Session>().CountAsync() > 0)
             {
@@ -126,7 +154,7 @@ namespace MSC.CM.XaSh.Services
             return await conn.InsertAllAsync(myList);
         }
 
-        public async Task<int> LoadSessionSpeakersAsync(bool forceRefresh = false)
+        public async Task<int> LoadSessionSpeakersAsync(bool forceRefresh = false, bool secondPass = false)
         {
             if (await conn.Table<SessionSpeaker>().CountAsync() > 0)
             {
@@ -141,7 +169,7 @@ namespace MSC.CM.XaSh.Services
             return await conn.InsertAllAsync(myList);
         }
 
-        public async Task<int> LoadUsersAsync(bool forceRefresh = false)
+        public async Task<int> LoadUsersAsync(bool forceRefresh = false, bool secondPass = false)
         {
             if (await conn.Table<UserProfile>().CountAsync() > 0)
             {

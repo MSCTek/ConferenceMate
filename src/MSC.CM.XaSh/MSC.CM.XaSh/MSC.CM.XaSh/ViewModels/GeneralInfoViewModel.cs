@@ -1,4 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using MSC.CM.XaSh.Helpers;
 using MSC.CM.XaSh.Services;
 using System;
@@ -15,6 +17,7 @@ namespace MSC.CM.XaSh.ViewModels
         private string _currentUserEmail;
         private int _currentUserId;
         private string _currentUserPassword;
+        private string _message;
 
         public GeneralInfoViewModel(IDataStore store = null, IDataLoader loader = null)
         {
@@ -22,11 +25,9 @@ namespace MSC.CM.XaSh.ViewModels
             DataLoader = loader;
             Title = "GeneralInfo";
 
-            IsUserLoggedIn();
+            PrePopulateLoginFields();
 
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             base.CheckAppCenter();
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
         }
 
         public string CurrentUserEmail
@@ -47,20 +48,69 @@ namespace MSC.CM.XaSh.ViewModels
             set { Set(ref _currentUserPassword, value); }
         }
 
+        public bool IsUserLoggedIn
+        {
+            get
+            {
+                int profileId = Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0);
+                return (profileId == 0) ? false : true;
+            }
+        }
+
         public RelayCommand LoginCommand
         {
             get
             {
                 return new RelayCommand(async () =>
                 {
-                    await DataLoader.GetAuthToken(CurrentUserEmail, CurrentUserPassword);
+                    IsBusy = true;
+                    try
+                    {
+                        await DataLoader.AuthGetToken(CurrentUserEmail, CurrentUserPassword);
+
+                        UpdateMessage();
+                        RaisePropertyChanged(nameof(IsUserLoggedIn));
+                    }
+                    catch (Exception ex)
+                    {
+                        Crashes.TrackError(ex);
+                    }
+                    IsBusy = false;
                 });
             }
         }
 
+        public RelayCommand LogoutCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    IsBusy = true;
+                    try
+                    {
+                        DataLoader.AuthRemoveToken();
+                        UpdateMessage();
+                        RaisePropertyChanged(nameof(IsUserLoggedIn));
+                    }
+                    catch (Exception ex)
+                    {
+                        Crashes.TrackError(ex);
+                    }
+                    IsBusy = false;
+                });
+            }
+        }
+
+        public string Message
+        {
+            get { return _message; }
+            set { Set(ref _message, value); }
+        }
+
         internal async Task RefreshUserData()
         {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet || App.UseSampleDataStore)
+            if (base.IsConnected || App.UseSampleDataStore)
             {
                 //load SQLite from API or sample data
                 var countUsers = await DataLoader.LoadUsersAsync();
@@ -72,37 +122,17 @@ namespace MSC.CM.XaSh.ViewModels
             }
         }
 
-        private void AutoLogin(int currentUser)
-        {
-            //set the userprofileid in the preferences
-            Preferences.Set(Consts.CURRENT_USER_ID, CurrentUserId);
-
-            //we are hot wiring a car here... until we build proper authentication UI
-            var email = string.Empty;
-            switch (CurrentUserId)
-            {
-                case 1:
-                    email = "David@example.com"; break;
-                case 2:
-                    email = "James@example.com"; break;
-                case 3:
-                    email = "Donovan@example.com"; break;
-            }
-
-            DataLoader.GetAuthToken(email, "test");
-        }
-
-        private bool IsUserLoggedIn()
+        private bool PrePopulateLoginFields()
         {
             //TODO: Rework this a bit - this is set up for quick testing right now
-            var currentId = Preferences.Get(Consts.CURRENT_USER_ID, 0);
+            var currentId = Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0);
+            UpdateMessage();
             if (currentId == 0)
             {
-                //no user logged in yet
-                Preferences.Set(Consts.CURRENT_USER_ID, 1);
-                Preferences.Set(Consts.CURRENT_USER_EMAIL, "David@example.com");
+                //no user logged in yet, but we can autofill these
                 CurrentUserEmail = "David@example.com";
                 CurrentUserPassword = "test"; //TODO: ONLY FOR TESTING
+
                 return false;
             }
             else
@@ -110,8 +140,15 @@ namespace MSC.CM.XaSh.ViewModels
                 //there is a user logged in
                 CurrentUserEmail = Preferences.Get(Consts.CURRENT_USER_EMAIL, string.Empty);
                 CurrentUserPassword = "test"; //TODO: ONLY FOR TESTING
+
                 return true;
             }
+        }
+
+        private void UpdateMessage()
+        {
+            int profileId = Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0);
+            Message = (profileId == 0) ? "User is not logged in" : $"User #{profileId} is logged in";
         }
     }
 }

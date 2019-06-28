@@ -77,7 +77,7 @@ namespace MSC.CM.XaSh.ViewModels
 
             try
             {
-                if (Connectivity.NetworkAccess == NetworkAccess.Internet || App.UseSampleDataStore)
+                if (base.IsConnected || App.UseSampleDataStore)
                 {
                     //load SQLite from API or sample data
                     var ctUsers = await DataLoader.LoadUsersAsync();

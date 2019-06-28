@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MSC.CM.XaSh.Views.GeneralInfoPage"
+             xmlns:conv="clr-namespace:MSC.CM.XaSh.Converters"
              xmlns:vm="clr-namespace:MSC.CM.XaSh.ViewModels"
              Title="{Binding Title}"
              Visual="Material">
@@ -10,6 +11,10 @@
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness" iOS="0,100,0,0" Default="0,0,0,0" />
     </ContentPage.Padding>
+
+    <ContentPage.Resources>
+        <conv:BoolToAntiBoolConverter x:Key="BoolToAntiBoolConverter" />
+    </ContentPage.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -25,9 +30,10 @@
         </StackLayout>
         <ScrollView Grid.Row="1">
             <StackLayout>
-                <Label Text="Welcome!" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large" />
+                <Label Text="Welcome!" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large" Margin="20" />
+
                 <Label Text="Choose a test user:" HorizontalOptions="Center" VerticalOptions="Center" />
-                <Picker SelectedItem="{Binding CurrentUserEmail, Mode=TwoWay}"
+                <Picker SelectedItem="{Binding CurrentUserEmail, Mode=TwoWay}" IsEnabled="{Binding IsUserLoggedIn, Converter={StaticResource BoolToAntiBoolConverter}}"
                         WidthRequest="250" HorizontalOptions="Center" VerticalOptions="Center">
                     <Picker.Items>
                         <x:String>David@example.com</x:String>
@@ -35,10 +41,16 @@
                         <x:String>Donovan@example.com</x:String>
                     </Picker.Items>
                 </Picker>
-                <Entry Text="{Binding CurrentUserPassword, Mode=TwoWay}" IsPassword="True"
+                <Entry Text="{Binding CurrentUserPassword, Mode=TwoWay}" IsPassword="True" IsEnabled="{Binding IsUserLoggedIn, Converter={StaticResource BoolToAntiBoolConverter}}"
                        WidthRequest="250" HorizontalOptions="Center" VerticalOptions="Center" />
-                <Button Text="Login"  Command="{Binding LoginCommand}"
-                       WidthRequest="150" HorizontalOptions="Center" VerticalOptions="Center" />
+                <Button Text="Login"  Command="{Binding LoginCommand}" IsEnabled="{Binding IsBusy, Converter={StaticResource BoolToAntiBoolConverter}}"
+                       WidthRequest="150" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding IsUserLoggedIn, Converter={StaticResource BoolToAntiBoolConverter}}" />
+                <Button Text="Logout"  Command="{Binding LogoutCommand}" IsEnabled="{Binding IsBusy, Converter={StaticResource BoolToAntiBoolConverter}}"
+                       WidthRequest="150" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding IsUserLoggedIn}" />
+
+                <Label Text="{Binding Message}" HorizontalOptions="Center" VerticalOptions="Center"
+                       FontSize="Medium" Margin="20" />
+                <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="True" HeightRequest="50" WidthRequest="50" Margin="10" />
             </StackLayout>
         </ScrollView>
     </Grid>

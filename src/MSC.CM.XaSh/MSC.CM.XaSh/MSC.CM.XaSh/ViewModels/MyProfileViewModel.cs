@@ -40,9 +40,8 @@ namespace MSC.CM.XaSh.ViewModels
         public async Task LoadVM()
         {
             //see if there is a user 'logged in'
-            int defaultValue = 0;
-            int currentUserProfileId = Preferences.Get(Consts.CURRENT_USER_ID, defaultValue);
-            if (currentUserProfileId != defaultValue)
+            int currentUserProfileId = Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0);
+            if (currentUserProfileId != 0)
             {
                 CurrentUser = await DataStore.GetUserByUserProfileIdAsync(currentUserProfileId);
                 IsUserLoggedIn = CurrentUser != null ? true : false;
@@ -57,7 +56,7 @@ namespace MSC.CM.XaSh.ViewModels
                 if (CurrentUser != null)
                 {
                     IsUserLoggedIn = true;
-                    Preferences.Set(Consts.CURRENT_USER_ID, userProfileId);
+                    Preferences.Set(Consts.CURRENT_USER_PROFILE_ID, userProfileId);
                 }
             }
         }
@@ -66,7 +65,7 @@ namespace MSC.CM.XaSh.ViewModels
         {
             CurrentUser = null;
             IsUserLoggedIn = false;
-            Preferences.Remove(Consts.CURRENT_USER_ID);
+            Preferences.Remove(Consts.CURRENT_USER_PROFILE_ID);
         }
     }
 }
