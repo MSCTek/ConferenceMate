@@ -7,6 +7,27 @@ namespace MSC.CM.XaSh.Helpers
 {
     public static class AuthenticationHelper
     {
+        public static void ClearSecureStorageAuthValues()
+        {
+            SecureStorage.Remove(Consts.AUTH_TOKEN);
+            SecureStorage.Remove(Consts.REFRESH_TOKEN);
+            SecureStorage.Remove(Consts.TOKEN_EXPIRATION);
+        }
+
+        public static string GetToken()
+        {
+            return AsyncHelper.RunSync(() => SecureStorage.GetAsync(Consts.AUTH_TOKEN));
+        }
+
+        public static void SetTokens(string authToken, string refreshToken, string expiration)
+        {
+            AsyncHelper.RunSync(async () =>
+            {
+                SecureStorage.SetAsync(Consts.AUTH_TOKEN, authToken);
+                SecureStorage.SetAsync(Consts.REFRESH_TOKEN, refreshToken);
+                //SecureStorage.SetAsync(Consts.TOKEN_EXPIRATION, expiration);
+            });
+        }
     }
 
     public class AuthenticationResult
