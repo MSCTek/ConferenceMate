@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[Feedback] (
     [FeedbackId]              UNIQUEIDENTIFIER NOT NULL,
+    [UserProfileId]           INT              NOT NULL,
     [Title]                   NVARCHAR (1024)  NULL,
     [Description]             NVARCHAR (2048)  NULL,
     [FeedbackTypeId]          INT              NOT NULL,
@@ -9,7 +10,6 @@
     [Latitude]                FLOAT (53)       NOT NULL,
     [Longitude]               FLOAT (53)       NOT NULL,
     [Dispositioned]           BIT              NOT NULL,
-    [UserId]                  INT              NULL,
     [SessionId]               INT              NULL,
     [FeaturedEventId]         INT              NULL,
     [IsPublic]                BIT              CONSTRAINT [DF_Feedback_IsPublic] DEFAULT ((0)) NOT NULL,
@@ -25,8 +25,10 @@
     CONSTRAINT [FK_Feedback_FeedbackInitiatorType] FOREIGN KEY ([FeedbackInitiatorTypeId]) REFERENCES [dbo].[FeedbackInitiatorType] ([FeedbackInitiatorTypeId]),
     CONSTRAINT [FK_Feedback_FeedbackType] FOREIGN KEY ([FeedbackTypeId]) REFERENCES [dbo].[FeedbackType] ([FeedbackTypeId]),
     CONSTRAINT [FK_Feedback_Session] FOREIGN KEY ([SessionId]) REFERENCES [dbo].[Session] ([SessionId]),
-    CONSTRAINT [FK_Feedback_Users] FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([UserId])
+    CONSTRAINT [FK_Feedback_UserProfile] FOREIGN KEY ([UserProfileId]) REFERENCES [dbo].[UserProfile] ([UserProfileId])
 );
+
+
 
 
 GO

@@ -80,6 +80,14 @@
     <Build Include="dbo\Tables\Sponsor.sql" />
     <Build Include="dbo\Tables\Sponsor_FeaturedEvent.sql" />
     <Build Include="dbo\Tables\SponsorType.sql" />
-    <Build Include="dbo\Tables\Users.sql" />
+    <Build Include="dbo\Tables\UserProfile.sql" />
+    <Build Include="dbo\Tables\RefreshToken.sql" />
+    <Build Include="dbo\Tables\LogType.sql" />
+    <Build Include="dbo\Tables\Log.sql" />
+    <Build Include="dbo\Tables\AspNetUsers.sql" />
+    <Build Include="dbo\Tables\AspNetUserRoles.sql" />
+    <Build Include="dbo\Tables\AspNetUserLogins.sql" />
+    <Build Include="dbo\Tables\AspNetUserClaims.sql" />
+    <Build Include="dbo\Tables\AspNetRoles.sql" />
   </ItemGroup>
 </Project>

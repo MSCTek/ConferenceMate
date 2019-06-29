@@ -60,7 +60,6 @@ namespace MSC.ConferenceMate.API.Providers
 		{
 			//var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
 			//context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
-			var foo = context.Ticket.Properties.Dictionary["userName"];
 
 			using (var repo = new SecurityDbContext())
 			{
