@@ -158,10 +158,12 @@ namespace MSC.CM.XaSh.Services
         {
             try
             {
+                var refToken = AuthenticationHelper.GetRefreshToken();
+
                 var content = new FormUrlEncodedContent(new[]
                 {
                     new KeyValuePair<string, string>("grant_type", "refresh_token"),
-                    new KeyValuePair<string, string>("refresh_token", AuthenticationHelper.GetRefreshToken()),
+                    new KeyValuePair<string, string>("refresh_token", refToken),
                 });
 
                 var client = GetHttpClient(Consts.UNAUTHORIZED);

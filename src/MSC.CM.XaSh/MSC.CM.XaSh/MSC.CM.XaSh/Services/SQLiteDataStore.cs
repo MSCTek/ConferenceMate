@@ -237,7 +237,8 @@ namespace MSC.CM.XaSh.Services
                             ModifiedBy = user.UserProfileId.ToString(),
                             ModifiedUtcDate = DateTime.UtcNow,
                             UserProfileId = user.UserProfileId,
-                            SessionId = sessionId
+                            SessionId = sessionId,
+                            SessionIdUserProfileId = $"{sessionId}{user.UserProfileId.ToString()}"
                         };
                         return (1 == await conn.InsertAsync(dataResult));
                     }
