@@ -52,8 +52,8 @@
     <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="CodeGenHero.DataService, Version=1.0.30.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CodeGenHero.DataService.1.0.30\lib\net46\CodeGenHero.DataService.dll</HintPath>
+    <Reference Include="CodeGenHero.DataService, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CodeGenHero.DataService.1.1.0\lib\net46\CodeGenHero.DataService.dll</HintPath>
     </Reference>
     <Reference Include="CodeGenHero.Logging, Version=1.0.7.0, Culture=neutral, PublicKeyToken=32065bcb7d985959, processorArchitecture=MSIL">
       <HintPath>..\packages\CodeGenHero.Logging.1.0.7\lib\net46\CodeGenHero.Logging.dll</HintPath>
