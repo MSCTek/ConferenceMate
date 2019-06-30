@@ -26,7 +26,7 @@ namespace MSC.CM.XaSh.Services
 
         Task<modelObj.UserProfile> GetUserByUserProfileIdAsync(int userId);
 
-        Task<bool> ToggleSessionLikeAsync(int sessionId);
+        Task<bool> ToggleSessionLikeAsync(int sessionId, string sessionIdUserProfileId);
 
         Task<int> UpdateUserRecord(modelData.UserProfile editedCurrentUser);
 

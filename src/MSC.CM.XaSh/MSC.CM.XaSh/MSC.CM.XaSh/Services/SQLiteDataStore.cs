@@ -211,9 +211,9 @@ namespace MSC.CM.XaSh.Services
             return (dataResult != null) ? dataResult.ToModelObj() : null;
         }
 
-        public async Task<bool> ToggleSessionLikeAsync(int sessionId)
+        public async Task<bool> ToggleSessionLikeAsync(int sessionId, string sessionIdUserProfileId)
         {
-            var dataResult = await conn.Table<dataModel.SessionLike>().Where(x => x.SessionId == sessionId).FirstOrDefaultAsync();
+            var dataResult = await conn.Table<dataModel.SessionLike>().Where(x => x.SessionIdUserProfileId == sessionIdUserProfileId).FirstOrDefaultAsync();
             if (dataResult != null)
             {   // Data record was previously created.
                 dataResult.IsDeleted = !dataResult.IsDeleted;
@@ -238,7 +238,7 @@ namespace MSC.CM.XaSh.Services
                             ModifiedUtcDate = DateTime.UtcNow,
                             UserProfileId = user.UserProfileId,
                             SessionId = sessionId,
-                            SessionIdUserProfileId = $"{sessionId}{user.UserProfileId.ToString()}"
+                            SessionIdUserProfileId = sessionIdUserProfileId //$"{sessionId}{user.UserProfileId.ToString()}"
                         };
                         return (1 == await conn.InsertAsync(dataResult));
                     }

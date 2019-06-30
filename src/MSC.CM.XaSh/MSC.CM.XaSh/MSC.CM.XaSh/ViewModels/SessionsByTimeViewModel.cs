@@ -20,10 +20,11 @@ namespace MSC.CM.XaSh.ViewModels
     {
         private ObservableCollection<Grouping<string, Session>> _sessionsByTime;
 
-        public SessionsByTimeViewModel(IDataStore store = null, IDataLoader loader = null)
+        public SessionsByTimeViewModel(IDataStore store = null, IDataLoader loader = null, IDataUploader uploader = null)
         {
             DataStore = store;
             DataLoader = loader;
+            DataUploader = uploader;
             Title = "Sessions By Time";
             SessionsByTime = new ObservableCollection<Grouping<string, Session>>();
         }
@@ -36,9 +37,15 @@ namespace MSC.CM.XaSh.ViewModels
                 {
                     try
                     {
-                        if (await DataStore.ToggleSessionLikeAsync(sessionId))
+                        var pkSessionLike = $"{sessionId}{Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0).ToString()}";
+                        if (await DataStore.ToggleSessionLikeAsync(sessionId, pkSessionLike))
                         {
+                            //Queue the record for upload
+                            await DataUploader.QueueAsync(pkSessionLike, QueueableObjects.SessionLikes);
+
                             await RefreshListViewData();
+
+                            DataUploader.StartSafeQueuedUpdates();
                         }
                     }
                     catch (Exception ex)

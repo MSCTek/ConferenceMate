@@ -25,7 +25,7 @@ namespace MSC.CM.XaSh.Services
 {
     public enum QueueableObjects
     {
-        Favorite,
+        SessionLikes,
         Feedback,
         Chat,
         Bingo,
@@ -77,6 +77,7 @@ namespace MSC.CM.XaSh.Services
                     UploadQueueId = Guid.NewGuid(),
                     RecordIdGuid = recordId,
                     RecordIdInt = null,
+                    RecordIdStr = null,
                     QueueableObject = objName.ToString(),
                     DateQueued = DateTime.UtcNow,
                     NumAttempts = 0,
@@ -103,6 +104,34 @@ namespace MSC.CM.XaSh.Services
                     UploadQueueId = Guid.NewGuid(),
                     RecordIdGuid = null,
                     RecordIdInt = recordId,
+                    RecordIdStr = null,
+                    QueueableObject = objName.ToString(),
+                    DateQueued = DateTime.UtcNow,
+                    NumAttempts = 0,
+                    Success = false
+                };
+
+                int count = await _conn.InsertOrReplaceAsync(queue);
+
+                Debug.WriteLine($"Queued {recordId} of type {objName}");
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                Debug.WriteLine($"Error in {nameof(QueueAsync)}");
+            }
+        }
+
+        public async Task QueueAsync(string recordId, QueueableObjects objName)
+        {
+            try
+            {
+                UploadQueue queue = new UploadQueue()
+                {
+                    UploadQueueId = Guid.NewGuid(),
+                    RecordIdGuid = null,
+                    RecordIdInt = null,
+                    RecordIdStr = recordId,
                     QueueableObject = objName.ToString(),
                     DateQueued = DateTime.UtcNow,
                     NumAttempts = 0,
@@ -168,6 +197,30 @@ namespace MSC.CM.XaSh.Services
             return false;
         }
 
+        private async Task<bool> RunQueuedSessionLikesUpdate(UploadQueue q)
+        {
+            var webAPIDataService = GetWebAPIDataService(Consts.AUTHORIZED);
+            if (webAPIDataService == null) { Analytics.TrackEvent("FATAL: RunQueuedSessionLikesUpdate webAPIDataService == null"); return false; }
+
+            var record = await _conn.Table<SessionLike>().Where(x => x.SessionIdUserProfileId == q.RecordIdStr).FirstOrDefaultAsync();
+            if (record != null)
+            {
+                var result = await webAPIDataService.UpdateSessionLikeAsync(record.ToDto());
+                if (result.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine($"Successfully Sent Queued SessionLikes Record");
+                    return true;
+                }
+                else if (result.StatusCode == System.Net.HttpStatusCode.Conflict)
+                {
+                    Analytics.TrackEvent($"Conflict Sending Queued SessionLikes record {q.RecordIdStr}");
+                }
+                Analytics.TrackEvent($"Error Sending Queued SessionLikes record {q.RecordIdStr}");
+                return false;
+            }
+            return false;
+        }
+
         //run the oldest 10 updates in the SQLite database that haven't had more than MaxNumAttempts retries
         private async Task RunQueuedUpdatesAsync(CancellationToken cts)
         {
@@ -203,6 +256,20 @@ namespace MSC.CM.XaSh.Services
                     else if (q.QueueableObject == QueueableObjects.UserProfileUpdate.ToString())
                     {
                         if (await RunQueuedUserProfileUpdate(q))
+                        {
+                            q.NumAttempts += 1;
+                            q.Success = true;
+                            await _conn.UpdateAsync(q);
+                        }
+                        else
+                        {
+                            q.NumAttempts += 1;
+                            await _conn.UpdateAsync(q);
+                        }
+                    }
+                    else if (q.QueueableObject == QueueableObjects.SessionLikes.ToString())
+                    {
+                        if (await RunQueuedSessionLikesUpdate(q))
                         {
                             q.NumAttempts += 1;
                             q.Success = true;

@@ -89,7 +89,7 @@ namespace MSC.CM.XaSh.Services
             return;
         }
 
-        public async Task<bool> ToggleSessionLikeAsync(int sessionId)
+        public async Task<bool> ToggleSessionLikeAsync(int sessionId, string sessionIdUserProfileId)
         {
             return false;
         }

@@ -12,6 +12,8 @@ namespace MSC.CM.XaSh.Services
 
         Task QueueAsync(Guid recordId, QueueableObjects objName);
 
+        Task QueueAsync(string recordId, QueueableObjects objName);
+
         Task QueueAsync(int recordId, QueueableObjects objName);
 
         Task StartQueuedUpdatesAsync(CancellationToken token);
