@@ -35,11 +35,11 @@
 		<string>fa-regular-400.ttf</string>
 		<string>fa-brands-400.ttf</string>
 	</array>
-	<key>CFBundleIdentifier</key>
-	<string>com.MSCTek.CM.XaSh</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleName</key>
 	<string>ConferenceMate</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.MSCTek.CM.XaSh</string>
 </dict>
 </plist>
