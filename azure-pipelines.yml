@@ -29,6 +29,9 @@ jobs:
       projectFile: '**/*droid*.csproj'
       outputDirectory: '$(outputDirectory)'
       configuration: '$(buildConfiguration)'
+      msbuildArchitectureOption: x64
+      #createAppPackage: true
+      msbuildArguments: /p:JavaSdkDirectory="$(JAVA_HOME)/"
 
 #- job: iOS
 #  pool:
