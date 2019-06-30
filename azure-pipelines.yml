@@ -33,21 +33,21 @@ jobs:
       #createAppPackage: true
       msbuildArguments: /p:JavaSdkDirectory="$(JAVA_HOME)/"
 
-#- job: iOS
-#  pool:
-#    vmImage: 'macOS-10.14'
-#  variables:
-#    buildConfiguration: 'Debug'
-#  steps:
-#  - task: NuGetToolInstaller@0
-#  - task: NuGetCommand@2
-#    inputs:
-#      restoreSolution: '**/*.sln'
-#  - task: XamariniOS@2
-#    inputs:
-#      clean: true
-#      runNugetRestore: true
-#      solutionFile: '**/*iOS.csproj'
-#      configuration: '$(buildConfiguration)'
-#      buildForSimulator: true
-#      packageApp: false
+- job: iOS
+  pool:
+    vmImage: 'macOS-10.14'
+  variables:
+    buildConfiguration: 'Debug'
+  steps:
+  - task: NuGetToolInstaller@0
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '**/*.sln'
+  - task: XamariniOS@2
+    inputs:
+      clean: true
+      runNugetRestore: true
+      solutionFile: '**/*iOS.csproj'
+      configuration: '$(buildConfiguration)'
+      buildForSimulator: true
+      packageApp: false
