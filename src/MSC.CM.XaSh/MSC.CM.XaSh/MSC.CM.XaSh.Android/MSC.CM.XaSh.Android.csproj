@@ -15,7 +15,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
@@ -139,7 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MSC.CM.XaSh\MSC.CM.XaSh.csproj">
-      <Project>{D5ABB22C-2854-4565-9BF6-C7FBCACD9C85}</Project>
+      <Project>{FEE34DD4-8527-40A9-BFBE-96830EEEE040}</Project>
       <Name>MSC.CM.XaSh</Name>
     </ProjectReference>
   </ItemGroup>
