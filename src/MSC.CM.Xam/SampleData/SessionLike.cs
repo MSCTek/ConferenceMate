@@ -24,6 +24,7 @@ namespace MSC.CM.Xam.ModelData.CM
 					ModifiedUtcDate = DateTime.Now,
 					ModifiedBy = "SampleModifiedBy",
 					IsDeleted = false,
+                    SessionIdUserProfileId = $"{SampleSessionLikeId0000}{SampleSessionLikeId0001}"
 				};
 			}
 		}
@@ -41,7 +42,8 @@ namespace MSC.CM.Xam.ModelData.CM
 					ModifiedUtcDate = DateTime.Now,
 					ModifiedBy = "SampleModifiedBy",
 					IsDeleted = false,
-				};
+                    SessionIdUserProfileId = $"{SampleSessionLikeId0100}{SampleSessionLikeId0101}"
+                };
 			}
 		}
 

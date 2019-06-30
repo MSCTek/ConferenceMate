@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace MSC.CM.XaSh.Services
 {
@@ -30,6 +31,10 @@ namespace MSC.CM.XaSh.Services
         public async Task<bool> AuthGetToken(string user, string pass)
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
+            Preferences.Set(Consts.CURRENT_ASP_USER_ID, DemoUserProfile.SampleUserProfile00.AspNetUsersId);
+            Preferences.Set(Consts.CURRENT_USER_EMAIL, user);
+            Preferences.Set(Consts.CURRENT_USER_PROFILE_ID, DemoUserProfile.SampleUserProfile00.UserProfileId);
+
             return true;
         }
 
