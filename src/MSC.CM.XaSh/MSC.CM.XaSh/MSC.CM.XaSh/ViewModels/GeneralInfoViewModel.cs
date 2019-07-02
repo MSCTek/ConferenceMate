@@ -70,6 +70,7 @@ namespace MSC.CM.XaSh.ViewModels
 
                         UpdateMessage();
                         RaisePropertyChanged(nameof(IsUserLoggedIn));
+                        await RefreshUserData();
                     }
                     catch (Exception ex)
                     {

@@ -21,9 +21,16 @@
             <Frame Grid.Row="0" Margin="5">
 
                 <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-                    <circle:CircleImage Source="xamarinstore.jpg" WidthRequest="200" HeightRequest="200"
+                    <circle:CircleImage x:Name="image" Source="xamarinstore.jpg" WidthRequest="200" HeightRequest="200"
                                         Aspect="AspectFill" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
-                    <Button Text="Change Image" Command="{Binding ChangeProfileImageCommand}" HorizontalOptions="Center" />
+                    <!--<Button Text="Take a New Picture" Command="{Binding TakeNewPictureCommand}" IsEnabled="{Binding CanTakeNewPicture}"
+                            HorizontalOptions="Center" />
+                    <Button Text="Choose Existing Picture" Command="{Binding SelectExistingPictureCommand}" IsEnabled="{Binding CanPickExistingPicture}"
+                            HorizontalOptions="Center" />-->
+                    <Button Text="Take a New Picture" IsEnabled="{Binding CanTakeNewPicture}" Clicked="NewPictureButton_Clicked"
+                            HorizontalOptions="Center" />
+                    <Button Text="Choose Existing Picture" IsEnabled="{Binding CanPickExistingPicture}" Clicked="ExsitingPictureButton_Clicked"
+                            HorizontalOptions="Center" />
 
                     <StackLayout Orientation="Horizontal">
                         <Label Text="UserName: " />

@@ -10,6 +10,7 @@ using Xamarin.Forms;
 using MSC.CM.XaSh.Services;
 using Android.Content;
 using MSC.CM.XaSh.Droid.Services;
+using Plugin.CurrentActivity;
 
 namespace MSC.CM.XaSh.Droid
 {
@@ -36,6 +37,7 @@ namespace MSC.CM.XaSh.Droid
             ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             FormsMaterial.Init(this, savedInstanceState);
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
 
             LoadApplication(new App());
 
