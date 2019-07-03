@@ -280,11 +280,11 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			}
 		}
 
-		partial void RunCustomLogicAfterInsert(ref MSC.ConferenceMate.Repository.Entities.CM.GenderType newDBItem, ref IRepositoryActionResult<entCM.GenderType> result);
+		partial void RunCustomLogicAfterInsert(ref entCM.GenderType newDBItem, ref IRepositoryActionResult<entCM.GenderType> result);
 
-		partial void RunCustomLogicAfterUpdatePatch(ref MSC.ConferenceMate.Repository.Entities.CM.GenderType updatedDBItem, ref IRepositoryActionResult<entCM.GenderType> result);
+		partial void RunCustomLogicAfterUpdatePatch(ref entCM.GenderType updatedDBItem, ref IRepositoryActionResult<entCM.GenderType> result);
 
-		partial void RunCustomLogicAfterUpdatePut(ref MSC.ConferenceMate.Repository.Entities.CM.GenderType updatedDBItem, ref IRepositoryActionResult<entCM.GenderType> result);
+		partial void RunCustomLogicAfterUpdatePut(ref entCM.GenderType updatedDBItem, ref IRepositoryActionResult<entCM.GenderType> result);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.GenderType dbItem, int genderTypeId, int numChildLevels);
 

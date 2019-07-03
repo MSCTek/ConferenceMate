@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>CGH.QuikRide.API</name>
+        <name>MSC.ConferenceMate.API</name>
     </assembly>
     <members>
         <member name="P:MSC.ConferenceMate.API.Controllers.CM.CMBaseApiController.Log">

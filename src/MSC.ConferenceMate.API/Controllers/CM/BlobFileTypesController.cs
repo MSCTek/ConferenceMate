@@ -280,11 +280,11 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			}
 		}
 
-		partial void RunCustomLogicAfterInsert(ref MSC.ConferenceMate.Repository.Entities.CM.BlobFileType newDBItem, ref IRepositoryActionResult<entCM.BlobFileType> result);
+		partial void RunCustomLogicAfterInsert(ref entCM.BlobFileType newDBItem, ref IRepositoryActionResult<entCM.BlobFileType> result);
 
-		partial void RunCustomLogicAfterUpdatePatch(ref MSC.ConferenceMate.Repository.Entities.CM.BlobFileType updatedDBItem, ref IRepositoryActionResult<entCM.BlobFileType> result);
+		partial void RunCustomLogicAfterUpdatePatch(ref entCM.BlobFileType updatedDBItem, ref IRepositoryActionResult<entCM.BlobFileType> result);
 
-		partial void RunCustomLogicAfterUpdatePut(ref MSC.ConferenceMate.Repository.Entities.CM.BlobFileType updatedDBItem, ref IRepositoryActionResult<entCM.BlobFileType> result);
+		partial void RunCustomLogicAfterUpdatePut(ref entCM.BlobFileType updatedDBItem, ref IRepositoryActionResult<entCM.BlobFileType> result);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.BlobFileType dbItem, int blobFileTypeId, int numChildLevels);
 

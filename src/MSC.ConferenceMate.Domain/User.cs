@@ -48,7 +48,7 @@ namespace MSC.ConferenceMate.Domain
 				var userProfileImage = Image.FromStream(msFullsizeImage);
 				msFullsizeImage.Position = 0; // Reset stream position - ahead of the upload to avoid an AzureStorageException - "The requested number of bytes exceeds the length of the stream remaining from the specified position."
 
-				Task<string> fullsizeImageUploadTask = AzureStorageManager.UploadFileToStorageAsync(fileStream: msFullsizeImage, blobName: newBlobFileId.ToString(), cmEnums.BlobContainerType.Image);
+				Task<string> fullsizeImageUploadTask = AzureStorageManager.UploadFileToStorageAsync(fileStream: msFullsizeImage, blobName: newBlobFileId.ToString(), containerType: cmEnums.BlobContainerType.Image);
 				runningTasks.Add(fullsizeImageUploadTask);
 
 				// Add thumbnail user profile image to Azure.
@@ -56,7 +56,7 @@ namespace MSC.ConferenceMate.Domain
 				var msThumbNail = new MemoryStream();
 				thumbNailImage.Save(msThumbNail, System.Drawing.Imaging.ImageFormat.Png);
 				msThumbNail.Position = 0; // Reset stream position.
-				Task<string> thumbnailImageUploadTask = AzureStorageManager.UploadFileToStorageAsync(fileStream: msThumbNail, blobName: newBlobFileId.ToString(), cmEnums.BlobContainerType.Thumbnail);
+				Task<string> thumbnailImageUploadTask = AzureStorageManager.UploadFileToStorageAsync(fileStream: msThumbNail, blobName: newBlobFileId.ToString(), containerType: cmEnums.BlobContainerType.Thumbnail);
 				runningTasks.Add(thumbnailImageUploadTask);
 
 				var fullsizeImagePrimaryUri = await fullsizeImageUploadTask; // Create a new BlobFile DB record for the full-size image.

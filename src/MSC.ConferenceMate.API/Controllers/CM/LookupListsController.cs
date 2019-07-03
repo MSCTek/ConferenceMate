@@ -280,11 +280,11 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			}
 		}
 
-		partial void RunCustomLogicAfterInsert(ref MSC.ConferenceMate.Repository.Entities.CM.LookupList newDBItem, ref IRepositoryActionResult<entCM.LookupList> result);
+		partial void RunCustomLogicAfterInsert(ref entCM.LookupList newDBItem, ref IRepositoryActionResult<entCM.LookupList> result);
 
-		partial void RunCustomLogicAfterUpdatePatch(ref MSC.ConferenceMate.Repository.Entities.CM.LookupList updatedDBItem, ref IRepositoryActionResult<entCM.LookupList> result);
+		partial void RunCustomLogicAfterUpdatePatch(ref entCM.LookupList updatedDBItem, ref IRepositoryActionResult<entCM.LookupList> result);
 
-		partial void RunCustomLogicAfterUpdatePut(ref MSC.ConferenceMate.Repository.Entities.CM.LookupList updatedDBItem, ref IRepositoryActionResult<entCM.LookupList> result);
+		partial void RunCustomLogicAfterUpdatePut(ref entCM.LookupList updatedDBItem, ref IRepositoryActionResult<entCM.LookupList> result);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.LookupList dbItem, int lookupListId, int numChildLevels);
 

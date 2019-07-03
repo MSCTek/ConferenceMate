@@ -280,11 +280,11 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			}
 		}
 
-		partial void RunCustomLogicAfterInsert(ref MSC.ConferenceMate.Repository.Entities.CM.FeedbackInitiatorType newDBItem, ref IRepositoryActionResult<entCM.FeedbackInitiatorType> result);
+		partial void RunCustomLogicAfterInsert(ref entCM.FeedbackInitiatorType newDBItem, ref IRepositoryActionResult<entCM.FeedbackInitiatorType> result);
 
-		partial void RunCustomLogicAfterUpdatePatch(ref MSC.ConferenceMate.Repository.Entities.CM.FeedbackInitiatorType updatedDBItem, ref IRepositoryActionResult<entCM.FeedbackInitiatorType> result);
+		partial void RunCustomLogicAfterUpdatePatch(ref entCM.FeedbackInitiatorType updatedDBItem, ref IRepositoryActionResult<entCM.FeedbackInitiatorType> result);
 
-		partial void RunCustomLogicAfterUpdatePut(ref MSC.ConferenceMate.Repository.Entities.CM.FeedbackInitiatorType updatedDBItem, ref IRepositoryActionResult<entCM.FeedbackInitiatorType> result);
+		partial void RunCustomLogicAfterUpdatePut(ref entCM.FeedbackInitiatorType updatedDBItem, ref IRepositoryActionResult<entCM.FeedbackInitiatorType> result);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.FeedbackInitiatorType dbItem, int feedbackInitiatorTypeId, int numChildLevels);
 

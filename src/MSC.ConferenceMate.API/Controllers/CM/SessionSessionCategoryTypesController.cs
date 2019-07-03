@@ -282,11 +282,11 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			}
 		}
 
-		partial void RunCustomLogicAfterInsert(ref MSC.ConferenceMate.Repository.Entities.CM.SessionSessionCategoryType newDBItem, ref IRepositoryActionResult<entCM.SessionSessionCategoryType> result);
+		partial void RunCustomLogicAfterInsert(ref entCM.SessionSessionCategoryType newDBItem, ref IRepositoryActionResult<entCM.SessionSessionCategoryType> result);
 
-		partial void RunCustomLogicAfterUpdatePatch(ref MSC.ConferenceMate.Repository.Entities.CM.SessionSessionCategoryType updatedDBItem, ref IRepositoryActionResult<entCM.SessionSessionCategoryType> result);
+		partial void RunCustomLogicAfterUpdatePatch(ref entCM.SessionSessionCategoryType updatedDBItem, ref IRepositoryActionResult<entCM.SessionSessionCategoryType> result);
 
-		partial void RunCustomLogicAfterUpdatePut(ref MSC.ConferenceMate.Repository.Entities.CM.SessionSessionCategoryType updatedDBItem, ref IRepositoryActionResult<entCM.SessionSessionCategoryType> result);
+		partial void RunCustomLogicAfterUpdatePut(ref entCM.SessionSessionCategoryType updatedDBItem, ref IRepositoryActionResult<entCM.SessionSessionCategoryType> result);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.SessionSessionCategoryType dbItem, int sessionId, int sessionCategoryTypeId, int numChildLevels);
 

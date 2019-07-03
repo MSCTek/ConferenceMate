@@ -13,13 +13,12 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 
 		//partial void RunCustomLogicAfterUpdatePatch(ref entCM.SessionLike updatedDBItem, ref IRepositoryActionResult<entCM.SessionLike> result) {}
 
-		//partial void RunCustomLogicAfterUpdatePut(ref entCM.SessionLike updatedDBItem, ref IRepositoryActionResult<entCM.SessionLike> result) {}
-		partial void RunCustomLogicAfterUpdatePut(ref MSC.ConferenceMate.Repository.Entities.CM.SessionLike updatedDBItem, ref IRepositoryActionResult<entCM.SessionLike> result)
+		partial void RunCustomLogicAfterUpdatePut(ref entCM.SessionLike updatedDBItem, ref IRepositoryActionResult<entCM.SessionLike> result)
 		{
 			if (result.Status == Enums.RepositoryActionStatus.NotFound)
-			{   // An update/PUT was attempted when it should have been a create/POST.
+			{	// An update/PUT was attempted when it should have been a create/POST.
 				var localDBItem = updatedDBItem;
-				var insertResult = Utils.AsyncHelper.RunSync<IRepositoryActionResult<MSC.ConferenceMate.Repository.Entities.CM.SessionLike>>(() => Repo.InsertAsync(localDBItem));
+				var insertResult = Utils.AsyncHelper.RunSync<IRepositoryActionResult<entCM.SessionLike>>(() => Repo.InsertAsync(localDBItem));
 				if (insertResult.Status == Enums.RepositoryActionStatus.Created)
 				{   // Insert worked
 					result = new RepositoryActionResult<entCM.SessionLike>(insertResult.Entity, Enums.RepositoryActionStatus.Updated);
@@ -35,24 +34,24 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		///// <param name="numChildLevels"></param>
 		// partial void RunCustomLogicOnGetEntityByPK(ref entCM.SessionLike dbItem, int sessionId, int userProfileId, int numChildLevels)
 		// {
-		// if (numChildLevels > 1)
-		// {
-		// int[] orderLineItemIds = dbItem.OrderLineItems.Select(x => x.OrderLineItemId).ToArray();
+			// if (numChildLevels > 1)
+			// {
+				// int[] orderLineItemIds = dbItem.OrderLineItems.Select(x => x.OrderLineItemId).ToArray();
 
-		// var lineItemDiscounts = Repo.CMDataContext.OrderLineItemDiscounts.Where(x => orderLineItemIds.Contains(x.OrderLineItemId)).ToList();
+				// var lineItemDiscounts = Repo.CMDataContext.OrderLineItemDiscounts.Where(x => orderLineItemIds.Contains(x.OrderLineItemId)).ToList();
 
-		// foreach (var lineItemDiscount in lineItemDiscounts)
-		// { // Find the match and add the item to it.
-		// var orderLineItem = dbItem.OrderLineItems.Where(x => x.OrderLineItemId == lineItemDiscount.OrderLineItemId).FirstOrDefault();
+				// foreach (var lineItemDiscount in lineItemDiscounts)
+				// { // Find the match and add the item to it.
+					// var orderLineItem = dbItem.OrderLineItems.Where(x => x.OrderLineItemId == lineItemDiscount.OrderLineItemId).FirstOrDefault();
 
-		// if (orderLineItem == null)
-		// {
-		// throw new System.Data.Entity.Core.ObjectNotFoundException($"Unable to locate matching OrderLineItem record for {lineItemDiscount.OrderLineItemId}."
-		// }
+					// if (orderLineItem == null)
+					// {
+						// throw new System.Data.Entity.Core.ObjectNotFoundException($"Unable to locate matching OrderLineItem record for {lineItemDiscount.OrderLineItemId}."
+					// }
 
-		// orderLineItem.LineItemDiscounts.Add(lineItemDiscount);
-		// }
-		// }
+					// orderLineItem.LineItemDiscounts.Add(lineItemDiscount);
+				// }
+			// }
 
 		// }
 
