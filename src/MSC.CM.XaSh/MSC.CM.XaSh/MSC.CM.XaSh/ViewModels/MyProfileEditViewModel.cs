@@ -1,5 +1,7 @@
 ﻿using MSC.CM.Xam.ModelObj.CM;
+using MSC.CM.XaSh.Helpers;
 using MSC.CM.XaSh.Services;
+using Plugin.Media;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -12,9 +14,10 @@ namespace MSC.CM.XaSh.ViewModels
     public class MyProfileEditViewModel : BaseViewModel
     {
         private string _biography;
+        private bool _canPickExistingPicture;
+        private bool _canTakeNewPicture;
         private string _companyName;
         private UserProfile _currentUser;
-        private string _email;
         private string _firstName;
         private string _jobTitle;
         private string _lastName;
@@ -36,7 +39,17 @@ namespace MSC.CM.XaSh.ViewModels
 
         public ICommand CancelCommand => new Command(() => ExecuteCancelCommand());
 
-        public ICommand ChangeProfileImageCommand => new Command(() => DoWhateverWeNeedToDoToCaptureAnImage());
+        public bool CanPickExistingPicture
+        {
+            get { return _canPickExistingPicture; }
+            set { Set(ref _canPickExistingPicture, value); }
+        }
+
+        public bool CanTakeNewPicture
+        {
+            get { return _canTakeNewPicture; }
+            set { Set(ref _canTakeNewPicture, value); }
+        }
 
         public string CompanyName
         {
@@ -49,12 +62,6 @@ namespace MSC.CM.XaSh.ViewModels
             get { return _currentUser; }
             set { Set(ref _currentUser, value); }
         }
-
-        //public string Email
-        //{
-        //    get { return _email; }
-        //    set { Set(ref _email, value); }
-        //}
 
         public string FirstName
         {
@@ -75,6 +82,8 @@ namespace MSC.CM.XaSh.ViewModels
         }
 
         public ICommand SaveCommand => new Command(() => ExecuteSaveCommand());
+        public ICommand SelectExistingPictureCommand => new Command(() => PickExistingImage());
+        public ICommand TakeNewPictureCommand => new Command(() => CaptureAnImage());
 
         public string TwitterUrl
         {
@@ -97,12 +106,13 @@ namespace MSC.CM.XaSh.ViewModels
                 JobTitle = CurrentUser.JobTitle;
                 TwitterUrl = CurrentUser.TwitterUrl;
             }
+
+            CanPickExistingPicture = await PhotoHelper.CheckPickPhoto();
+            CanTakeNewPicture = await PhotoHelper.CheckTakePhoto();
         }
 
-        private void DoWhateverWeNeedToDoToCaptureAnImage()
+        private async void CaptureAnImage()
         {
-            //do something here
-            Debug.WriteLine("Do Whatever We Need To Do To Capture An Image");
         }
 
         private void ExecuteCancelCommand()
@@ -152,6 +162,12 @@ namespace MSC.CM.XaSh.ViewModels
                     DataUploader.StartSafeQueuedUpdates();
                 }
             }
+        }
+
+        private void PickExistingImage()
+        {
+            //do something here
+            Debug.WriteLine("Do Whatever We Need To Do To pick an existing Image");
         }
 
         private bool ValidateProfile()

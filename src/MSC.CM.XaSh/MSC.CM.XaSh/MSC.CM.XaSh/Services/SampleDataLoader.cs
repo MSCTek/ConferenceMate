@@ -40,6 +40,9 @@ namespace MSC.CM.XaSh.Services
 
         public void AuthRemoveToken()
         {
+            Preferences.Set(Consts.CURRENT_ASP_USER_ID, string.Empty);
+            Preferences.Remove(Consts.CURRENT_USER_EMAIL);
+            Preferences.Set(Consts.CURRENT_USER_PROFILE_ID, 0);
         }
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
