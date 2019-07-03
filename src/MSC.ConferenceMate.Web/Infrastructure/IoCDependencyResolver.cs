@@ -81,18 +81,6 @@ namespace MSC.ConferenceMate.Web.Infrastructure
 			// https://dotnetfiddle.net/GE2Dp2
 			var log = new Log4NetLoggingService();
 			container.UseInstance<ILoggingService>(log);
-			//container.Register<ILoggingService, Log4NetLoggingService>(Reuse.Singleton);
-
-			// note usage of UseInstance instead of obsolete RegisterInstance
-			//container.UseInstance(new Log4NetLoggingService());
-			//ILoggingService loggingService = new Log4NetLoggingService();
-			//var loggerFactoryMethod = typeof(LoggerFactory).GetMethod("CreateLogger");
-
-			//container.Register(typeof(ILogger<>), made: Made.Of(
-			//	req => loggerFactoryMethod.MakeGenericMethod(req.Parent.ImplementationType),
-			//	ServiceInfo.Of<LoggerFactory>()));
-
-			//container.Register<ILoggingService, Log4NetLoggingService>(); // (Reuse.Singleton);
 			//container.Register<IAppSettingsService, AppSettingsService>(Reuse.Singleton);
 		}
 	}

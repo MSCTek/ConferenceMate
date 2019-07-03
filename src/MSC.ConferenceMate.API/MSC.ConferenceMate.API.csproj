@@ -12,8 +12,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CGH.QuikRide.API</RootNamespace>
-    <AssemblyName>CGH.QuikRide.API</AssemblyName>
+    <RootNamespace>MSC.ConferenceMate.API</RootNamespace>
+    <AssemblyName>MSC.ConferenceMate.API</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -90,6 +90,9 @@
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -126,6 +129,9 @@
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=9.3.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.9.3.3\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -244,7 +250,19 @@
     <Compile Include="Controllers\CM\AnnouncementsController.cs">
       <DependentUpon>WebApiController_CM.cgh</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CM\BlobFilesController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\BlobFileTypesController.cs">
+      <DependentUpon>WebApiController_CM.cgh</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\CM\Custom\AnnouncementsControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\BlobFilesControllerCustom.cs">
+      <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\CM\Custom\BlobFileTypesControllerCustom.cs">
       <DependentUpon>WebApiControllerPartialMethods_CM.cgh</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CM\Custom\FeaturedEventsControllerCustom.cs">
@@ -361,6 +379,7 @@
     <Compile Include="Controllers\CM\UserProfilesController.cs">
       <DependentUpon>WebApiController_CM.cgh</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CM\Custom\CMUserProfileImagesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -397,12 +416,16 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MSC.ConferenceMate.Domain\MSC.ConferenceMate.Domain.csproj">
+      <Project>{fd610e25-6a33-4f2f-a3e4-3a11af333ee1}</Project>
+      <Name>MSC.ConferenceMate.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MSC.ConferenceMate.DTO\MSC.ConferenceMate.DTO.csproj">
       <Project>{6774a31a-070b-4c61-adb5-b21dce9e69f9}</Project>
       <Name>MSC.ConferenceMate.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\MSC.ConferenceMate.Repository\MSC.ConferenceMate.Repository.csproj">
-      <Project>{a35cdf7f-cf6a-4242-8919-01beeb81e72d}</Project>
+      <Project>{A35CDF7F-CF6A-4242-8919-01BEEB81E72D}</Project>
       <Name>MSC.ConferenceMate.Repository</Name>
     </ProjectReference>
   </ItemGroup>

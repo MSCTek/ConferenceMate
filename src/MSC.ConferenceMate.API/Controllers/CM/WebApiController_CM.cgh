@@ -80,6 +80,14 @@
     {
       "FileLastChange": "2019-06-24T15:18:06.3314887-05:00",
       "Filename": "UserProfilesController.cs"
+    },
+    {
+      "FileLastChange": "2019-07-01T23:33:30.5743391-05:00",
+      "Filename": "BlobFilesController.cs"
+    },
+    {
+      "FileLastChange": "2019-07-01T23:33:32.5283392-05:00",
+      "Filename": "BlobFileTypesController.cs"
     }
   ]
 }

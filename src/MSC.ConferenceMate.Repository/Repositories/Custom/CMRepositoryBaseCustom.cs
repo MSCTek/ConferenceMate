@@ -60,6 +60,99 @@ namespace MSC.ConferenceMate.Repository
 		/// <param name="qryItem"></param>
 		/// <param name="id"></param>
 		/// <param name="numChildLevels"></param>
+		 partial void RunCustomLogicOnGetQueryableByPK_BlobFile(ref IQueryable<entCM.BlobFile> qryItem, System.Guid blobFileId, int numChildLevels)
+		 {
+			 if (numChildLevels > 0)
+			 {
+				 qryItem = qryItem
+				 .Include(x => x.BlobFileType).AsNoTracking();
+				 // .Include(x => x.UserProfiles).AsNoTracking(); -- Excluded navigation property per configuration.
+			 }
+		 }
+
+
+		///// <summary>
+		///// A sample implementation of custom logic used to either manipulate a DTO item or include related entities.
+		///// </summary>
+		///// <param name="dbItem"></param>
+		///// <param name="id"></param>
+		///// <param name="numChildLevels"></param>
+		// partial void RunCustomLogicOnGetEntityByPK_BlobFile(ref entCM.BlobFile dbItem, System.Guid blobFileId, int numChildLevels)
+		// {
+			// if (numChildLevels > 1)
+			// {
+				// int[] orderLineItemIds = dbItem.OrderLineItems.Select(x => x.OrderLineItemId).ToArray();
+
+				// var lineItemDiscounts = Repo.CMDataContext.OrderLineItemDiscounts.Where(x => orderLineItemIds.Contains(x.OrderLineItemId)).ToList();
+
+				// foreach (var lineItemDiscount in lineItemDiscounts)
+				// { // Find the match and add the item to it.
+					// var orderLineItem = dbItem.OrderLineItems.Where(x => x.OrderLineItemId == lineItemDiscount.OrderLineItemId).FirstOrDefault();
+
+					// if (orderLineItem == null)
+					// {
+						// throw new System.Data.Entity.Core.ObjectNotFoundException($"Unable to locate matching OrderLineItem record for {lineItemDiscount.OrderLineItemId}."
+					// }
+
+					// orderLineItem.LineItemDiscounts.Add(lineItemDiscount);
+				// }
+			// }
+
+		// }
+
+		/// <summary>
+		/// Custom logic that is generally used to include related entities to return with the parent entity that was requested.
+		/// </summary>
+		/// <param name="qryItem"></param>
+		/// <param name="id"></param>
+		/// <param name="numChildLevels"></param>
+		 partial void RunCustomLogicOnGetQueryableByPK_BlobFileType(ref IQueryable<entCM.BlobFileType> qryItem, int blobFileTypeId, int numChildLevels)
+		 {
+			 if (numChildLevels > 0)
+			 {
+				 qryItem = qryItem;
+				 // .Include(x => x.ResizeFromBlobFileType).AsNoTracking(); -- Excluded navigation property per configuration.
+				 // .Include(x => x.BlobFiles).AsNoTracking(); -- Excluded navigation property per configuration.
+				 // .Include(x => x.BlobFileTypes).AsNoTracking(); -- Excluded navigation property per configuration.
+			 }
+		 }
+
+
+		///// <summary>
+		///// A sample implementation of custom logic used to either manipulate a DTO item or include related entities.
+		///// </summary>
+		///// <param name="dbItem"></param>
+		///// <param name="id"></param>
+		///// <param name="numChildLevels"></param>
+		// partial void RunCustomLogicOnGetEntityByPK_BlobFileType(ref entCM.BlobFileType dbItem, int blobFileTypeId, int numChildLevels)
+		// {
+			// if (numChildLevels > 1)
+			// {
+				// int[] orderLineItemIds = dbItem.OrderLineItems.Select(x => x.OrderLineItemId).ToArray();
+
+				// var lineItemDiscounts = Repo.CMDataContext.OrderLineItemDiscounts.Where(x => orderLineItemIds.Contains(x.OrderLineItemId)).ToList();
+
+				// foreach (var lineItemDiscount in lineItemDiscounts)
+				// { // Find the match and add the item to it.
+					// var orderLineItem = dbItem.OrderLineItems.Where(x => x.OrderLineItemId == lineItemDiscount.OrderLineItemId).FirstOrDefault();
+
+					// if (orderLineItem == null)
+					// {
+						// throw new System.Data.Entity.Core.ObjectNotFoundException($"Unable to locate matching OrderLineItem record for {lineItemDiscount.OrderLineItemId}."
+					// }
+
+					// orderLineItem.LineItemDiscounts.Add(lineItemDiscount);
+				// }
+			// }
+
+		// }
+
+		/// <summary>
+		/// Custom logic that is generally used to include related entities to return with the parent entity that was requested.
+		/// </summary>
+		/// <param name="qryItem"></param>
+		/// <param name="id"></param>
+		/// <param name="numChildLevels"></param>
 		 partial void RunCustomLogicOnGetQueryableByPK_FeaturedEvent(ref IQueryable<entCM.FeaturedEvent> qryItem, int featuredEventId, int numChildLevels)
 		 {
 			 if (numChildLevels > 0)
@@ -887,6 +980,7 @@ namespace MSC.ConferenceMate.Repository
 			 {
 				 qryItem = qryItem
 				 // .Include(x => x.AspNetUser).AsNoTracking() -- Excluded navigation property per configuration.
+				 .Include(x => x.BlobFile).AsNoTracking()
 				 .Include(x => x.GenderType).AsNoTracking()
 				 .Include(x => x.LanguageType).AsNoTracking();
 				 // .Include(x => x.Feedbacks).AsNoTracking(); -- Excluded navigation property per configuration.

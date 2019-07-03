@@ -77,6 +77,18 @@
     <Compile Include="Entities\CM\AspNetUserRoleConfiguration.cs">
       <DependentUpon>ConferenceMateContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\CM\BlobFile.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\BlobFileConfiguration.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\BlobFileType.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\BlobFileTypeConfiguration.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\CM\CMDataContext.cs">
       <DependentUpon>ConferenceMateContext.tt</DependentUpon>
     </Compile>

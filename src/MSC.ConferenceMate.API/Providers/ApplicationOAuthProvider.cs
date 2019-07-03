@@ -5,6 +5,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using MSC.ConferenceMate.API.Models;
 using MSC.ConferenceMate.API.Utils;
+using MSC.ConferenceMate.Domain;
 using MSC.ConferenceMate.Repository;
 using MSC.ConferenceMate.Repository.Entities.CM;
 using MSC.ConferenceMate.Repository.Interface;
@@ -13,7 +14,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace MSC.ConferenceMate.API.Providers
 {
@@ -42,7 +42,7 @@ namespace MSC.ConferenceMate.API.Providers
 
 			if (userProfile != null)
 			{
-				data.Add("userProfileId", userProfile.UserProfileId.ToString());
+				data.Add(Consts.CLAIM_USERPROFILEID, userProfile.UserProfileId.ToString());
 			}
 
 			return new AuthenticationProperties(data);
@@ -74,7 +74,7 @@ namespace MSC.ConferenceMate.API.Providers
 
 			// Change auth ticket for refresh token requests
 			var newIdentity = new ClaimsIdentity(context.Ticket.Identity);
-			newIdentity.AddClaim(new Claim("newClaim", "newValue"));
+			// newIdentity.AddClaim(new Claim(Consts.CLAIM_USERPROFILEID, userProfileId));
 
 			var newTicket = new AuthenticationTicket(newIdentity, context.Ticket.Properties);
 			context.Validated(newTicket);
@@ -105,16 +105,24 @@ namespace MSC.ConferenceMate.API.Providers
 
 				ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
 					OAuthDefaults.AuthenticationType);
-				// TODO: add claims here to oAuthIdentity
-				ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
-					CookieAuthenticationDefaults.AuthenticationType);
 
-				// Populate the UserProfileId into the ticket as well.
+				ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
+				CookieAuthenticationDefaults.AuthenticationType);
+
+				// Find a matching UserProfile record for this user.
 				var dataContextFactory = new CMDataContextFactory();
 				var dataContext = dataContextFactory.Create();
 				ICMRepository repository = new CMRepository(dataContext);
 				var userProfileRecord = repository.CMDataContext.UserProfiles.SingleOrDefault(x => x.AspNetUsersId == user.Id);
 
+				if (userProfileRecord != null)
+				{   // Add custom userProfileId claim to identity.
+					var userProfileIdClaim = new Claim(Consts.CLAIM_USERPROFILEID, userProfileRecord.UserProfileId.ToString());
+					oAuthIdentity.AddClaim(userProfileIdClaim);
+					cookiesIdentity.AddClaim(userProfileIdClaim);
+				}
+
+				// Populate the UserProfileId into the ticket as well.
 				AuthenticationProperties properties = CreateProperties(user.UserName, user.Id, roles, userProfileRecord);
 
 				AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);

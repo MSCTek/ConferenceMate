@@ -17,7 +17,7 @@ namespace MSC.ConferenceMate.DTO.CM
 		public System.DateTime LastLogin { get; set; }
 		public int PreferredLanguageId { get; set; }
 		public string Biography { get; set; }
-		public string PhotoUrl { get; set; }
+		public System.Guid? PhotoBlobFileId { get; set; }
 		public string AvatarUrl { get; set; }
 		public string CompanyName { get; set; }
 		public string JobTitle { get; set; }
@@ -35,6 +35,7 @@ namespace MSC.ConferenceMate.DTO.CM
 		// public virtual System.Collections.Generic.ICollection<SessionLike> SessionLikes { get; set; } // Many to many mapping -- Excluded navigation property per configuration.
 		// public virtual System.Collections.Generic.ICollection<SessionSpeaker> SessionSpeakers { get; set; } // Many to many mapping -- Excluded navigation property per configuration.
 		// public virtual AspNetUser AspNetUser { get; set; }  -- Excluded navigation property per configuration.
+		public virtual BlobFile BlobFile { get; set; } 
 		public virtual GenderType GenderType { get; set; } 
 		public virtual LanguageType LanguageType { get; set; } 
 

@@ -28,7 +28,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         public System.DateTime LastLogin { get; set; } // LastLogin
         public int PreferredLanguageId { get; set; } // PreferredLanguageId
         public string Biography { get; set; } // Biography (length: 4000)
-        public string PhotoUrl { get; set; } // PhotoUrl (length: 1000)
+        public System.Guid? PhotoBlobFileId { get; set; } // PhotoBlobFileId
         public string AvatarUrl { get; set; } // AvatarUrl (length: 1000)
         public string CompanyName { get; set; } // CompanyName (length: 1000)
         public string JobTitle { get; set; } // JobTitle (length: 1000)
@@ -64,6 +64,11 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         /// Parent AspNetUser pointed by [UserProfile].([AspNetUsersId]) (FK_UserProfile_AspNetUsers)
         /// </summary>
         public AspNetUser AspNetUser { get; set; } // FK_UserProfile_AspNetUsers
+
+        /// <summary>
+        /// Parent BlobFile pointed by [UserProfile].([PhotoBlobFileId]) (FK_UserProfile_BlobFile)
+        /// </summary>
+        public BlobFile BlobFile { get; set; } // FK_UserProfile_BlobFile
 
         /// <summary>
         /// Parent GenderType pointed by [UserProfile].([GenderTypeId]) (FK_UserProfile_GenderType_GenderTypeId)

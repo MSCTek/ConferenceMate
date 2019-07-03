@@ -20,6 +20,17 @@ namespace MSC.ConferenceMate.Repository.Infrastructure
 			CreateMap<xDTO.Announcement, xENT.Announcement>()
 			.ReverseMap();
 
+			CreateMap<xDTO.BlobFile, xENT.BlobFile>()
+				.ForMember(d => d.UserProfiles, opt => opt.Ignore()) // Reverse nav -- Excluded navigation property per configuration.
+				// .ForMember(d => d.BlobFileType, opt => opt.Ignore())
+			.ReverseMap();
+
+			CreateMap<xDTO.BlobFileType, xENT.BlobFileType>()
+				.ForMember(d => d.BlobFiles, opt => opt.Ignore()) // Reverse nav -- Excluded navigation property per configuration.
+				.ForMember(d => d.BlobFileTypes, opt => opt.Ignore()) // Reverse nav -- Excluded navigation property per configuration.
+				.ForMember(d => d.ResizeFromBlobFileType, opt => opt.Ignore()) //  -- Excluded navigation property per configuration.
+			.ReverseMap();
+
 			CreateMap<xDTO.FeaturedEvent, xENT.FeaturedEvent>()
 				// .ForMember(d => d.Feedbacks, opt => opt.Ignore()) // Reverse nav
 				// .ForMember(d => d.SponsorFeaturedEvents, opt => opt.Ignore()) // Reverse nav
@@ -110,6 +121,7 @@ namespace MSC.ConferenceMate.Repository.Infrastructure
 				.ForMember(d => d.SessionLikes, opt => opt.Ignore()) // Reverse nav -- Excluded navigation property per configuration.
 				.ForMember(d => d.SessionSpeakers, opt => opt.Ignore()) // Reverse nav -- Excluded navigation property per configuration.
 				.ForMember(d => d.AspNetUser, opt => opt.Ignore()) //  -- Excluded navigation property per configuration.
+				// .ForMember(d => d.BlobFile, opt => opt.Ignore())
 				// .ForMember(d => d.GenderType, opt => opt.Ignore())
 				// .ForMember(d => d.LanguageType, opt => opt.Ignore())
 			.ReverseMap();
