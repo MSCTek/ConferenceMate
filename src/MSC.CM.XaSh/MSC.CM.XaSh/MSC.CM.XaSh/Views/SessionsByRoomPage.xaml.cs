@@ -17,7 +17,7 @@ namespace MSC.CM.XaSh.Views
         public SessionsByRoomPage()
         {
             InitializeComponent();
-            //TODO: Why isn't the constructor being called again when the ServiceProvider is being re-generated during runtime?
+            //TODO: Navigation is via the view, not the viewmodel... rework this eventually.
             BindingContext = viewModel = Startup.ServiceProvider?.GetService<SessionsByRoomViewModel>() ?? new SessionsByRoomViewModel();
         }
 
