@@ -12,6 +12,7 @@ using MSC.ConferenceMate.Domain.Utils;
 using System.Drawing;
 using System.Linq;
 using CodeGenHero.Logging;
+using Microsoft.WindowsAzure.Storage;
 
 namespace MSC.ConferenceMate.Domain
 {
@@ -28,6 +29,85 @@ namespace MSC.ConferenceMate.Domain
 		}
 
 		private IAzureStorageManager AzureStorageManager { get; set; }
+
+		public async Task<Stream> GetBlobStreamByBlobFileIdAsync(Guid blobFileId, cmEnums.BlobFileType blobFileType)
+		{
+			Stream retVal = null;
+
+			try
+			{
+			}
+			catch (StorageException sex)
+			{
+				Log.Error($"Unable to retrieve blobFileId: {blobFileId.ToString()} in {nameof(GetBlobStreamByBlobFileIdAsync)}.", LogMessageType.Instance.Exception_Domain, sex);
+			}
+
+			return retVal;
+		}
+
+		public async Task<entCM.UserProfile> GetUserProfileAsync(int userProfileId)
+		{
+			entCM.UserProfile retVal = null;
+
+			try
+			{
+				var userProfile = await Repo.Get_UserProfileAsync(userProfileId, 1);
+			}
+			catch (Exception ex)
+			{
+				Log.Error(ex.Message, LogMessageType.Instance.Exception_Domain, ex, userName: userProfileId.ToString());
+			}
+
+			return retVal;
+		}
+
+		public async Task<IUserProfilePhoto> GetUserProfilePhotoAsync(int userProfileId, cmEnums.BlobFileType blobFileType)
+		{
+			IUserProfilePhoto retVal = null;
+
+			try
+			{
+				var userProfile = await Repo.Get_UserProfileAsync(userProfileId, 1);
+
+				if (userProfile == null)
+					throw new InvalidOperationException($"Unable to find user profile in {nameof(GetUserProfilePhotoAsync)}() using userProfileId: {userProfileId}");
+
+				if (!userProfile.PhotoBlobFileId.HasValue)
+					return retVal;
+
+				var blobFiles = Repo.GetQueryable_BlobFile().Where(x => x.BlobFileId == userProfile.PhotoBlobFileId.Value || x.ParentBlobFileId == userProfile.PhotoBlobFileId.Value)
+					.ToList().OrderBy(x => x.SizeInBytes);
+
+				if (blobFiles.Count() > 0)
+				{
+					entCM.BlobFile bestmatchBlobFile = blobFiles.FirstOrDefault();
+					if (blobFileType == cmEnums.BlobFileType.Thumbnail_Image)
+					{
+						bestmatchBlobFile = blobFiles.FirstOrDefault(x => x.BlobFileTypeId == (int)cmEnums.BlobFileType.Thumbnail_Image);
+					}
+					else
+					{
+						bestmatchBlobFile = blobFiles.FirstOrDefault(x => x.BlobFileTypeId == (int)cmEnums.BlobFileType.Original_Image);
+					}
+
+					if (bestmatchBlobFile != null && !string.IsNullOrEmpty(bestmatchBlobFile.BlobUri))
+					{
+						retVal = new UserProfilePhoto()
+						{
+							BlobFile = bestmatchBlobFile
+						};
+
+						retVal.Data = await AzureStorageManager.GetBlobBytesByPrimaryUriAsync(new Uri(bestmatchBlobFile.BlobUri));
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Error(ex.Message, LogMessageType.Instance.Exception_WebApi, ex, userName: userProfileId.ToString());
+			}
+
+			return retVal;
+		}
 
 		public async Task<bool> SetUserProfilePhotoAsync(int userProfileId, string fileName, long? sizeInBytes, string createdByOrModifiedByUser, Stream msFullsizeImage)
 		{
@@ -48,7 +128,8 @@ namespace MSC.ConferenceMate.Domain
 				var userProfileImage = Image.FromStream(msFullsizeImage);
 				msFullsizeImage.Position = 0; // Reset stream position - ahead of the upload to avoid an AzureStorageException - "The requested number of bytes exceeds the length of the stream remaining from the specified position."
 
-				Task<string> fullsizeImageUploadTask = AzureStorageManager.UploadFileToStorageAsync(fileStream: msFullsizeImage, blobName: newBlobFileId.ToString(), containerType: cmEnums.BlobContainerType.Image);
+				Task<string> fullsizeImageUploadTask = AzureStorageManager.UploadFileToStorageAsync(fileStream: msFullsizeImage,
+					blobName: newBlobFileId.ToString(), blobFileType: cmEnums.BlobFileType.Original_Image);
 				runningTasks.Add(fullsizeImageUploadTask);
 
 				// Add thumbnail user profile image to Azure.
@@ -56,7 +137,8 @@ namespace MSC.ConferenceMate.Domain
 				var msThumbNail = new MemoryStream();
 				thumbNailImage.Save(msThumbNail, System.Drawing.Imaging.ImageFormat.Png);
 				msThumbNail.Position = 0; // Reset stream position.
-				Task<string> thumbnailImageUploadTask = AzureStorageManager.UploadFileToStorageAsync(fileStream: msThumbNail, blobName: newBlobFileId.ToString(), containerType: cmEnums.BlobContainerType.Thumbnail);
+				Task<string> thumbnailImageUploadTask = AzureStorageManager.UploadFileToStorageAsync(fileStream: msThumbNail, blobName: newBlobFileId.ToString(),
+					blobFileType: cmEnums.BlobFileType.Thumbnail_Image);
 				runningTasks.Add(thumbnailImageUploadTask);
 
 				var fullsizeImagePrimaryUri = await fullsizeImageUploadTask; // Create a new BlobFile DB record for the full-size image.

@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using entCM = MSC.ConferenceMate.Repository.Entities.CM;
+using cmEnums = MSC.ConferenceMate.Domain.Enums;
 
 namespace MSC.ConferenceMate.Domain
 {
@@ -66,21 +68,15 @@ namespace MSC.ConferenceMate.Domain
 			return await Task.FromResult(true);
 		}
 
-		public async Task<bool> DeleteFileFromStorageAsync(string blobName, Enums.BlobContainerType containerType)
+		public async Task<bool> DeleteFileFromStorageAsync(string blobName, cmEnums.BlobFileType containerType)
 		{
-			if (string.IsNullOrEmpty(blobName))
-			{
-				return false;
-			}
-			else
-			{   // Limitation: Azure Storage names must be all lowercase.
-				blobName = blobName.ToLowerInvariant();
-			}
-
 			try
 			{
 				CloudBlockBlob blockBlob = GetBlockBlobReference(blobName, containerType);
-				blockBlob.DeleteIfExists();
+				if (blockBlob != null)
+				{
+					blockBlob.DeleteIfExists();
+				}
 			}
 			catch (StorageException sex)
 			{
@@ -88,6 +84,27 @@ namespace MSC.ConferenceMate.Domain
 			}
 
 			return await Task.FromResult(true);
+		}
+
+		public async Task<byte[]> GetBlobBytesByPrimaryUriAsync(Uri blobUri)
+		{
+			byte[] retVal = null;
+
+			try
+			{
+				var blob = await _blobClient.GetBlobReferenceFromServerAsync(blobUri);
+				using (MemoryStream ms = new MemoryStream())
+				{
+					await blob.DownloadToStreamAsync(ms);
+					retVal = ms.ToArray();
+				}
+			}
+			catch (StorageException sex)
+			{
+				Log.Error($"Unable to retrieve blobUri: {blobUri.ToString()} in {nameof(GetBlobBytesByPrimaryUriAsync)}.", LogMessageType.Instance.Exception_Domain, sex);
+			}
+
+			return retVal;
 		}
 
 		public async Task<List<string>> GetThumbNailUrlsAsync()
@@ -115,8 +132,31 @@ namespace MSC.ConferenceMate.Domain
 			return await Task.FromResult(thumbnailUrls);
 		}
 
-		public async Task<string> UploadFileToStorageAsync(Stream fileStream, string blobName, Enums.BlobContainerType containerType)
+		public async Task<string> UploadFileToStorageAsync(Stream fileStream, string blobName, cmEnums.BlobFileType containerType)
 		{
+			string retVal = null;
+
+			try
+			{
+				CloudBlockBlob blockBlob = GetBlockBlobReference(blobName, containerType);
+				if (blockBlob != null)
+				{
+					await blockBlob.UploadFromStreamAsync(fileStream);
+				}
+
+				retVal = blockBlob.StorageUri.PrimaryUri.ToString();
+			}
+			catch (StorageException sex)
+			{
+				Log.Error($"Unable to delete blobName: {blobName.ToString()} in {nameof(DeleteFileFromStorageAsync)}.", LogMessageType.Instance.Exception_Domain, sex);
+			}
+
+			return retVal;
+		}
+
+		private CloudBlockBlob GetBlockBlobReference(string blobName, cmEnums.BlobFileType containerType)
+		{
+			CloudBlockBlob retVal = null;
 			if (string.IsNullOrEmpty(blobName))
 			{
 				return null;
@@ -126,16 +166,7 @@ namespace MSC.ConferenceMate.Domain
 				blobName = blobName.ToLowerInvariant();
 			}
 
-			CloudBlockBlob blockBlob = GetBlockBlobReference(blobName, containerType);
-			await blockBlob.UploadFromStreamAsync(fileStream);
-
-			return blockBlob.StorageUri.PrimaryUri.ToString();
-		}
-
-		private CloudBlockBlob GetBlockBlobReference(string blobName, Enums.BlobContainerType containerType)
-		{
-			CloudBlockBlob retVal = null;
-			if (containerType == Enums.BlobContainerType.Image)
+			if (containerType == cmEnums.BlobFileType.Original_Image)
 			{
 				retVal = _imageContainer.Value.GetBlockBlobReference(blobName);
 			}

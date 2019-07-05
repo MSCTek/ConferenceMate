@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using iDom = MSC.ConferenceMate.Domain.Interface;
+using cmEnums = MSC.ConferenceMate.Domain.Enums;
+using System.Net.Http.Headers;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
@@ -41,8 +43,34 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			_domUser = domUser;
 		}
 
+		[HttpGet]
+		[VersionedRoute(template: "UserProfileThumbnail/{userProfileId}", allowedVersion: 1, Name = "GetUserProfileThumbnail")]
+		public async Task<HttpResponseMessage> Download(int userProfileId)
+		{
+			HttpResponseMessage retVal = new HttpResponseMessage(HttpStatusCode.OK);
+
+			if (userProfileId <= 0)
+				return Request.CreateResponse(HttpStatusCode.BadRequest);
+
+			var userProfilePhoto = await _domUser.GetUserProfilePhotoAsync(userProfileId, cmEnums.BlobFileType.Thumbnail_Image);
+			if (userProfilePhoto != null && userProfilePhoto.Data != null)
+			{
+				MemoryStream ms = new MemoryStream(userProfilePhoto.Data);
+				retVal.Content = new StreamContent(ms);
+				retVal.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+				retVal.Content.Headers.ContentDisposition.FileName = userProfilePhoto.BlobFile.Name;
+				retVal.Content.Headers.ContentType = new MediaTypeHeaderValue(userProfilePhoto.BlobFile.DiscreteMimeType);
+			}
+			else
+			{
+				return Request.CreateResponse(HttpStatusCode.BadRequest, $"Unable to retrieve userProfilePhoto using userProfileId: {userProfileId}.");
+			}
+
+			return retVal;
+		}
+
 		[HttpPost]
-		[VersionedRoute(template: "UserProfileImages", allowedVersion: 1, Name = "CMImageUpload")]
+		[VersionedRoute(template: "UserProfileImage", allowedVersion: 1, Name = "CMImageUpload")]
 		public async Task<HttpResponseMessage> Upload()
 		{
 			bool isUploaded = false;
@@ -51,45 +79,44 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			try
 			{
 				var httpRequest = HttpContext.Current.Request;
+				string userProfileIdString = httpRequest.Form["userProfileId"];
+				if (string.IsNullOrEmpty(userProfileIdString) || !int.TryParse(userProfileIdString, out int userProfileId))
+				{
+					return Request.CreateResponse(HttpStatusCode.BadRequest, "No valid userProfileId received in the upload.");
+				}
+
 				if (httpRequest.Files.Count > 0)
 				{
-					var uploadedFiles = new List<string>();
-					foreach (string file in httpRequest.Files)
+					var postedFile = httpRequest.Files[0];
+					if (IsImage(postedFile.FileName))
 					{
-						var postedFile = httpRequest.Files[file];
-
-						if (IsImage(postedFile.FileName))
+						if (postedFile.ContentLength > 0)
 						{
-							if (postedFile.ContentLength > 0)
+							var claimsIdentity = RequestContext.Principal.Identity as ClaimsIdentity;
+							var createdByOrModifiedByUser = claimsIdentity.Claims.FirstOrDefault(x => x.Type == Consts.CLAIM_USERPROFILEID).Value;
+
+							MemoryStream ms = new MemoryStream();
+							postedFile.InputStream.CopyTo(ms);
+							postedFile.InputStream.Position = ms.Position = 0;
+
+							try
 							{
-								var claimsIdentity = RequestContext.Principal.Identity as ClaimsIdentity;
-								var userProfileId = int.Parse(claimsIdentity.Claims.FirstOrDefault(x => x.Type == Consts.CLAIM_USERPROFILEID).Value);
-
-								MemoryStream ms = new MemoryStream();
-								postedFile.InputStream.CopyTo(ms);
-								postedFile.InputStream.Position = ms.Position = 0;
-
-								try
-								{
-									isUploaded = await _domUser.SetUserProfilePhotoAsync(userProfileId, postedFile.FileName, postedFile.ContentLength, userProfileId.ToString(), ms);
-								}
-								catch (Exception ex)
-								{
-									Log.Error(ex.Message, LogMessageType.Instance.Exception_WebApi, ex);
-									return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
-								}
+								isUploaded = await _domUser.SetUserProfilePhotoAsync(userProfileId, postedFile.FileName, postedFile.ContentLength, createdByOrModifiedByUser, ms);
+							}
+							catch (Exception ex)
+							{
+								Log.Error(ex.Message, LogMessageType.Instance.Exception_WebApi, ex);
+								return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
 							}
 						}
-						else
-						{
-							return Request.CreateResponse(HttpStatusCode.UnsupportedMediaType, "This service only supports image files with an extension of '.jpg', '.png', '.gif', or '.jpeg'.");
-						}
-
-						uploadedFiles.Add(postedFile.FileName);
+					}
+					else
+					{
+						return Request.CreateResponse(HttpStatusCode.UnsupportedMediaType, "This service only supports image files with an extension of '.jpg', '.png', '.gif', or '.jpeg'.");
 					}
 
 					await Task.WhenAll(updateTasks.ToArray()); // Allow all our async operations to complete.
-					return Request.CreateResponse(HttpStatusCode.Created, uploadedFiles);
+					return Request.CreateResponse(HttpStatusCode.Created, postedFile.FileName);
 				}
 				else
 				{
