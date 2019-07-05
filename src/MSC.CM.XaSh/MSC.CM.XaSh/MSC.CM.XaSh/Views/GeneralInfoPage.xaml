@@ -18,16 +18,12 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="{StaticResource MS.Red}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
-                </ContentView>
-            </StackLayout>
-        </StackLayout>
+        <Grid BackgroundColor="{StaticResource MS.Red}" HeightRequest="50">
+            <Image Source="monkeys.png" VerticalOptions="Center" Aspect="AspectFill"/>
+        </Grid>
         <ScrollView Grid.Row="1">
             <StackLayout>
                 <Label Text="Welcome!" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large" Margin="20" />
