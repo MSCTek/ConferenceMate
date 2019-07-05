@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using MSC.ConferenceMate.DataService.Models;
 
 namespace MSC.CM.XaSh.Services
 {
@@ -35,5 +36,7 @@ namespace MSC.CM.XaSh.Services
 		Task<int> LoadSessionSpeakersAsync(bool forceRefresh = false, bool secondPass = false);
 
 		Task<int> LoadUsersAsync(bool forceRefresh = false, bool secondPass = false);
+
+		Task<bool> SaveUserProfileImageAsync(UserProfilePhoto userProfilePhoto);
 	}
 }

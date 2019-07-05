@@ -200,5 +200,10 @@ namespace MSC.CM.XaSh.Services
 
 			return await conn.InsertAllAsync(myList);
 		}
+
+		public Task<bool> SaveUserProfileImageAsync(UserProfilePhoto userProfilePhoto)
+		{
+			return Task.FromResult(true);
+		}
 	}
 }

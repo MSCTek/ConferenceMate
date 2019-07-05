@@ -4,9 +4,9 @@ using System.IO;
 using CodeGenHero.DataService;
 using MSC.ConferenceMate.API.Client.Interface;
 using MSC.ConferenceMate.DataService.Models;
-using MSC.ConferenceMate.DataService.Extensions;
 using System.Linq;
 using System.Net.Mime;
+using Newtonsoft.Json;
 
 namespace MSC.ConferenceMate.API.Client
 {
@@ -14,10 +14,8 @@ namespace MSC.ConferenceMate.API.Client
 	{
 		public async Task<UserProfilePhoto> GetUserProfileThumbnailAsync(int userProfileId)
 		{
-			UserProfilePhoto retVal = new UserProfilePhoto();
-			HttpClient client = this.HttpClient;
-
-			using (HttpResponseMessage response = await client.GetAsync($"CM/UserProfileThumbnail/{userProfileId}", HttpCompletionOption.ResponseHeadersRead))
+			UserProfilePhoto retVal = new UserProfilePhoto() { UserProfileId = userProfileId };
+			using (HttpResponseMessage response = await HttpClient.GetAsync($"CM/UserProfileThumbnail/{userProfileId}", HttpCompletionOption.ResponseHeadersRead))
 			{
 				if (response.IsSuccessStatusCode)
 				{
@@ -26,6 +24,33 @@ namespace MSC.ConferenceMate.API.Client
 					ContentDisposition contentDisposition = new ContentDisposition(contentDispositionString);
 					string filename = contentDisposition.FileName;
 					retVal.FileName = filename;
+				}
+			}
+
+			return retVal;
+		}
+
+		public async Task<bool> SaveUserProfileImageAsync(UserProfilePhoto userProfilePhoto)
+		{
+			if (userProfilePhoto == null || userProfilePhoto.UserProfileId <= 0)
+				return false;
+
+			bool retVal = false;
+			MultipartFormDataContent content = new MultipartFormDataContent();
+
+			//var userProfileJson = JsonConvert.SerializeObject(new { userProfileId = userProfilePhoto.UserProfileId });
+			ByteArrayContent baContent = new ByteArrayContent(userProfilePhoto.Data);
+			content.Add(baContent, "File", userProfilePhoto.FileName);
+
+			StringContent userProfileIdContent = new StringContent(userProfilePhoto.UserProfileId.ToString());
+			content.Add(userProfileIdContent, "userProfileId");
+
+			// Upload MultipartFormDataContent content
+			using (var response = await HttpClient.PostAsync($"CM/UserProfileImage", content))
+			{
+				if (response.IsSuccessStatusCode)
+				{
+					retVal = true;
 				}
 			}
 
