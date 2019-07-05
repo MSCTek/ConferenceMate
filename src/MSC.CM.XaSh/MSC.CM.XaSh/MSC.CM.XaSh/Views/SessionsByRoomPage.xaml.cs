@@ -17,6 +17,7 @@ namespace MSC.CM.XaSh.Views
         public SessionsByRoomPage()
         {
             InitializeComponent();
+            //TODO: Why isn't the constructor being called again when the ServiceProvider is being re-generated during runtime?
             BindingContext = viewModel = Startup.ServiceProvider?.GetService<SessionsByRoomViewModel>() ?? new SessionsByRoomViewModel();
         }
 
@@ -25,6 +26,8 @@ namespace MSC.CM.XaSh.Views
             Analytics.TrackEvent("SessionsByRoomPage");
             base.OnAppearing();
 
+            //Workaround here
+            BindingContext = viewModel = Startup.ServiceProvider?.GetService<SessionsByRoomViewModel>() ?? new SessionsByRoomViewModel();
             await Refresh();
         }
 

@@ -14,14 +14,16 @@ namespace MSC.CM.XaSh.Views
         public MyProfilePage()
         {
             InitializeComponent();
-            BindingContext = viewModel = Startup.ServiceProvider?.GetService<MyProfileViewModel>() ?? new MyProfileViewModel();
+            //TODO: Why isn't the constructor being called again when the ServiceProvider is being re-generated during runtime?
+            //BindingContext = viewModel = Startup.ServiceProvider?.GetService<MyProfileViewModel>() ?? new MyProfileViewModel();
         }
 
         protected async override void OnAppearing()
         {
             Analytics.TrackEvent("MyProfilePage");
             base.OnAppearing();
-
+            //Workaround here
+            BindingContext = viewModel = Startup.ServiceProvider?.GetService<MyProfileViewModel>() ?? new MyProfileViewModel();
             await Refresh();
         }
 

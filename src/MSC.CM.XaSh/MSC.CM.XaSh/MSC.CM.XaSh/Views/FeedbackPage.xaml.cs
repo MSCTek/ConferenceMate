@@ -14,13 +14,17 @@ namespace MSC.CM.XaSh.Views
         public FeedbackPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = Startup.ServiceProvider?.GetService<FeedbackViewModel>() ?? new FeedbackViewModel();
+            //TODO: Why isn't the constructor being called again when the ServiceProvider is being re-generated during runtime?
+            //BindingContext = viewModel = Startup.ServiceProvider?.GetService<FeedbackViewModel>() ?? new FeedbackViewModel();
         }
 
         protected async override void OnAppearing()
         {
             Analytics.TrackEvent("FeedbackPage");
             base.OnAppearing();
+
+            //Workaround here
+            BindingContext = viewModel = Startup.ServiceProvider?.GetService<FeedbackViewModel>() ?? new FeedbackViewModel();
             await viewModel.LoadData();
         }
     }

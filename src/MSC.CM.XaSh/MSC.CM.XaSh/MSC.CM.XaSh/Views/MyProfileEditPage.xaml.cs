@@ -16,7 +16,8 @@ namespace MSC.CM.XaSh.Views
         public MyProfileEditPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = Startup.ServiceProvider?.GetService<MyProfileEditViewModel>() ?? new MyProfileEditViewModel();
+            //TODO: Why isn't the constructor being called again when the ServiceProvider is being re-generated during runtime?
+            //BindingContext = viewModel = Startup.ServiceProvider?.GetService<MyProfileEditViewModel>() ?? new MyProfileEditViewModel();
         }
 
         protected async override void OnAppearing()
@@ -24,6 +25,8 @@ namespace MSC.CM.XaSh.Views
             Analytics.TrackEvent("MyProfileEditPage");
             base.OnAppearing();
 
+            //Workaround here
+            BindingContext = viewModel = Startup.ServiceProvider?.GetService<MyProfileEditViewModel>() ?? new MyProfileEditViewModel();
             await Refresh();
         }
 

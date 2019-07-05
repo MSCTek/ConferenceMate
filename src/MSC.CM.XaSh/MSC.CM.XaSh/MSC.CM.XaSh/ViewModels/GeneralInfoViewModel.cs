@@ -17,7 +17,8 @@ namespace MSC.CM.XaSh.ViewModels
         private string _currentUserEmail;
         private int _currentUserId;
         private string _currentUserPassword;
-        private string _message;
+        private string _dataMessage;
+        private string _loginMessage;
 
         public GeneralInfoViewModel(IDataStore store = null, IDataLoader loader = null)
         {
@@ -26,6 +27,8 @@ namespace MSC.CM.XaSh.ViewModels
             Title = "GeneralInfo";
 
             PrePopulateLoginFields();
+
+            PopulateDataMessage();
 
             base.CheckAppCenter();
         }
@@ -48,6 +51,12 @@ namespace MSC.CM.XaSh.ViewModels
             set { Set(ref _currentUserPassword, value); }
         }
 
+        public string DataMessage
+        {
+            get { return _dataMessage; }
+            set { Set(ref _dataMessage, value); }
+        }
+
         public bool IsUserLoggedIn
         {
             get
@@ -66,11 +75,7 @@ namespace MSC.CM.XaSh.ViewModels
                     IsBusy = true;
                     try
                     {
-                        await DataLoader.AuthGetToken(CurrentUserEmail, CurrentUserPassword);
-
-                        UpdateMessage();
-                        RaisePropertyChanged(nameof(IsUserLoggedIn));
-                        await RefreshUserData();
+                        await Login();
                     }
                     catch (Exception ex)
                     {
@@ -79,6 +84,12 @@ namespace MSC.CM.XaSh.ViewModels
                     IsBusy = false;
                 });
             }
+        }
+
+        public string LoginMessage
+        {
+            get { return _loginMessage; }
+            set { Set(ref _loginMessage, value); }
         }
 
         public RelayCommand LogoutCommand
@@ -90,9 +101,7 @@ namespace MSC.CM.XaSh.ViewModels
                     IsBusy = true;
                     try
                     {
-                        DataLoader.AuthRemoveToken();
-                        UpdateMessage();
-                        RaisePropertyChanged(nameof(IsUserLoggedIn));
+                        Logout();
                     }
                     catch (Exception ex)
                     {
@@ -103,24 +112,94 @@ namespace MSC.CM.XaSh.ViewModels
             }
         }
 
-        public string Message
+        public RelayCommand UseAPIDataCommand
         {
-            get { return _message; }
-            set { Set(ref _message, value); }
+            get
+            {
+                return new RelayCommand(async () =>
+                {
+                    IsBusy = true;
+                    try
+                    {
+                        Logout();
+                        if (await App.Database.DropCreateTables())
+                        {
+                            Startup.InitForSwitchToAPIData();
+                            DataLoader = (IDataLoader)Startup.ServiceProvider.GetService(typeof(IDataLoader));
+                            //we need to login before we can pull fresh data
+                            await Login();
+                            PopulateDataMessage();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Crashes.TrackError(ex);
+                    }
+                    IsBusy = false;
+                });
+            }
         }
 
-        internal async Task RefreshUserData()
+        public RelayCommand UseSampleDataCommand
+        {
+            get
+            {
+                return new RelayCommand(async () =>
+                {
+                    IsBusy = true;
+                    try
+                    {
+                        Logout();
+                        if (await App.Database.DropCreateTables())
+                        {
+                            Startup.InitForSwitchToSampleData();
+                            DataLoader = (IDataLoader)Startup.ServiceProvider.GetService(typeof(IDataLoader));
+                            await Login();
+                            PopulateDataMessage();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Crashes.TrackError(ex);
+                    }
+                    IsBusy = false;
+                });
+            }
+        }
+
+        internal async Task RefreshUserData(bool forceRefresh = false)
         {
             if (base.IsConnected || App.UseSampleDataStore)
             {
                 //load SQLite from API or sample data
-                var countUsers = await DataLoader.LoadUsersAsync();
+                var countUsers = await DataLoader.LoadUsersAsync(forceRefresh: forceRefresh);
                 Debug.WriteLine($"Loaded {countUsers} Users.");
-                var countFeedbackInitTypes = await DataLoader.LoadFeedbackInitiatorTypesAsync();
+                var countFeedbackInitTypes = await DataLoader.LoadFeedbackInitiatorTypesAsync(forceRefresh: forceRefresh);
                 Debug.WriteLine($"Loaded {countFeedbackInitTypes} Feedback Initiator Types.");
-                var countFeedbackTypes = await DataLoader.LoadFeedbackTypesAsync();
+                var countFeedbackTypes = await DataLoader.LoadFeedbackTypesAsync(forceRefresh: forceRefresh);
                 Debug.WriteLine($"Loaded {countFeedbackTypes} Feedback Types.");
             }
+        }
+
+        private async Task Login()
+        {
+            await DataLoader.AuthGetToken(CurrentUserEmail, CurrentUserPassword);
+
+            UpdateMessage();
+            RaisePropertyChanged(nameof(IsUserLoggedIn));
+            await RefreshUserData(true);
+        }
+
+        private void Logout()
+        {
+            DataLoader.AuthRemoveToken();
+            UpdateMessage();
+            RaisePropertyChanged(nameof(IsUserLoggedIn));
+        }
+
+        private void PopulateDataMessage()
+        {
+            DataMessage = (App.UseSampleDataStore) ? "Currently Using Sample Data" : "Currently Using API Data";
         }
 
         private bool PrePopulateLoginFields()
@@ -149,7 +228,7 @@ namespace MSC.CM.XaSh.ViewModels
         private void UpdateMessage()
         {
             int profileId = Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0);
-            Message = (profileId == 0) ? "User is not logged in" : $"User #{profileId} is logged in";
+            LoginMessage = (profileId == 0) ? "User is not logged in" : $"User #{profileId} is logged in";
         }
     }
 }

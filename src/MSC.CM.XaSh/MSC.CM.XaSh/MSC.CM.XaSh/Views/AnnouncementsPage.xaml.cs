@@ -14,7 +14,8 @@ namespace MSC.CM.XaSh.Views
         public AnnouncementsPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = Startup.ServiceProvider?.GetService<AnnouncementsViewModel>() ?? new AnnouncementsViewModel();
+            //TODO: Why isn't the constructor being called again when the ServiceProvider is being re-generated during runtime?
+            //BindingContext = viewModel = Startup.ServiceProvider?.GetService<AnnouncementsViewModel>() ?? new AnnouncementsViewModel();
         }
 
         protected async override void OnAppearing()
@@ -22,6 +23,8 @@ namespace MSC.CM.XaSh.Views
             Analytics.TrackEvent("AnnouncementsPage");
             base.OnAppearing();
 
+            //Workaround here
+            BindingContext = viewModel = Startup.ServiceProvider?.GetService<AnnouncementsViewModel>() ?? new AnnouncementsViewModel();
             await Refresh();
         }
 

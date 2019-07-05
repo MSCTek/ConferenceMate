@@ -48,9 +48,16 @@
                 <Button Text="Logout"  Command="{Binding LogoutCommand}" IsEnabled="{Binding IsBusy, Converter={StaticResource BoolToAntiBoolConverter}}"
                        WidthRequest="150" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding IsUserLoggedIn}" />
 
-                <Label Text="{Binding Message}" HorizontalOptions="Center" VerticalOptions="Center"
+                <Label Text="{Binding LoginMessage}" HorizontalOptions="Center" VerticalOptions="Center"
                        FontSize="Medium" Margin="20" />
                 <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="True" HeightRequest="50" WidthRequest="50" Margin="10" />
+
+                <Label Text="{Binding DataMessage}" HorizontalOptions="Center" VerticalOptions="Center"
+                       FontSize="Medium" Margin="20" />
+                <Button Text="Use Sample Data"  Command="{Binding UseSampleDataCommand}" IsEnabled="{Binding IsBusy, Converter={StaticResource BoolToAntiBoolConverter}}"
+                       WidthRequest="150" HorizontalOptions="Center" VerticalOptions="Center" />
+                <Button Text="Use API Data"  Command="{Binding UseAPIDataCommand}" IsEnabled="{Binding IsBusy, Converter={StaticResource BoolToAntiBoolConverter}}"
+                       WidthRequest="150" HorizontalOptions="Center" VerticalOptions="Center" />
             </StackLayout>
         </ScrollView>
     </Grid>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Http;
 using Microsoft.Extensions.Logging;
@@ -62,6 +63,20 @@ namespace MSC.CM.XaSh
             ServiceProvider = host.Services;
         }
 
+        public static void InitForSwitchToAPIData()
+        {
+            App.UseSampleDataStore = false;
+            ServiceProvider = null;
+            Startup.Init();
+        }
+
+        public static void InitForSwitchToSampleData()
+        {
+            App.UseSampleDataStore = true;
+            ServiceProvider = null;
+            Startup.Init();
+        }
+
         private static void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
         {
             services.AddHttpClient(Consts.UNAUTHORIZED, client =>
@@ -102,10 +117,10 @@ namespace MSC.CM.XaSh
 
             if (ctx.HostingEnvironment.IsDevelopment() && App.UseSampleDataStore)
             {
-                //load vms directly from sample data
+                //load viewmodels directly from sample data
                 //services.AddSingleton<IDataStore, SampleDataStore>();
 
-                //load vms from SQLite
+                //load viewmodels from SQLite
                 services.AddSingleton<IDataStore, SQLiteDataStore>();
                 services.AddSingleton<IDataLoader, SampleDataLoader>();
                 services.AddSingleton<IDataUploader, SampleDataUploader>();

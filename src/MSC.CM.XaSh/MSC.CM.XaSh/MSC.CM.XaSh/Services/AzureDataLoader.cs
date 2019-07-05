@@ -111,9 +111,6 @@ namespace MSC.CM.XaSh.Services
                     Preferences.Set(Consts.CURRENT_USER_EMAIL, resultContent.userName);
                     Preferences.Set(Consts.CURRENT_USER_PROFILE_ID, resultContent.userProfileId);
 
-                    //load users, perhaps for the first time
-                    await LoadUsersAsync();
-
                     Analytics.TrackEvent("Successful Login", new Dictionary<string, string> { { "user", user } });
                     return true;
                 }
@@ -244,7 +241,7 @@ namespace MSC.CM.XaSh.Services
                 else
                 {
                     //truncate the table
-                    await _conn.Table<Announcement>().DeleteAsync();
+                    await _conn.Table<Announcement>().Where(x => x.AnnouncementId != 0).DeleteAsync();
                 }
 
                 var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesAnnouncementsAsync(lastUpdatedDate);
@@ -294,7 +291,7 @@ namespace MSC.CM.XaSh.Services
                 else
                 {
                     //truncate the table
-                    await _conn.Table<FeedbackInitiatorType>().DeleteAsync();
+                    await _conn.Table<FeedbackInitiatorType>().Where(x => x.FeedbackInitiatorTypeId != 0).DeleteAsync();
                 }
                 var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesFeedbackInitiatorTypesAsync(lastUpdatedDate);
                 int count = 0;
@@ -343,7 +340,7 @@ namespace MSC.CM.XaSh.Services
                 else
                 {
                     //truncate the table
-                    await _conn.Table<FeedbackType>().DeleteAsync();
+                    await _conn.Table<FeedbackType>().Where(x => x.FeedbackTypeId != 0).DeleteAsync();
                 }
                 var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesFeedbackTypesAsync(lastUpdatedDate);
                 int count = 0;
@@ -392,7 +389,7 @@ namespace MSC.CM.XaSh.Services
                 else
                 {
                     //truncate the table
-                    await _conn.Table<Room>().DeleteAsync();
+                    await _conn.Table<Room>().Where(x => x.RoomId != 0).DeleteAsync();
                 }
                 var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesRoomsAsync(lastUpdatedDate);
                 int count = 0;
@@ -443,7 +440,7 @@ namespace MSC.CM.XaSh.Services
                     else
                     {
                         //truncate the table
-                        await _conn.Table<SessionLike>().DeleteAsync();
+                        await _conn.Table<SessionLike>().Where(x => x.SessionIdUserProfileId != "0").DeleteAsync();
                     }
                     var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesSessionLikesAsync(lastUpdatedDate);
                     int count = 0;
@@ -497,7 +494,7 @@ namespace MSC.CM.XaSh.Services
                     else
                     {
                         //truncate the table
-                        await _conn.Table<Session>().DeleteAsync();
+                        await _conn.Table<Session>().Where(x => x.SessionId != 0).DeleteAsync();
                     }
                     var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesSessionsAsync(lastUpdatedDate);
                     int count = 0;
@@ -551,7 +548,7 @@ namespace MSC.CM.XaSh.Services
                     else
                     {
                         //truncate the table
-                        await _conn.Table<SessionSpeaker>().DeleteAsync();
+                        await _conn.Table<SessionSpeaker>().Where(x => x.SessionIdUserProfileId != "0").DeleteAsync();
                     }
                     var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesSessionSpeakersAsync(lastUpdatedDate);
                     int count = 0;
@@ -591,7 +588,7 @@ namespace MSC.CM.XaSh.Services
         {
             try
             {
-                if (await NeedsDataRefresh(UpdateableTableNames.User))
+                if (await NeedsDataRefresh(UpdateableTableNames.User) || forceRefresh)
                 {
                     DateTime? lastUpdatedDate = null;
                     if (!forceRefresh)
@@ -605,7 +602,7 @@ namespace MSC.CM.XaSh.Services
                     else
                     {
                         //truncate the table
-                        await _conn.Table<UserProfile>().DeleteAsync();
+                        await _conn.Table<UserProfile>().Where(x => x.UserProfileId != 0).DeleteAsync();
                     }
                     var dtos = await GetWebAPIDataService(Consts.AUTHORIZED).GetAllPagesUserProfilesAsync(lastUpdatedDate);
                     int count = 0;
