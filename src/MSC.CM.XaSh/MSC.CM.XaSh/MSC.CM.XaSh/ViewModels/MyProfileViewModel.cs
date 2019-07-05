@@ -58,13 +58,13 @@ namespace MSC.CM.XaSh.ViewModels
 				if (IsUserLoggedIn)
 				{
 					ConferenceMate.DataService.Models.UserProfilePhoto userProfilePhoto = await DataLoader.GetUserProfileThumbnailAsync(currentUserProfileId);
-					if (userProfilePhoto != null && userProfilePhoto.Data.Length > 0)
+					if (userProfilePhoto != null && userProfilePhoto.Data != null && userProfilePhoto.Data.Length > 0)
 					{
 						MyProfileImage = ImageSource.FromStream(() => new MemoryStream(userProfilePhoto.Data));
 					}
 					else
 					{
-						MyProfileImage = ImageSource.FromResource("xamarinstore.jpg");
+						MyProfileImage = (new Image { Source = "xamarinstore.jpg" }).Source;
 					}
 				}
 			}
