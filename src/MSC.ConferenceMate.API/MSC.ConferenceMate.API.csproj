@@ -386,7 +386,6 @@
     <Compile Include="Models\RefreshToken.cs" />
     <Compile Include="Models\SecurityDbContext.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserProfileImageUpload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Providers\JWTFormat.cs" />

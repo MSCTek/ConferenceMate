@@ -59,7 +59,8 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				retVal.Content = new StreamContent(ms);
 				retVal.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
 				retVal.Content.Headers.ContentDisposition.FileName = userProfilePhoto.BlobFile.Name;
-				retVal.Content.Headers.ContentType = new MediaTypeHeaderValue(userProfilePhoto.BlobFile.DiscreteMimeType);
+				//retVal.Content.Headers.ContentType = new MediaTypeHeaderValue(userProfilePhoto.BlobFile.DiscreteMimeType);
+				retVal.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(userProfilePhoto.BlobFile.Name));
 			}
 			else
 			{
