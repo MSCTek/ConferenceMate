@@ -8,12 +8,6 @@ namespace MSC.ConferenceMate.Domain
 {
 	public static class Enums
 	{
-		public enum BlobContainerType
-		{
-			Image,
-			Thumbnail
-		}
-
 		public enum BlobFileType
 		{
 			Original_Image = 1,

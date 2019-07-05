@@ -1,25 +1,18 @@
-﻿using CodeGenHero.DataService;
-using Microsoft.AppCenter.Analytics;
+﻿using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.Extensions.Logging;
 using MSC.CM.Xam;
 using MSC.CM.Xam.ModelData.CM;
 using MSC.CM.XaSh.Helpers;
-using MSC.ConferenceMate.API.Client;
-using MSC.ConferenceMate.API.Client.Interface;
 using MSC.ConferenceMate.DataService.Models;
 using Newtonsoft.Json;
-using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-using static MSC.ConferenceMate.DataService.Constants.Enums;
 
 namespace MSC.CM.XaSh.Services
 {
@@ -100,7 +93,7 @@ namespace MSC.CM.XaSh.Services
                 });
 
                 var client = GetHttpClient(Consts.UNAUTHORIZED);
-                var result = await client.PostAsync("/api/token ", content);
+                var result = await client.PostAsync("token", content);
 
                 if (result.IsSuccessStatusCode)
                 {
@@ -164,7 +157,7 @@ namespace MSC.CM.XaSh.Services
                 });
 
                 var client = GetHttpClient(Consts.UNAUTHORIZED);
-                var result = await client.PostAsync("/api/token ", content);
+                var result = await client.PostAsync("token", content);
 
                 if (result.IsSuccessStatusCode)
                 {
@@ -208,6 +201,22 @@ namespace MSC.CM.XaSh.Services
             {
                 return false;
             }
+        }
+
+        public async Task<UserProfilePhoto> GetUserProfileThumbnailAsync(int userProfileId)
+        {
+            UserProfilePhoto retVal = null;
+
+            try
+            {
+                retVal = await GetWebAPIDataService(Consts.AUTHORIZED).GetUserProfileThumbnailAsync(userProfileId);
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+            }
+
+            return retVal;
         }
 
         public async Task<bool> HeartbeatCheck()
@@ -588,7 +597,7 @@ namespace MSC.CM.XaSh.Services
         {
             try
             {
-                if (await NeedsDataRefresh(UpdateableTableNames.User) || forceRefresh)
+                if (await NeedsDataRefresh(UpdateableTableNames.User))
                 {
                     DateTime? lastUpdatedDate = null;
                     if (!forceRefresh)

@@ -13,9 +13,4 @@
     <ProjectReference Include="..\MSC.ConferenceMate.DTO\MSC.ConferenceMate.DTO.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DataService\Custom\" />
-    <Folder Include="Interfaces\Custom\" />
-  </ItemGroup>
-
 </Project>
