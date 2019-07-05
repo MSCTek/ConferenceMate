@@ -8,5 +8,6 @@ namespace MSC.ConferenceMate.DataService.Models
 	{
 		public byte[] Data { get; set; }
 		public string FileName { get; set; }
+		public int UserProfileId { get; set; }
 	}
 }

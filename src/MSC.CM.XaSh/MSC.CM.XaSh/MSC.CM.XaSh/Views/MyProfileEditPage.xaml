@@ -21,7 +21,7 @@
             <Frame Grid.Row="0" Margin="5">
 
                 <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-                    <circle:CircleImage x:Name="image" Source="xamarinstore.jpg" WidthRequest="200" HeightRequest="200"
+                    <circle:CircleImage x:Name="image" Source="{Binding MyProfileImage}" WidthRequest="200" HeightRequest="200"
                                         Aspect="AspectFill" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
                     <!--<Button Text="Take a New Picture" Command="{Binding TakeNewPictureCommand}" IsEnabled="{Binding CanTakeNewPicture}"
                             HorizontalOptions="Center" />
