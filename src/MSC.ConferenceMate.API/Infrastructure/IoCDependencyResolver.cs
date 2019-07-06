@@ -1,8 +1,9 @@
 ﻿using CodeGenHero.Logging;
 using CodeGenHero.Logging.Log4net;
 using DryIoc;
+using MSC.ConferenceMate.API.Models.Interface;
 using MSC.ConferenceMate.Repository;
-using MSC.ConferenceMate.Repository.Entities.CM;
+using entCM = MSC.ConferenceMate.Repository.Entities.CM;
 using MSC.ConferenceMate.Repository.Interface;
 using System;
 using System.Collections.Generic;
@@ -11,19 +12,22 @@ using System.Net.Http;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
+using MSC.ConferenceMate.API.Infrastructure.Interface;
+using iDom = MSC.ConferenceMate.Domain.Interface;
+using System.Configuration;
+using dom = MSC.ConferenceMate.Domain;
 
-namespace MSC.ConferenceMate.Web.Infrastructure
+namespace MSC.ConferenceMate.API.Infrastructure
 {
 	public static class IoCDependencyResolver
 	{
 		private static readonly Type _ApiControllerType = typeof(ApiController);
-		private static readonly Assembly _CurrentAssembly = typeof(MvcApplication).Assembly;
-		private static readonly Type _MvcControllerType = typeof(System.Web.Mvc.Controller);
+		private static readonly Assembly _CurrentAssembly = typeof(WebApiApplication).Assembly;
 
 		public static ISession GetSession(HttpRequestMessage request)
 		{
 			// TODO: This is just a sample. Insert whatever session management logic you need.
-			var session = new Session();
+			var session = new Models.Session(request);
 			return session;
 		}
 
@@ -46,42 +50,39 @@ namespace MSC.ConferenceMate.Web.Infrastructure
 			{
 				container.Register(controller, Reuse.Scoped);
 			}
-
-			// Register MVC Controllers
-			foreach (Type controller in _CurrentAssembly.GetTypes()
-				.Where(t => !t.IsAbstract && t.IsClass && _MvcControllerType.IsAssignableFrom(t)))
-			{
-				container.Register(controller, Reuse.Scoped);
-			}
 		}
 
 		private static void RegisterDbContexts(this IContainer container)
 		{
-			// register DbContexs eg.
-			//container.Register<DbContext>(made: Made.Of(() => new DbContext()));
-			container.Register<ICMDataContextFactory, CMDataContextFactory>(Reuse.Singleton);
-			container.Register<ICMDataContext>(made: Made.Of(r => ServiceInfo.Of<ICMDataContextFactory>(), f => f.Create()));
+			container.Register<ICMDataContextFactory, CMDataContextFactory>(reuse: Reuse.Singleton);
+			container.Register<entCM.ICMDataContext>(made: Made.Of(r => ServiceInfo.Of<ICMDataContextFactory>(), f => f.Create()));
 		}
 
 		private static void RegisterRepositories(this IContainer container)
 		{
-			// register repos eg.
 			container.Register<ICMRepository, CMRepository>();
 		}
 
 		private static void RegisterServices(this IContainer container)
 		{
-			// register services eg.
-			//container.Register<IUserService, UserService>();
-
 			// NOTE: Registers ISession provider to work with injected Request
 			container.Register<ISession>(Made.Of(() => GetSession(Arg.Of<HttpRequestMessage>())));
 
-			//TODO: Register ILoggerFactory in DryIoc container using Microsoft.Extensions.Logging - https://stackoverflow.com/questions/48911710/register-iloggerfactory-in-dryioc-container?rq=1
-			// https://dotnetfiddle.net/GE2Dp2
 			var log = new Log4NetLoggingService();
 			container.UseInstance<ILoggingService>(log);
-			//container.Register<IAppSettingsService, AppSettingsService>(Reuse.Singleton);
+
+			iDom.IAzureStorageConfig azureStorageConfig = new Domain.AzureStorageConfig()
+			{
+				AccountKey = ConfigurationManager.AppSettings[dom.Consts.AzureStorageConfig_AccountKey],
+				AccountName = ConfigurationManager.AppSettings[dom.Consts.AzureStorageConfig_AccountName],
+				ImageContainer = ConfigurationManager.AppSettings[dom.Consts.AzureStorageConfig_ImageContainer],
+				QueueName = ConfigurationManager.AppSettings[dom.Consts.AzureStorageConfig_QueueName],
+				ThumbnailContainer = ConfigurationManager.AppSettings[dom.Consts.AzureStorageConfig_ThumbnailContainer]
+			};
+			container.UseInstance<iDom.IAzureStorageConfig>(azureStorageConfig);
+
+			container.Register<iDom.IAzureStorageManager, dom.AzureStorageManager>();
+			container.Register<iDom.IUser, dom.User>();
 		}
 	}
 }

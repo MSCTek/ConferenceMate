@@ -1,13 +1,17 @@
 ﻿using CodeGenHero.WebApi;
+using DryIoc;
+using DryIoc.WebApi;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Web.Http;
+using MSC.ConferenceMate.API.Infrastructure;
 
-namespace MSC.ResourceScheduler.API
+namespace MSC.ConferenceMate.API
 {
 	public static class WebApiConfig
 	{
@@ -39,6 +43,37 @@ namespace MSC.ResourceScheduler.API
 			config.Filters.Add(laa);
 
 			config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
+
+			// DryIoC registration.
+			config.RegisterDependencyResolver();
+		}
+
+		private static void RegisterDependencyResolver(this HttpConfiguration config)
+		{
+			IContainer container = new Container(rules => rules
+			.With(FactoryMethod.ConstructorWithResolvableArguments)
+			.WithoutThrowOnRegisteringDisposableTransient())
+			.WithWebApi(config);
+			container.RegisterDependencies();
+
+			// auto–diagnostic to find out if all registered dependencies are able to be fulfilled/resolved; avoid unpleasant surprises at runtime.
+			KeyValuePair<ServiceInfo, ContainerException>[] registrationValidations = container.Validate();
+			if (registrationValidations.Length != 0)
+			{
+				StringBuilder sb = new StringBuilder();
+				foreach (var registrationValidation in registrationValidations)
+				{
+					if (!registrationValidation.Value.Message.Contains("HttpRequestMessage"))
+					{   // Ignore error: "Unable to resolve HttpRequestMessage as parameter "request" in ISession".
+						sb.AppendLine(registrationValidation.Value.Message);
+					}
+				}
+
+				if (sb.Length > 0)
+				{
+					throw new System.Configuration.ConfigurationErrorsException($"IoC registration validation resulted in these errors: {sb.ToString()}");
+				}
+			}
 		}
 	}
 }

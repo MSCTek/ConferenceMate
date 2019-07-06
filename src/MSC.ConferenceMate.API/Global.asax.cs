@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System.Web.Http;
 
-namespace MSC.ResourceScheduler.API
+namespace MSC.ConferenceMate.API
 {
 	public class WebApiApplication : System.Web.HttpApplication
 	{

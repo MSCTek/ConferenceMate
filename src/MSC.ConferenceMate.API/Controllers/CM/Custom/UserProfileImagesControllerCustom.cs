@@ -15,32 +15,20 @@ using System.Web.Http;
 using iDom = MSC.ConferenceMate.Domain.Interface;
 using cmEnums = MSC.ConferenceMate.Domain.Enums;
 using System.Net.Http.Headers;
+using MSC.ConferenceMate.API.Models.Interface;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
 	public partial class UserProfileImagesController : CMBaseApiControllerAuthorized
 	{
 		private readonly iDom.IUser _domUser = null;
+		private readonly ISession _session = null;
 
-		public UserProfileImagesController() : base()
-		{
-			var azureStorageConfig = new AzureStorageConfig()
-			{
-				AccountKey = "<your account key>",
-				AccountName = "conferencemate",
-				ImageContainer = "images",
-				QueueName = "",
-				ThumbnailContainer = "thumbnails"
-			};
-
-			iDom.IAzureStorageManager azureStorageManager = new AzureStorageManager(Log, Repo, azureStorageConfig);
-			_domUser = new MSC.ConferenceMate.Domain.User(Log, Repo, azureStorageManager);
-		}
-
-		public UserProfileImagesController(ILoggingService log, ICMRepository repository, iDom.IUser domUser)
+		public UserProfileImagesController(ILoggingService log, ICMRepository repository, iDom.IUser domUser, ISession session)
 			: base(log, repository)
 		{
 			_domUser = domUser;
+			_session = session;
 		}
 
 		[HttpGet]
@@ -86,42 +74,50 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 					return Request.CreateResponse(HttpStatusCode.BadRequest, "No valid userProfileId received in the upload.");
 				}
 
-				if (httpRequest.Files.Count > 0)
+				if (_session.CurrentUserProfileId == userProfileId
+					|| _session.CurrentUserIsConferenceOrganizer)
 				{
-					var postedFile = httpRequest.Files[0];
-					if (IsImage(postedFile.FileName))
+					if (httpRequest.Files.Count > 0)
 					{
-						if (postedFile.ContentLength > 0)
+						var postedFile = httpRequest.Files[0];
+						if (IsImage(postedFile.FileName))
 						{
-							var claimsIdentity = RequestContext.Principal.Identity as ClaimsIdentity;
-							var createdByOrModifiedByUser = claimsIdentity.Claims.FirstOrDefault(x => x.Type == Consts.CLAIM_USERPROFILEID).Value;
-
-							MemoryStream ms = new MemoryStream();
-							postedFile.InputStream.CopyTo(ms);
-							postedFile.InputStream.Position = ms.Position = 0;
-
-							try
+							if (postedFile.ContentLength > 0)
 							{
-								isUploaded = await _domUser.SetUserProfilePhotoAsync(userProfileId, postedFile.FileName, postedFile.ContentLength, createdByOrModifiedByUser, ms);
-							}
-							catch (Exception ex)
-							{
-								Log.Error(ex.Message, LogMessageType.Instance.Exception_WebApi, ex);
-								return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+								var claimsIdentity = RequestContext.Principal.Identity as ClaimsIdentity;
+								var createdByOrModifiedByUser = claimsIdentity.Claims.FirstOrDefault(x => x.Type == Consts.CLAIM_USERPROFILEID).Value;
+
+								MemoryStream ms = new MemoryStream();
+								postedFile.InputStream.CopyTo(ms);
+								postedFile.InputStream.Position = ms.Position = 0;
+
+								try
+								{
+									isUploaded = await _domUser.SetUserProfilePhotoAsync(userProfileId, postedFile.FileName, postedFile.ContentLength, createdByOrModifiedByUser, ms);
+								}
+								catch (Exception ex)
+								{
+									Log.Error(ex.Message, LogMessageType.Instance.Exception_WebApi, ex);
+									return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+								}
 							}
 						}
+						else
+						{
+							return Request.CreateResponse(HttpStatusCode.UnsupportedMediaType, "This service only supports image files with an extension of '.jpg', '.png', '.gif', or '.jpeg'.");
+						}
+
+						await Task.WhenAll(updateTasks.ToArray()); // Allow all our async operations to complete.
+						return Request.CreateResponse(HttpStatusCode.Created, postedFile.FileName);
 					}
 					else
 					{
-						return Request.CreateResponse(HttpStatusCode.UnsupportedMediaType, "This service only supports image files with an extension of '.jpg', '.png', '.gif', or '.jpeg'.");
+						return Request.CreateResponse(HttpStatusCode.BadRequest, "No files received in the upload.");
 					}
-
-					await Task.WhenAll(updateTasks.ToArray()); // Allow all our async operations to complete.
-					return Request.CreateResponse(HttpStatusCode.Created, postedFile.FileName);
 				}
 				else
 				{
-					return Request.CreateResponse(HttpStatusCode.BadRequest, "No files received in the upload.");
+					return Request.CreateResponse(HttpStatusCode.BadRequest, "Only conference organizers may alter a profile picture for users other than themselves.");
 				}
 			}
 			catch (Exception ex)

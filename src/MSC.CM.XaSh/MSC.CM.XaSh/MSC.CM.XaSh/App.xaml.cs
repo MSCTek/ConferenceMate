@@ -15,8 +15,8 @@ namespace MSC.CM.XaSh
 {
 	public partial class App : Application
 	{
-		// public static string AzureBackendUrl = "http://10.0.0.145:45457/api/";
-		public static string AzureBackendUrl = "https://conferencemate.azurewebsites.net/api/";
+		public static string AzureBackendUrl = "http://10.0.0.145:45457/api/";
+		//public static string AzureBackendUrl = "https://conferencemate.azurewebsites.net/api/";
 
 		// public static string AzureBackendUrl = "http://10.0.2.2:6677/api/"; //"http://10.0.2.2:6672/api/";
 		// Android Emulator then asking for the localhost web service won't work, because you're looking at the localhost of the emulator.

@@ -380,12 +380,22 @@
       <DependentUpon>WebApiController_CM.cgh</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CM\Custom\UserProfileImagesControllerCustom.cs" />
+    <Compile Include="DryIoc\Container.cs" />
+    <Compile Include="DryIoc\Expression.cs" />
+    <Compile Include="DryIoc\FastExpressionCompiler.cs" />
+    <Compile Include="DryIoc\ImTools.cs" />
+    <Compile Include="DryIoc\WebApi\DryIocWebApi.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\CMDataContextFactory.cs" />
+    <Compile Include="Infrastructure\Interface\ICMDataContextFactory.cs" />
+    <Compile Include="Infrastructure\IoCDependencyResolver.cs" />
+    <Compile Include="Models\Interface\ISession.cs" />
     <Compile Include="Models\RefreshToken.cs" />
     <Compile Include="Models\SecurityDbContext.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Session.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Providers\JWTFormat.cs" />
