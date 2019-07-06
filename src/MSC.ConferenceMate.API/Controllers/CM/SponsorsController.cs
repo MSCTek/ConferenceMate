@@ -252,6 +252,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				dtoItem.SponsorId = sponsorId;
 
 				var updatedDBItem = _factory.Create(dtoItem); // map
+				RunCustomLogicBeforeUpdatePut(ref updatedDBItem, sponsorId);
 				var result = await Repo.UpdateAsync(updatedDBItem);
 				RunCustomLogicAfterUpdatePut(ref updatedDBItem, ref result);
 
@@ -285,6 +286,8 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		partial void RunCustomLogicAfterUpdatePatch(ref entCM.Sponsor updatedDBItem, ref IRepositoryActionResult<entCM.Sponsor> result);
 
 		partial void RunCustomLogicAfterUpdatePut(ref entCM.Sponsor updatedDBItem, ref IRepositoryActionResult<entCM.Sponsor> result);
+
+		partial void RunCustomLogicBeforeUpdatePut(ref entCM.Sponsor updatedDBItem, int sponsorId);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.Sponsor dbItem, int sponsorId, int numChildLevels);
 

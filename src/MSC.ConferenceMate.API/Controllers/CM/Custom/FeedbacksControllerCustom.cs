@@ -26,6 +26,15 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			}
 		}
 
+		// partial void RunCustomLogicBeforeUpdatePut(ref entCM.Feedback updatedDBItem, System.Guid feedbackId)
+		// {
+		// 	var existingDBItem = Utils.AsyncHelper.RunSync<entCM.Feedback>(() => Repo.Get_FeedbackAsync(feedbackId, 1));
+		// 	if (existingDBItem != null)
+		// 	{	// Do not allow the user to change the "MySpecialField" value.
+		// 		updatedDBItem.MySpecialField = existingDBItem.MySpecialField;
+		// 	}
+		// }
+
 		///// <summary>
 		///// A sample implementation of custom logic used to either manipulate a DTO item or include related entities.
 		///// </summary>

@@ -252,6 +252,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				dtoItem.Id = id;
 
 				var updatedDBItem = _factory.Create(dtoItem); // map
+				RunCustomLogicBeforeUpdatePut(ref updatedDBItem, id);
 				var result = await Repo.UpdateAsync(updatedDBItem);
 				RunCustomLogicAfterUpdatePut(ref updatedDBItem, ref result);
 
@@ -285,6 +286,8 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		partial void RunCustomLogicAfterUpdatePatch(ref entCM.LogType updatedDBItem, ref IRepositoryActionResult<entCM.LogType> result);
 
 		partial void RunCustomLogicAfterUpdatePut(ref entCM.LogType updatedDBItem, ref IRepositoryActionResult<entCM.LogType> result);
+
+		partial void RunCustomLogicBeforeUpdatePut(ref entCM.LogType updatedDBItem, int id);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.LogType dbItem, int id, int numChildLevels);
 

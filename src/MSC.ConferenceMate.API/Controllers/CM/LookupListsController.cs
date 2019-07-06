@@ -252,6 +252,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				dtoItem.LookupListId = lookupListId;
 
 				var updatedDBItem = _factory.Create(dtoItem); // map
+				RunCustomLogicBeforeUpdatePut(ref updatedDBItem, lookupListId);
 				var result = await Repo.UpdateAsync(updatedDBItem);
 				RunCustomLogicAfterUpdatePut(ref updatedDBItem, ref result);
 
@@ -285,6 +286,8 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		partial void RunCustomLogicAfterUpdatePatch(ref entCM.LookupList updatedDBItem, ref IRepositoryActionResult<entCM.LookupList> result);
 
 		partial void RunCustomLogicAfterUpdatePut(ref entCM.LookupList updatedDBItem, ref IRepositoryActionResult<entCM.LookupList> result);
+
+		partial void RunCustomLogicBeforeUpdatePut(ref entCM.LookupList updatedDBItem, int lookupListId);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.LookupList dbItem, int lookupListId, int numChildLevels);
 

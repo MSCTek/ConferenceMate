@@ -252,6 +252,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				dtoItem.BlobFileTypeId = blobFileTypeId;
 
 				var updatedDBItem = _factory.Create(dtoItem); // map
+				RunCustomLogicBeforeUpdatePut(ref updatedDBItem, blobFileTypeId);
 				var result = await Repo.UpdateAsync(updatedDBItem);
 				RunCustomLogicAfterUpdatePut(ref updatedDBItem, ref result);
 
@@ -285,6 +286,8 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		partial void RunCustomLogicAfterUpdatePatch(ref entCM.BlobFileType updatedDBItem, ref IRepositoryActionResult<entCM.BlobFileType> result);
 
 		partial void RunCustomLogicAfterUpdatePut(ref entCM.BlobFileType updatedDBItem, ref IRepositoryActionResult<entCM.BlobFileType> result);
+
+		partial void RunCustomLogicBeforeUpdatePut(ref entCM.BlobFileType updatedDBItem, int blobFileTypeId);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.BlobFileType dbItem, int blobFileTypeId, int numChildLevels);
 

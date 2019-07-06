@@ -18,11 +18,11 @@ using System.Net.Http.Headers;
 
 namespace MSC.ConferenceMate.API.Controllers.CM
 {
-	public partial class CMUserProfileImagesController : CMBaseApiControllerAuthorized
+	public partial class UserProfileImagesController : CMBaseApiControllerAuthorized
 	{
 		private readonly iDom.IUser _domUser = null;
 
-		public CMUserProfileImagesController() : base()
+		public UserProfileImagesController() : base()
 		{
 			var azureStorageConfig = new AzureStorageConfig()
 			{
@@ -37,7 +37,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			_domUser = new MSC.ConferenceMate.Domain.User(Log, Repo, azureStorageManager);
 		}
 
-		public CMUserProfileImagesController(ILoggingService log, ICMRepository repository, iDom.IUser domUser)
+		public UserProfileImagesController(ILoggingService log, ICMRepository repository, iDom.IUser domUser)
 			: base(log, repository)
 		{
 			_domUser = domUser;

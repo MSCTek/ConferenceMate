@@ -379,7 +379,7 @@
     <Compile Include="Controllers\CM\UserProfilesController.cs">
       <DependentUpon>WebApiController_CM.cgh</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\CM\Custom\CMUserProfileImagesController.cs" />
+    <Compile Include="Controllers\CM\Custom\UserProfileImagesControllerCustom.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

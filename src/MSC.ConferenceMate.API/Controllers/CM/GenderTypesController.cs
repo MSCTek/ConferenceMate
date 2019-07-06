@@ -252,6 +252,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				dtoItem.GenderTypeId = genderTypeId;
 
 				var updatedDBItem = _factory.Create(dtoItem); // map
+				RunCustomLogicBeforeUpdatePut(ref updatedDBItem, genderTypeId);
 				var result = await Repo.UpdateAsync(updatedDBItem);
 				RunCustomLogicAfterUpdatePut(ref updatedDBItem, ref result);
 
@@ -285,6 +286,8 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		partial void RunCustomLogicAfterUpdatePatch(ref entCM.GenderType updatedDBItem, ref IRepositoryActionResult<entCM.GenderType> result);
 
 		partial void RunCustomLogicAfterUpdatePut(ref entCM.GenderType updatedDBItem, ref IRepositoryActionResult<entCM.GenderType> result);
+
+		partial void RunCustomLogicBeforeUpdatePut(ref entCM.GenderType updatedDBItem, int genderTypeId);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.GenderType dbItem, int genderTypeId, int numChildLevels);
 

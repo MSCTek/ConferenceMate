@@ -16,13 +16,23 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		partial void RunCustomLogicAfterUpdatePut(ref entCM.UserProfile updatedDBItem, ref IRepositoryActionResult<entCM.UserProfile> result)
 		{
 			if (result.Status == Enums.RepositoryActionStatus.NotFound)
-			{	// An update/PUT was attempted when it should have been a create/POST.
+			{   // An update/PUT was attempted when it should have been a create/POST.
 				var localDBItem = updatedDBItem;
 				var insertResult = Utils.AsyncHelper.RunSync<IRepositoryActionResult<entCM.UserProfile>>(() => Repo.InsertAsync(localDBItem));
 				if (insertResult.Status == Enums.RepositoryActionStatus.Created)
 				{   // Insert worked
 					result = new RepositoryActionResult<entCM.UserProfile>(insertResult.Entity, Enums.RepositoryActionStatus.Updated);
 				}
+			}
+		}
+
+
+		partial void RunCustomLogicBeforeUpdatePut(ref entCM.UserProfile updatedDBItem, int userProfileId)
+		{
+			var existingDBItem = Utils.AsyncHelper.RunSync<entCM.UserProfile>(() => Repo.Get_UserProfileAsync(userProfileId, 1));
+			if (existingDBItem != null)
+			{   // Do not allow the user to change the "AspNetUsersId" value.
+				updatedDBItem.AspNetUsersId = existingDBItem.AspNetUsersId;
 			}
 		}
 
@@ -34,24 +44,24 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		///// <param name="numChildLevels"></param>
 		// partial void RunCustomLogicOnGetEntityByPK(ref entCM.UserProfile dbItem, int userProfileId, int numChildLevels)
 		// {
-			// if (numChildLevels > 1)
-			// {
-				// int[] orderLineItemIds = dbItem.OrderLineItems.Select(x => x.OrderLineItemId).ToArray();
+		// if (numChildLevels > 1)
+		// {
+		// int[] orderLineItemIds = dbItem.OrderLineItems.Select(x => x.OrderLineItemId).ToArray();
 
-				// var lineItemDiscounts = Repo.CMDataContext.OrderLineItemDiscounts.Where(x => orderLineItemIds.Contains(x.OrderLineItemId)).ToList();
+		// var lineItemDiscounts = Repo.CMDataContext.OrderLineItemDiscounts.Where(x => orderLineItemIds.Contains(x.OrderLineItemId)).ToList();
 
-				// foreach (var lineItemDiscount in lineItemDiscounts)
-				// { // Find the match and add the item to it.
-					// var orderLineItem = dbItem.OrderLineItems.Where(x => x.OrderLineItemId == lineItemDiscount.OrderLineItemId).FirstOrDefault();
+		// foreach (var lineItemDiscount in lineItemDiscounts)
+		// { // Find the match and add the item to it.
+		// var orderLineItem = dbItem.OrderLineItems.Where(x => x.OrderLineItemId == lineItemDiscount.OrderLineItemId).FirstOrDefault();
 
-					// if (orderLineItem == null)
-					// {
-						// throw new System.Data.Entity.Core.ObjectNotFoundException($"Unable to locate matching OrderLineItem record for {lineItemDiscount.OrderLineItemId}."
-					// }
+		// if (orderLineItem == null)
+		// {
+		// throw new System.Data.Entity.Core.ObjectNotFoundException($"Unable to locate matching OrderLineItem record for {lineItemDiscount.OrderLineItemId}."
+		// }
 
-					// orderLineItem.LineItemDiscounts.Add(lineItemDiscount);
-				// }
-			// }
+		// orderLineItem.LineItemDiscounts.Add(lineItemDiscount);
+		// }
+		// }
 
 		// }
 
