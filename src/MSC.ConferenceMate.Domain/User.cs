@@ -30,16 +30,25 @@ namespace MSC.ConferenceMate.Domain
 
 		private IAzureStorageManager AzureStorageManager { get; set; }
 
-		public async Task<Stream> GetBlobStreamByBlobFileIdAsync(Guid blobFileId, cmEnums.BlobFileType blobFileType)
+		public async Task<byte[]> GetBlobBytesByBlobFileIdAsync(Guid blobFileId, cmEnums.BlobFileType blobFileType)
 		{
-			Stream retVal = null;
+			byte[] retVal = null;
 
 			try
 			{
+				if (blobFileId == Guid.Empty)
+					return retVal;
+
+				var blobFile = Repo.GetQueryable_BlobFile().Where(x => x.BlobFileId == blobFileId && x.BlobFileTypeId == (int)blobFileType).FirstOrDefault();
+
+				if (blobFile != null)
+				{
+					retVal = await AzureStorageManager.GetBlobBytesByPrimaryUriAsync(new Uri(blobFile.BlobUri));
+				}
 			}
 			catch (StorageException sex)
 			{
-				Log.Error($"Unable to retrieve blobFileId: {blobFileId.ToString()} in {nameof(GetBlobStreamByBlobFileIdAsync)}.", LogMessageType.Instance.Exception_Domain, sex);
+				Log.Error($"Unable to retrieve blobFileId: {blobFileId.ToString()} in {nameof(GetBlobBytesByBlobFileIdAsync)}.", LogMessageType.Instance.Exception_Domain, sex);
 			}
 
 			return retVal;
@@ -55,7 +64,7 @@ namespace MSC.ConferenceMate.Domain
 			}
 			catch (Exception ex)
 			{
-				Log.Error(ex.Message, LogMessageType.Instance.Exception_Domain, ex, userName: userProfileId.ToString());
+				Log.Error($"Error in {nameof(GetUserProfileAsync)} {ex.Message}", LogMessageType.Instance.Exception_Domain, ex, userName: userProfileId.ToString());
 			}
 
 			return retVal;

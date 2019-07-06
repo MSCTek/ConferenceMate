@@ -8,7 +8,7 @@ namespace MSC.ConferenceMate.Domain.Interface
 {
 	public interface IUser
 	{
-		Task<Stream> GetBlobStreamByBlobFileIdAsync(Guid blobFileId, Enums.BlobFileType blobFileType);
+		Task<byte[]> GetBlobBytesByBlobFileIdAsync(Guid blobFileId, cmEnums.BlobFileType blobFileType);
 
 		Task<entCM.UserProfile> GetUserProfileAsync(int userProfileId);
 

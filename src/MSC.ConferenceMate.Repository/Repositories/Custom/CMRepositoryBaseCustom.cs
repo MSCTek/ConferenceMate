@@ -110,7 +110,7 @@ namespace MSC.ConferenceMate.Repository
 		 {
 			 if (numChildLevels > 0)
 			 {
-				 qryItem = qryItem;
+				 // qryItem = qryItem;
 				 // .Include(x => x.ResizeFromBlobFileType).AsNoTracking(); -- Excluded navigation property per configuration.
 				 // .Include(x => x.BlobFiles).AsNoTracking(); -- Excluded navigation property per configuration.
 				 // .Include(x => x.BlobFileTypes).AsNoTracking(); -- Excluded navigation property per configuration.
@@ -252,7 +252,7 @@ namespace MSC.ConferenceMate.Repository
 		 {
 			 if (numChildLevels > 0)
 			 {
-				 qryItem = qryItem;
+				 // qryItem = qryItem;
 				 // .Include(x => x.Feedbacks).AsNoTracking(); -- Excluded navigation property per configuration.
 			 }
 		 }
@@ -297,7 +297,7 @@ namespace MSC.ConferenceMate.Repository
 		 {
 			 if (numChildLevels > 0)
 			 {
-				 qryItem = qryItem;
+				 // qryItem = qryItem;
 				 // .Include(x => x.Feedbacks).AsNoTracking(); -- Excluded navigation property per configuration.
 			 }
 		 }
@@ -564,7 +564,7 @@ namespace MSC.ConferenceMate.Repository
 		 {
 			 if (numChildLevels > 0)
 			 {
-				 qryItem = qryItem;
+				 // qryItem = qryItem;
 				 // .Include(x => x.Sessions).AsNoTracking(); -- Excluded navigation property per configuration.
 			 }
 		 }
@@ -749,7 +749,7 @@ namespace MSC.ConferenceMate.Repository
 		 {
 			 if (numChildLevels > 0)
 			 {
-				 qryItem = qryItem;
+				 // qryItem = qryItem;
 				 // .Include(x => x.Session).AsNoTracking(); -- Excluded navigation property per configuration.
 				 // .Include(x => x.SessionCategoryType).AsNoTracking(); -- Excluded navigation property per configuration.
 			 }
@@ -887,7 +887,7 @@ namespace MSC.ConferenceMate.Repository
 		 {
 			 if (numChildLevels > 0)
 			 {
-				 qryItem = qryItem;
+				 // qryItem = qryItem;
 				 // .Include(x => x.FeaturedEvent).AsNoTracking(); -- Excluded navigation property per configuration.
 				 // .Include(x => x.Sponsor).AsNoTracking(); -- Excluded navigation property per configuration.
 			 }
@@ -933,7 +933,7 @@ namespace MSC.ConferenceMate.Repository
 		 {
 			 if (numChildLevels > 0)
 			 {
-				 qryItem = qryItem;
+				 // qryItem = qryItem;
 				 // .Include(x => x.Sponsors).AsNoTracking(); -- Excluded navigation property per configuration.
 			 }
 		 }

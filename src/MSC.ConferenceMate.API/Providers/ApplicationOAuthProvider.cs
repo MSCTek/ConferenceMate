@@ -132,6 +132,7 @@ namespace MSC.ConferenceMate.API.Providers
 			catch (Exception ex)
 			{
 				context.SetError("Critical Error", "Critical Error logging in");
+				Console.WriteLine(ex.Message);
 			}
 		}
 

@@ -1,15 +1,13 @@
-﻿using CodeGenHero.WebApi;
-using DryIoc;
+﻿using DryIoc;
 using DryIoc.WebApi;
 using Newtonsoft.Json.Serialization;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Http;
 using MSC.ConferenceMate.API.Infrastructure;
+using System.Net.Http.Headers;
+using CodeGenHero.WebApi;
 
 namespace MSC.ConferenceMate.API
 {
@@ -55,6 +53,8 @@ namespace MSC.ConferenceMate.API
 			.WithoutThrowOnRegisteringDisposableTransient())
 			.WithWebApi(config);
 			container.RegisterDependencies();
+
+			//TODO: string foo = System.Configuration.ConfigurationManager.AppSettings["AzureStorageConfig:AccountKey"];
 
 			// auto–diagnostic to find out if all registered dependencies are able to be fulfilled/resolved; avoid unpleasant surprises at runtime.
 			KeyValuePair<ServiceInfo, ContainerException>[] registrationValidations = container.Validate();

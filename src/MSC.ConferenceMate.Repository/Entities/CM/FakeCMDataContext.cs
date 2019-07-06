@@ -113,12 +113,17 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             Dispose(true);
         }
 
-        private System.Data.Entity.Infrastructure.DbChangeTracker _changeTracker;
+#pragma warning disable 0649
+
+		private System.Data.Entity.Infrastructure.DbChangeTracker _changeTracker;
         public System.Data.Entity.Infrastructure.DbChangeTracker ChangeTracker { get { return _changeTracker; } }
         private System.Data.Entity.Infrastructure.DbContextConfiguration _configuration;
         public System.Data.Entity.Infrastructure.DbContextConfiguration Configuration { get { return _configuration; } }
         private System.Data.Entity.Database _database;
-        public System.Data.Entity.Database Database { get { return _database; } }
+
+#pragma warning restore 0649
+
+		public System.Data.Entity.Database Database { get { return _database; } }
         public System.Data.Entity.Infrastructure.DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
         {
             throw new System.NotImplementedException();

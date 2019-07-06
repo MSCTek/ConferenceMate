@@ -255,10 +255,10 @@
       <Version>8.1.1</Version>
     </PackageReference>
     <PackageReference Include="CodeGenHero.Repository">
-      <Version>1.0.6</Version>
+      <Version>1.1.1</Version>
     </PackageReference>
     <PackageReference Include="CodeGenHero.Repository.AutoMapper">
-      <Version>1.0.7</Version>
+      <Version>1.1.1</Version>
     </PackageReference>
     <PackageReference Include="CodeGenHero.Repository.EntityFramework">
       <Version>1.0.5</Version>

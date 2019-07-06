@@ -4,8 +4,6 @@ using MSC.ConferenceMate.Repository.API;
 using Swashbuckle.Application;
 using System.Linq;
 using System;
-using System.Web.Http.Description;
-using CodeGenHero.WebApi;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
