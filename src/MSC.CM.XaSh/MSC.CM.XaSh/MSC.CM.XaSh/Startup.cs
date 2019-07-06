@@ -120,13 +120,14 @@ namespace MSC.CM.XaSh
                 //load viewmodels directly from sample data
                 //services.AddSingleton<IDataStore, SampleDataStore>();
 
-                //load viewmodels from SQLite
+                //load SQLite from Sample Data
                 services.AddSingleton<IDataStore, SQLiteDataStore>();
                 services.AddSingleton<IDataLoader, SampleDataLoader>();
                 services.AddSingleton<IDataUploader, SampleDataUploader>();
             }
             else
             {
+                //load SQLite from cloud based API
                 services.AddSingleton<IDataStore, SQLiteDataStore>();
                 services.AddSingleton<IDataLoader, AzureDataLoader>();
                 services.AddSingleton<IDataUploader, AzureDataUploader>();
