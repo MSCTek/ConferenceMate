@@ -144,6 +144,7 @@
       <Visible>false</Visible>
     </ImageAsset>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <BundleResource Include="Resources\monkeys.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
