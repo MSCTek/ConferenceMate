@@ -38,20 +38,13 @@ namespace MSC.CM.XaSh.Views
 				DisplayAlert("Photos Not Supported", ":( Permission not granted to photos.", "OK");
 				return;
 			}
+
 			var file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
 			{
-				PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium,
+				PhotoSize = Plugin.Media.Abstractions.PhotoSize.Full,
 			});
 
-			if (file == null)
-				return;
-
-			image.Source = ImageSource.FromStream(() =>
-			{
-				var stream = file.GetStream();
-				file.Dispose();
-				return stream;
-			});
+			await SetUserProfileImageAsync(file);
 		}
 
 		private async void NewPictureButton_Clicked(object sender, EventArgs e)
@@ -62,31 +55,43 @@ namespace MSC.CM.XaSh.Views
 				return;
 			}
 
+			var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+			{
+				Directory = "Test",
+				SaveToAlbum = true,
+				CompressionQuality = 75,
+				CustomPhotoSize = 50,
+				PhotoSize = PhotoSize.MaxWidthHeight,
+				MaxWidthHeight = 2000,
+				DefaultCamera = CameraDevice.Front
+			});
+
+			await SetUserProfileImageAsync(file);
+		}
+
+		private async Task Refresh()
+		{
+			await viewModel.LoadVM();
+		}
+
+		private async Task SetUserProfileImageAsync(MediaFile file)
+		{
+			if (file == null)
+				return;
+
 			var myProfileEditViewModel = ((MyProfileEditViewModel)BindingContext);
 			var saveCanTakeNewPicture = myProfileEditViewModel.CanTakeNewPicture;
+			var saveCanPickExistingPicture = myProfileEditViewModel.CanPickExistingPicture;
 
 			try
 			{
 				myProfileEditViewModel.CanTakeNewPicture = false;
-
-				var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
-				{
-					Directory = "Test",
-					SaveToAlbum = true,
-					CompressionQuality = 75,
-					CustomPhotoSize = 50,
-					PhotoSize = PhotoSize.MaxWidthHeight,
-					MaxWidthHeight = 2000,
-					DefaultCamera = CameraDevice.Front
-				});
-
-				if (file == null)
-					return;
+				myProfileEditViewModel.CanPickExistingPicture = false;
 
 				bool isUploaded = await myProfileEditViewModel.SetUserProfileImageAsync(myProfileEditViewModel.CurrentUser.UserProfileId, file);
 				if (!isUploaded)
 				{
-					DisplayAlert("File uploade failed.", file.Path, "OK");
+					DisplayAlert("File upload failed.", file.Path, "OK");
 				}
 			}
 			catch (Exception ex)
@@ -96,12 +101,8 @@ namespace MSC.CM.XaSh.Views
 			finally
 			{
 				myProfileEditViewModel.CanTakeNewPicture = saveCanTakeNewPicture;
+				myProfileEditViewModel.CanPickExistingPicture = saveCanPickExistingPicture;
 			}
-		}
-
-		private async Task Refresh()
-		{
-			await viewModel.LoadVM();
 		}
 	}
 }

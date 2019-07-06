@@ -31,8 +31,9 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 		{
 			var existingDBItem = Utils.AsyncHelper.RunSync<entCM.UserProfile>(() => Repo.Get_UserProfileAsync(userProfileId, 1));
 			if (existingDBItem != null)
-			{   // Do not allow the user to change the "AspNetUsersId" value.
-				updatedDBItem.AspNetUsersId = existingDBItem.AspNetUsersId;
+			{   
+				updatedDBItem.AspNetUsersId = existingDBItem.AspNetUsersId; // Do not allow the user to change the "AspNetUsersId" value.
+				updatedDBItem.PhotoBlobFileId = existingDBItem.PhotoBlobFileId; // This must be changed via the UserProfileImagesController.
 			}
 		}
 
