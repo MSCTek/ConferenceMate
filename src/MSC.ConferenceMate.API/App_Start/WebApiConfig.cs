@@ -54,8 +54,6 @@ namespace MSC.ConferenceMate.API
 			.WithWebApi(config);
 			container.RegisterDependencies();
 
-			//TODO: string foo = System.Configuration.ConfigurationManager.AppSettings["AzureStorageConfig:AccountKey"];
-
 			// auto–diagnostic to find out if all registered dependencies are able to be fulfilled/resolved; avoid unpleasant surprises at runtime.
 			KeyValuePair<ServiceInfo, ContainerException>[] registrationValidations = container.Validate();
 			if (registrationValidations.Length != 0)
