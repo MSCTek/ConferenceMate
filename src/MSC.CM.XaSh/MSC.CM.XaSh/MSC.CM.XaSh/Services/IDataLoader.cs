@@ -1,28 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using MSC.ConferenceMate.DataService.Models;
 
 namespace MSC.CM.XaSh.Services
 {
-    public interface IDataLoader
-    {
-        Task<bool> HeartbeatCheck();
+	public interface IDataLoader
+	{
+		Task<bool> AuthCheckAndRenewTokenIfNeeded();
 
-        Task<int> LoadAnnouncementsAsync(bool forceRefresh = false);
+		bool AuthCheckTokenExpiration();
 
-        Task<int> LoadFeedbackInitiatorTypesAsync(bool forceRefresh = false);
+		Task<bool> AuthGetToken(string user, string pass);
 
-        Task<int> LoadFeedbackTypesAsync(bool forceRefresh = false);
+		void AuthRemoveToken();
 
-        Task<int> LoadRoomsAsync(bool forceRefresh = false);
+		Task<bool> AuthRenewRefreshToken();
 
-        Task<int> LoadSessionLikesAsync(bool forceRefresh = false);
+		Task<bool> CheckNetworkAndAPIHeartbeat();
 
-        Task<int> LoadSessionsAsync(bool forceRefresh = false);
+		Task<ConferenceMate.DataService.Models.UserProfilePhoto> GetUserProfileThumbnailAsync(int userProfileId);
 
-        Task<int> LoadSessionSpeakersAsync(bool forceRefresh = false);
+		Task<bool> HeartbeatCheck();
 
-        Task<int> LoadUsersAsync(bool forceRefresh = false);
-    }
+		Task<int> LoadAnnouncementsAsync(bool forceRefresh = false, bool secondPass = false);
+
+		Task<int> LoadFeedbackInitiatorTypesAsync(bool forceRefresh = false, bool secondPass = false);
+
+		Task<int> LoadFeedbackTypesAsync(bool forceRefresh = false, bool secondPass = false);
+
+		Task<int> LoadRoomsAsync(bool forceRefresh = false, bool secondPass = false);
+
+		Task<int> LoadSessionLikesAsync(bool forceRefresh = false, bool secondPass = false);
+
+		Task<int> LoadSessionsAsync(bool forceRefresh = false, bool secondPass = false);
+
+		Task<int> LoadSessionSpeakersAsync(bool forceRefresh = false, bool secondPass = false);
+
+		Task<int> LoadUsersAsync(bool forceRefresh = false, bool secondPass = false);
+
+		Task<bool> SaveUserProfileImageAsync(UserProfilePhoto userProfilePhoto);
+	}
 }

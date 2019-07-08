@@ -7,6 +7,8 @@ namespace MSC.ConferenceMate.Repository.Interface
 {
 	public interface ICMRepositoryCrud : 
 		ICRUDOperation<Announcement>,
+		ICRUDOperation<BlobFile>,
+		ICRUDOperation<BlobFileType>,
 		ICRUDOperation<FeaturedEvent>,
 		ICRUDOperation<Feedback>,
 		ICRUDOperation<FeedbackInitiatorType>,
@@ -31,6 +33,8 @@ namespace MSC.ConferenceMate.Repository.Interface
 		#region GetQueryable
 
 		IQueryable<Announcement> GetQueryable_Announcement();
+		IQueryable<BlobFile> GetQueryable_BlobFile();
+		IQueryable<BlobFileType> GetQueryable_BlobFileType();
 		IQueryable<FeaturedEvent> GetQueryable_FeaturedEvent();
 		IQueryable<Feedback> GetQueryable_Feedback();
 		IQueryable<FeedbackInitiatorType> GetQueryable_FeedbackInitiatorType();

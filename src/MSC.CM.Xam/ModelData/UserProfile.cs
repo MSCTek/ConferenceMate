@@ -25,7 +25,7 @@ namespace MSC.CM.Xam.ModelData.CM
 		public string LinkedInUrl { get; set; }
 		public string ModifiedBy { get; set; }
 		public System.DateTime ModifiedUtcDate { get; set; }
-		public string PhotoUrl { get; set; }
+		public System.Guid? PhotoBlobFileId { get; set; }
 		public int PreferredLanguageId { get; set; }
 		public string TwitterUrl { get; set; }
 

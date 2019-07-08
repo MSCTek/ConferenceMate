@@ -17,6 +17,7 @@ namespace MSC.CM.XaSh.Views
         public SessionsByRoomPage()
         {
             InitializeComponent();
+            //TODO: Navigation is via the view, not the viewmodel... rework this eventually.
             BindingContext = viewModel = Startup.ServiceProvider?.GetService<SessionsByRoomViewModel>() ?? new SessionsByRoomViewModel();
         }
 
@@ -25,6 +26,8 @@ namespace MSC.CM.XaSh.Views
             Analytics.TrackEvent("SessionsByRoomPage");
             base.OnAppearing();
 
+            //Workaround here
+            BindingContext = viewModel = Startup.ServiceProvider?.GetService<SessionsByRoomViewModel>() ?? new SessionsByRoomViewModel();
             await Refresh();
         }
 

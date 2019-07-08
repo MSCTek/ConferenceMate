@@ -29,6 +29,49 @@ namespace MSC.CM.Xam
 			};
 		}
 
+		public static dtoCM.BlobFile ToDto(this objCM.BlobFile source)
+		{
+			return new dtoCM.BlobFile()
+			{
+				BlobFileId = source.BlobFileId,
+				BlobFileTypeId = source.BlobFileTypeId,
+				BlobUri = source.BlobUri,
+				Content = source.Content,
+				CreatedBy = source.CreatedBy,
+				CreatedUtcDate = source.CreatedUtcDate,
+				DataVersion = source.DataVersion,
+				DiscreteMimeType = source.DiscreteMimeType,
+				IsDeleted = source.IsDeleted,
+				ModifiedBy = source.ModifiedBy,
+				ModifiedUtcDate = source.ModifiedUtcDate,
+				Name = source.Name,
+				ParentBlobFileId = source.ParentBlobFileId,
+				RequiresResize = source.RequiresResize,
+				ResizeComplete = source.ResizeComplete,
+				SizeInBytes = source.SizeInBytes,
+			};
+		}
+
+		public static dtoCM.BlobFileType ToDto(this objCM.BlobFileType source)
+		{
+			return new dtoCM.BlobFileType()
+			{
+				BlobFileTypeId = source.BlobFileTypeId,
+				CategoryType = source.CategoryType,
+				CreatedBy = source.CreatedBy,
+				CreatedUtcDate = source.CreatedUtcDate,
+				DataVersion = source.DataVersion,
+				GeneralType = source.GeneralType,
+				IsDeleted = source.IsDeleted,
+				ModifiedBy = source.ModifiedBy,
+				ModifiedUtcDate = source.ModifiedUtcDate,
+				Name = source.Name,
+				ResizeFromBlobFileTypeId = source.ResizeFromBlobFileTypeId,
+				ResolutionX = source.ResolutionX,
+				ResolutionY = source.ResolutionY,
+			};
+		}
+
 		public static dtoCM.FeaturedEvent ToDto(this objCM.FeaturedEvent source)
 		{
 			return new dtoCM.FeaturedEvent()
@@ -373,7 +416,7 @@ namespace MSC.CM.Xam
 				LinkedInUrl = source.LinkedInUrl,
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
-				PhotoUrl = source.PhotoUrl,
+				PhotoBlobFileId = source.PhotoBlobFileId,
 				PreferredLanguageId = source.PreferredLanguageId,
 				TwitterUrl = source.TwitterUrl,
 				UserProfileId = source.UserProfileId,
@@ -401,6 +444,49 @@ namespace MSC.CM.Xam
 				ShortTitle = source.ShortTitle,
 				StartTime = source.StartTime,
 				Title = source.Title,
+			};
+		}
+
+		public static dtoCM.BlobFile ToDto(this dataCM.BlobFile source)
+		{
+			return new dtoCM.BlobFile()
+			{
+				BlobFileId = source.BlobFileId,
+				BlobFileTypeId = source.BlobFileTypeId,
+				BlobUri = source.BlobUri,
+				Content = source.Content,
+				CreatedBy = source.CreatedBy,
+				CreatedUtcDate = source.CreatedUtcDate,
+				DataVersion = source.DataVersion,
+				DiscreteMimeType = source.DiscreteMimeType,
+				IsDeleted = source.IsDeleted,
+				ModifiedBy = source.ModifiedBy,
+				ModifiedUtcDate = source.ModifiedUtcDate,
+				Name = source.Name,
+				ParentBlobFileId = source.ParentBlobFileId,
+				RequiresResize = source.RequiresResize,
+				ResizeComplete = source.ResizeComplete,
+				SizeInBytes = source.SizeInBytes,
+			};
+		}
+
+		public static dtoCM.BlobFileType ToDto(this dataCM.BlobFileType source)
+		{
+			return new dtoCM.BlobFileType()
+			{
+				BlobFileTypeId = source.BlobFileTypeId,
+				CategoryType = source.CategoryType,
+				CreatedBy = source.CreatedBy,
+				CreatedUtcDate = source.CreatedUtcDate,
+				DataVersion = source.DataVersion,
+				GeneralType = source.GeneralType,
+				IsDeleted = source.IsDeleted,
+				ModifiedBy = source.ModifiedBy,
+				ModifiedUtcDate = source.ModifiedUtcDate,
+				Name = source.Name,
+				ResizeFromBlobFileTypeId = source.ResizeFromBlobFileTypeId,
+				ResolutionX = source.ResolutionX,
+				ResolutionY = source.ResolutionY,
 			};
 		}
 
@@ -748,7 +834,7 @@ namespace MSC.CM.Xam
 				LinkedInUrl = source.LinkedInUrl,
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
-				PhotoUrl = source.PhotoUrl,
+				PhotoBlobFileId = source.PhotoBlobFileId,
 				PreferredLanguageId = source.PreferredLanguageId,
 				TwitterUrl = source.TwitterUrl,
 				UserProfileId = source.UserProfileId,
@@ -776,6 +862,49 @@ namespace MSC.CM.Xam
 				ShortTitle = source.ShortTitle,
 				StartTime = source.StartTime,
 				Title = source.Title,
+			};
+		}
+
+		public static objCM.BlobFile ToModelObj(this dtoCM.BlobFile source)
+		{
+			return new objCM.BlobFile()
+			{
+				BlobFileId = source.BlobFileId,
+				BlobFileTypeId = source.BlobFileTypeId,
+				BlobUri = source.BlobUri,
+				Content = source.Content,
+				CreatedBy = source.CreatedBy,
+				CreatedUtcDate = source.CreatedUtcDate,
+				DataVersion = source.DataVersion,
+				DiscreteMimeType = source.DiscreteMimeType,
+				IsDeleted = source.IsDeleted,
+				ModifiedBy = source.ModifiedBy,
+				ModifiedUtcDate = source.ModifiedUtcDate,
+				Name = source.Name,
+				ParentBlobFileId = source.ParentBlobFileId,
+				RequiresResize = source.RequiresResize,
+				ResizeComplete = source.ResizeComplete,
+				SizeInBytes = source.SizeInBytes,
+			};
+		}
+
+		public static objCM.BlobFileType ToModelObj(this dtoCM.BlobFileType source)
+		{
+			return new objCM.BlobFileType()
+			{
+				BlobFileTypeId = source.BlobFileTypeId,
+				CategoryType = source.CategoryType,
+				CreatedBy = source.CreatedBy,
+				CreatedUtcDate = source.CreatedUtcDate,
+				DataVersion = source.DataVersion,
+				GeneralType = source.GeneralType,
+				IsDeleted = source.IsDeleted,
+				ModifiedBy = source.ModifiedBy,
+				ModifiedUtcDate = source.ModifiedUtcDate,
+				Name = source.Name,
+				ResizeFromBlobFileTypeId = source.ResizeFromBlobFileTypeId,
+				ResolutionX = source.ResolutionX,
+				ResolutionY = source.ResolutionY,
 			};
 		}
 
@@ -1123,7 +1252,7 @@ namespace MSC.CM.Xam
 				LinkedInUrl = source.LinkedInUrl,
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
-				PhotoUrl = source.PhotoUrl,
+				PhotoBlobFileId = source.PhotoBlobFileId,
 				PreferredLanguageId = source.PreferredLanguageId,
 				TwitterUrl = source.TwitterUrl,
 				UserProfileId = source.UserProfileId,
@@ -1151,6 +1280,49 @@ namespace MSC.CM.Xam
 				ShortTitle = source.ShortTitle,
 				StartTime = source.StartTime,
 				Title = source.Title,
+			};
+		}
+
+		public static dataCM.BlobFile ToModelData(this dtoCM.BlobFile source)
+		{
+			return new dataCM.BlobFile()
+			{
+				BlobFileId = source.BlobFileId,
+				BlobFileTypeId = source.BlobFileTypeId,
+				BlobUri = source.BlobUri,
+				Content = source.Content,
+				CreatedBy = source.CreatedBy,
+				CreatedUtcDate = source.CreatedUtcDate,
+				DataVersion = source.DataVersion,
+				DiscreteMimeType = source.DiscreteMimeType,
+				IsDeleted = source.IsDeleted,
+				ModifiedBy = source.ModifiedBy,
+				ModifiedUtcDate = source.ModifiedUtcDate,
+				Name = source.Name,
+				ParentBlobFileId = source.ParentBlobFileId,
+				RequiresResize = source.RequiresResize,
+				ResizeComplete = source.ResizeComplete,
+				SizeInBytes = source.SizeInBytes,
+			};
+		}
+
+		public static dataCM.BlobFileType ToModelData(this dtoCM.BlobFileType source)
+		{
+			return new dataCM.BlobFileType()
+			{
+				BlobFileTypeId = source.BlobFileTypeId,
+				CategoryType = source.CategoryType,
+				CreatedBy = source.CreatedBy,
+				CreatedUtcDate = source.CreatedUtcDate,
+				DataVersion = source.DataVersion,
+				GeneralType = source.GeneralType,
+				IsDeleted = source.IsDeleted,
+				ModifiedBy = source.ModifiedBy,
+				ModifiedUtcDate = source.ModifiedUtcDate,
+				Name = source.Name,
+				ResizeFromBlobFileTypeId = source.ResizeFromBlobFileTypeId,
+				ResolutionX = source.ResolutionX,
+				ResolutionY = source.ResolutionY,
 			};
 		}
 
@@ -1510,7 +1682,7 @@ namespace MSC.CM.Xam
 				LinkedInUrl = source.LinkedInUrl,
 				ModifiedBy = source.ModifiedBy,
 				ModifiedUtcDate = source.ModifiedUtcDate,
-				PhotoUrl = source.PhotoUrl,
+				PhotoBlobFileId = source.PhotoBlobFileId,
 				PreferredLanguageId = source.PreferredLanguageId,
 				TwitterUrl = source.TwitterUrl,
 				UserProfileId = source.UserProfileId,

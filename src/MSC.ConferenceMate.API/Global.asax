@@ -1,1 +1,1 @@
-﻿<%@ Application CodeBehind="Global.asax.cs" Inherits="MSC.ResourceScheduler.API.WebApiApplication" Language="C#" %>
+﻿<%@ Application CodeBehind="Global.asax.cs" Inherits="MSC.ConferenceMate.API.WebApiApplication" Language="C#" %>

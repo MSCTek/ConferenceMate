@@ -33,7 +33,7 @@ namespace MSC.CM.Xam.ModelObj.CM
 		private string _linkedInUrl;
 		private string _modifiedBy;
 		private System.DateTime _modifiedUtcDate;
-		private string _photoUrl;
+		private System.Guid? _photoBlobFileId;
 		private int _preferredLanguageId;
 		private string _twitterUrl;
 		private int _userProfileId;
@@ -229,13 +229,13 @@ namespace MSC.CM.Xam.ModelObj.CM
 			}
 		}
 
-		public string PhotoUrl
+		public System.Guid? PhotoBlobFileId
 		{
-			get { return _photoUrl; }
+			get { return _photoBlobFileId; }
 			set
 			{
-				Set<string>(() => PhotoUrl, ref _photoUrl, value);
-				RunCustomLogicSetPhotoUrl(value);
+				Set<System.Guid?>(() => PhotoBlobFileId, ref _photoBlobFileId, value);
+				RunCustomLogicSetPhotoBlobFileId(value);
 			}
 		}
 
@@ -272,6 +272,7 @@ namespace MSC.CM.Xam.ModelObj.CM
 		public virtual System.Collections.Generic.IList<Feedback> Feedbacks { get; set; } // Many to many mapping
 		public virtual System.Collections.Generic.IList<SessionLike> SessionLikes { get; set; } // Many to many mapping
 		public virtual System.Collections.Generic.IList<SessionSpeaker> SessionSpeakers { get; set; } // Many to many mapping
+		public virtual BlobFile BlobFile { get; set; } 
 		public virtual GenderType GenderType { get; set; } 
 		public virtual LanguageType LanguageType { get; set; } 
 
@@ -299,7 +300,7 @@ namespace MSC.CM.Xam.ModelObj.CM
 		partial void RunCustomLogicSetLinkedInUrl(string value);
 		partial void RunCustomLogicSetModifiedBy(string value);
 		partial void RunCustomLogicSetModifiedUtcDate(System.DateTime value);
-		partial void RunCustomLogicSetPhotoUrl(string value);
+		partial void RunCustomLogicSetPhotoBlobFileId(System.Guid? value);
 		partial void RunCustomLogicSetPreferredLanguageId(int value);
 		partial void RunCustomLogicSetTwitterUrl(string value);
 		partial void RunCustomLogicSetUserProfileId(int value);

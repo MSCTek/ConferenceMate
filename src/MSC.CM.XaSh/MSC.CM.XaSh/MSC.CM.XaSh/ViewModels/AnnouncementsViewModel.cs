@@ -34,7 +34,7 @@ namespace MSC.CM.XaSh.ViewModels
 
             try
             {
-                if ((Connectivity.NetworkAccess == NetworkAccess.Internet && await DataLoader.HeartbeatCheck()) || App.UseSampleDataStore)
+                if (base.IsConnected || App.UseSampleDataStore)
                 {
                     //load SQLite from API or sample data
                     var count = await DataLoader.LoadAnnouncementsAsync();

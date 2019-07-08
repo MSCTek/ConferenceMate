@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using MSC.CM.Xam.ModelObj.CM;
+using MSC.CM.XaSh.Helpers;
 using MSC.CM.XaSh.Services;
 using MSC.CM.XaSh.ViewModels;
 using Polly;
@@ -61,34 +63,71 @@ namespace MSC.CM.XaSh
             ServiceProvider = host.Services;
         }
 
+        public static void InitForSwitchToAPIData()
+        {
+            App.UseSampleDataStore = false;
+            ServiceProvider = null;
+            Startup.Init();
+        }
+
+        public static void InitForSwitchToSampleData()
+        {
+            App.UseSampleDataStore = true;
+            ServiceProvider = null;
+            Startup.Init();
+        }
+
         private static void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
         {
-            var world = ctx.Configuration["Hello"];
+            services.AddHttpClient(Consts.UNAUTHORIZED, client =>
+            {
+                client.BaseAddress = new Uri(App.AzureBackendUrl);
+            }).ConfigureHttpClient(client =>
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("api-version", "1"); // Not needed for token auth calls, but needed for heartbeat check.
+            })
+            .AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+            {
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(5),
+                TimeSpan.FromSeconds(10)
+            }));
 
-            //TODO: PAUL to take advantage of this goodness, wire up the CGH httpclient to use the transient http error policy
-            //services.AddHttpClient("AzureWebsites", client =>
-            //{
-            //    client.BaseAddress = new Uri(App.AzureBackendUrl);
-            //    client.DefaultRequestHeaders.Add("api-version", "1");
-            //})
-            //.AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
-            //{
-            //    TimeSpan.FromSeconds(1),
-            //    TimeSpan.FromSeconds(5),
-            //    TimeSpan.FromSeconds(10)
-            //}));
+            services.AddHttpClient(Consts.AUTHORIZED, client =>
+            {
+                client.BaseAddress = new Uri(App.AzureBackendUrl);
+            }).ConfigureHttpClient(client =>
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("api-version", "1");
+
+                string jwt = AuthenticationHelper.GetToken(); // This gets configured after user login.
+                System.Net.Http.Headers.AuthenticationHeaderValue authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", jwt);
+                client.DefaultRequestHeaders.Authorization = authorization; // client.DefaultRequestHeaders.Add("Authorization", $"Bearer {jwt}");
+            })
+            .AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+            {
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(5),
+                TimeSpan.FromSeconds(10)
+            }));
 
             if (ctx.HostingEnvironment.IsDevelopment() && App.UseSampleDataStore)
             {
-                //load vms directly from sample data
+                //load viewmodels directly from sample data
                 //services.AddSingleton<IDataStore, SampleDataStore>();
-                //load vms from SQLite
+
+                //load SQLite from Sample Data
                 services.AddSingleton<IDataStore, SQLiteDataStore>();
                 services.AddSingleton<IDataLoader, SampleDataLoader>();
                 services.AddSingleton<IDataUploader, SampleDataUploader>();
             }
             else
             {
+                //load SQLite from cloud based API
                 services.AddSingleton<IDataStore, SQLiteDataStore>();
                 services.AddSingleton<IDataLoader, AzureDataLoader>();
                 services.AddSingleton<IDataUploader, AzureDataUploader>();

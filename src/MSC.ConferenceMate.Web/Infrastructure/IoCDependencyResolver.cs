@@ -75,24 +75,12 @@ namespace MSC.ConferenceMate.Web.Infrastructure
 			//container.Register<IUserService, UserService>();
 
 			// NOTE: Registers ISession provider to work with injected Request
-			container.Register(Made.Of(() => GetSession(Arg.Of<HttpRequestMessage>())));
+			container.Register<ISession>(Made.Of(() => GetSession(Arg.Of<HttpRequestMessage>())));
 
 			//TODO: Register ILoggerFactory in DryIoc container using Microsoft.Extensions.Logging - https://stackoverflow.com/questions/48911710/register-iloggerfactory-in-dryioc-container?rq=1
 			// https://dotnetfiddle.net/GE2Dp2
 			var log = new Log4NetLoggingService();
 			container.UseInstance<ILoggingService>(log);
-			//container.Register<ILoggingService, Log4NetLoggingService>(Reuse.Singleton);
-
-			// note usage of UseInstance instead of obsolete RegisterInstance
-			//container.UseInstance(new Log4NetLoggingService());
-			//ILoggingService loggingService = new Log4NetLoggingService();
-			//var loggerFactoryMethod = typeof(LoggerFactory).GetMethod("CreateLogger");
-
-			//container.Register(typeof(ILogger<>), made: Made.Of(
-			//	req => loggerFactoryMethod.MakeGenericMethod(req.Parent.ImplementationType),
-			//	ServiceInfo.Of<LoggerFactory>()));
-
-			//container.Register<ILoggingService, Log4NetLoggingService>(); // (Reuse.Singleton);
 			//container.Register<IAppSettingsService, AppSettingsService>(Reuse.Singleton);
 		}
 	}

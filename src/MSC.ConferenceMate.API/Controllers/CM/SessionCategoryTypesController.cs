@@ -252,6 +252,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				dtoItem.SessionCategoryTypeId = sessionCategoryTypeId;
 
 				var updatedDBItem = _factory.Create(dtoItem); // map
+				RunCustomLogicBeforeUpdatePut(ref updatedDBItem, sessionCategoryTypeId);
 				var result = await Repo.UpdateAsync(updatedDBItem);
 				RunCustomLogicAfterUpdatePut(ref updatedDBItem, ref result);
 
@@ -280,11 +281,13 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			}
 		}
 
-		partial void RunCustomLogicAfterInsert(ref MSC.ConferenceMate.Repository.Entities.CM.SessionCategoryType newDBItem, ref IRepositoryActionResult<entCM.SessionCategoryType> result);
+		partial void RunCustomLogicAfterInsert(ref entCM.SessionCategoryType newDBItem, ref IRepositoryActionResult<entCM.SessionCategoryType> result);
 
-		partial void RunCustomLogicAfterUpdatePatch(ref MSC.ConferenceMate.Repository.Entities.CM.SessionCategoryType updatedDBItem, ref IRepositoryActionResult<entCM.SessionCategoryType> result);
+		partial void RunCustomLogicAfterUpdatePatch(ref entCM.SessionCategoryType updatedDBItem, ref IRepositoryActionResult<entCM.SessionCategoryType> result);
 
-		partial void RunCustomLogicAfterUpdatePut(ref MSC.ConferenceMate.Repository.Entities.CM.SessionCategoryType updatedDBItem, ref IRepositoryActionResult<entCM.SessionCategoryType> result);
+		partial void RunCustomLogicAfterUpdatePut(ref entCM.SessionCategoryType updatedDBItem, ref IRepositoryActionResult<entCM.SessionCategoryType> result);
+
+		partial void RunCustomLogicBeforeUpdatePut(ref entCM.SessionCategoryType updatedDBItem, int sessionCategoryTypeId);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.SessionCategoryType dbItem, int sessionCategoryTypeId, int numChildLevels);
 

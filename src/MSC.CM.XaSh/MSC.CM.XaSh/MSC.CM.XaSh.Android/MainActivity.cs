@@ -10,10 +10,12 @@ using Xamarin.Forms;
 using MSC.CM.XaSh.Services;
 using Android.Content;
 using MSC.CM.XaSh.Droid.Services;
+using Plugin.CurrentActivity;
 
 namespace MSC.CM.XaSh.Droid
 {
-    [Activity(Label = "MSC.CM.XaSh", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    //[Activity(Label = "ConferenceMate", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
@@ -35,6 +37,7 @@ namespace MSC.CM.XaSh.Droid
             ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             FormsMaterial.Init(this, savedInstanceState);
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
 
             LoadApplication(new App());
 

@@ -14,14 +14,16 @@ namespace MSC.CM.XaSh.Views
         public SpeakerPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = Startup.ServiceProvider?.GetService<SpeakerViewModel>() ?? new SpeakerViewModel();
+            //TODO: Navigation is via the view, not the viewmodel... rework this eventually.
+            //BindingContext = viewModel = Startup.ServiceProvider?.GetService<SpeakerViewModel>() ?? new SpeakerViewModel();
         }
 
         protected async override void OnAppearing()
         {
             Analytics.TrackEvent("SpeakerPage");
             base.OnAppearing();
-
+            //Workaround here
+            BindingContext = viewModel = Startup.ServiceProvider?.GetService<SpeakerViewModel>() ?? new SpeakerViewModel();
             await Refresh();
         }
 

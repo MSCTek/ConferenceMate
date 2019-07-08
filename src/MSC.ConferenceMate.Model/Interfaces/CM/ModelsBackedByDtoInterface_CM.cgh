@@ -78,8 +78,16 @@
       "Filename": "ILogType.cs"
     },
     {
-      "FileLastChange": "2019-06-24T16:26:26.08023-05:00",
+      "FileLastChange": "2019-07-01T23:32:42.3157176-05:00",
       "Filename": "IUserProfile.cs"
+    },
+    {
+      "FileLastChange": "2019-07-01T23:35:27.2159057-05:00",
+      "Filename": "IBlobFile.cs"
+    },
+    {
+      "FileLastChange": "2019-07-01T23:35:27.5679056-05:00",
+      "Filename": "IBlobFileType.cs"
     }
   ]
 }

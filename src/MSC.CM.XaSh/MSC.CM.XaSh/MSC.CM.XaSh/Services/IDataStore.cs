@@ -20,13 +20,15 @@ namespace MSC.CM.XaSh.Services
 
         Task<IEnumerable<modelObj.Session>> GetSessionsWithRoomsAsync();
 
-        Task<IEnumerable<modelObj.User>> GetSpeakersAsync();
+        Task<IEnumerable<modelObj.UserProfile>> GetSpeakersAsync();
 
-        Task<modelObj.User> GetUserByIdAsync(int userId);
+        Task<modelObj.UserProfile> GetUserByAspNetUsersIdAsync(string userId);
 
-        Task<bool> ToggleSessionLikeAsync(int sessionId);
+        Task<modelObj.UserProfile> GetUserByUserProfileIdAsync(int userId);
 
-        Task<int> UpdateUserRecord(modelData.User editedCurrentUser);
+        Task<bool> ToggleSessionLikeAsync(int sessionId, string sessionIdUserProfileId);
+
+        Task<int> UpdateUserRecord(modelData.UserProfile editedCurrentUser);
 
         Task<int> WriteFeedbackRecord(modelData.Feedback feedbackData);
     }

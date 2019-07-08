@@ -26,6 +26,8 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         public System.Data.Entity.DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public System.Data.Entity.DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public System.Data.Entity.DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
+        public System.Data.Entity.DbSet<BlobFile> BlobFiles { get; set; }
+        public System.Data.Entity.DbSet<BlobFileType> BlobFileTypes { get; set; }
         public System.Data.Entity.DbSet<FeaturedEvent> FeaturedEvents { get; set; }
         public System.Data.Entity.DbSet<Feedback> Feedbacks { get; set; }
         public System.Data.Entity.DbSet<FeedbackInitiatorType> FeedbackInitiatorTypes { get; set; }
@@ -55,6 +57,8 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             AspNetUserClaims = new FakeDbSet<AspNetUserClaim>("Id");
             AspNetUserLogins = new FakeDbSet<AspNetUserLogin>("LoginProvider", "ProviderKey", "UserId");
             AspNetUserRoles = new FakeDbSet<AspNetUserRole>("UserId", "RoleId");
+            BlobFiles = new FakeDbSet<BlobFile>("BlobFileId");
+            BlobFileTypes = new FakeDbSet<BlobFileType>("BlobFileTypeId");
             FeaturedEvents = new FakeDbSet<FeaturedEvent>("FeaturedEventId");
             Feedbacks = new FakeDbSet<Feedback>("FeedbackId");
             FeedbackInitiatorTypes = new FakeDbSet<FeedbackInitiatorType>("FeedbackInitiatorTypeId");
@@ -109,12 +113,17 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             Dispose(true);
         }
 
-        private System.Data.Entity.Infrastructure.DbChangeTracker _changeTracker;
+#pragma warning disable 0649
+
+		private System.Data.Entity.Infrastructure.DbChangeTracker _changeTracker;
         public System.Data.Entity.Infrastructure.DbChangeTracker ChangeTracker { get { return _changeTracker; } }
         private System.Data.Entity.Infrastructure.DbContextConfiguration _configuration;
         public System.Data.Entity.Infrastructure.DbContextConfiguration Configuration { get { return _configuration; } }
         private System.Data.Entity.Database _database;
-        public System.Data.Entity.Database Database { get { return _database; } }
+
+#pragma warning restore 0649
+
+		public System.Data.Entity.Database Database { get { return _database; } }
         public System.Data.Entity.Infrastructure.DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
         {
             throw new System.NotImplementedException();

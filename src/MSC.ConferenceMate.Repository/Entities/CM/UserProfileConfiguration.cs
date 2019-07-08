@@ -38,7 +38,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             Property(x => x.LastLogin).HasColumnName(@"LastLogin").HasColumnType("datetime2").IsRequired();
             Property(x => x.PreferredLanguageId).HasColumnName(@"PreferredLanguageId").HasColumnType("int").IsRequired();
             Property(x => x.Biography).HasColumnName(@"Biography").HasColumnType("nvarchar").IsOptional().HasMaxLength(4000);
-            Property(x => x.PhotoUrl).HasColumnName(@"PhotoUrl").HasColumnType("nvarchar").IsOptional().HasMaxLength(1000);
+            Property(x => x.PhotoBlobFileId).HasColumnName(@"PhotoBlobFileId").HasColumnType("uniqueidentifier").IsOptional();
             Property(x => x.AvatarUrl).HasColumnName(@"AvatarUrl").HasColumnType("nvarchar").IsOptional().HasMaxLength(1000);
             Property(x => x.CompanyName).HasColumnName(@"CompanyName").HasColumnType("nvarchar").IsOptional().HasMaxLength(1000);
             Property(x => x.JobTitle).HasColumnName(@"JobTitle").HasColumnType("nvarchar").IsOptional().HasMaxLength(1000);
@@ -54,6 +54,7 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             Property(x => x.IsDeleted).HasColumnName(@"IsDeleted").HasColumnType("bit").IsRequired();
 
             // Foreign keys
+            HasOptional(a => a.BlobFile).WithMany(b => b.UserProfiles).HasForeignKey(c => c.PhotoBlobFileId).WillCascadeOnDelete(false); // FK_UserProfile_BlobFile
             HasOptional(a => a.GenderType).WithMany(b => b.UserProfiles).HasForeignKey(c => c.GenderTypeId).WillCascadeOnDelete(false); // FK_UserProfile_GenderType_GenderTypeId
             HasRequired(a => a.AspNetUser).WithMany(b => b.UserProfiles).HasForeignKey(c => c.AspNetUsersId).WillCascadeOnDelete(false); // FK_UserProfile_AspNetUsers
             HasRequired(a => a.LanguageType).WithMany(b => b.UserProfiles).HasForeignKey(c => c.PreferredLanguageId).WillCascadeOnDelete(false); // FK_UserProfile_LanguageType

@@ -51,7 +51,7 @@ namespace MSC.ConferenceMate.Web
 			//	defaults: new { id = RouteParameter.Optional }
 			//);
 
-			// DryIoC registratrion.
+			// DryIoC registration.
 			config.RegisterDependencyResolver();
 		}
 

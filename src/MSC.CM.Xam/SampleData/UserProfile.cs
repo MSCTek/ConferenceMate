@@ -5,8 +5,8 @@ namespace MSC.CM.Xam.ModelData.CM
 {
 	public static class DemoUserProfile
 	{
-		public static int SampleUserProfileId0000 = 566255897;
-		public static int SampleUserProfileId0100 = 1805148081;
+		public static int SampleUserProfileId0000 = 56;
+		public static int SampleUserProfileId0100 = 18;
 
 		public static UserProfile SampleUserProfile00
 		{
@@ -23,7 +23,7 @@ namespace MSC.CM.Xam.ModelData.CM
 					LastLogin = DateTime.Now,
 					PreferredLanguageId = 0,
 					Biography = "SampleBiography",
-					PhotoUrl = "SamplePhotoUrl",
+					PhotoBlobFileId = Guid.NewGuid(),
 					AvatarUrl = "SampleAvatarUrl",
 					CompanyName = "SampleCompanyName",
 					JobTitle = "SampleJobTitle",
@@ -55,7 +55,7 @@ namespace MSC.CM.Xam.ModelData.CM
 					LastLogin = DateTime.Now,
 					PreferredLanguageId = 0,
 					Biography = "SampleBiography",
-					PhotoUrl = "SamplePhotoUrl",
+					PhotoBlobFileId = Guid.NewGuid(),
 					AvatarUrl = "SampleAvatarUrl",
 					CompanyName = "SampleCompanyName",
 					JobTitle = "SampleJobTitle",

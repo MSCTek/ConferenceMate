@@ -77,6 +77,18 @@
     <Compile Include="Entities\CM\AspNetUserRoleConfiguration.cs">
       <DependentUpon>ConferenceMateContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\CM\BlobFile.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\BlobFileConfiguration.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\BlobFileType.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\CM\BlobFileTypeConfiguration.cs">
+      <DependentUpon>ConferenceMateContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\CM\CMDataContext.cs">
       <DependentUpon>ConferenceMateContext.tt</DependentUpon>
     </Compile>
@@ -243,13 +255,10 @@
       <Version>8.1.1</Version>
     </PackageReference>
     <PackageReference Include="CodeGenHero.Repository">
-      <Version>1.0.6</Version>
+      <Version>1.1.1</Version>
     </PackageReference>
     <PackageReference Include="CodeGenHero.Repository.AutoMapper">
-      <Version>1.0.7</Version>
-    </PackageReference>
-    <PackageReference Include="CodeGenHero.Repository.EntityFramework">
-      <Version>1.0.5</Version>
+      <Version>1.1.1</Version>
     </PackageReference>
     <PackageReference Include="EntityFramework">
       <Version>6.2.0</Version>

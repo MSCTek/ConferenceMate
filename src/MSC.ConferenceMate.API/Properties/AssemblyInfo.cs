@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MSC.ConferenceMate.Repository.API.Properties")]
+[assembly: AssemblyTitle("MSC.ConferenceMate.Repository.API")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Micro Support Center, Inc.")]
-[assembly: AssemblyProduct("MSC.ConferenceMate.Repository.API.Properties")]
+[assembly: AssemblyProduct("MSC.ConferenceMate.Repository.API")]
 [assembly: AssemblyCopyright("Micro Support Center, Inc. 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

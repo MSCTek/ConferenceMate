@@ -25,12 +25,13 @@ namespace MSC.ConferenceMate.Model.CM.Interface
 		string LinkedInUrl { get; }
 		string ModifiedBy { get; }
 		System.DateTime ModifiedUtcDate { get; }
-		string PhotoUrl { get; }
+		System.Guid? PhotoBlobFileId { get; }
 		int PreferredLanguageId { get; }
 		string TwitterUrl { get; }
 		int UserProfileId { get; }
 
 		// Excluding 'AspNetUser' per configuration setting.
+		IBlobFile BlobFile { get; }
 		IGenderType GenderType { get; }
 		ILanguageType LanguageType { get; }
 		// Excluding 'Feedback' per configuration setting.

@@ -20,18 +20,24 @@
             </Grid.RowDefinitions>
             <Frame Grid.Row="0" Margin="5">
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="90" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <circle:CircleImage Grid.Column="0" Source="xamarinstore.jpg" WidthRequest="80" HeightRequest="80"
+                    <circle:CircleImage Grid.Column="0" Grid.Row="0" Source="{Binding MyProfileImage}" WidthRequest="80" HeightRequest="80"
                                         Aspect="AspectFill" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" />
-                    <StackLayout Grid.Column="1" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+                    <StackLayout Grid.Column="1" Grid.Row="0"  VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
                         <StackLayout Orientation="Horizontal">
                             <Label Text="{Binding CurrentUser.FirstName}" FontSize="Medium" FontAttributes="Bold" />
                             <Label Text="{Binding CurrentUser.LastName}" FontSize="Medium" FontAttributes="Bold" />
                         </StackLayout>
                         <Label Text="{Binding CurrentUser.JobTitle}" LineBreakMode="WordWrap" />
+                    </StackLayout>
+                    <StackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"  VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
                         <Label Text="{Binding CurrentUser.CompanyName}" LineBreakMode="WordWrap" />
                         <Label Text="{Binding CurrentUser.UserName}" />
                         <Label Text="{Binding CurrentUser.Email}" />

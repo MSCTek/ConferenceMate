@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace MSC.CM.XaSh.Services
 {
     public enum QueueableObjects
     {
-        Favorite,
+        SessionLikes,
         Feedback,
         Chat,
         Bingo,
@@ -32,7 +33,7 @@ namespace MSC.CM.XaSh.Services
         UserProfileUpdate
     }
 
-    public class AzureDataUploader : IDataUploader
+    public class AzureDataUploader : AzureDataLoaderBase, IDataUploader
     {
         //TODO: maybe move this to appsettings.json
         private static int MaxNumAttempts = 8;
@@ -40,43 +41,24 @@ namespace MSC.CM.XaSh.Services
         //TODO: maybe move this to appsettings.json
         private static int MaxNumUploadBatch = 10;
 
-        private SQLiteAsyncConnection conn = App.Database.conn;
-        private ILogger<AzureDataLoader> logger;
-        private IWebApiDataServiceCM webAPIDataService;
-
-        //TODO: PAUL to take advantage of this goodness, wire up the CGH httpclient to use the transient http error policy
-        //private HttpClient client;
         //public AzureDataLoader(ILogger<AzureDataStore> _logger = null, IHttpClientFactory _httpClientFactory = null)
-        public AzureDataUploader(ILogger<AzureDataLoader> _logger = null)
+        public AzureDataUploader(IHttpClientFactory httpClientFactory = null, ILogger<AzureDataLoader> logger = null)
+            : base(httpClientFactory, logger)
         {
-            logger = _logger;
-            //client = _httpClientFactory == null ? new HttpClient() : _httpClientFactory.CreateClient("AzureWebsites");
-
-            //if (_httpClientFactory == null)
-            //    client.BaseAddress = new Uri($"{App.AzureBackendUrl}/");
-
-            var webApiExecutionContextType = new CMWebApiExecutionContextType();
-            webApiExecutionContextType.Current = (int)ExecutionContextTypes.Base;
-
-            WebApiExecutionContext context = new WebApiExecutionContext(
-                executionContextType: webApiExecutionContextType,
-                baseWebApiUrl: App.AzureBackendUrl,
-                baseFileUrl: string.Empty,
-                connectionIdentifier: null);
-
-            webAPIDataService = new WebApiDataServiceCM(null, context);
         }
+
+        private bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
 
         //How many are queued, failed > MaxNumAttempts times?
         public async Task<int> GetCountQueuedRecordsWAttemptsAsync()
         {
-            var count = await conn.Table<UploadQueue>().Where(x => x.Success == false && x.NumAttempts > MaxNumAttempts).CountAsync();
+            var count = await _conn.Table<UploadQueue>().Where(x => x.Success == false && x.NumAttempts > MaxNumAttempts).CountAsync();
             if (count > 0)
             {
                 //sending a message to AppCenter right away with user info
                 var dict = new Dictionary<string, string>
                     {
-                       { "userId", Preferences.Get(App.CURRENT_USER_ID, 0).ToString() },
+                       { "userId", Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0).ToString() },
                        { "recordCount", count.ToString() },
                        { "maxNumAttempts", MaxNumAttempts.ToString() },
                     };
@@ -95,13 +77,14 @@ namespace MSC.CM.XaSh.Services
                     UploadQueueId = Guid.NewGuid(),
                     RecordIdGuid = recordId,
                     RecordIdInt = null,
+                    RecordIdStr = null,
                     QueueableObject = objName.ToString(),
                     DateQueued = DateTime.UtcNow,
                     NumAttempts = 0,
                     Success = false
                 };
 
-                int count = await conn.InsertOrReplaceAsync(queue);
+                int count = await _conn.InsertOrReplaceAsync(queue);
 
                 Debug.WriteLine($"Queued {recordId} of type {objName}");
             }
@@ -121,13 +104,41 @@ namespace MSC.CM.XaSh.Services
                     UploadQueueId = Guid.NewGuid(),
                     RecordIdGuid = null,
                     RecordIdInt = recordId,
+                    RecordIdStr = null,
                     QueueableObject = objName.ToString(),
                     DateQueued = DateTime.UtcNow,
                     NumAttempts = 0,
                     Success = false
                 };
 
-                int count = await conn.InsertOrReplaceAsync(queue);
+                int count = await _conn.InsertOrReplaceAsync(queue);
+
+                Debug.WriteLine($"Queued {recordId} of type {objName}");
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                Debug.WriteLine($"Error in {nameof(QueueAsync)}");
+            }
+        }
+
+        public async Task QueueAsync(string recordId, QueueableObjects objName)
+        {
+            try
+            {
+                UploadQueue queue = new UploadQueue()
+                {
+                    UploadQueueId = Guid.NewGuid(),
+                    RecordIdGuid = null,
+                    RecordIdInt = null,
+                    RecordIdStr = recordId,
+                    QueueableObject = objName.ToString(),
+                    DateQueued = DateTime.UtcNow,
+                    NumAttempts = 0,
+                    Success = false
+                };
+
+                int count = await _conn.InsertOrReplaceAsync(queue);
 
                 Debug.WriteLine($"Queued {recordId} of type {objName}");
             }
@@ -140,14 +151,14 @@ namespace MSC.CM.XaSh.Services
 
         public async Task StartQueuedUpdatesAsync(CancellationToken token)
         {
-            if (conn == null)
+            if (_conn == null)
             {
                 Debug.WriteLine("FATAL: DataUploader has no access to the Database");
                 Crashes.TrackError(new Exception("FATAL: DataUploader has no access to the Database"));
                 return;
             }
 
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            if (IsConnected)
             {
                 await RunQueuedUpdatesAsync(token);
             }
@@ -159,14 +170,15 @@ namespace MSC.CM.XaSh.Services
 
         public void StartSafeQueuedUpdates()
         {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet) MessagingCenter.Send<StartUploadDataMessage>(new StartUploadDataMessage(), "StartUploadDataMessage");
+            if (IsConnected) MessagingCenter.Send<StartUploadDataMessage>(new StartUploadDataMessage(), "StartUploadDataMessage");
         }
 
         private async Task<bool> RunQueuedFeedbackCreate(UploadQueue q)
         {
+            var webAPIDataService = GetWebAPIDataService(Consts.AUTHORIZED);
             if (webAPIDataService == null) { Analytics.TrackEvent("FATAL: RunQueuedFeedbackCreate webAPIDataService == null"); return false; }
 
-            var record = await conn.Table<Feedback>().Where(x => x.FeedbackId == q.RecordIdGuid).FirstOrDefaultAsync();
+            var record = await _conn.Table<Feedback>().Where(x => x.FeedbackId == q.RecordIdGuid).FirstOrDefaultAsync();
             if (record != null)
             {
                 var result = await webAPIDataService.CreateFeedbackAsync(record.ToDto());
@@ -185,13 +197,37 @@ namespace MSC.CM.XaSh.Services
             return false;
         }
 
+        private async Task<bool> RunQueuedSessionLikesUpdate(UploadQueue q)
+        {
+            var webAPIDataService = GetWebAPIDataService(Consts.AUTHORIZED);
+            if (webAPIDataService == null) { Analytics.TrackEvent("FATAL: RunQueuedSessionLikesUpdate webAPIDataService == null"); return false; }
+
+            var record = await _conn.Table<SessionLike>().Where(x => x.SessionIdUserProfileId == q.RecordIdStr).FirstOrDefaultAsync();
+            if (record != null)
+            {
+                var result = await webAPIDataService.UpdateSessionLikeAsync(record.ToDto());
+                if (result.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine($"Successfully Sent Queued SessionLikes Record");
+                    return true;
+                }
+                else if (result.StatusCode == System.Net.HttpStatusCode.Conflict)
+                {
+                    Analytics.TrackEvent($"Conflict Sending Queued SessionLikes record {q.RecordIdStr}");
+                }
+                Analytics.TrackEvent($"Error Sending Queued SessionLikes record {q.RecordIdStr}");
+                return false;
+            }
+            return false;
+        }
+
         //run the oldest 10 updates in the SQLite database that haven't had more than MaxNumAttempts retries
         private async Task RunQueuedUpdatesAsync(CancellationToken cts)
         {
             try
             {
                 //Take the oldest {MaxNumUploadBatch} records off the queue and only take records that haven't had more than MaxNumAttempts retries
-                var queue = await conn.Table<UploadQueue>().Where(x => x.Success == false && x.NumAttempts <= MaxNumAttempts).OrderBy(s => s.DateQueued).Take(MaxNumUploadBatch).ToListAsync();
+                var queue = await _conn.Table<UploadQueue>().Where(x => x.Success == false && x.NumAttempts <= MaxNumAttempts).OrderBy(s => s.DateQueued).Take(MaxNumUploadBatch).ToListAsync();
 
                 Debug.WriteLine($"Running {queue.Count()} Queued Updates");
 
@@ -209,12 +245,12 @@ namespace MSC.CM.XaSh.Services
                         {
                             q.NumAttempts += 1;
                             q.Success = true;
-                            await conn.UpdateAsync(q);
+                            await _conn.UpdateAsync(q);
                         }
                         else
                         {
                             q.NumAttempts += 1;
-                            await conn.UpdateAsync(q);
+                            await _conn.UpdateAsync(q);
                         }
                     }
                     else if (q.QueueableObject == QueueableObjects.UserProfileUpdate.ToString())
@@ -223,12 +259,26 @@ namespace MSC.CM.XaSh.Services
                         {
                             q.NumAttempts += 1;
                             q.Success = true;
-                            await conn.UpdateAsync(q);
+                            await _conn.UpdateAsync(q);
                         }
                         else
                         {
                             q.NumAttempts += 1;
-                            await conn.UpdateAsync(q);
+                            await _conn.UpdateAsync(q);
+                        }
+                    }
+                    else if (q.QueueableObject == QueueableObjects.SessionLikes.ToString())
+                    {
+                        if (await RunQueuedSessionLikesUpdate(q))
+                        {
+                            q.NumAttempts += 1;
+                            q.Success = true;
+                            await _conn.UpdateAsync(q);
+                        }
+                        else
+                        {
+                            q.NumAttempts += 1;
+                            await _conn.UpdateAsync(q);
                         }
                     }
                 }
@@ -241,12 +291,13 @@ namespace MSC.CM.XaSh.Services
 
         private async Task<bool> RunQueuedUserProfileUpdate(UploadQueue q)
         {
+            var webAPIDataService = GetWebAPIDataService(Consts.AUTHORIZED);
             if (webAPIDataService == null) { Analytics.TrackEvent("FATAL: RunQueuedUserProfileUpdate webAPIDataService == null"); return false; }
 
-            var record = await conn.Table<User>().Where(x => x.UserId == q.RecordIdInt).FirstOrDefaultAsync();
+            var record = await _conn.Table<UserProfile>().Where(x => x.UserProfileId == q.RecordIdInt).FirstOrDefaultAsync();
             if (record != null)
             {
-                var result = await webAPIDataService.UpdateUserAsync(record.ToDto());
+                var result = await webAPIDataService.UpdateUserProfileAsync(record.ToDto());
                 if (result.IsSuccessStatusCode)
                 {
                     Debug.WriteLine($"Successfully Sent Queued User Record");

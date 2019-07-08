@@ -14,7 +14,8 @@ namespace MSC.CM.XaSh.Views
         public AnnouncementsPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = Startup.ServiceProvider?.GetService<AnnouncementsViewModel>() ?? new AnnouncementsViewModel();
+            //TODO: Navigation is via the view, not the viewmodel... rework this eventually.
+            //BindingContext = viewModel = Startup.ServiceProvider?.GetService<AnnouncementsViewModel>() ?? new AnnouncementsViewModel();
         }
 
         protected async override void OnAppearing()
@@ -22,6 +23,8 @@ namespace MSC.CM.XaSh.Views
             Analytics.TrackEvent("AnnouncementsPage");
             base.OnAppearing();
 
+            //Workaround here
+            BindingContext = viewModel = Startup.ServiceProvider?.GetService<AnnouncementsViewModel>() ?? new AnnouncementsViewModel();
             await Refresh();
         }
 

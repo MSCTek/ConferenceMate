@@ -252,6 +252,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				dtoItem.LanguageTypeId = languageTypeId;
 
 				var updatedDBItem = _factory.Create(dtoItem); // map
+				RunCustomLogicBeforeUpdatePut(ref updatedDBItem, languageTypeId);
 				var result = await Repo.UpdateAsync(updatedDBItem);
 				RunCustomLogicAfterUpdatePut(ref updatedDBItem, ref result);
 
@@ -280,11 +281,13 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			}
 		}
 
-		partial void RunCustomLogicAfterInsert(ref MSC.ConferenceMate.Repository.Entities.CM.LanguageType newDBItem, ref IRepositoryActionResult<entCM.LanguageType> result);
+		partial void RunCustomLogicAfterInsert(ref entCM.LanguageType newDBItem, ref IRepositoryActionResult<entCM.LanguageType> result);
 
-		partial void RunCustomLogicAfterUpdatePatch(ref MSC.ConferenceMate.Repository.Entities.CM.LanguageType updatedDBItem, ref IRepositoryActionResult<entCM.LanguageType> result);
+		partial void RunCustomLogicAfterUpdatePatch(ref entCM.LanguageType updatedDBItem, ref IRepositoryActionResult<entCM.LanguageType> result);
 
-		partial void RunCustomLogicAfterUpdatePut(ref MSC.ConferenceMate.Repository.Entities.CM.LanguageType updatedDBItem, ref IRepositoryActionResult<entCM.LanguageType> result);
+		partial void RunCustomLogicAfterUpdatePut(ref entCM.LanguageType updatedDBItem, ref IRepositoryActionResult<entCM.LanguageType> result);
+
+		partial void RunCustomLogicBeforeUpdatePut(ref entCM.LanguageType updatedDBItem, int languageTypeId);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.LanguageType dbItem, int languageTypeId, int numChildLevels);
 

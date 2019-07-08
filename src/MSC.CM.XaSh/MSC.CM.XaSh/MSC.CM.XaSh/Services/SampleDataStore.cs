@@ -64,19 +64,24 @@ namespace MSC.CM.XaSh.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<modelObj.User>> GetSpeakersAsync()
+        public async Task<IEnumerable<modelObj.UserProfile>> GetSpeakersAsync()
         {
-            var returnMe = new List<modelObj.User>();
+            var returnMe = new List<modelObj.UserProfile>();
 
-            returnMe.Add(modelData.DemoUser.SampleUser00.ToModelObj());
-            returnMe.Add(modelData.DemoUser.SampleUser01.ToModelObj());
+            returnMe.Add(modelData.DemoUserProfile.SampleUserProfile00.ToModelObj());
+            returnMe.Add(modelData.DemoUserProfile.SampleUserProfile01.ToModelObj());
 
             return returnMe;
         }
 
-        public async Task<modelObj.User> GetUserByIdAsync(int userId)
+        public async Task<modelObj.UserProfile> GetUserByAspNetUsersIdAsync(string userId)
         {
-            return modelData.DemoUser.SampleUser00.ToModelObj();
+            return modelData.DemoUserProfile.SampleUserProfile00.ToModelObj();
+        }
+
+        public async Task<modelObj.UserProfile> GetUserByUserProfileIdAsync(int userId)
+        {
+            return modelData.DemoUserProfile.SampleUserProfile00.ToModelObj();
         }
 
         public async Task SetSessionLikeAsync(int sessionId, bool value)
@@ -84,12 +89,12 @@ namespace MSC.CM.XaSh.Services
             return;
         }
 
-        public async Task<bool> ToggleSessionLikeAsync(int sessionId)
+        public async Task<bool> ToggleSessionLikeAsync(int sessionId, string sessionIdUserProfileId)
         {
             return false;
         }
 
-        public async Task<int> UpdateUserRecord(modelData.User editedCurrentUser)
+        public async Task<int> UpdateUserRecord(modelData.UserProfile editedCurrentUser)
         {
             return 0;
         }

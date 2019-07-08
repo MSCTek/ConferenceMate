@@ -58,18 +58,32 @@ namespace MSC.ConferenceMate.Model.CM
 		public virtual string LinkedInUrl { get { return _dto.LinkedInUrl; } }
 		public virtual string ModifiedBy { get { return _dto.ModifiedBy; } }
 		public virtual System.DateTime ModifiedUtcDate { get { return _dto.ModifiedUtcDate; } }
-		public virtual string PhotoUrl { get { return _dto.PhotoUrl; } }
+		public virtual System.Guid? PhotoBlobFileId { get { return _dto.PhotoBlobFileId; } }
 		public virtual int PreferredLanguageId { get { return _dto.PreferredLanguageId; } }
 		public virtual string TwitterUrl { get { return _dto.TwitterUrl; } }
 		public virtual int UserProfileId { get { return _dto.UserProfileId; } }
 
 		// Excluding 'AspNetUser' per configuration setting.
+		private IBlobFile _blobFile = null; // Foreign Key
 		private IGenderType _genderType = null; // Foreign Key
 		private ILanguageType _languageType = null; // Foreign Key
 		// Excluding 'Feedbacks' per configuration setting.
 		// Excluding 'SessionLikes' per configuration setting.
 		// Excluding 'SessionSpeakers' per configuration setting.
 
+
+		public virtual IBlobFile BlobFile
+		{
+			get
+			{
+				if (_blobFile == null && _dto != null && _dto.BlobFile != null)
+				{
+					_blobFile = new BlobFile(Log, DataService, _dto.BlobFile);
+				}
+
+				return _blobFile;
+			}
+		}
 
 		public virtual IGenderType GenderType
 		{

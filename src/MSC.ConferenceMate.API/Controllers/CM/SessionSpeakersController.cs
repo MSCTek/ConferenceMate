@@ -254,6 +254,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				dtoItem.UserProfileId = userProfileId;
 
 				var updatedDBItem = _factory.Create(dtoItem); // map
+				RunCustomLogicBeforeUpdatePut(ref updatedDBItem, sessionId, userProfileId);
 				var result = await Repo.UpdateAsync(updatedDBItem);
 				RunCustomLogicAfterUpdatePut(ref updatedDBItem, ref result);
 
@@ -282,11 +283,13 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			}
 		}
 
-		partial void RunCustomLogicAfterInsert(ref MSC.ConferenceMate.Repository.Entities.CM.SessionSpeaker newDBItem, ref IRepositoryActionResult<entCM.SessionSpeaker> result);
+		partial void RunCustomLogicAfterInsert(ref entCM.SessionSpeaker newDBItem, ref IRepositoryActionResult<entCM.SessionSpeaker> result);
 
-		partial void RunCustomLogicAfterUpdatePatch(ref MSC.ConferenceMate.Repository.Entities.CM.SessionSpeaker updatedDBItem, ref IRepositoryActionResult<entCM.SessionSpeaker> result);
+		partial void RunCustomLogicAfterUpdatePatch(ref entCM.SessionSpeaker updatedDBItem, ref IRepositoryActionResult<entCM.SessionSpeaker> result);
 
-		partial void RunCustomLogicAfterUpdatePut(ref MSC.ConferenceMate.Repository.Entities.CM.SessionSpeaker updatedDBItem, ref IRepositoryActionResult<entCM.SessionSpeaker> result);
+		partial void RunCustomLogicAfterUpdatePut(ref entCM.SessionSpeaker updatedDBItem, ref IRepositoryActionResult<entCM.SessionSpeaker> result);
+
+		partial void RunCustomLogicBeforeUpdatePut(ref entCM.SessionSpeaker updatedDBItem, int sessionId, int userProfileId);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.SessionSpeaker dbItem, int sessionId, int userProfileId, int numChildLevels);
 

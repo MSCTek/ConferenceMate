@@ -25,6 +25,11 @@ namespace MSC.CM.XaSh.Services
             Debug.WriteLine("WARN: QueueAsync cannot run with sample data.");
         }
 
+        public async Task QueueAsync(string recordId, QueueableObjects objName)
+        {
+            Debug.WriteLine("WARN: QueueAsync cannot run with sample data.");
+        }
+
         public async Task StartQueuedUpdatesAsync(CancellationToken token)
         {
             Debug.WriteLine("WARN: StartQueuedUpdatesAsync cannot run with sample data.");

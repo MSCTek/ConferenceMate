@@ -61,7 +61,7 @@ namespace MSC.CM.XaSh.ViewModels
                 {
                     try
                     {
-                        int? currentUserId = Preferences.Get(App.CURRENT_USER_ID, 0) != 0 ? Preferences.Get(App.CURRENT_USER_ID, 0) as int? : null;
+                        int currentUserProfileId = Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0); // != 0 ? Preferences.Get(App.CURRENT_USER_ID, 0) as int? : null;
 
                         //build up a feedback data model - we don't need to build an obj model as this will go right into SQLite
                         var feedbackData = new MSC.CM.Xam.ModelData.CM.Feedback()
@@ -79,7 +79,7 @@ namespace MSC.CM.XaSh.ViewModels
                             Title = FeedbackTitle,
                             Latitude = 0D,
                             Longitude = 0D,
-                            UserId = currentUserId,
+                            UserProfileId = currentUserProfileId,
                             FeedbackInitiatorTypeId = 1, //customer
                             Source = "Mobile App",
                         };
@@ -123,7 +123,7 @@ namespace MSC.CM.XaSh.ViewModels
 
             try
             {
-                if ((Connectivity.NetworkAccess == NetworkAccess.Internet && await DataLoader.HeartbeatCheck()) || App.UseSampleDataStore)
+                if (base.IsConnected || App.UseSampleDataStore)
                 {
                     //load SQLite from API or sample data
                     var count = await DataLoader.LoadFeedbackTypesAsync();

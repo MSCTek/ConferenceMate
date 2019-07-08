@@ -14,6 +14,12 @@ namespace MSC.ConferenceMate.Repository.Interface
 		Task<IRepositoryActionResult<Announcement>> Delete_AnnouncementAsync(int announcementId);
 		Task<Announcement> Get_AnnouncementAsync(int announcementId, int numChildLevels);
 
+		Task<IRepositoryActionResult<BlobFile>> Delete_BlobFileAsync(System.Guid blobFileId);
+		Task<BlobFile> Get_BlobFileAsync(System.Guid blobFileId, int numChildLevels);
+
+		Task<IRepositoryActionResult<BlobFileType>> Delete_BlobFileTypeAsync(int blobFileTypeId);
+		Task<BlobFileType> Get_BlobFileTypeAsync(int blobFileTypeId, int numChildLevels);
+
 		Task<IRepositoryActionResult<FeaturedEvent>> Delete_FeaturedEventAsync(int featuredEventId);
 		Task<FeaturedEvent> Get_FeaturedEventAsync(int featuredEventId, int numChildLevels);
 

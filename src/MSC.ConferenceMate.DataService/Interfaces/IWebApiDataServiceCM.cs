@@ -13,6 +13,10 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IList<xDTO.Announcement>> GetAllPagesAnnouncementsAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null);
 
+		Task<IList<xDTO.BlobFile>> GetAllPagesBlobFilesAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null);
+
+		Task<IList<xDTO.BlobFileType>> GetAllPagesBlobFileTypesAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null);
+
 		Task<IList<xDTO.FeaturedEvent>> GetAllPagesFeaturedEventsAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null);
 
 		Task<IList<xDTO.Feedback>> GetAllPagesFeedbacksAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null);
@@ -60,6 +64,14 @@ namespace MSC.ConferenceMate.API.Client.Interface
 		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Announcement>>>> GetAnnouncementsAsync(IPageDataRequest pageDataRequest);
 
 		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.Announcement>>>> GetAnnouncementsAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null, int page = 1, int pageSize = 100);
+
+		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.BlobFile>>>> GetBlobFilesAsync(IPageDataRequest pageDataRequest);
+
+		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.BlobFile>>>> GetBlobFilesAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null, int page = 1, int pageSize = 100);
+
+		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.BlobFileType>>>> GetBlobFileTypesAsync(IPageDataRequest pageDataRequest);
+
+		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.BlobFileType>>>> GetBlobFileTypesAsync(DateTime? minModifiedUtcDate = null, bool? isDeleted = null, string sort = null, int page = 1, int pageSize = 100);
 
 		Task<IHttpCallResultCGHT<IPageDataT<IList<xDTO.FeaturedEvent>>>> GetFeaturedEventsAsync(IPageDataRequest pageDataRequest);
 
@@ -145,6 +157,10 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<xDTO.Announcement>> GetAnnouncementAsync(int announcementId, int numChildLevels);
 
+		Task<IHttpCallResultCGHT<xDTO.BlobFile>> GetBlobFileAsync(System.Guid blobFileId, int numChildLevels);
+
+		Task<IHttpCallResultCGHT<xDTO.BlobFileType>> GetBlobFileTypeAsync(int blobFileTypeId, int numChildLevels);
+
 		Task<IHttpCallResultCGHT<xDTO.FeaturedEvent>> GetFeaturedEventAsync(int featuredEventId, int numChildLevels);
 
 		Task<IHttpCallResultCGHT<xDTO.Feedback>> GetFeedbackAsync(System.Guid feedbackId, int numChildLevels);
@@ -190,6 +206,10 @@ namespace MSC.ConferenceMate.API.Client.Interface
 		#region Create
 
 		Task<IHttpCallResultCGHT<xDTO.Announcement>> CreateAnnouncementAsync(xDTO.Announcement item);
+
+		Task<IHttpCallResultCGHT<xDTO.BlobFile>> CreateBlobFileAsync(xDTO.BlobFile item);
+
+		Task<IHttpCallResultCGHT<xDTO.BlobFileType>> CreateBlobFileTypeAsync(xDTO.BlobFileType item);
 
 		Task<IHttpCallResultCGHT<xDTO.FeaturedEvent>> CreateFeaturedEventAsync(xDTO.FeaturedEvent item);
 
@@ -237,6 +257,10 @@ namespace MSC.ConferenceMate.API.Client.Interface
 
 		Task<IHttpCallResultCGHT<xDTO.Announcement>> UpdateAnnouncementAsync(xDTO.Announcement item);
 
+		Task<IHttpCallResultCGHT<xDTO.BlobFile>> UpdateBlobFileAsync(xDTO.BlobFile item);
+
+		Task<IHttpCallResultCGHT<xDTO.BlobFileType>> UpdateBlobFileTypeAsync(xDTO.BlobFileType item);
+
 		Task<IHttpCallResultCGHT<xDTO.FeaturedEvent>> UpdateFeaturedEventAsync(xDTO.FeaturedEvent item);
 
 		Task<IHttpCallResultCGHT<xDTO.Feedback>> UpdateFeedbackAsync(xDTO.Feedback item);
@@ -282,6 +306,10 @@ namespace MSC.ConferenceMate.API.Client.Interface
 		#region Delete
 
 		Task<IHttpCallResultCGHT<xDTO.Announcement>> DeleteAnnouncementAsync(int announcementId);
+
+		Task<IHttpCallResultCGHT<xDTO.BlobFile>> DeleteBlobFileAsync(System.Guid blobFileId);
+
+		Task<IHttpCallResultCGHT<xDTO.BlobFileType>> DeleteBlobFileTypeAsync(int blobFileTypeId);
 
 		Task<IHttpCallResultCGHT<xDTO.FeaturedEvent>> DeleteFeaturedEventAsync(int featuredEventId);
 

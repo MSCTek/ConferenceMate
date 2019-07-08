@@ -24,7 +24,7 @@ namespace MSC.ConferenceMate.API.Providers
 				return;
 			}
 
-			var refreshTokenId = Guid.NewGuid().ToString("n");
+			var refreshTokenValue = Guid.NewGuid().ToString("n");
 
 			using (var repo = new SecurityDbContext())
 			{
@@ -33,7 +33,7 @@ namespace MSC.ConferenceMate.API.Providers
 				{
 					IssuedUtc = DateTime.UtcNow,
 					ExpiresUtc = DateTime.UtcNow.AddMinutes(Convert.ToDouble(refreshTokenLifeTime)),
-					Token = refreshTokenId,
+					Token = refreshTokenValue,
 					AspNetUsersId = userId
 				};
 
@@ -46,7 +46,7 @@ namespace MSC.ConferenceMate.API.Providers
 
 				if (result)
 				{
-					context.SetToken(refreshTokenId);
+					context.SetToken(refreshTokenValue);
 				}
 			}
 		}

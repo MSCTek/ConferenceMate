@@ -227,6 +227,11 @@
       "Settings": [
         {
           "HiddenIndicator": false,
+          "Name": "AllowUpsertDuringPut",
+          "Value": "true"
+        },
+        {
+          "HiddenIndicator": false,
           "Name": "WebApiControllerPartialMethodsOutputFilePath",
           "Value": "Controllers\\{namespacePostfix}\\Custom\\[tablepluralname]ControllerCustom.cs"
         }

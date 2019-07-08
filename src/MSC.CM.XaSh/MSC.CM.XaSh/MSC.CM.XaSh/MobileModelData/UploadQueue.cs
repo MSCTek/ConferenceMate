@@ -16,6 +16,8 @@ namespace MSC.CM.XaSh.MobileModelData
 
         public int? RecordIdInt { get; set; }
 
+        public string RecordIdStr { get; set; }
+
         public bool Success { get; set; }
 
         [PrimaryKey]

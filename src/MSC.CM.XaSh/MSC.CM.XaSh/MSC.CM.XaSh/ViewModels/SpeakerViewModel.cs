@@ -21,10 +21,10 @@ namespace MSC.CM.XaSh.ViewModels
             DataStore = store;
             DataLoader = loader;
             Title = "Speakers";
-            Speakers = new ObservableCollection<User>();
+            Speakers = new ObservableCollection<UserProfile>();
         }
 
-        public ObservableCollection<User> Speakers { get; private set; }
+        public ObservableCollection<UserProfile> Speakers { get; private set; }
 
         public async Task RefreshListViewData()
         {
@@ -34,7 +34,7 @@ namespace MSC.CM.XaSh.ViewModels
 
             try
             {
-                if ((Connectivity.NetworkAccess == NetworkAccess.Internet && await DataLoader.HeartbeatCheck()) || App.UseSampleDataStore)
+                if (base.IsConnected || App.UseSampleDataStore)
                 {
                     //load SQLite from API or sample data
                     var ctUsers = await DataLoader.LoadUsersAsync();

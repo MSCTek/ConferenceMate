@@ -26,6 +26,8 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         public System.Data.Entity.DbSet<AspNetUserClaim> AspNetUserClaims { get; set; } // AspNetUserClaims
         public System.Data.Entity.DbSet<AspNetUserLogin> AspNetUserLogins { get; set; } // AspNetUserLogins
         public System.Data.Entity.DbSet<AspNetUserRole> AspNetUserRoles { get; set; } // AspNetUserRoles
+        public System.Data.Entity.DbSet<BlobFile> BlobFiles { get; set; } // BlobFile
+        public System.Data.Entity.DbSet<BlobFileType> BlobFileTypes { get; set; } // BlobFileType
         public System.Data.Entity.DbSet<FeaturedEvent> FeaturedEvents { get; set; } // FeaturedEvent
         public System.Data.Entity.DbSet<Feedback> Feedbacks { get; set; } // Feedback
         public System.Data.Entity.DbSet<FeedbackInitiatorType> FeedbackInitiatorTypes { get; set; } // FeedbackInitiatorType
@@ -106,6 +108,8 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             modelBuilder.Configurations.Add(new AspNetUserClaimConfiguration());
             modelBuilder.Configurations.Add(new AspNetUserLoginConfiguration());
             modelBuilder.Configurations.Add(new AspNetUserRoleConfiguration());
+            modelBuilder.Configurations.Add(new BlobFileConfiguration());
+            modelBuilder.Configurations.Add(new BlobFileTypeConfiguration());
             modelBuilder.Configurations.Add(new FeaturedEventConfiguration());
             modelBuilder.Configurations.Add(new FeedbackConfiguration());
             modelBuilder.Configurations.Add(new FeedbackInitiatorTypeConfiguration());
@@ -138,6 +142,8 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
             modelBuilder.Configurations.Add(new AspNetUserClaimConfiguration(schema));
             modelBuilder.Configurations.Add(new AspNetUserLoginConfiguration(schema));
             modelBuilder.Configurations.Add(new AspNetUserRoleConfiguration(schema));
+            modelBuilder.Configurations.Add(new BlobFileConfiguration(schema));
+            modelBuilder.Configurations.Add(new BlobFileTypeConfiguration(schema));
             modelBuilder.Configurations.Add(new FeaturedEventConfiguration(schema));
             modelBuilder.Configurations.Add(new FeedbackConfiguration(schema));
             modelBuilder.Configurations.Add(new FeedbackInitiatorTypeConfiguration(schema));

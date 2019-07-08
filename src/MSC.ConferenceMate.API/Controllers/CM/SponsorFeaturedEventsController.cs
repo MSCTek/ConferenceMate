@@ -254,6 +254,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				dtoItem.FeaturedEventId = featuredEventId;
 
 				var updatedDBItem = _factory.Create(dtoItem); // map
+				RunCustomLogicBeforeUpdatePut(ref updatedDBItem, sponsorId, featuredEventId);
 				var result = await Repo.UpdateAsync(updatedDBItem);
 				RunCustomLogicAfterUpdatePut(ref updatedDBItem, ref result);
 
@@ -282,11 +283,13 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			}
 		}
 
-		partial void RunCustomLogicAfterInsert(ref MSC.ConferenceMate.Repository.Entities.CM.SponsorFeaturedEvent newDBItem, ref IRepositoryActionResult<entCM.SponsorFeaturedEvent> result);
+		partial void RunCustomLogicAfterInsert(ref entCM.SponsorFeaturedEvent newDBItem, ref IRepositoryActionResult<entCM.SponsorFeaturedEvent> result);
 
-		partial void RunCustomLogicAfterUpdatePatch(ref MSC.ConferenceMate.Repository.Entities.CM.SponsorFeaturedEvent updatedDBItem, ref IRepositoryActionResult<entCM.SponsorFeaturedEvent> result);
+		partial void RunCustomLogicAfterUpdatePatch(ref entCM.SponsorFeaturedEvent updatedDBItem, ref IRepositoryActionResult<entCM.SponsorFeaturedEvent> result);
 
-		partial void RunCustomLogicAfterUpdatePut(ref MSC.ConferenceMate.Repository.Entities.CM.SponsorFeaturedEvent updatedDBItem, ref IRepositoryActionResult<entCM.SponsorFeaturedEvent> result);
+		partial void RunCustomLogicAfterUpdatePut(ref entCM.SponsorFeaturedEvent updatedDBItem, ref IRepositoryActionResult<entCM.SponsorFeaturedEvent> result);
+
+		partial void RunCustomLogicBeforeUpdatePut(ref entCM.SponsorFeaturedEvent updatedDBItem, int sponsorId, int featuredEventId);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.SponsorFeaturedEvent dbItem, int sponsorId, int featuredEventId, int numChildLevels);
 

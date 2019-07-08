@@ -6,9 +6,9 @@ namespace MSC.CM.Xam.ModelData.CM
 	public static class DemoSessionSpeaker
 	{
 		public static int SampleSessionSpeakerId0000 = DemoSession.SampleSessionId0000;
-		public static int SampleSessionSpeakerId0001 = DemoUserProfile.SampleUserProfileId0000;
+		public static int SampleSessionSpeakerUserProfileId0001 = DemoUserProfile.SampleUserProfileId0000;
 		public static int SampleSessionSpeakerId0100 = DemoSession.SampleSessionId0100;
-		public static int SampleSessionSpeakerId0101 = DemoUserProfile.SampleUserProfileId0100;
+		public static int SampleSessionSpeakerUserProfileId0101 = DemoUserProfile.SampleUserProfileId0100;
 
 		public static SessionSpeaker SampleSessionSpeaker00
 		{
@@ -17,13 +17,14 @@ namespace MSC.CM.Xam.ModelData.CM
 				return new SessionSpeaker()
 				{
 					SessionId = SampleSessionSpeakerId0000,
-					UserProfileId = SampleSessionSpeakerId0001,
+					UserProfileId = SampleSessionSpeakerUserProfileId0001,
 					DataVersion = 0,
 					CreatedUtcDate = DateTime.Now,
 					CreatedBy = "SampleCreatedBy",
 					ModifiedUtcDate = DateTime.Now,
 					ModifiedBy = "SampleModifiedBy",
 					IsDeleted = false,
+                    SessionIdUserProfileId = $"{SampleSessionSpeakerId0000}{SampleSessionSpeakerUserProfileId0001}"
 				};
 			}
 		}
@@ -34,14 +35,15 @@ namespace MSC.CM.Xam.ModelData.CM
 				return new SessionSpeaker()
 				{
 					SessionId = SampleSessionSpeakerId0100,
-					UserProfileId = SampleSessionSpeakerId0101,
+					UserProfileId = SampleSessionSpeakerUserProfileId0101,
 					DataVersion = 0,
 					CreatedUtcDate = DateTime.Now,
 					CreatedBy = "SampleCreatedBy",
 					ModifiedUtcDate = DateTime.Now,
 					ModifiedBy = "SampleModifiedBy",
 					IsDeleted = false,
-				};
+                    SessionIdUserProfileId = $"{SampleSessionSpeakerId0100}{SampleSessionSpeakerUserProfileId0101}"
+                };
 			}
 		}
 

@@ -17,10 +17,11 @@ namespace MSC.CM.XaSh.ViewModels
     {
         private ObservableCollection<Session> _sessions;
 
-        public MyFavoritesViewModel(IDataStore store = null, IDataLoader loader = null)
+        public MyFavoritesViewModel(IDataStore store = null, IDataLoader loader = null, IDataUploader uploader = null)
         {
             DataStore = store;
             DataLoader = loader;
+            DataUploader = uploader;
             Title = "My Favorites";
             Sessions = new ObservableCollection<Session>();
         }
@@ -33,10 +34,16 @@ namespace MSC.CM.XaSh.ViewModels
                 {
                     try
                     {
-                        if (await DataStore.ToggleSessionLikeAsync(sessionId))
+                        var pkSessionLike = $"{sessionId}{Preferences.Get(Consts.CURRENT_USER_PROFILE_ID, 0).ToString()}";
+                        if (await DataStore.ToggleSessionLikeAsync(sessionId, pkSessionLike))
                         {
+                            //Queue the record for upload
+                            await DataUploader.QueueAsync(pkSessionLike, QueueableObjects.SessionLikes);
+
                             //re populate local list from sqlite
                             Sessions = (await DataStore.GetFavoriteSessionsAsync()).ToObservableCollection();
+
+                            DataUploader.StartSafeQueuedUpdates();
                         }
                     }
                     catch (Exception ex)
@@ -61,7 +68,7 @@ namespace MSC.CM.XaSh.ViewModels
 
             try
             {
-                if ((Connectivity.NetworkAccess == NetworkAccess.Internet && await DataLoader.HeartbeatCheck()) || App.UseSampleDataStore)
+                if (base.IsConnected || App.UseSampleDataStore)
                 {
                     //load SQLite from API or sample data
                     var ctUsers = await DataLoader.LoadUsersAsync();

@@ -23,6 +23,8 @@ namespace MSC.ConferenceMate.Repository.Entities.CM
         System.Data.Entity.DbSet<AspNetUserClaim> AspNetUserClaims { get; set; } // AspNetUserClaims
         System.Data.Entity.DbSet<AspNetUserLogin> AspNetUserLogins { get; set; } // AspNetUserLogins
         System.Data.Entity.DbSet<AspNetUserRole> AspNetUserRoles { get; set; } // AspNetUserRoles
+        System.Data.Entity.DbSet<BlobFile> BlobFiles { get; set; } // BlobFile
+        System.Data.Entity.DbSet<BlobFileType> BlobFileTypes { get; set; } // BlobFileType
         System.Data.Entity.DbSet<FeaturedEvent> FeaturedEvents { get; set; } // FeaturedEvent
         System.Data.Entity.DbSet<Feedback> Feedbacks { get; set; } // Feedback
         System.Data.Entity.DbSet<FeedbackInitiatorType> FeedbackInitiatorTypes { get; set; } // FeedbackInitiatorType

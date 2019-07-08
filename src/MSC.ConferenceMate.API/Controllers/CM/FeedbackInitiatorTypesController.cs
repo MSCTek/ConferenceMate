@@ -252,6 +252,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				dtoItem.FeedbackInitiatorTypeId = feedbackInitiatorTypeId;
 
 				var updatedDBItem = _factory.Create(dtoItem); // map
+				RunCustomLogicBeforeUpdatePut(ref updatedDBItem, feedbackInitiatorTypeId);
 				var result = await Repo.UpdateAsync(updatedDBItem);
 				RunCustomLogicAfterUpdatePut(ref updatedDBItem, ref result);
 
@@ -280,11 +281,13 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			}
 		}
 
-		partial void RunCustomLogicAfterInsert(ref MSC.ConferenceMate.Repository.Entities.CM.FeedbackInitiatorType newDBItem, ref IRepositoryActionResult<entCM.FeedbackInitiatorType> result);
+		partial void RunCustomLogicAfterInsert(ref entCM.FeedbackInitiatorType newDBItem, ref IRepositoryActionResult<entCM.FeedbackInitiatorType> result);
 
-		partial void RunCustomLogicAfterUpdatePatch(ref MSC.ConferenceMate.Repository.Entities.CM.FeedbackInitiatorType updatedDBItem, ref IRepositoryActionResult<entCM.FeedbackInitiatorType> result);
+		partial void RunCustomLogicAfterUpdatePatch(ref entCM.FeedbackInitiatorType updatedDBItem, ref IRepositoryActionResult<entCM.FeedbackInitiatorType> result);
 
-		partial void RunCustomLogicAfterUpdatePut(ref MSC.ConferenceMate.Repository.Entities.CM.FeedbackInitiatorType updatedDBItem, ref IRepositoryActionResult<entCM.FeedbackInitiatorType> result);
+		partial void RunCustomLogicAfterUpdatePut(ref entCM.FeedbackInitiatorType updatedDBItem, ref IRepositoryActionResult<entCM.FeedbackInitiatorType> result);
+
+		partial void RunCustomLogicBeforeUpdatePut(ref entCM.FeedbackInitiatorType updatedDBItem, int feedbackInitiatorTypeId);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.FeedbackInitiatorType dbItem, int feedbackInitiatorTypeId, int numChildLevels);
 

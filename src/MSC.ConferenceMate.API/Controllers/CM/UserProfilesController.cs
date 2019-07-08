@@ -252,6 +252,7 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 				dtoItem.UserProfileId = userProfileId;
 
 				var updatedDBItem = _factory.Create(dtoItem); // map
+				RunCustomLogicBeforeUpdatePut(ref updatedDBItem, userProfileId);
 				var result = await Repo.UpdateAsync(updatedDBItem);
 				RunCustomLogicAfterUpdatePut(ref updatedDBItem, ref result);
 
@@ -280,11 +281,13 @@ namespace MSC.ConferenceMate.API.Controllers.CM
 			}
 		}
 
-		partial void RunCustomLogicAfterInsert(ref MSC.ConferenceMate.Repository.Entities.CM.UserProfile newDBItem, ref IRepositoryActionResult<entCM.UserProfile> result);
+		partial void RunCustomLogicAfterInsert(ref entCM.UserProfile newDBItem, ref IRepositoryActionResult<entCM.UserProfile> result);
 
-		partial void RunCustomLogicAfterUpdatePatch(ref MSC.ConferenceMate.Repository.Entities.CM.UserProfile updatedDBItem, ref IRepositoryActionResult<entCM.UserProfile> result);
+		partial void RunCustomLogicAfterUpdatePatch(ref entCM.UserProfile updatedDBItem, ref IRepositoryActionResult<entCM.UserProfile> result);
 
-		partial void RunCustomLogicAfterUpdatePut(ref MSC.ConferenceMate.Repository.Entities.CM.UserProfile updatedDBItem, ref IRepositoryActionResult<entCM.UserProfile> result);
+		partial void RunCustomLogicBeforeUpdatePut(ref entCM.UserProfile updatedDBItem, int userProfileId);
+
+		partial void RunCustomLogicAfterUpdatePut(ref entCM.UserProfile updatedDBItem, ref IRepositoryActionResult<entCM.UserProfile> result);
 
 		partial void RunCustomLogicOnGetEntityByPK(ref entCM.UserProfile dbItem, int userProfileId, int numChildLevels);
 

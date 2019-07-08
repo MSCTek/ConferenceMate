@@ -189,6 +189,138 @@ namespace MSC.ConferenceMate.Repository
 
 		#endregion Announcement
 
+		#region BlobFile
+
+		public async Task<IRepositoryActionResult<BlobFile>> InsertAsync(BlobFile item)
+		{
+			var result = await InsertAsync<BlobFile>(item);
+			RunCustomLogicAfterInsert_BlobFile(item, result);
+
+			return result;
+		}
+
+
+		public IQueryable<BlobFile> GetQueryable_BlobFile()
+		{
+			return _ctx.Set<BlobFile>();
+		}
+
+			public async Task<BlobFile> Get_BlobFileAsync(System.Guid blobFileId, int numChildLevels)
+			{
+				var qryItem = GetQueryable_BlobFile().AsNoTracking();
+				RunCustomLogicOnGetQueryableByPK_BlobFile(ref qryItem, blobFileId, numChildLevels);
+
+				var dbItem = await qryItem.Where(x => x.BlobFileId == blobFileId).FirstOrDefaultAsync();
+				if (!(dbItem is null))
+				{
+					RunCustomLogicOnGetEntityByPK_BlobFile(ref dbItem, blobFileId, numChildLevels);
+				}
+
+				return dbItem;
+			}
+
+			public async Task<BlobFile> GetFirstOrDefaultAsync(BlobFile item)
+			{
+				return await _ctx.BlobFiles.Where(x => x.BlobFileId == item.BlobFileId).FirstOrDefaultAsync();
+			}
+
+
+		public async Task<IRepositoryActionResult<BlobFile>> UpdateAsync(BlobFile item)
+		{
+			var oldItem = await _ctx.BlobFiles.FirstOrDefaultAsync(x => x.BlobFileId == item.BlobFileId);
+			var result = await UpdateAsync<BlobFile>(item, oldItem);
+			RunCustomLogicAfterUpdate_BlobFile(newItem: item, oldItem: oldItem, result: result);
+
+			return result;
+		}
+
+			public async Task<IRepositoryActionResult<BlobFile>> Delete_BlobFileAsync(System.Guid blobFileId)
+			{
+				return await DeleteAsync<BlobFile>(_ctx.BlobFiles.Where(x => x.BlobFileId == blobFileId).FirstOrDefault());
+			}
+			public async Task<IRepositoryActionResult<BlobFile>> DeleteAsync(BlobFile item)
+			{
+				return await DeleteAsync<BlobFile>(_ctx.BlobFiles.Where(x => x.BlobFileId == item.BlobFileId).FirstOrDefault());
+			}
+
+		partial void RunCustomLogicAfterInsert_BlobFile(BlobFile item, IRepositoryActionResult<BlobFile> result);
+
+		partial void RunCustomLogicAfterUpdate_BlobFile(BlobFile newItem, BlobFile oldItem, IRepositoryActionResult<BlobFile> result);
+
+		partial void RunCustomLogicOnGetQueryableByPK_BlobFile(ref IQueryable<BlobFile> qryItem, System.Guid blobFileId, int numChildLevels);
+
+		partial void RunCustomLogicOnGetEntityByPK_BlobFile(ref BlobFile dbItem, System.Guid blobFileId, int numChildLevels);
+
+
+
+		#endregion BlobFile
+
+		#region BlobFileType
+
+		public async Task<IRepositoryActionResult<BlobFileType>> InsertAsync(BlobFileType item)
+		{
+			var result = await InsertAsync<BlobFileType>(item);
+			RunCustomLogicAfterInsert_BlobFileType(item, result);
+
+			return result;
+		}
+
+
+		public IQueryable<BlobFileType> GetQueryable_BlobFileType()
+		{
+			return _ctx.Set<BlobFileType>();
+		}
+
+			public async Task<BlobFileType> Get_BlobFileTypeAsync(int blobFileTypeId, int numChildLevels)
+			{
+				var qryItem = GetQueryable_BlobFileType().AsNoTracking();
+				RunCustomLogicOnGetQueryableByPK_BlobFileType(ref qryItem, blobFileTypeId, numChildLevels);
+
+				var dbItem = await qryItem.Where(x => x.BlobFileTypeId == blobFileTypeId).FirstOrDefaultAsync();
+				if (!(dbItem is null))
+				{
+					RunCustomLogicOnGetEntityByPK_BlobFileType(ref dbItem, blobFileTypeId, numChildLevels);
+				}
+
+				return dbItem;
+			}
+
+			public async Task<BlobFileType> GetFirstOrDefaultAsync(BlobFileType item)
+			{
+				return await _ctx.BlobFileTypes.Where(x => x.BlobFileTypeId == item.BlobFileTypeId).FirstOrDefaultAsync();
+			}
+
+
+		public async Task<IRepositoryActionResult<BlobFileType>> UpdateAsync(BlobFileType item)
+		{
+			var oldItem = await _ctx.BlobFileTypes.FirstOrDefaultAsync(x => x.BlobFileTypeId == item.BlobFileTypeId);
+			var result = await UpdateAsync<BlobFileType>(item, oldItem);
+			RunCustomLogicAfterUpdate_BlobFileType(newItem: item, oldItem: oldItem, result: result);
+
+			return result;
+		}
+
+			public async Task<IRepositoryActionResult<BlobFileType>> Delete_BlobFileTypeAsync(int blobFileTypeId)
+			{
+				return await DeleteAsync<BlobFileType>(_ctx.BlobFileTypes.Where(x => x.BlobFileTypeId == blobFileTypeId).FirstOrDefault());
+			}
+			public async Task<IRepositoryActionResult<BlobFileType>> DeleteAsync(BlobFileType item)
+			{
+				return await DeleteAsync<BlobFileType>(_ctx.BlobFileTypes.Where(x => x.BlobFileTypeId == item.BlobFileTypeId).FirstOrDefault());
+			}
+
+		partial void RunCustomLogicAfterInsert_BlobFileType(BlobFileType item, IRepositoryActionResult<BlobFileType> result);
+
+		partial void RunCustomLogicAfterUpdate_BlobFileType(BlobFileType newItem, BlobFileType oldItem, IRepositoryActionResult<BlobFileType> result);
+
+		partial void RunCustomLogicOnGetQueryableByPK_BlobFileType(ref IQueryable<BlobFileType> qryItem, int blobFileTypeId, int numChildLevels);
+
+		partial void RunCustomLogicOnGetEntityByPK_BlobFileType(ref BlobFileType dbItem, int blobFileTypeId, int numChildLevels);
+
+
+
+		#endregion BlobFileType
+
 		#region FeaturedEvent
 
 		public async Task<IRepositoryActionResult<FeaturedEvent>> InsertAsync(FeaturedEvent item)
