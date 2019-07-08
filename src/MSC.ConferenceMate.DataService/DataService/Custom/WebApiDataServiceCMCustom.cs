@@ -37,8 +37,6 @@ namespace MSC.ConferenceMate.API.Client
 
 			bool retVal = false;
 			MultipartFormDataContent content = new MultipartFormDataContent();
-
-			//var userProfileJson = JsonConvert.SerializeObject(new { userProfileId = userProfilePhoto.UserProfileId });
 			ByteArrayContent baContent = new ByteArrayContent(userProfilePhoto.Data);
 			content.Add(baContent, "File", userProfilePhoto.FileName);
 

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CodeGenHero.DataService;
 using MSC.ConferenceMate.DataService.Models;
-using xDTO = MSC.ConferenceMate.DTO.CM;
 
 namespace MSC.ConferenceMate.API.Client.Interface
 {
