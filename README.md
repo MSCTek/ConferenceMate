@@ -6,18 +6,21 @@ ConferenceMate
 ConferenceMate is an open-source, cross-platform Xamarin application that demonstrates a mix of new technologies combined with programming patterns commonly used in enterprise line-of-business (LOB) applications:
 
 - Xamarin.Forms Shell
-- Dependency Injection
-- MVVMLight for property setter/getter
-- Replication of server-side data to mobile client
-- Use of a RESTful Web API (hosted in Azure)
-- Entity Framework accessing server-side SQL Server database
+- Azure BLOB Storage
+- JWT Security
 - SQLite for client-side persistent storage
+- MVVMLight for INotifyPropertyChanged (property setter/getter)
+- Developer User Secrets for DB connection strings and Azure Key Storage
+- Logging (App Insights client-side / log4net server-side)
+- Use of a robust RESTful Web API (hosted in Azure)
+- Lots of classes created via code generation
+- Entity Framework accessing server-side SQL Server database
+- Dependency Injection
+- Synchronization of server-side data to mobile client
 - Repository pattern
 - Factory pattern
 - Interfaces
 - Mappers
-- Logging (App Insights client-side / log4net server-side)
-- Developer User Secrets for DB connection strings (not yet)
 - App configuration
 
 Most of the projects in this solution are meant to work on many .NET platforms, such as .NET Core, .NET Framework, Xamarin, and ASP.NET Core applications.
